@@ -16,6 +16,14 @@ document.addEventListener('DOMContentLoaded', async function() {
     let sortedProjects = [];
     let currentProjectIndex = -1;
     
+    // Currency conversion rates cache
+    let conversionRates = {
+        'USD': 1 // Base currency is always 1
+    };
+    
+    // Selected display currency
+    let displayCurrency = 'USD';
+    
     // Get the table container element
     const tableContainerElement = document.getElementById('table-container');
     if (!tableContainerElement) {
@@ -32,12 +40,92 @@ document.addEventListener('DOMContentLoaded', async function() {
         await loadAndProcessData();
         console.log("Data loaded, proceeding with UI setup.");
         
-        // 2. Create UI components in the correct order
+        // 2. Fetch initial currency rates
+        await fetchCurrencyRates();
+        
+        // 3. Create UI components in the correct order
         createUI();
         
     } catch (error) {
         console.error('Failed to initialize incident explorer:', error);
         tableContainerElement.innerHTML = '<p class="error-message">Failed to load incident data: ' + error.message + '</p>';
+    }
+    
+    // Function to fetch currency rates from APIs
+    async function fetchCurrencyRates() {
+        try {
+            // Fetch crypto rates from CoinGecko
+            const cryptoResponse = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd');
+            if (!cryptoResponse.ok) {
+                throw new Error('Failed to fetch crypto rates');
+            }
+            
+            const cryptoData = await cryptoResponse.json();
+            
+            // Update conversion rates with crypto data
+            if (cryptoData.bitcoin && cryptoData.bitcoin.usd) {
+                conversionRates['BTC'] = 1 / cryptoData.bitcoin.usd; // Rate to convert 1 USD to BTC
+            } else {
+                // Fallback value if API fails
+                conversionRates['BTC'] = 0.000017;
+                console.warn('Using fallback value for BTC conversion');
+            }
+            
+            if (cryptoData.ethereum && cryptoData.ethereum.usd) {
+                conversionRates['ETH'] = 1 / cryptoData.ethereum.usd; // Rate to convert 1 USD to ETH
+            } else {
+                // Fallback value if API fails
+                conversionRates['ETH'] = 0.00033;
+                console.warn('Using fallback value for ETH conversion');
+            }
+            
+            // For forex rates, we'd ideally use XE API but it requires authentication
+            // As an alternative, we'll use the free Exchange Rates API
+            // Note: In a production environment, you'd want to use a proper API with authentication
+            const forexResponse = await fetch('https://open.er-api.com/v6/latest/USD');
+            if (!forexResponse.ok) {
+                throw new Error('Failed to fetch forex rates');
+            }
+            
+            const forexData = await forexResponse.json();
+            
+            // Update conversion rates with forex data
+            if (forexData.rates) {
+                // Add forex rates
+                if (forexData.rates.EUR) conversionRates['EUR'] = forexData.rates.EUR;
+                if (forexData.rates.GBP) conversionRates['GBP'] = forexData.rates.GBP;
+                if (forexData.rates.JPY) conversionRates['JPY'] = forexData.rates.JPY;
+                if (forexData.rates.CNY) conversionRates['CNY'] = forexData.rates.CNY;
+                if (forexData.rates.AED) conversionRates['AED'] = forexData.rates.AED;
+                if (forexData.rates.KWD) conversionRates['KWD'] = forexData.rates.KWD;
+            } else {
+                // Fallback values if API fails
+                conversionRates['EUR'] = 0.92;
+                conversionRates['GBP'] = 0.79;
+                conversionRates['JPY'] = 150.5;
+                conversionRates['CNY'] = 7.2;
+                conversionRates['AED'] = 3.67;  // Fallback: 1 USD ≈ 3.67 AED
+                conversionRates['KWD'] = 0.31;  // Fallback: 1 USD ≈ 0.31 KWD
+                console.warn('Using fallback values for forex conversion');
+            }
+            
+            console.log('Currency rates fetched successfully:', conversionRates);
+            
+        } catch (error) {
+            console.error('Error fetching currency rates:', error);
+            // Set fallback values
+            conversionRates = {
+                'USD': 1,
+                'BTC': 0.000017, // Fallback: 1 USD ≈ 0.000017 BTC
+                'ETH': 0.00033,  // Fallback: 1 USD ≈ 0.00033 ETH
+                'EUR': 0.92,     // Fallback: 1 USD ≈ 0.92 EUR
+                'GBP': 0.79,     // Fallback: 1 USD ≈ 0.79 GBP
+                'JPY': 150.5,    // Fallback: 1 USD ≈ 150.5 JPY
+                'CNY': 7.2,      // Fallback: 1 USD ≈ 7.2 CNY
+                'AED': 3.67,     // Fallback: 1 USD ≈ 3.67 AED
+                'KWD': 0.31      // Fallback: 1 USD ≈ 0.31 KWD
+            };
+        }
     }
     
     // Main function to create the UI components
@@ -68,6 +156,53 @@ document.addEventListener('DOMContentLoaded', async function() {
             <p>${formatCurrency(analysisResults.totalLoss)}</p>
         `;
         statsContainer.appendChild(totalLossBox);
+        
+        // Add refresh rates button
+        const refreshRatesBox = document.createElement('div');
+        refreshRatesBox.className = 'stat-box refresh-rates-box';
+        refreshRatesBox.innerHTML = `
+            <button id="refresh-rates" class="refresh-rates-btn">
+                <span>Refresh Rates</span>
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M23 4v6h-6"></path>
+                    <path d="M1 20v-6h6"></path>
+                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                </svg>
+            </button>
+            <div id="rates-updated" class="rates-updated">Last updated: ${new Date().toLocaleTimeString()}</div>
+        `;
+        statsContainer.appendChild(refreshRatesBox);
+        
+        // Add event listener to refresh rates button
+        document.getElementById('refresh-rates')?.addEventListener('click', async () => {
+            const button = document.getElementById('refresh-rates');
+            if (button) button.disabled = true;
+            
+            try {
+                await fetchCurrencyRates();
+                updateTable(); // Update the table to reflect new rates
+                
+                // Update last updated time
+                const ratesUpdated = document.getElementById('rates-updated');
+                if (ratesUpdated) {
+                    ratesUpdated.textContent = `Last updated: ${new Date().toLocaleTimeString()}`;
+                    ratesUpdated.style.color = '#00ffff'; // Highlight that it was updated
+                    setTimeout(() => {
+                        if (ratesUpdated) ratesUpdated.style.color = ''; // Reset color after 2 seconds
+                    }, 2000);
+                }
+            } catch (error) {
+                console.error('Failed to refresh rates:', error);
+                // Show error message
+                const ratesUpdated = document.getElementById('rates-updated');
+                if (ratesUpdated) {
+                    ratesUpdated.textContent = 'Failed to update rates';
+                    ratesUpdated.style.color = '#ff0000'; // Red for error
+                }
+            } finally {
+                if (button) button.disabled = false;
+            }
+        });
         
         tableContainerElement.appendChild(statsContainer);
         
@@ -206,6 +341,24 @@ document.addEventListener('DOMContentLoaded', async function() {
             </select>
             <span id="root-cause-count" style="display: none; margin-left: 10px; font-size: 0.9em;"></span>
         `;
+        
+        // Create currency filter
+        const currencyFilter = document.createElement('div');
+        currencyFilter.className = 'filter-group';
+        currencyFilter.innerHTML = `
+            <label>Display Currency</label>
+            <select id="currency-filter">
+                <option value="USD">USD ($)</option>
+                <option value="BTC">Bitcoin (₿)</option>
+                <option value="ETH">Ethereum (Ξ)</option>
+                <option value="EUR">Euro (€)</option>
+                <option value="GBP">British Pound (£)</option>
+                <option value="JPY">Japanese Yen (¥)</option>
+                <option value="CNY">Chinese Yuan (¥)</option>
+                <option value="AED">UAE Dirham (د.إ)</option>
+                <option value="KWD">Kuwaiti Dinar (د.ك)</option>
+            </select>
+        `;
     
         // Create search box
         const searchBox = document.createElement('input');
@@ -222,6 +375,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         filtersContainer.appendChild(yearFilter);
         filtersContainer.appendChild(typeFilter);
         filtersContainer.appendChild(sortFilter);
+        filtersContainer.appendChild(currencyFilter);
         filtersRow.appendChild(filtersContainer);
         tableContainerElement.appendChild(filtersRow);
         
@@ -258,6 +412,11 @@ document.addEventListener('DOMContentLoaded', async function() {
         });
         
         document.getElementById('sort-filter')?.addEventListener('change', () => {
+            updateTable();
+        });
+        
+        document.getElementById('currency-filter')?.addEventListener('change', (e) => {
+            displayCurrency = e.target.value;
             updateTable();
         });
         
@@ -470,8 +629,34 @@ document.addEventListener('DOMContentLoaded', async function() {
         paginationContainer.appendChild(pageButtons);
     }
 
+    // Function to calculate the loss in the selected display currency
+    function convertLossToDisplayCurrency(loss, originalCurrency) {
+        if (!loss || isNaN(loss)) return 0;
+        
+        // First convert to USD
+        let lossInUSD = loss;
+        
+        if (originalCurrency === 'ETH' || originalCurrency === 'WETH') {
+            lossInUSD = loss * 2500; // Approximate ETH to USD conversion
+        } else if (originalCurrency === 'BNB' || originalCurrency === 'WBNB') {
+            lossInUSD = loss * 500; // Approximate BNB to USD conversion
+        } else if (originalCurrency === 'BTC' || originalCurrency === 'WBTC') {
+            lossInUSD = loss * 60000; // Approximate BTC to USD conversion
+        } else if (originalCurrency !== 'USD') {
+            // For other currencies, assume it's already in USD
+            lossInUSD = loss;
+        }
+        
+        // Then convert from USD to display currency using the fetched rates
+        if (displayCurrency === 'USD') return lossInUSD;
+        
+        // Use the conversion rate or fallback to 1 if not available
+        const rate = conversionRates[displayCurrency] || 1;
+        return lossInUSD * rate;
+    }
+
     // Function to update statistics
-    function updateStats(filteredCount) { // Receive the count as an argument
+    function updateStats(filteredCount) {
         // Update total incidents count (for the filtered view)
         const totalIncidentsElement = document.getElementById('total-incidents-stat');
         if (totalIncidentsElement) {
@@ -480,36 +665,88 @@ document.addEventListener('DOMContentLoaded', async function() {
             console.warn('Could not find total incidents stat element');
         }
         
-        // Calculate total loss in USD for filtered data
-        let totalUsdLoss = 0;
+        // Calculate total loss for filtered data
+        let totalLoss = 0;
         filteredIncidents.forEach(incident => {
             if (incident.Lost && !isNaN(incident.Lost)) {
-                if (incident.lossType === 'USD') {
-                    totalUsdLoss += parseFloat(incident.Lost);
-                } else if (incident.lossType === 'ETH' || incident.lossType === 'WETH') {
-                    // Approximate conversion (in a real app, you'd use current rates)
-                    totalUsdLoss += parseFloat(incident.Lost) * 2500; // Approximate ETH value
-                } else if (incident.lossType === 'BNB' || incident.lossType === 'WBNB') {
-                    // Approximate conversion
-                    totalUsdLoss += parseFloat(incident.Lost) * 500; // Approximate BNB value
-                } else if (incident.lossType === 'BTC' || incident.lossType === 'WBTC') {
-                    // Approximate conversion for BTC/WBTC
-                    totalUsdLoss += parseFloat(incident.Lost) * 60000; // Approximate BTC value
-                }
-                // Add other conversions as needed
+                totalLoss += convertLossToDisplayCurrency(parseFloat(incident.Lost), incident.lossType || 'USD');
             }
         });
         
-        // Format total loss with commas
-        const formattedLoss = '$' + totalUsdLoss.toLocaleString('en-US', {
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 0
-        });
+        // Format total loss with the appropriate currency symbol
+        let formattedLoss;
+        switch(displayCurrency) {
+            case 'USD':
+                formattedLoss = '$' + totalLoss.toLocaleString('en-US', {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0
+                });
+                break;
+            case 'BTC':
+                formattedLoss = '₿' + totalLoss.toLocaleString('en-US', {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 8
+                });
+                break;
+            case 'ETH':
+                formattedLoss = 'Ξ' + totalLoss.toLocaleString('en-US', {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 6
+                });
+                break;
+            case 'EUR':
+                formattedLoss = '€' + totalLoss.toLocaleString('en-US', {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0
+                });
+                break;
+            case 'GBP':
+                formattedLoss = '£' + totalLoss.toLocaleString('en-US', {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0
+                });
+                break;
+            case 'JPY':
+                formattedLoss = '¥' + totalLoss.toLocaleString('en-US', {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0
+                });
+                break;
+            case 'CNY':
+                formattedLoss = '¥' + totalLoss.toLocaleString('en-US', {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0
+                });
+                break;
+            case 'AED':
+                formattedLoss = 'د.إ' + totalLoss.toLocaleString('en-US', {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 2
+                });
+                break;
+            case 'KWD':
+                formattedLoss = 'د.ك' + totalLoss.toLocaleString('en-US', {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 3
+                });
+                break;
+            default:
+                formattedLoss = totalLoss.toLocaleString('en-US', {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 2
+                }) + ' ' + displayCurrency;
+        }
         
         // Update total loss display
         const totalLossElement = document.getElementById('total-loss-stat');
         if (totalLossElement) {
             totalLossElement.querySelector('p').textContent = formattedLoss;
+        }
+        
+        // Update title to include currency
+        const lossTitle = totalLossElement?.querySelector('h3');
+        if (lossTitle) {
+            lossTitle.textContent = `Total Loss (${displayCurrency})`;
         }
         
         // Update root cause count if sorting by root cause
@@ -556,23 +793,58 @@ document.addEventListener('DOMContentLoaded', async function() {
     function formatLoss(loss, lossType = 'USD') {
         if (!loss && loss !== 0) return 'Unknown';
         
+        // Convert to display currency
+        const convertedLoss = convertLossToDisplayCurrency(loss, lossType);
+        
         // Format number
-        let formattedLoss;
-        if (loss >= 1000000) {
-            formattedLoss = (loss / 1000000).toFixed(2) + 'M';
-        } else if (loss >= 1000) {
-            formattedLoss = (loss / 1000).toFixed(2) + 'K';
+        let formattedValue;
+        if (displayCurrency === 'BTC') {
+            // For BTC, show more decimal places
+            if (convertedLoss >= 1000) {
+                formattedValue = (convertedLoss / 1000).toFixed(4) + 'K';
+            } else {
+                formattedValue = convertedLoss.toFixed(8);
+            }
+        } else if (displayCurrency === 'ETH') {
+            // For ETH, show more decimal places
+            if (convertedLoss >= 1000) {
+                formattedValue = (convertedLoss / 1000).toFixed(3) + 'K';
+            } else {
+                formattedValue = convertedLoss.toFixed(6);
+            }
         } else {
-            formattedLoss = loss.toFixed(2);
+            // For fiat currencies, use standard formatting
+            if (convertedLoss >= 1000000) {
+                formattedValue = (convertedLoss / 1000000).toFixed(2) + 'M';
+            } else if (convertedLoss >= 1000) {
+                formattedValue = (convertedLoss / 1000).toFixed(2) + 'K';
+            } else {
+                formattedValue = convertedLoss.toFixed(2);
+            }
         }
         
         // Add currency symbol
-        if (lossType === 'USD') {
-            return '$' + formattedLoss;
-        } else if (lossType) {
-            return formattedLoss + ' ' + lossType;
-        } else {
-            return '$' + formattedLoss;
+        switch(displayCurrency) {
+            case 'USD':
+                return '$' + formattedValue;
+            case 'BTC':
+                return '₿' + formattedValue;
+            case 'ETH':
+                return 'Ξ' + formattedValue;
+            case 'EUR':
+                return '€' + formattedValue;
+            case 'GBP':
+                return '£' + formattedValue;
+            case 'JPY':
+                return '¥' + formattedValue;
+            case 'CNY':
+                return '¥' + formattedValue;
+            case 'AED':
+                return 'د.إ' + formattedValue;
+            case 'KWD':
+                return 'د.ك' + formattedValue;
+            default:
+                return formattedValue + ' ' + displayCurrency;
         }
     }
     
@@ -776,6 +1048,49 @@ document.addEventListener('DOMContentLoaded', async function() {
             .toggle-analytics-button span {
                 margin-left: 8px;
                 font-size: 12px;
+            }
+            
+            .refresh-rates-box {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
+            }
+            
+            .refresh-rates-btn {
+                background: rgba(0, 0, 0, 0.7);
+                color: #ff00ff;
+                border: 1px solid #ff00ff;
+                padding: 8px 15px;
+                font-size: 12px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
+                transition: all 0.3s ease;
+                box-shadow: 0 0 5px #ff00ff;
+                border-radius: 4px;
+                font-family: 'Orbitron', sans-serif;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+            
+            .refresh-rates-btn:hover {
+                background: rgba(0, 0, 0, 0.9);
+                box-shadow: 0 0 10px #ff00ff, 0 0 20px rgba(255, 0, 255, 0.4);
+            }
+            
+            .refresh-rates-btn:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
+            
+            .rates-updated {
+                font-size: 10px;
+                color: rgba(255, 255, 255, 0.7);
+                transition: color 0.3s ease;
             }
         `;
         document.head.appendChild(style);
