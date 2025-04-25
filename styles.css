@@ -277,4 +277,41 @@ td a:hover {
     .stat-item:last-child {
         border-bottom: none;
     }
+}
+
+.analytics-charts-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive columns */
+    gap: 20px; /* Spacing between charts */
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.2); /* Thematic separator */
+    margin-bottom: 20px;
+}
+
+.chart-box {
+    background-color: rgba(0, 20, 40, 0.7); /* Dark semi-transparent background */
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
+    min-height: 300px; /* Ensure boxes have some height */
+    display: flex;
+    flex-direction: column;
+}
+
+.chart-box h4 {
+    color: #00ffff; /* Cyan */
+    margin-bottom: 15px;
+    text-align: center;
+    font-family: 'Orbitron', sans-serif; /* Sci-fi font */
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Ensure canvas fits container */
+.chart-box canvas {
+    flex-grow: 1; 
+    max-width: 100%;
+    max-height: 300px; /* Adjust max height as needed */
 } 

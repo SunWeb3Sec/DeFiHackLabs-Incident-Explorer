@@ -1,156 +1,283 @@
-document.addEventListener('DOMContentLoaded', function() {
+// Import analysis functions and data loader
+import { 
+    loadAndProcessData, 
+    analysisResults, 
+    combinedData as incidents, 
+    rootCauseData,
+    renderCharts,
+    makeAnalyticsCollapsible
+} from './analysis.js';
+
+document.addEventListener('DOMContentLoaded', async function() {
     // Global variables
     let currentPage = 1;
     const itemsPerPage = 50;
     let filteredIncidents = [];
-    let rootCauseData = {};
     let sortedProjects = [];
     let currentProjectIndex = -1;
     
-    // Load root cause data
-    fetch('rootcause_data.json')
-        .then(response => response.json())
-        .then(data => {
-            rootCauseData = data;
-            updateTable();
-            prepareSortedProjects();
-        })
-        .catch(error => console.error('Error loading root cause data:', error));
-        
-    // Function to prepare sorted projects list for navigation
-    function prepareSortedProjects() {
-        // Get all projects that have root cause data
-        sortedProjects = Object.keys(rootCauseData)
-            .filter(projectName => {
-                const incident = incidents.find(inc => inc.name === projectName);
-                return incident && rootCauseData[projectName];
-            })
-            .sort((a, b) => {
-                const dateA = incidents.find(inc => inc.name === a)?.date || '';
-                const dateB = incidents.find(inc => inc.name === b)?.date || '';
-                return dateB.localeCompare(dateA); // Sort by date, newest first
-            });
+    // Get the table container element
+    const tableContainerElement = document.getElementById('table-container');
+    if (!tableContainerElement) {
+        console.error('Table container element (#table-container) not found!');
+        document.body.innerHTML = '<div class="error-message">Table container not found. Please check your HTML.</div>';
+        return;
     }
     
-    // Get container element
-    const container = document.getElementById('table-container');
+    // Clear container to prevent duplication issues
+    tableContainerElement.innerHTML = '';
     
-    // Create statistics container
-    const statsContainer = document.createElement('div');
-    statsContainer.className = 'stats-container';
-
-    // Total incidents count
-    const totalIncidents = document.createElement('div');
-    totalIncidents.className = 'stat-box';
-    totalIncidents.innerHTML = `
-        <h3>Total Incidents</h3>
-        <p>${incidents.length}</p>
-    `;
-    statsContainer.appendChild(totalIncidents);
+    try {
+        // 1. Load data first
+        await loadAndProcessData();
+        console.log("Data loaded, proceeding with UI setup.");
+        
+        // 2. Create UI components in the correct order
+        createUI();
+        
+    } catch (error) {
+        console.error('Failed to initialize incident explorer:', error);
+        tableContainerElement.innerHTML = '<p class="error-message">Failed to load incident data: ' + error.message + '</p>';
+    }
     
-    // Total loss amount
-    const totalLoss = document.createElement('div');
-    totalLoss.className = 'stat-box';
-    totalLoss.innerHTML = `
-        <h3>Total Loss</h3>
-        <p>$0</p>
-    `;
-    statsContainer.appendChild(totalLoss);
+    // Main function to create the UI components
+    function createUI() {
+        // Get the main data arrays from the imported module
+        const totalIncidentCount = incidents.length; // Get the total count
+
+        // Create statistics container
+        const statsContainer = document.createElement('div');
+        statsContainer.className = 'stats-container';
+
+        // Total incidents count
+        const totalIncidentsBox = document.createElement('div');
+        totalIncidentsBox.className = 'stat-box';
+        totalIncidentsBox.id = 'total-incidents-stat'; 
+        totalIncidentsBox.innerHTML = `
+            <h3>Total Incidents</h3>
+            <p>${totalIncidentCount}</p>
+        `;
+        statsContainer.appendChild(totalIncidentsBox);
+        
+        // Total loss amount
+        const totalLossBox = document.createElement('div');
+        totalLossBox.className = 'stat-box';
+        totalLossBox.id = 'total-loss-stat'; 
+        totalLossBox.innerHTML = `
+            <h3>Total Loss (USD)</h3>
+            <p>${formatCurrency(analysisResults.totalLoss)}</p>
+        `;
+        statsContainer.appendChild(totalLossBox);
+        
+        tableContainerElement.appendChild(statsContainer);
+        
+        // Setup filters
+        setupFilters();
+        
+        // Render the table initially
+        updateTable();
+        
+        // Setup projects for navigation
+        prepareSortedProjects(incidents, rootCauseData);
+        
+        // Make the table collapsible
+        makeTableCollapsible();
+        
+        // Setup analytics
+        setupAnalytics();
+        
+        // Add CSS styles
+        addStyles();
+        
+        // Setup modal functionality
+        setupModalListeners();
+    }
     
-    container.appendChild(statsContainer);
+    // Helper function to format currency
+    function formatCurrency(value) {
+        if (typeof value !== 'number') return 'Unknown';
+        
+        return '$' + value.toLocaleString('en-US', {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0
+        });
+    }
     
-    // Create filters container
-    const filtersContainer = document.createElement('div');
-    filtersContainer.className = 'filters-container';
-
-    // Create year filter
-    const yearFilter = document.createElement('div');
-    yearFilter.className = 'filter-group';
-    yearFilter.innerHTML = `
-        <label>Year</label>
-        <select id="year-filter">
-            <option value="">All Years</option>
-            ${[...new Set(incidents.map(i => i.date.substring(0, 4)))]
-                .sort().reverse()
-                .map(year => `<option value="${year}">${year}</option>`)
-                .join('')}
-        </select>
-    `;
-
-    // Create attack type filter
-    const typeFilter = document.createElement('div');
-    typeFilter.className = 'filter-group';
-    typeFilter.innerHTML = `
-        <label>Attack Type</label>
-        <select id="type-filter">
-            <option value="">All Types</option>
-            ${[...new Set(incidents.map(i => i.type))]
-                .filter(type => type)
-                .sort()
-                .map(type => `<option value="${type}">${type}</option>`)
-                .join('')}
-        </select>
-    `;
-
-    // Create sort filter
-    const sortFilter = document.createElement('div');
-    sortFilter.className = 'filter-group';
-    sortFilter.innerHTML = `
-        <label>Sort By</label>
-        <select id="sort-filter">
-            <option value="date">Date (Latest)</option>
-            <option value="loss_high">Loss (High to Low)</option>
-            <option value="loss_low">Loss (Low to High)</option>
-            <option value="root_cause_first">Root Cause First</option>
-        </select>
-        <span id="root-cause-count" style="display: none; margin-left: 10px; font-size: 0.9em;"></span>
-    `;
-
-    // Create search box
-    const searchBox = document.createElement('input');
-    searchBox.id = 'search-box';
-    searchBox.type = 'text';
-    searchBox.placeholder = 'Search by project name...';
-    searchBox.className = 'search-box';
-
-    // Create first row for filters
-    const filtersRow = document.createElement('div');
-    filtersRow.className = 'filters-row';
+    // Function to set up the modal listeners
+    function setupModalListeners() {
+        const modal = document.getElementById('rootCauseModal');
+        if (!modal) {
+            console.warn('Root cause modal not found in the document');
+            return;
+        }
+        
+        const closeBtn = modal.querySelector('.close');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+        }
+        
+        // Navigation buttons functionality
+        const prevButton = modal.querySelector('.prev-button');
+        if (prevButton) {
+            prevButton.addEventListener('click', () => {
+                if (currentProjectIndex > 0) {
+                    showRootCauseModal(sortedProjects[currentProjectIndex - 1]);
+                }
+            });
+        }
+        
+        const nextButton = modal.querySelector('.next-button');
+        if (nextButton) {
+            nextButton.addEventListener('click', () => {
+                if (currentProjectIndex < sortedProjects.length - 1) {
+                    showRootCauseModal(sortedProjects[currentProjectIndex + 1]);
+                }
+            });
+        }
+        
+        // Close the modal when the user clicks anywhere outside of the modal content
+        window.addEventListener('click', (event) => {
+            if (modal && event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    }
     
-    // Add all filters to container
-    filtersContainer.appendChild(yearFilter);
-    filtersContainer.appendChild(typeFilter);
-    filtersContainer.appendChild(sortFilter);
-    filtersRow.appendChild(filtersContainer);
-    container.appendChild(filtersRow);
+    // Function to set up the analytics section
+    function setupAnalytics() {
+        // Create analytics container
+        const chartsContainer = document.createElement('div');
+        chartsContainer.id = 'analytics-charts';
+        chartsContainer.className = 'analytics-charts-container';
+        tableContainerElement.appendChild(chartsContainer);
+        
+        // Render charts using function from analytics.js
+        renderCharts(incidents);
+        
+        // Make analytics section collapsible
+        makeAnalyticsCollapsible();
+    }
     
-    // Create second row for search
-    const searchRow = document.createElement('div');
-    searchRow.className = 'search-row';
-    searchRow.appendChild(searchBox);
-    container.appendChild(searchRow);
-
-    // Create table container
-    const tableContainer = document.createElement('div');
-    tableContainer.className = 'table-container';
-
-    // Create table
-    const table = document.createElement('table');
-    table.className = 'incidents-table';
-    tableContainer.appendChild(table);
-    container.appendChild(tableContainer);
-
-    // Create pagination container
-    const paginationContainer = document.createElement('div');
-    paginationContainer.className = 'pagination-container';
-    container.appendChild(paginationContainer);
+    // Function to set up filters after data is loaded
+    function setupFilters() {
+        // Create filters container
+        const filtersContainer = document.createElement('div');
+        filtersContainer.className = 'filters-container';
+    
+        // Create year filter
+        const yearFilter = document.createElement('div');
+        yearFilter.className = 'filter-group';
+        yearFilter.innerHTML = `
+            <label>Year</label>
+            <select id="year-filter">
+                <option value="">All Years</option>
+                ${analysisResults.countByYear ? Object.keys(analysisResults.countByYear)
+                    .sort((a, b) => b - a) // Sort years in descending order
+                    .map(year => `<option value="${year}">${year}</option>`)
+                    .join('') : ''}
+            </select>
+        `;
+    
+        // Create attack type filter
+        const typeFilter = document.createElement('div');
+        typeFilter.className = 'filter-group';
+        typeFilter.innerHTML = `
+            <label>Attack Type</label>
+            <select id="type-filter">
+                <option value="">All Types</option>
+                ${analysisResults.countByType ? Object.keys(analysisResults.countByType)
+                    .map(type => `<option value="${type}">${type}</option>`)
+                    .join('') : ''}
+            </select>
+        `;
+    
+        // Create sort filter
+        const sortFilter = document.createElement('div');
+        sortFilter.className = 'filter-group';
+        sortFilter.innerHTML = `
+            <label>Sort By</label>
+            <select id="sort-filter">
+                <option value="date">Date (Latest)</option>
+                <option value="loss_high">Loss (High to Low)</option>
+                <option value="loss_low">Loss (Low to High)</option>
+                <option value="root_cause_first">Root Cause First</option>
+            </select>
+            <span id="root-cause-count" style="display: none; margin-left: 10px; font-size: 0.9em;"></span>
+        `;
+    
+        // Create search box
+        const searchBox = document.createElement('input');
+        searchBox.id = 'search-box';
+        searchBox.type = 'text';
+        searchBox.placeholder = 'Search by project name...';
+        searchBox.className = 'search-box';
+    
+        // Create first row for filters
+        const filtersRow = document.createElement('div');
+        filtersRow.className = 'filters-row';
+        
+        // Add all filters to container
+        filtersContainer.appendChild(yearFilter);
+        filtersContainer.appendChild(typeFilter);
+        filtersContainer.appendChild(sortFilter);
+        filtersRow.appendChild(filtersContainer);
+        tableContainerElement.appendChild(filtersRow);
+        
+        // Create second row for search
+        const searchRow = document.createElement('div');
+        searchRow.className = 'search-row';
+        searchRow.appendChild(searchBox);
+        tableContainerElement.appendChild(searchRow);
+    
+        // Create table container
+        const tableWrapper = document.createElement('div');
+        tableWrapper.className = 'table-container';
+    
+        // Create table
+        const table = document.createElement('table');
+        table.className = 'incidents-table';
+        tableWrapper.appendChild(table);
+        tableContainerElement.appendChild(tableWrapper);
+    
+        // Create pagination container
+        const paginationContainer = document.createElement('div');
+        paginationContainer.className = 'pagination-container';
+        tableContainerElement.appendChild(paginationContainer);
+        
+        // Add event listeners to filters after they're created
+        document.getElementById('year-filter')?.addEventListener('change', () => {
+            currentPage = 1;
+            updateTable();
+        });
+        
+        document.getElementById('type-filter')?.addEventListener('change', () => {
+            currentPage = 1;
+            updateTable();
+        });
+        
+        document.getElementById('sort-filter')?.addEventListener('change', () => {
+            updateTable();
+        });
+        
+        document.getElementById('search-box')?.addEventListener('input', () => {
+            currentPage = 1;
+            updateTable();
+        });
+    }
 
     // Main function to update the table with filtered data and pagination
     function updateTable() {
-        // Clear the table
-        while (table.firstChild) {
-            table.removeChild(table.firstChild);
+        // Get the table element
+        const table = document.querySelector('.incidents-table');
+        if (!table) {
+            console.error('Table element not found');
+            return;
         }
+        
+        // Clear the table
+        table.innerHTML = '';
 
         // Create table header
         const thead = document.createElement('thead');
@@ -166,15 +293,23 @@ document.addEventListener('DOMContentLoaded', function() {
         // Create table body
         const tbody = document.createElement('tbody');
 
-        // Get filter values
-        const selectedYear = document.getElementById('year-filter').value;
-        const selectedType = document.getElementById('type-filter').value;
-        const sortBy = document.getElementById('sort-filter').value;
-        const searchQuery = document.getElementById('search-box').value.toLowerCase();
+        // Get filter values safely
+        const yearFilter = document.getElementById('year-filter');
+        const typeFilter = document.getElementById('type-filter');
+        const sortFilter = document.getElementById('sort-filter');
+        const searchBox = document.getElementById('search-box');
+        
+        const selectedYear = yearFilter?.value || '';
+        const selectedType = typeFilter?.value || '';
+        const sortBy = sortFilter?.value || 'date';
+        const searchQuery = searchBox?.value.toLowerCase() || '';
 
         // Filter incidents based on selected criteria
         filteredIncidents = incidents.filter(incident => {
-            const matchesYear = !selectedYear || incident.date.startsWith(selectedYear);
+            if (!incident.dateObj) return false;
+            
+            const incidentYear = incident.dateObj.getUTCFullYear().toString();
+            const matchesYear = !selectedYear || incidentYear === selectedYear;
             const matchesType = !selectedType || incident.type === selectedType;
             const matchesSearch = !searchQuery || 
                                 incident.name.toLowerCase().includes(searchQuery) || 
@@ -191,7 +326,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 filteredIncidents.sort((a, b) => (a.Lost || 0) - (b.Lost || 0));
                 break;
             case 'root_cause_first':
-                // Sort by whether the incident has root cause data (those with root cause come first)
                 filteredIncidents.sort((a, b) => {
                     const aHasRootCause = rootCauseData[a.name] ? 1 : 0;
                     const bHasRootCause = rootCauseData[b.name] ? 1 : 0;
@@ -281,13 +415,18 @@ document.addEventListener('DOMContentLoaded', function() {
         updatePagination(totalPages);
         
         // Update statistics
-        updateStats(filteredIncidents);
+        updateStats(filteredIncidents.length); // Pass the count of filtered incidents
     }
 
     // Function to update pagination controls
     function updatePagination(totalPages) {
         // Clear pagination container
         const paginationContainer = document.querySelector('.pagination-container');
+        if (!paginationContainer) {
+            console.error('Pagination container not found');
+            return;
+        }
+        
         paginationContainer.innerHTML = '';
         
         if (totalPages <= 1) {
@@ -332,50 +471,30 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Function to update statistics
-    function updateStats(filteredData) {
-        // Update total incidents count
-        totalIncidents.querySelector('p').textContent = filteredData.length;
+    function updateStats(filteredCount) { // Receive the count as an argument
+        // Update total incidents count (for the filtered view)
+        const totalIncidentsElement = document.getElementById('total-incidents-stat');
+        if (totalIncidentsElement) {
+             totalIncidentsElement.querySelector('p').textContent = filteredCount;
+        } else {
+            console.warn('Could not find total incidents stat element');
+        }
         
-        // Calculate total loss in USD
-        let totalUsdLoss = 0;
-        filteredData.forEach(incident => {
-            if (incident.Lost && !isNaN(incident.Lost) && incident.lossType === 'USD') {
-                totalUsdLoss += parseFloat(incident.Lost);
-            } else if (incident.Lost && !isNaN(incident.Lost) && incident.lossType === 'ETH' || incident.lossType === 'WETH')  {
-                // Approximate conversion (in a real app, you'd use current rates)
-                totalUsdLoss += parseFloat(incident.Lost) * 2500; // Approximate ETH value
-            } else if (incident.Lost && !isNaN(incident.Lost) && incident.lossType === 'BNB' || incident.lossType === 'WBNB')  {
-                // Approximate conversion
-                totalUsdLoss += parseFloat(incident.Lost) * 500; // Approximate BNB value
-            } else if (incident.Lost && !isNaN(incident.Lost) && incident.lossType === 'BTC' || incident.lossType === 'WBTC') {
-                // Approximate conversion for BTC/WBTC
-                totalUsdLoss += parseFloat(incident.Lost) * 60000; // Approximate BTC value
-            }
-            // Add other conversions as needed
-        });
-        
-        // Format total loss with commas and fixed to 2 decimal places
-        const formattedLoss = '$' + totalUsdLoss.toLocaleString('en-US', {
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 0
-        });
-        
-        // Update total loss display
-        totalLoss.querySelector('p').textContent = formattedLoss;
+        // Note: Total Loss display usually shows the overall total, not filtered total.
         
         // Update root cause count if sorting by root cause
-        const sortBy = document.getElementById('sort-filter').value;
+        const sortBy = document.getElementById('sort-filter')?.value;
         const rootCauseCountElement = document.getElementById('root-cause-count');
         
-        if (sortBy === 'root_cause_first') {
+        if (rootCauseCountElement && sortBy === 'root_cause_first') {
             // Count incidents with root cause data
-            const rootCauseCount = filteredData.filter(incident => 
-                rootCauseData[incident.name] 
+            const rootCauseCount = filteredIncidents.filter(incident => 
+                rootCauseData && rootCauseData[incident.name] 
             ).length;
             
             rootCauseCountElement.textContent = `(${rootCauseCount} root cause reports available)`;
             rootCauseCountElement.style.display = 'inline';
-        } else {
+        } else if (rootCauseCountElement) {
             rootCauseCountElement.style.display = 'none';
         }
     }
@@ -393,16 +512,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return `${monthName} ${parseInt(day, 10)}, ${year}`;
     }
     
-    // Function to convert date to YYYY-MM-DD format for rootCauseData comparison
-    function formatDateForComparison(dateStr) {
-        if (!dateStr) return '';
-        const year = dateStr.substring(0, 4);
-        const month = dateStr.substring(4, 6);
-        const day = dateStr.substring(6, 8);
-        
-        return `${year}-${month}-${day}`;
-    }
-
     // Function to format loss amount
     function formatLoss(loss, lossType = 'USD') {
         if (!loss && loss !== 0) return 'Unknown';
@@ -434,64 +543,15 @@ document.addEventListener('DOMContentLoaded', function() {
         // Use full GitHub repository path
         const githubPrefix = 'https://github.com/SunWeb3Sec/DeFiHackLabs/tree/main/';
         
-        // 如果連結已經是完整的 URL，則直接使用
+        // If link is already a complete URL, use it directly
         if (pocLink.startsWith('http')) {
             return `<a href="${pocLink}" target="_blank">View POC</a>`;
         }
         
-        // 否則加上 GitHub 前綴
+        // Otherwise add GitHub prefix
         return `<a href="${githubPrefix}${pocLink}" target="_blank">View POC</a>`;
     }
 
-    // Add event listeners to filters
-    document.getElementById('year-filter').addEventListener('change', () => {
-        currentPage = 1;
-        updateTable();
-    });
-    document.getElementById('type-filter').addEventListener('change', () => {
-        currentPage = 1;
-        updateTable();
-    });
-    document.getElementById('sort-filter').addEventListener('change', () => {
-        updateTable();
-    });
-    document.getElementById('search-box').addEventListener('input', () => {
-        currentPage = 1;
-        updateTable();
-    });
-
-    // Initialize table display
-    updateTable();
-    
-    // Set up modal functionality
-    const modal = document.getElementById('rootCauseModal');
-    const closeBtn = document.querySelector('.close');
-    
-    // Close the modal when the user clicks on the close button
-    closeBtn.addEventListener('click', () => {
-        modal.style.display = 'none';
-    });
-    
-    // Navigation buttons functionality
-    document.querySelector('.prev-button').addEventListener('click', () => {
-        if (currentProjectIndex > 0) {
-            showRootCauseModal(sortedProjects[currentProjectIndex - 1]);
-        }
-    });
-    
-    document.querySelector('.next-button').addEventListener('click', () => {
-        if (currentProjectIndex < sortedProjects.length - 1) {
-            showRootCauseModal(sortedProjects[currentProjectIndex + 1]);
-        }
-    });
-    
-    // Close the modal when the user clicks anywhere outside of the modal content
-    window.addEventListener('click', (event) => {
-        if (event.target === modal) {
-            modal.style.display = 'none';
-        }
-    });
-    
     // Function to show the root cause modal with the project's data
     function showRootCauseModal(projectName) {
         const projectData = rootCauseData[projectName];
@@ -511,43 +571,167 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        // Log for debugging
-        console.log(`Project: ${projectName}`);
-        console.log(`Incident date: ${incident.date}`);
-        console.log(`Root cause date: ${projectData.date}`);
-        console.log(`Formatted incident date: ${formatDateForComparison(incident.date)}`);
+        // Get modal elements
+        const modal = document.getElementById('rootCauseModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalProjectName = document.getElementById('modalProjectName');
+        const modalType = document.getElementById('modalType');
+        const modalDate = document.getElementById('modalDate');
+        const modalLoss = document.getElementById('modalLoss');
+        const modalRootCause = document.getElementById('modalRootCause');
+        const modalImagesSection = document.getElementById('modalImagesSection');
+        const modalImages = document.getElementById('modalImages');
+        
+        if (!modal || !modalTitle || !modalProjectName || !modalType || 
+            !modalDate || !modalLoss || !modalRootCause || 
+            !modalImagesSection || !modalImages) {
+            console.error('One or more modal elements not found');
+            return;
+        }
         
         // Populate modal with project data
-        document.getElementById('modalTitle').textContent = 'Root Cause Analysis';
-        document.getElementById('modalProjectName').textContent = projectName;
-        document.getElementById('modalType').textContent = `Attack Type: ${projectData.type || 'Unknown'}`;
-        document.getElementById('modalDate').textContent = `Date: ${projectData.date || incident.date || 'Unknown'}`;
-        document.getElementById('modalLoss').textContent = `Loss: ${projectData.Lost || incident.Lost || 'Unknown'}`;
+        modalTitle.textContent = 'Root Cause Analysis';
+        modalProjectName.textContent = projectName;
+        modalType.textContent = `Attack Type: ${projectData.type || incident.type || 'Unknown'}`;
+        modalDate.textContent = `Date: ${formatDate(incident.date) || 'Unknown'}`;
+        modalLoss.textContent = `Loss: ${formatLoss(projectData.Lost || incident.Lost, incident.lossType)}`;
         
         // Root cause analysis
-        const rootCauseElement = document.getElementById('modalRootCause');
         // Use innerHTML to render markdown content
-        rootCauseElement.innerHTML = projectData.rootCause ? marked.parse(projectData.rootCause) : 'No root cause analysis available.';
+        modalRootCause.innerHTML = projectData.rootCause ? marked.parse(projectData.rootCause) : 'No root cause analysis available.';
         
         // Images (if any)
-        const imagesContainer = document.getElementById('modalImages');
-        imagesContainer.innerHTML = '';
-        const imagesSection = document.getElementById('modalImagesSection');
+        modalImages.innerHTML = '';
         
         if (projectData.images && projectData.images.length > 0) {
             projectData.images.forEach(imageUrl => {
                 const img = document.createElement('img');
                 img.src = imageUrl;
                 img.alt = `${projectName} incident image`;
-                imagesContainer.appendChild(img);
+                modalImages.appendChild(img);
             });
-            imagesSection.style.display = 'block';
+            modalImagesSection.style.display = 'block';
         } else {
-            imagesContainer.innerHTML = '<p>No images available.</p>';
-            imagesSection.style.display = 'none';
+            modalImages.innerHTML = '<p>No images available.</p>';
+            modalImagesSection.style.display = 'none';
         }
         
         // Display the modal
         modal.style.display = 'block';
+    }
+
+    // Function to prepare sorted projects list for navigation
+    function prepareSortedProjects(incidentsData, rootCauseLookup) {
+        if (!incidentsData || !rootCauseLookup) {
+            console.warn('Missing data for prepareSortedProjects');
+            sortedProjects = [];
+            return;
+        }
+
+        sortedProjects = incidentsData
+            .filter(incident => rootCauseLookup[incident.name]) // Only include those with root cause data
+            .map(incident => incident.name) // Get project names
+            .sort((a, b) => {
+                // Find corresponding incidents to sort by date
+                const dateA = incidentsData.find(inc => inc.name === a)?.date || '';
+                const dateB = incidentsData.find(inc => inc.name === b)?.date || '';
+                return dateB.localeCompare(dateA); // Sort by date, newest first
+            });
+         console.log("Sorted projects for navigation:", sortedProjects.length);
+    }
+
+    // Function to make the incidents table collapsible
+    function makeTableCollapsible() {
+        // Create a toggle button container
+        const toggleContainer = document.createElement('div');
+        toggleContainer.className = 'toggle-container';
+        
+        // Create the toggle button
+        const toggleButton = document.createElement('button');
+        toggleButton.className = 'toggle-table-button';
+        toggleButton.innerHTML = 'Hide Incidents Table <span>▲</span>';
+        toggleButton.setAttribute('aria-expanded', 'true');
+        toggleContainer.appendChild(toggleButton);
+        
+        // Find the table container
+        const tableContainer = document.querySelector('.table-container');
+        const paginationContainer = document.querySelector('.pagination-container');
+        const analyticsChartContainer = document.getElementById('analytics-charts');
+        
+        // If we can't find the elements, return early
+        if (!tableContainer || !analyticsChartContainer) {
+            console.warn('Could not find table or analytics container');
+            return;
+        }
+        
+        // Insert toggle button before the table
+        if (tableContainer.parentNode) {
+            tableContainer.parentNode.insertBefore(toggleContainer, tableContainer);
+        }
+        
+        // Function to toggle the table visibility
+        toggleButton.addEventListener('click', function() {
+            const isExpanded = toggleButton.getAttribute('aria-expanded') === 'true';
+            
+            if (isExpanded) {
+                // Collapse the table
+                tableContainer.style.display = 'none';
+                if (paginationContainer) paginationContainer.style.display = 'none';
+                toggleButton.innerHTML = 'Show Incidents Table <span>▼</span>';
+                toggleButton.setAttribute('aria-expanded', 'false');
+                // Scroll to analytics
+                analyticsChartContainer.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                // Expand the table
+                tableContainer.style.display = 'block';
+                if (paginationContainer) paginationContainer.style.display = 'block';
+                toggleButton.innerHTML = 'Hide Incidents Table <span>▲</span>';
+                toggleButton.setAttribute('aria-expanded', 'true');
+            }
+        });
+    }
+    
+    // Function to add CSS styles for the toggle buttons and UI
+    function addStyles() {
+        const style = document.createElement('style');
+        style.textContent = `
+            .toggle-container {
+                display: flex;
+                justify-content: center;
+                margin: 20px 0;
+            }
+            
+            .toggle-table-button,
+            .toggle-analytics-button {
+                background: rgba(0, 0, 0, 0.7);
+                color: #00ffff;
+                border: 1px solid #00ffff;
+                padding: 10px 20px;
+                font-size: 14px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.3s ease;
+                box-shadow: 0 0 5px #00ffff;
+                border-radius: 4px;
+                font-family: 'Orbitron', sans-serif;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+            
+            .toggle-table-button:hover,
+            .toggle-analytics-button:hover {
+                background: rgba(0, 0, 0, 0.9);
+                box-shadow: 0 0 10px #00ffff, 0 0 20px rgba(0, 255, 255, 0.4);
+            }
+            
+            .toggle-table-button span,
+            .toggle-analytics-button span {
+                margin-left: 8px;
+                font-size: 12px;
+            }
+        `;
+        document.head.appendChild(style);
     }
 });
