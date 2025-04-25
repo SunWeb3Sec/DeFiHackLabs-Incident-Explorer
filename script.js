@@ -248,6 +248,20 @@ document.addEventListener('DOMContentLoaded', async function() {
         `;
         statsContainer.appendChild(refreshRatesBox);
         
+        // Add settings button
+        const settingsBox = document.createElement('div');
+        settingsBox.className = 'stat-box settings-box';
+        settingsBox.innerHTML = `
+            <button id="open-settings" class="settings-button">
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                </svg>
+                <span>Settings</span>
+            </button>
+        `;
+        statsContainer.appendChild(settingsBox);
+        
         // Add event listener to refresh rates button
         document.getElementById('refresh-rates')?.addEventListener('click', async () => {
             const button = document.getElementById('refresh-rates');
@@ -281,6 +295,9 @@ document.addEventListener('DOMContentLoaded', async function() {
         
         tableContainerElement.appendChild(statsContainer);
         
+        // Create settings panel
+        createSettingsPanel();
+        
         // Setup filters
         setupFilters();
         
@@ -296,11 +313,11 @@ document.addEventListener('DOMContentLoaded', async function() {
         // Setup analytics
         setupAnalytics();
         
-        // Add CSS styles
-        addStyles();
-        
         // Setup modal functionality
         setupModalListeners();
+        
+        // Load user settings
+        loadSettings();
     }
     
     // Helper function to format currency
@@ -1165,108 +1182,207 @@ document.addEventListener('DOMContentLoaded', async function() {
         });
     }
     
-    // Function to add CSS styles for the toggle buttons and UI
-    function addStyles() {
-        const style = document.createElement('style');
-        style.textContent = `
-            .toggle-container {
-                display: flex;
-                justify-content: center;
-                margin: 20px 0;
-            }
-            
-            .toggle-table-button,
-            .toggle-analytics-button {
-                background: rgba(0, 0, 0, 0.7);
-                color: #00ffff;
-                border: 1px solid #00ffff;
-                padding: 10px 20px;
-                font-size: 14px;
-                cursor: pointer;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                transition: all 0.3s ease;
-                box-shadow: 0 0 5px #00ffff;
-                border-radius: 4px;
-                font-family: 'Orbitron', sans-serif;
-                text-transform: uppercase;
-                letter-spacing: 1px;
-            }
-            
-            .toggle-table-button:hover,
-            .toggle-analytics-button:hover {
-                background: rgba(0, 0, 0, 0.9);
-                box-shadow: 0 0 10px #00ffff, 0 0 20px rgba(0, 255, 255, 0.4);
-            }
-            
-            .toggle-table-button span,
-            .toggle-analytics-button span {
-                margin-left: 8px;
-                font-size: 12px;
-            }
-            
-            .refresh-rates-box {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                gap: 5px;
-            }
-            
-            .refresh-rates-btn {
-                background: rgba(0, 0, 0, 0.7);
-                color: #ff00ff;
-                border: 1px solid #ff00ff;
-                padding: 8px 15px;
-                font-size: 12px;
-                cursor: pointer;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 5px;
-                transition: all 0.3s ease;
-                box-shadow: 0 0 5px #ff00ff;
-                border-radius: 4px;
-                font-family: 'Orbitron', sans-serif;
-                text-transform: uppercase;
-                letter-spacing: 1px;
-            }
-            
-            .refresh-rates-btn:hover {
-                background: rgba(0, 0, 0, 0.9);
-                box-shadow: 0 0 10px #ff00ff, 0 0 20px rgba(255, 0, 255, 0.4);
-            }
-            
-            .refresh-rates-btn:disabled {
-                opacity: 0.5;
-                cursor: not-allowed;
-            }
-            
-            .rates-updated {
-                font-size: 10px;
-                color: rgba(255, 255, 255, 0.7);
-                transition: color 0.3s ease;
-            }
-            
-            /* Sort indicator styles */
-            .incidents-table th {
-                cursor: pointer;
-                position: relative;
-                user-select: none;
-            }
-            
-            .incidents-table th:hover {
-                background-color: rgba(0, 255, 255, 0.1);
-            }
-            
-            .incidents-table th .sort-indicator {
-                display: inline-block;
-                color: #ff00ff;
-                text-shadow: 0 0 5px #ff00ff;
-                margin-left: 8px;
-            }
+
+    
+    // Function to create and set up the settings panel
+    function createSettingsPanel() {
+        // Create panel overlay 
+        const overlay = document.createElement('div');
+        overlay.className = 'panel-overlay';
+        document.body.appendChild(overlay);
+        
+        // Create settings panel
+        const settingsPanel = document.createElement('div');
+        settingsPanel.className = 'settings-panel';
+        settingsPanel.innerHTML = `
+            <div class="settings-header">
+                <h3>Display Settings</h3>
+                <button class="close-settings">×</button>
+            </div>
+            <div class="settings-content">
+                <div class="settings-section">
+                    <h4>Theme</h4>
+                    <div class="setting-item">
+                        <span class="setting-label">Light Mode</span>
+                        <label class="switch">
+                            <input type="checkbox" id="toggle-theme">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="settings-section">
+                    <h4>Visual Effects</h4>
+                    <div class="setting-item">
+                        <span class="setting-label">Reduce Glow Effects</span>
+                        <label class="switch">
+                            <input type="checkbox" id="toggle-glow">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <span class="setting-label">High Contrast Mode</span>
+                        <label class="switch">
+                            <input type="checkbox" id="toggle-contrast">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <span class="setting-label">Disable Animations</span>
+                        <label class="switch">
+                            <input type="checkbox" id="toggle-animations">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="settings-section">
+                </div>
+                
+                <button class="reset-button" id="reset-settings">Reset to Default</button>
+            </div>
         `;
-        document.head.appendChild(style);
+        document.body.appendChild(settingsPanel);
+        
+        // Add event listeners
+        document.getElementById('open-settings')?.addEventListener('click', openSettingsPanel);
+        document.querySelector('.close-settings')?.addEventListener('click', closeSettingsPanel);
+        overlay.addEventListener('click', closeSettingsPanel);
+        
+        // Toggle light/dark mode
+        document.getElementById('toggle-theme')?.addEventListener('change', function() {
+            document.body.classList.toggle('light-mode', this.checked);
+            saveSettings();
+        });
+        
+        // Toggle settings
+        document.getElementById('toggle-glow')?.addEventListener('change', function() {
+            document.body.classList.toggle('low-glow', this.checked);
+            saveSettings();
+        });
+        
+        document.getElementById('toggle-contrast')?.addEventListener('change', function() {
+            document.body.classList.toggle('high-contrast', this.checked);
+            saveSettings();
+        });
+        
+        document.getElementById('toggle-animations')?.addEventListener('change', function() {
+            document.body.classList.toggle('no-animations', this.checked);
+            saveSettings();
+        });
+        
+        // Slider for text size
+        const textSizeSlider = document.getElementById('text-size-slider');
+        if (textSizeSlider) {
+            textSizeSlider.addEventListener('input', function() {
+                document.documentElement.style.fontSize = `${this.value}%`;
+                saveSettings();
+            });
+        }
+        
+        // Reset button
+        document.getElementById('reset-settings')?.addEventListener('click', resetSettings);
+    }
+    
+    // Open settings panel
+    function openSettingsPanel() {
+        const settingsPanel = document.querySelector('.settings-panel');
+        const overlay = document.querySelector('.panel-overlay');
+        
+        if (settingsPanel) settingsPanel.classList.add('open');
+        if (overlay) overlay.classList.add('active');
+    }
+    
+    // Close settings panel
+    function closeSettingsPanel() {
+        const settingsPanel = document.querySelector('.settings-panel');
+        const overlay = document.querySelector('.panel-overlay');
+        
+        if (settingsPanel) settingsPanel.classList.remove('open');
+        if (overlay) overlay.classList.remove('active');
+    }
+    
+    // Save settings to localStorage
+    function saveSettings() {
+        const settings = {
+            lightMode: document.getElementById('toggle-theme')?.checked || false,
+            lowGlow: document.getElementById('toggle-glow')?.checked || false,
+            highContrast: document.getElementById('toggle-contrast')?.checked || false,
+            noAnimations: document.getElementById('toggle-animations')?.checked || false,
+            textSize: document.getElementById('text-size-slider')?.value || 100
+        };
+        
+        localStorage.setItem('defihack-settings', JSON.stringify(settings));
+    }
+    
+    // Load settings from localStorage
+    function loadSettings() {
+        const savedSettings = localStorage.getItem('defihack-settings');
+        if (!savedSettings) return;
+        
+        try {
+            const settings = JSON.parse(savedSettings);
+            
+            // Apply theme setting
+            if (settings.lightMode) {
+                document.body.classList.add('light-mode');
+                document.getElementById('toggle-theme').checked = true;
+            }
+            
+            // Apply visual settings
+            if (settings.lowGlow) {
+                document.body.classList.add('low-glow');
+                document.getElementById('toggle-glow').checked = true;
+            }
+            
+            if (settings.highContrast) {
+                document.body.classList.add('high-contrast');
+                document.getElementById('toggle-contrast').checked = true;
+            }
+            
+            if (settings.noAnimations) {
+                document.body.classList.add('no-animations');
+                document.getElementById('toggle-animations').checked = true;
+            }
+            
+            // Apply text size
+            if (settings.textSize) {
+                document.documentElement.style.fontSize = `${settings.textSize}%`;
+                if (document.getElementById('text-size-slider')) {
+                    document.getElementById('text-size-slider').value = settings.textSize;
+                }
+            }
+            
+        } catch (error) {
+            console.error('Error loading settings:', error);
+        }
+    }
+    
+    // Reset settings to default
+    function resetSettings() {
+        // Clear classes
+        document.body.classList.remove('light-mode', 'low-glow', 'high-contrast', 'no-animations');
+        
+        // Reset form controls
+        if (document.getElementById('toggle-theme')) document.getElementById('toggle-theme').checked = false;
+        if (document.getElementById('toggle-glow')) document.getElementById('toggle-glow').checked = false;
+        if (document.getElementById('toggle-contrast')) document.getElementById('toggle-contrast').checked = false;
+        if (document.getElementById('toggle-animations')) document.getElementById('toggle-animations').checked = false;
+        if (document.getElementById('text-size-slider')) document.getElementById('text-size-slider').value = 100;
+        
+        // Reset text size
+        document.documentElement.style.fontSize = '100%';
+        
+        // Save the default settings
+        saveSettings();
+        
+        // Show feedback
+        const resetButton = document.getElementById('reset-settings');
+        if (resetButton) {
+            const originalText = resetButton.textContent;
+            resetButton.textContent = 'Settings Reset!';
+            setTimeout(() => {
+                resetButton.textContent = originalText;
+            }, 1500);
+        }
     }
 });
