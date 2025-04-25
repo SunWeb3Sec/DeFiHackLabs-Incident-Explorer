@@ -515,8 +515,8 @@ if (typeof module !== 'undefined' && module.exports) {
 // -------------------------------
 
 // Function to render all charts
-export function renderCharts(incidentData) {
-    if (!analysisResults || !document.getElementById('analytics-charts')) {
+export function renderCharts(incidentData, filteredAnalysisResults = null) {
+    if ((!analysisResults && !filteredAnalysisResults) || !document.getElementById('analytics-charts')) {
         console.warn('Cannot render charts, missing data or container');
         return;
     }
@@ -529,7 +529,7 @@ export function renderCharts(incidentData) {
         script.onload = function() {
             console.log('Chart.js loaded successfully');
             // Now we can safely render charts
-            renderChartsWhenReady(incidentData);
+            renderChartsWhenReady(incidentData, filteredAnalysisResults);
         };
         script.onerror = function() {
             console.error('Failed to load Chart.js');
@@ -541,11 +541,14 @@ export function renderCharts(incidentData) {
     }
 
     // If Chart is already defined, render charts directly
-    renderChartsWhenReady(incidentData);
+    renderChartsWhenReady(incidentData, filteredAnalysisResults);
 }
 
 // Function to actually render the charts once Chart.js is available
-function renderChartsWhenReady(incidentData) {
+function renderChartsWhenReady(incidentData, filteredAnalysisResults = null) {
+    // Use filtered results if provided, otherwise use global results
+    const results = filteredAnalysisResults || analysisResults;
+    
     // Clear any existing charts
     const chartContainer = document.getElementById('analytics-charts');
     chartContainer.innerHTML = '';
@@ -556,6 +559,9 @@ function renderChartsWhenReady(incidentData) {
     // Create title for the analytics section
     const analyticsTitle = document.createElement('h2');
     analyticsTitle.textContent = 'DeFi Incident Analytics';
+    if (filteredAnalysisResults) {
+        analyticsTitle.textContent += ' (Filtered)';
+    }
     analyticsTitle.className = 'analytics-title';
     chartContainer.appendChild(analyticsTitle);
 
@@ -566,31 +572,31 @@ function renderChartsWhenReady(incidentData) {
         chartContainer.appendChild(chartGrid);
         
         // Render loss over time chart if data exists
-        if (analysisResults.lossByYear && Object.keys(analysisResults.lossByYear).length > 0) {
+        if (results.lossByYear && Object.keys(results.lossByYear).length > 0) {
             const lossTimeChartBox = createChartBox('Loss Over Time (USD)', 'lossOverTimeChart');
             chartGrid.appendChild(lossTimeChartBox);
-            renderLossOverTimeChart(analysisResults.lossByYear, 'lossOverTimeChart');
+            renderLossOverTimeChart(results.lossByYear, 'lossOverTimeChart');
         }
 
         // Render loss by type chart if data exists
-        if (analysisResults.lossByType && Object.keys(analysisResults.lossByType).length > 0) {
+        if (results.lossByType && Object.keys(results.lossByType).length > 0) {
             const lossByTypeBox = createChartBox('Loss Distribution by Type (USD)', 'lossByTypeChart');
             chartGrid.appendChild(lossByTypeBox);
-            renderLossByTypeChart(analysisResults.lossByType, 'lossByTypeChart');
+            renderLossByTypeChart(results.lossByType, 'lossByTypeChart');
         }
         
         // Render incidents by year chart if data exists
-        if (analysisResults.countByYear && Object.keys(analysisResults.countByYear).length > 0) {
+        if (results.countByYear && Object.keys(results.countByYear).length > 0) {
             const incidentsByYearBox = createChartBox('Incidents by Year', 'incidentsByYearChart');
             chartGrid.appendChild(incidentsByYearBox);
-            renderIncidentsByYearChart(analysisResults.countByYear, 'incidentsByYearChart');
+            renderIncidentsByYearChart(results.countByYear, 'incidentsByYearChart');
         }
 
         // Render root cause frequency chart if data exists
-        if (analysisResults.rootCauseFrequency && Object.keys(analysisResults.rootCauseFrequency).length > 0) {
+        if (results.rootCauseFrequency && Object.keys(results.rootCauseFrequency).length > 0) {
             const rootCauseBox = createChartBox('Incident Frequency by Root Cause/Type', 'rootCauseFrequencyChart');
             chartGrid.appendChild(rootCauseBox);
-            renderRootCauseFrequencyChart(analysisResults.rootCauseFrequency, 'rootCauseFrequencyChart');
+            renderRootCauseFrequencyChart(results.rootCauseFrequency, 'rootCauseFrequencyChart');
         }
         
         // Render top projects by loss chart
@@ -600,21 +606,21 @@ function renderChartsWhenReady(incidentData) {
         renderMonthlyDistributionChart(incidentData, 'monthlyDistributionChart', chartGrid);
         
         // Render protocol frequency chart
-        if (analysisResults.protocolFrequency && Object.keys(analysisResults.protocolFrequency).length > 0) {
-            const protocolFreqBox = createChartBox('Most Frequently Hacked Protocol Types', 'protocolFrequencyChart');
+        if (results.protocolFrequency && Object.keys(results.protocolFrequency).length > 0) {
+            const protocolFreqBox = createChartBox('Most Frequently Hacked Protocols', 'protocolFrequencyChart');
             chartGrid.appendChild(protocolFreqBox);
-            renderProtocolFrequencyChart(analysisResults.protocolFrequency, 'protocolFrequencyChart');
+            renderProtocolFrequencyChart(results.protocolFrequency, 'protocolFrequencyChart');
         }
         
         // Render attack types evolution over time chart
-        if (analysisResults.attackTypesByYear && analysisResults.attackTypesByYear.years.length > 0) {
+        if (results.attackTypesByYear && results.attackTypesByYear.years.length > 0) {
             const attackTypesEvolBox = createChartBox('Evolution of Attack Types by Year', 'attackTypesEvolutionChart');
             chartGrid.appendChild(attackTypesEvolBox);
-            renderAttackTypesEvolutionChart(analysisResults.attackTypesByYear, 'attackTypesEvolutionChart');
+            renderAttackTypesEvolutionChart(results.attackTypesByYear, 'attackTypesEvolutionChart');
         }
         
         // Add compact analytics section below charts
-        renderCompactAnalytics(chartContainer);
+        renderCompactAnalytics(chartContainer, results);
         
     } catch (error) {
         console.error('Error rendering charts:', error);
@@ -623,8 +629,8 @@ function renderChartsWhenReady(incidentData) {
 }
 
 // New function to render compact analytics section
-function renderCompactAnalytics(container) {
-    if (!analysisResults) return;
+function renderCompactAnalytics(container, results) {
+    if (!results) return;
     
     // Create compact analytics container
     const compactContainer = document.createElement('div');
@@ -645,7 +651,7 @@ function renderCompactAnalytics(container) {
     totalLossSection.className = 'compact-analytics-section';
     totalLossSection.innerHTML = `
         <h4>Total Estimated Loss</h4>
-        <div class="analytics-value">${formatCurrency(analysisResults.totalLoss)}</div>
+        <div class="analytics-value">${formatCurrency(results.totalLoss)}</div>
     `;
     grid.appendChild(totalLossSection);
     
@@ -654,10 +660,10 @@ function renderCompactAnalytics(container) {
     yearSection.className = 'compact-analytics-section';
     let yearContent = '<h4>Incidents by Year</h4><div class="analytics-tags">';
     
-    if (analysisResults.countByYear) {
-        const sortedYears = Object.keys(analysisResults.countByYear).sort((a, b) => b - a);
+    if (results.countByYear) {
+        const sortedYears = Object.keys(results.countByYear).sort((a, b) => b - a);
         for (const year of sortedYears) {
-            yearContent += `<span class="analytics-tag">${year}: ${analysisResults.countByYear[year]}</span>`;
+            yearContent += `<span class="analytics-tag">${year}: ${results.countByYear[year]}</span>`;
         }
     }
     
@@ -671,8 +677,8 @@ function renderCompactAnalytics(container) {
     
     let typeContent = '<h4>Most Common Attack Types</h4><div class="analytics-tags">';
     
-    if (analysisResults.countByType) {
-        const sortedTypes = Object.entries(analysisResults.countByType)
+    if (results.countByType) {
+        const sortedTypes = Object.entries(results.countByType)
             .sort(([, countA], [, countB]) => countB - countA);
         
         for (const [type, count] of sortedTypes) {
@@ -690,8 +696,8 @@ function renderCompactAnalytics(container) {
     
     let protocolContent = '<h4>Most Frequently Hacked Protocols</h4><div class="analytics-tags">';
     
-    if (analysisResults.protocolFrequency) {
-        const sortedProtocols = Object.entries(analysisResults.protocolFrequency)
+    if (results.protocolFrequency) {
+        const sortedProtocols = Object.entries(results.protocolFrequency)
             .sort(([, countA], [, countB]) => countB - countA)
             .slice(0, 10); // Show top 10 in compact view
         
@@ -705,17 +711,17 @@ function renderCompactAnalytics(container) {
     grid.appendChild(protocolSection);
     
     // Create trends section
-    if (analysisResults.attackTypesByYear && analysisResults.attackTypesByYear.years.length > 0) {
+    if (results.attackTypesByYear && results.attackTypesByYear.years.length > 0) {
         const trendsSection = document.createElement('div');
         trendsSection.className = 'compact-analytics-section wide-section';
         
         let trendsContent = '<h4>Attack Type Trends</h4><div class="trend-analysis">';
         
         // Get most recent year's top attack type
-        const years = analysisResults.attackTypesByYear.years;
+        const years = results.attackTypesByYear.years;
         const latestYear = years[years.length - 1];
-        const attackTypes = analysisResults.attackTypesByYear.attackTypes;
-        const data = analysisResults.attackTypesByYear.data;
+        const attackTypes = results.attackTypesByYear.attackTypes;
+        const data = results.attackTypesByYear.data;
         
         // Calculate the most common attack type for the latest year
         let maxCount = 0;
