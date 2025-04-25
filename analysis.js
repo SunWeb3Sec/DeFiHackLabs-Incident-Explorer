@@ -140,6 +140,272 @@ async function loadAndProcessData() {
                              .reduce((obj, [type, count]) => { obj[type] = count; return obj; }, {});
             }
 
+            // Function to count frequency of protocols being hacked
+            function getProtocolHackFrequency(incidentData) {
+                const protocolCounts = {};
+                const protocolMap = {}; // Map to normalize similar protocol names
+                
+                // Create a mapping of common protocol name variations
+                const commonProtocolMap = {
+                    // Exact matches or substring matches for known protocols
+                    'uni': 'Uniswap',
+                    'sushi': 'SushiSwap',
+                    'pancake': 'PancakeSwap',
+                    'curve': 'Curve Finance',
+                    'balancer': 'Balancer',
+                    'aave': 'Aave',
+                    'compound': 'Compound',
+                    'maker': 'MakerDAO',
+                    'weth': 'Wrapped ETH',
+                    'yearn': 'Yearn Finance',
+                    'kyber': 'Kyber Network',
+                    'synthetix': 'Synthetix',
+                    '0x': '0x Protocol',
+                    'cream': 'Cream Finance',
+                    'harvest': 'Harvest Finance',
+                    'bancor': 'Bancor',
+                    'parity': 'Parity',
+                    'beanstalk': 'Beanstalk',
+                    'ronin': 'Ronin Bridge',
+                    'badger': 'BadgerDAO',
+                    'cover': 'Cover Protocol',
+                    'pickle': 'Pickle Finance',
+                    'dforce': 'dForce',
+                    'lend': 'LendHub',
+                    'nomad': 'Nomad Bridge',
+                    'poly': 'Polygon',
+                    'harmony': 'Harmony',
+                    'rari': 'Rari Capital',
+                    'bsc': 'Binance Smart Chain',
+                    'ftx': 'FTX',
+                    'euler': 'Euler Finance',
+                    'mango': 'Mango Markets',
+                    'deus': 'Deus Finance',
+                    'fei': 'Fei Protocol',
+                    'platform': 'Generic Platform', // Skip platforms with generic names
+                    
+                    // Special cases that need exact mapping
+                    'orbit': 'Orbit Chain',
+                    'opyn': 'Opyn Protocol',
+                    'lendf': 'LendfMe',
+                    'bsc': 'BSC',
+                    'dao': 'Generic DAO',
+                    'contract': 'Generic Contract'
+                };
+                
+                // Special full name handling - exact matches override the substring matching
+                const exactNameMap = {
+                    'bZx': 'bZx',
+                    'dYdX': 'dYdX',
+                    'AlchemixFinance': 'Alchemix Finance',
+                    'Opyn': 'Opyn Protocol',
+                    'pNetwork': 'pNetwork',
+                    'OneRing': 'One Ring',
+                    'GMX': 'GMX',
+                    'BEAN': 'Bean Protocol',
+                    'FEI+TRIBE': 'Fei Protocol',
+                    'CREAM': 'Cream Finance',
+                    'PAID': 'PAID Network',
+                    'DODO': 'DODO Exchange',
+                    'ENS': 'ENS',
+                    'PancakeBunny': 'PancakeBunny',
+                    'BurgerSwap': 'BurgerSwap',
+                    'ForceDAO': 'ForceDAO',
+                    'Grim Finance': 'Grim Finance',
+                    '88mph': '88mph',
+                    'Orion Protocol': 'Orion Protocol'
+                };
+                
+                // Custom handling for NFT protocols
+                const nftProtocols = ['NFT', 'Bored Ape', 'CryptoPunk', 'Azuki', 'NFTrade', 'Ape', 'OpenSea', 'Doodle', 'BAYC'];
+                
+                // Helper function to check if a string contains any of the patterns
+                const containsAny = (str, patterns) => {
+                    const lowerStr = str.toLowerCase();
+                    return patterns.some(pattern => lowerStr.includes(pattern.toLowerCase()));
+                };
+                
+                // Specific category mappings
+                const mapToCategory = (name) => {
+                    // Check for NFT protocols
+                    if (containsAny(name, nftProtocols)) {
+                        return 'NFT Protocol';
+                    }
+                    
+                    // Check for other categories
+                    if (name.toLowerCase().includes('bridge')) return 'Bridge Protocol';
+                    if (name.toLowerCase().includes('swap')) return 'DEX Protocol';
+                    if (name.toLowerCase().includes('lend')) return 'Lending Protocol';
+                    if (name.toLowerCase().includes('dao')) return 'DAO Protocol';
+                    
+                    return null;
+                };
+                
+                // Cache for processed names to ensure consistency
+                const processedNameCache = new Map();
+                
+                // Iterate through all incidents
+                for (const incident of incidentData) {
+                    if (!incident.name) continue;
+                    
+                    // Check if we've already processed this name
+                    if (processedNameCache.has(incident.name)) {
+                        const cached = processedNameCache.get(incident.name);
+                        protocolCounts[cached] = (protocolCounts[cached] || 0) + 1;
+                        if (!protocolMap[cached]) protocolMap[cached] = new Set();
+                        protocolMap[cached].add(incident.name);
+                        continue;
+                    }
+                    
+                    // Handle special case where name is just a wallet/address or generic term
+                    if (/^0x[a-fA-F0-9]{10,}$/.test(incident.name) ||
+                        containsAny(incident.name, ['unverified', 'unknown', 'null', 'mev', 'wallet'])) {
+                        continue; // Skip these generic entries
+                    }
+                    
+                    // Check for exact name matches first
+                    if (exactNameMap[incident.name]) {
+                        const mappedName = exactNameMap[incident.name];
+                        processedNameCache.set(incident.name, mappedName);
+                        protocolCounts[mappedName] = (protocolCounts[mappedName] || 0) + 1;
+                        if (!protocolMap[mappedName]) protocolMap[mappedName] = new Set();
+                        protocolMap[mappedName].add(incident.name);
+                        continue;
+                    }
+                    
+                    // Clean the protocol name for more accurate matching
+                    let cleanName = incident.name
+                        .replace(/\s?[vV]\d+(\.\d+)?/i, '') // Remove version numbers like v1, v2.0
+                        .replace(/\s+Protocol$/i, '') // Remove common suffixes
+                        .replace(/\s+Finance$/i, '')
+                        .replace(/\s+DAO$/i, '')
+                        .replace(/\s+DeFi$/i, '')
+                        .replace(/\s+NFT$/i, '')
+                        .replace(/\s+Swap$/i, '')
+                        .replace(/\s+Bridge$/i, '')
+                        .replace(/\s+Exchange$/i, '')
+                        .replace(/\s+Capital$/i, '')
+                        .replace(/\s+Network$/i, '')
+                        .trim();
+                        
+                    // Extract core name (use full name or first segment)
+                    const nameComponents = cleanName.split(/[\s_\-()]/);
+                    const coreName = nameComponents[0].toLowerCase();
+                    
+                    // Try category mapping first
+                    const categoryName = mapToCategory(cleanName);
+                    if (categoryName) {
+                        processedNameCache.set(incident.name, categoryName);
+                        protocolCounts[categoryName] = (protocolCounts[categoryName] || 0) + 1;
+                        if (!protocolMap[categoryName]) protocolMap[categoryName] = new Set();
+                        protocolMap[categoryName].add(incident.name);
+                        continue;
+                    }
+                    
+                    // Check for common protocol name matches
+                    let foundMatch = false;
+                    for (const [pattern, mappedName] of Object.entries(commonProtocolMap)) {
+                        if (coreName === pattern || 
+                            coreName.includes(pattern) || 
+                            cleanName.toLowerCase().includes(pattern.toLowerCase())) {
+                            
+                            processedNameCache.set(incident.name, mappedName);
+                            protocolCounts[mappedName] = (protocolCounts[mappedName] || 0) + 1;
+                            if (!protocolMap[mappedName]) protocolMap[mappedName] = new Set();
+                            protocolMap[mappedName].add(incident.name);
+                            foundMatch = true;
+                            break;
+                        }
+                    }
+                    
+                    if (foundMatch) continue;
+                    
+                    // If no match found, use the cleaned name with proper capitalization
+                    let canonicalName;
+                    
+                    // For multi-word names, keep the full cleaned name with proper capitalization
+                    if (nameComponents.length > 1) {
+                        canonicalName = nameComponents.map(part => 
+                            part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()
+                        ).join(' ');
+                    } else {
+                        // For single word, capitalize first letter
+                        canonicalName = coreName.charAt(0).toUpperCase() + coreName.slice(1).toLowerCase();
+                    }
+                    
+                    processedNameCache.set(incident.name, canonicalName);
+                    protocolCounts[canonicalName] = (protocolCounts[canonicalName] || 0) + 1;
+                    if (!protocolMap[canonicalName]) protocolMap[canonicalName] = new Set();
+                    protocolMap[canonicalName].add(incident.name);
+                }
+                
+                // Log the mapping for debugging
+                console.log('Protocol mapping:', Object.fromEntries(
+                    Object.entries(protocolMap).map(([key, value]) => [key, Array.from(value)])
+                ));
+                
+                // Filter out protocol names with only one occurrence for chart clarity
+                const filteredCounts = Object.entries(protocolCounts)
+                    .filter(([, count]) => count > 1)
+                    .reduce((obj, [protocol, count]) => { 
+                        obj[protocol] = count; 
+                        return obj; 
+                    }, {});
+                
+                return Object.entries(filteredCounts)
+                    .sort(([, countA], [, countB]) => countB - countA)
+                    .slice(0, 15) // Take top 15 most frequently hacked protocols
+                    .reduce((obj, [protocol, count]) => { obj[protocol] = count; return obj; }, {});
+            }
+
+            // Function to analyze attack types by year to see trends
+            function getAttackTypesByYear(incidentData) {
+                // Get unique years and attack types
+                const years = new Set();
+                const attackTypes = new Set();
+                
+                // First pass: get all unique years and attack types
+                incidentData.forEach(incident => {
+                    if (incident.dateObj && incident.type) {
+                        const year = incident.dateObj.getUTCFullYear().toString();
+                        years.add(year);
+                        attackTypes.add(incident.type);
+                    }
+                });
+                
+                // Convert sets to sorted arrays
+                const sortedYears = Array.from(years).sort();
+                
+                // Keep only top 5 attack types to avoid chart clutter
+                const topAttackTypes = Object.entries(countByType)
+                    .sort((a, b) => b[1] - a[1])
+                    .slice(0, 5)
+                    .map(([type]) => type);
+                
+                // Create data structure for each attack type by year
+                const result = {};
+                topAttackTypes.forEach(attackType => {
+                    result[attackType] = sortedYears.reduce((acc, year) => {
+                        acc[year] = 0;
+                        return acc;
+                    }, {});
+                });
+                
+                // Second pass: count incidents by attack type and year
+                incidentData.forEach(incident => {
+                    if (incident.dateObj && incident.type && topAttackTypes.includes(incident.type)) {
+                        const year = incident.dateObj.getUTCFullYear().toString();
+                        result[incident.type][year]++;
+                    }
+                });
+                
+                return {
+                    years: sortedYears,
+                    attackTypes: topAttackTypes,
+                    data: result
+                };
+            }
+
             // --- Data Preparation ---
             combinedData = rawIncidents.map(incident => {
                 const rootCauseInfo = rootCauseData[incident.name] || {};
@@ -160,6 +426,8 @@ async function loadAndProcessData() {
             const countByType = countIncidentsByType(combinedData);
             const countByYear = countIncidentsByYear(combinedData);
             const rootCauseFrequency = getRootCauseTypeFrequency(combinedData, rootCauseData);
+            const protocolFrequency = getProtocolHackFrequency(combinedData);
+            const attackTypesByYear = getAttackTypesByYear(combinedData);
 
             analysisResults = {
                 totalLoss,
@@ -167,7 +435,9 @@ async function loadAndProcessData() {
                 lossByType,
                 countByType,
                 countByYear,
-                rootCauseFrequency
+                rootCauseFrequency,
+                protocolFrequency,
+                attackTypesByYear
             };
 
             dataLoaded = true;
@@ -329,6 +599,20 @@ function renderChartsWhenReady(incidentData) {
         // Render monthly distribution chart
         renderMonthlyDistributionChart(incidentData, 'monthlyDistributionChart', chartGrid);
         
+        // Render protocol frequency chart
+        if (analysisResults.protocolFrequency && Object.keys(analysisResults.protocolFrequency).length > 0) {
+            const protocolFreqBox = createChartBox('Most Frequently Hacked Protocol Types', 'protocolFrequencyChart');
+            chartGrid.appendChild(protocolFreqBox);
+            renderProtocolFrequencyChart(analysisResults.protocolFrequency, 'protocolFrequencyChart');
+        }
+        
+        // Render attack types evolution over time chart
+        if (analysisResults.attackTypesByYear && analysisResults.attackTypesByYear.years.length > 0) {
+            const attackTypesEvolBox = createChartBox('Evolution of Attack Types by Year', 'attackTypesEvolutionChart');
+            chartGrid.appendChild(attackTypesEvolBox);
+            renderAttackTypesEvolutionChart(analysisResults.attackTypesByYear, 'attackTypesEvolutionChart');
+        }
+        
         // Add compact analytics section below charts
         renderCompactAnalytics(chartContainer);
         
@@ -381,10 +665,11 @@ function renderCompactAnalytics(container) {
     yearSection.innerHTML = yearContent;
     grid.appendChild(yearSection);
     
-    // Incidents by Type
+    // Create incident types section
     const typeSection = document.createElement('div');
-    typeSection.className = 'compact-analytics-section wide-section';
-    let typeContent = '<h4>Incidents by Type</h4><div class="analytics-tags">';
+    typeSection.className = 'compact-analytics-section';
+    
+    let typeContent = '<h4>Most Common Attack Types</h4><div class="analytics-tags">';
     
     if (analysisResults.countByType) {
         const sortedTypes = Object.entries(analysisResults.countByType)
@@ -398,6 +683,88 @@ function renderCompactAnalytics(container) {
     typeContent += '</div>';
     typeSection.innerHTML = typeContent;
     grid.appendChild(typeSection);
+    
+    // Create protocol frequency section
+    const protocolSection = document.createElement('div');
+    protocolSection.className = 'compact-analytics-section';
+    
+    let protocolContent = '<h4>Most Frequently Hacked Protocols</h4><div class="analytics-tags">';
+    
+    if (analysisResults.protocolFrequency) {
+        const sortedProtocols = Object.entries(analysisResults.protocolFrequency)
+            .sort(([, countA], [, countB]) => countB - countA)
+            .slice(0, 10); // Show top 10 in compact view
+        
+        for (const [protocol, count] of sortedProtocols) {
+            protocolContent += `<span class="analytics-tag">${protocol}: ${count}</span>`;
+        }
+    }
+    
+    protocolContent += '</div>';
+    protocolSection.innerHTML = protocolContent;
+    grid.appendChild(protocolSection);
+    
+    // Create trends section
+    if (analysisResults.attackTypesByYear && analysisResults.attackTypesByYear.years.length > 0) {
+        const trendsSection = document.createElement('div');
+        trendsSection.className = 'compact-analytics-section wide-section';
+        
+        let trendsContent = '<h4>Attack Type Trends</h4><div class="trend-analysis">';
+        
+        // Get most recent year's top attack type
+        const years = analysisResults.attackTypesByYear.years;
+        const latestYear = years[years.length - 1];
+        const attackTypes = analysisResults.attackTypesByYear.attackTypes;
+        const data = analysisResults.attackTypesByYear.data;
+        
+        // Calculate the most common attack type for the latest year
+        let maxCount = 0;
+        let topTypeLatestYear = '';
+        
+        attackTypes.forEach(type => {
+            const count = data[type][latestYear] || 0;
+            if (count > maxCount) {
+                maxCount = count;
+                topTypeLatestYear = type;
+            }
+        });
+        
+        // Find fastest growing attack type (compare latest two years)
+        let fastestGrowingType = '';
+        let highestGrowth = 0;
+        
+        if (years.length >= 2) {
+            const previousYear = years[years.length - 2];
+            
+            attackTypes.forEach(type => {
+                const currentCount = data[type][latestYear] || 0;
+                const previousCount = data[type][previousYear] || 0;
+                const growth = currentCount - previousCount;
+                
+                if (growth > highestGrowth) {
+                    highestGrowth = growth;
+                    fastestGrowingType = type;
+                }
+            });
+        }
+        
+        // Add insights
+        trendsContent += `<div class="trend-insight">
+            <span class="trend-label">Most Common in ${latestYear}:</span>
+            <span class="trend-value">${topTypeLatestYear} (${maxCount} incidents)</span>
+        </div>`;
+        
+        if (fastestGrowingType) {
+            trendsContent += `<div class="trend-insight">
+                <span class="trend-label">Fastest Growing:</span>
+                <span class="trend-value">${fastestGrowingType} (+${highestGrowth} incidents)</span>
+            </div>`;
+        }
+        
+        trendsContent += '</div>';
+        trendsSection.innerHTML = trendsContent;
+        grid.appendChild(trendsSection);
+    }
     
     // Add grid to container
     compactContainer.appendChild(grid);
@@ -784,6 +1151,152 @@ function renderMonthlyDistributionChart(incidentData, canvasId, chartGrid) {
     });
 }
 
+// Function to render protocol frequency chart
+function renderProtocolFrequencyChart(protocolFrequency, canvasId) {
+    const ctx = document.getElementById(canvasId).getContext('2d');
+    
+    // Limit to top protocols for clarity
+    const topN = 8;
+    const topProtocolsData = Object.entries(protocolFrequency).slice(0, topN);
+    
+    // Sort by frequency
+    topProtocolsData.sort((a, b) => b[1] - a[1]);
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: topProtocolsData.map(([protocol]) => protocol),
+            datasets: [{
+                label: 'Incident Count',
+                data: topProtocolsData.map(([, count]) => count),
+                backgroundColor: sciFiColors[5],
+                borderColor: 'rgba(0, 10, 20, 0.8)',
+                borderWidth: 1,
+                borderRadius: 4,
+                barThickness: 'flex'
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                title: { display: false }
+            },
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    ticks: { color: sciFiTickColor, font: sciFiFont },
+                    grid: { color: sciFiGridColor }
+                },
+                y: {
+                    ticks: { 
+                        color: sciFiTickColor, 
+                        font: sciFiFont,
+                        callback: function(value) {
+                            // Truncate long labels
+                            const label = this.getLabelForValue(value);
+                            if (label.length > 20) {
+                                return label.substr(0, 18) + '...';
+                            }
+                            return label;
+                        }
+                    },
+                    grid: { display: false }
+                }
+            }
+        }
+    });
+}
+
+// Function to render attack types evolution over time chart
+function renderAttackTypesEvolutionChart(attackTypesByYear, canvasId) {
+    const ctx = document.getElementById(canvasId).getContext('2d');
+    
+    // Extract data for the chart
+    const years = attackTypesByYear.years;
+    const attackTypes = attackTypesByYear.attackTypes;
+    const data = attackTypesByYear.data;
+    
+    // Create a more vivid array of colors with transparency
+    const fillColors = [
+        'rgba(0, 255, 255, 0.2)', // Cyan
+        'rgba(255, 0, 255, 0.2)', // Magenta
+        'rgba(50, 255, 50, 0.2)',  // Lime Green
+        'rgba(255, 100, 0, 0.2)', // Orange
+        'rgba(100, 100, 255, 0.2)' // Purple-Blue
+    ];
+    
+    // Prepare chart data
+    const chartData = {
+        labels: years,
+        datasets: attackTypes.map((attackType, index) => ({
+            label: attackType,
+            data: years.map(year => data[attackType][year] || 0),
+            borderColor: sciFiColors[index % sciFiColors.length],
+            backgroundColor: fillColors[index % fillColors.length],
+            borderWidth: 2,
+            fill: true,
+            tension: 0.2,
+            pointRadius: 4,
+            pointBackgroundColor: sciFiColors[index % sciFiColors.length],
+            pointHoverRadius: 6
+        }))
+    };
+
+    new Chart(ctx, {
+        type: 'line',
+        data: chartData,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: {
+                        padding: 15,
+                        color: sciFiTickColor,
+                        font: sciFiFont,
+                        usePointStyle: true,
+                        pointStyle: 'circle'
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        title: function(tooltipItems) {
+                            return 'Year: ' + tooltipItems[0].label;
+                        },
+                        label: function(context) {
+                            return `${context.dataset.label}: ${context.raw} incidents`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: { 
+                        color: sciFiTickColor, 
+                        font: sciFiFont,
+                        precision: 0
+                    },
+                    grid: { color: sciFiGridColor }
+                },
+                x: {
+                    ticks: { color: sciFiTickColor, font: sciFiFont },
+                    grid: { color: sciFiGridColor }
+                }
+            },
+            interaction: {
+                mode: 'nearest',
+                axis: 'x',
+                intersect: false
+            }
+        }
+    });
+}
+
 // Function to make the analytics section collapsible
 export function makeAnalyticsCollapsible() {
     // Create a toggle button container
@@ -999,6 +1512,37 @@ function addAnalyticsStyles() {
             font-size: 12px;
             font-family: 'Rajdhani', sans-serif;
             white-space: nowrap;
+        }
+        
+        .trend-analysis {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .trend-insight {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 10px 15px;
+            border-left: 3px solid #00ffff;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .trend-label {
+            color: #ffffff;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .trend-value {
+            color: #ff00ff;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            text-shadow: 0 0 5px rgba(255, 0, 255, 0.5);
         }
         
         @media (max-width: 768px) {
