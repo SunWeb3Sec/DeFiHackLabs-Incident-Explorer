@@ -480,7 +480,37 @@ document.addEventListener('DOMContentLoaded', async function() {
             console.warn('Could not find total incidents stat element');
         }
         
-        // Note: Total Loss display usually shows the overall total, not filtered total.
+        // Calculate total loss in USD for filtered data
+        let totalUsdLoss = 0;
+        filteredIncidents.forEach(incident => {
+            if (incident.Lost && !isNaN(incident.Lost)) {
+                if (incident.lossType === 'USD') {
+                    totalUsdLoss += parseFloat(incident.Lost);
+                } else if (incident.lossType === 'ETH' || incident.lossType === 'WETH') {
+                    // Approximate conversion (in a real app, you'd use current rates)
+                    totalUsdLoss += parseFloat(incident.Lost) * 2500; // Approximate ETH value
+                } else if (incident.lossType === 'BNB' || incident.lossType === 'WBNB') {
+                    // Approximate conversion
+                    totalUsdLoss += parseFloat(incident.Lost) * 500; // Approximate BNB value
+                } else if (incident.lossType === 'BTC' || incident.lossType === 'WBTC') {
+                    // Approximate conversion for BTC/WBTC
+                    totalUsdLoss += parseFloat(incident.Lost) * 60000; // Approximate BTC value
+                }
+                // Add other conversions as needed
+            }
+        });
+        
+        // Format total loss with commas
+        const formattedLoss = '$' + totalUsdLoss.toLocaleString('en-US', {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0
+        });
+        
+        // Update total loss display
+        const totalLossElement = document.getElementById('total-loss-stat');
+        if (totalLossElement) {
+            totalLossElement.querySelector('p').textContent = formattedLoss;
+        }
         
         // Update root cause count if sorting by root cause
         const sortBy = document.getElementById('sort-filter')?.value;
@@ -510,6 +540,16 @@ document.addEventListener('DOMContentLoaded', async function() {
         const monthName = months[parseInt(month, 10) - 1];
         
         return `${monthName} ${parseInt(day, 10)}, ${year}`;
+    }
+    
+    // Function to convert date to YYYY-MM-DD format for rootCauseData comparison
+    function formatDateForComparison(dateStr) {
+        if (!dateStr) return '';
+        const year = dateStr.substring(0, 4);
+        const month = dateStr.substring(4, 6);
+        const day = dateStr.substring(6, 8);
+        
+        return `${year}-${month}-${day}`;
     }
     
     // Function to format loss amount
@@ -571,6 +611,12 @@ document.addEventListener('DOMContentLoaded', async function() {
             return;
         }
         
+        // Log for debugging
+        console.log(`Project: ${projectName}`);
+        console.log(`Incident date: ${incident.date}`);
+        console.log(`Root cause date: ${projectData.date}`);
+        console.log(`Formatted incident date: ${formatDateForComparison(incident.date)}`);
+        
         // Get modal elements
         const modal = document.getElementById('rootCauseModal');
         const modalTitle = document.getElementById('modalTitle');
@@ -593,7 +639,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         modalTitle.textContent = 'Root Cause Analysis';
         modalProjectName.textContent = projectName;
         modalType.textContent = `Attack Type: ${projectData.type || incident.type || 'Unknown'}`;
-        modalDate.textContent = `Date: ${formatDate(incident.date) || 'Unknown'}`;
+        modalDate.textContent = `Date: ${projectData.date || formatDate(incident.date) || 'Unknown'}`;
         modalLoss.textContent = `Loss: ${formatLoss(projectData.Lost || incident.Lost, incident.lossType)}`;
         
         // Root cause analysis
