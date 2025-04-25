@@ -39,20 +39,91 @@ document.addEventListener('DOMContentLoaded', async function() {
     // Clear container to prevent duplication issues
     tableContainerElement.innerHTML = '';
     
+    // Create and display loading indicator
+    const loadingContainer = document.createElement('div');
+    loadingContainer.className = 'loading-container';
+    loadingContainer.innerHTML = `
+        <div class="loading-content">
+            <div class="loading-header">Initializing DeFi Hack Explorer</div>
+            <div class="loading-progress-container">
+                <div class="loading-progress-bar" id="loading-progress-bar"></div>
+            </div>
+            <div class="loading-section" id="loading-section">Connecting to blockchain...</div>
+            <div class="loading-details" id="loading-details">Establishing secure connection</div>
+        </div>
+    `;
+    tableContainerElement.appendChild(loadingContainer);
+    
+    // Progress bar and loading text elements
+    const progressBar = document.getElementById('loading-progress-bar');
+    const loadingSection = document.getElementById('loading-section');
+    const loadingDetails = document.getElementById('loading-details');
+    
+    // Update loading progress
+    const updateLoadingProgress = (percent, section, details) => {
+        progressBar.style.width = `${percent}%`;
+        
+        if (section) {
+            loadingSection.textContent = section;
+            // Add glitch effect on text change
+            loadingSection.classList.add('text-glitch');
+            setTimeout(() => loadingSection.classList.remove('text-glitch'), 500);
+        }
+        
+        if (details) {
+            loadingDetails.textContent = details;
+        }
+    };
+    
     try {
+        // Initialize with 0% progress
+        updateLoadingProgress(0, 'Initializing', 'Preparing to fetch data');
+        
+        // Simulate initial delay for visual effect
+        await new Promise(resolve => setTimeout(resolve, 800));
+        updateLoadingProgress(5, 'Establishing Connection', 'Connecting to data sources');
+        await new Promise(resolve => setTimeout(resolve, 600));
+        
         // 1. Load data first
+        updateLoadingProgress(15, 'Loading Incident Data', 'Fetching DeFi hack incidents');
         await loadAndProcessData();
+        updateLoadingProgress(60, 'Analyzing Data', 'Processing incident information');
+        await new Promise(resolve => setTimeout(resolve, 400));
         console.log("Data loaded, proceeding with UI setup.");
         
         // 2. Fetch initial currency rates
+        updateLoadingProgress(75, 'Fetching Currency Rates', 'Converting financial data');
         await fetchCurrencyRates();
+        updateLoadingProgress(90, 'Rendering UI', 'Preparing interactive elements');
         
-        // 3. Create UI components in the correct order
-        createUI();
+        // Add a small delay before completing
+        await new Promise(resolve => setTimeout(resolve, 500));
+        updateLoadingProgress(100, 'Complete', 'Ready to explore');
+        
+        // Remove loading container after a slight delay
+        setTimeout(() => {
+            loadingContainer.classList.add('fade-out');
+            setTimeout(() => {
+                loadingContainer.remove();
+                // 3. Create UI components in the correct order
+                createUI();
+            }, 500);
+        }, 600);
         
     } catch (error) {
         console.error('Failed to initialize incident explorer:', error);
-        tableContainerElement.innerHTML = '<p class="error-message">Failed to load incident data: ' + error.message + '</p>';
+        loadingContainer.innerHTML = `
+            <div class="loading-error">
+                <div class="error-icon">⚠️</div>
+                <div class="error-message">Failed to load incident data: ${error.message}</div>
+                <button class="retry-button">Retry</button>
+            </div>
+        `;
+        
+        // Add retry functionality
+        document.querySelector('.retry-button')?.addEventListener('click', () => {
+            window.location.reload();
+        });
     }
     
     // Function to fetch currency rates from APIs
