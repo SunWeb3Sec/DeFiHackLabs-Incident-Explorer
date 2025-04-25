@@ -16,6 +16,10 @@ document.addEventListener('DOMContentLoaded', async function() {
     let sortedProjects = [];
     let currentProjectIndex = -1;
     
+    // Variables for table sorting
+    let currentSortColumn = null;
+    let currentSortDirection = 'desc'; // 'asc' or 'desc'
+    
     // Currency conversion rates cache
     let conversionRates = {
         'USD': 1 // Base currency is always 1
@@ -441,11 +445,47 @@ document.addEventListener('DOMContentLoaded', async function() {
         // Create table header
         const thead = document.createElement('thead');
         const headerRow = document.createElement('tr');
-        ['Date', 'Project', 'Attack Type', 'Loss Amount', 'Root Cause', 'POC'].forEach(header => {
+        
+        // Column definitions with their data keys and display names
+        const columns = [
+            { key: 'date', display: 'Date' },
+            { key: 'name', display: 'Project' },
+            { key: 'type', display: 'Attack Type' },
+            { key: 'Lost', display: 'Loss Amount' },
+            { key: 'rootCause', display: 'Root Cause' },
+            { key: 'poc', display: 'POC' }
+        ];
+
+        // Add each header with sort functionality
+        columns.forEach(column => {
             const th = document.createElement('th');
-            th.textContent = header;
+            th.textContent = column.display;
+            th.dataset.key = column.key;
+            
+            // Add sort indicator if this column is currently sorted
+            if (currentSortColumn === column.key) {
+                const indicator = document.createElement('span');
+                indicator.className = 'sort-indicator';
+                indicator.textContent = currentSortDirection === 'asc' ? ' ▲' : ' ▼';
+                th.appendChild(indicator);
+            }
+            
+            // Add click event for sorting
+            th.addEventListener('click', () => {
+                // Toggle direction if same column, otherwise default to descending
+                if (currentSortColumn === column.key) {
+                    currentSortDirection = currentSortDirection === 'desc' ? 'asc' : 'desc';
+                } else {
+                    currentSortColumn = column.key;
+                    currentSortDirection = 'desc'; // Default to descending order
+                }
+                
+                updateTable();
+            });
+            
             headerRow.appendChild(th);
         });
+        
         thead.appendChild(headerRow);
         table.appendChild(thead);
 
@@ -476,30 +516,75 @@ document.addEventListener('DOMContentLoaded', async function() {
             return matchesYear && matchesType && matchesSearch;
         });
 
-        // Sort incidents based on selected criteria
-        switch(sortBy) {
-            case 'loss_high':
-                filteredIncidents.sort((a, b) => (b.Lost || 0) - (a.Lost || 0));
-                break;
-            case 'loss_low':
-                filteredIncidents.sort((a, b) => (a.Lost || 0) - (b.Lost || 0));
-                break;
-            case 'root_cause_first':
-                filteredIncidents.sort((a, b) => {
-                    const aHasRootCause = rootCauseData[a.name] ? 1 : 0;
-                    const bHasRootCause = rootCauseData[b.name] ? 1 : 0;
-                    
-                    // If both have or don't have root cause, sort by date (latest first)
-                    if (aHasRootCause === bHasRootCause) {
-                        return b.date.localeCompare(a.date);
-                    }
-                    
-                    // Otherwise, prioritize the one with root cause
-                    return bHasRootCause - aHasRootCause;
-                });
-                break;
-            default: // date
-                filteredIncidents.sort((a, b) => b.date.localeCompare(a.date));
+        // Sort incidents based on header clicks or dropdown
+        if (currentSortColumn) {
+            // Custom sorting based on the column
+            filteredIncidents.sort((a, b) => {
+                let valueA, valueB;
+                
+                switch(currentSortColumn) {
+                    case 'date':
+                        return currentSortDirection === 'asc' 
+                            ? a.date.localeCompare(b.date)
+                            : b.date.localeCompare(a.date);
+                    case 'name':
+                        return currentSortDirection === 'asc'
+                            ? a.name.localeCompare(b.name)
+                            : b.name.localeCompare(a.name);
+                    case 'type':
+                        valueA = a.type || '';
+                        valueB = b.type || '';
+                        return currentSortDirection === 'asc'
+                            ? valueA.localeCompare(valueB)
+                            : valueB.localeCompare(valueA);
+                    case 'Lost':
+                        valueA = a.Lost || 0;
+                        valueB = b.Lost || 0;
+                        return currentSortDirection === 'asc'
+                            ? valueA - valueB
+                            : valueB - valueA;
+                    case 'rootCause':
+                        valueA = rootCauseData[a.name] ? 1 : 0;
+                        valueB = rootCauseData[b.name] ? 1 : 0;
+                        return currentSortDirection === 'asc'
+                            ? valueA - valueB
+                            : valueB - valueA;
+                    case 'poc':
+                        valueA = a.Contract ? 1 : 0;
+                        valueB = b.Contract ? 1 : 0;
+                        return currentSortDirection === 'asc'
+                            ? valueA - valueB
+                            : valueB - valueA;
+                    default:
+                        return 0;
+                }
+            });
+        } else {
+            // Fallback to the dropdown sort if no column sorting is active
+            switch(sortBy) {
+                case 'loss_high':
+                    filteredIncidents.sort((a, b) => (b.Lost || 0) - (a.Lost || 0));
+                    break;
+                case 'loss_low':
+                    filteredIncidents.sort((a, b) => (a.Lost || 0) - (b.Lost || 0));
+                    break;
+                case 'root_cause_first':
+                    filteredIncidents.sort((a, b) => {
+                        const aHasRootCause = rootCauseData[a.name] ? 1 : 0;
+                        const bHasRootCause = rootCauseData[b.name] ? 1 : 0;
+                        
+                        // If both have or don't have root cause, sort by date (latest first)
+                        if (aHasRootCause === bHasRootCause) {
+                            return b.date.localeCompare(a.date);
+                        }
+                        
+                        // Otherwise, prioritize the one with root cause
+                        return bHasRootCause - aHasRootCause;
+                    });
+                    break;
+                default: // date
+                    filteredIncidents.sort((a, b) => b.date.localeCompare(a.date));
+            }
         }
 
         // Calculate pagination boundaries
@@ -1091,6 +1176,24 @@ document.addEventListener('DOMContentLoaded', async function() {
                 font-size: 10px;
                 color: rgba(255, 255, 255, 0.7);
                 transition: color 0.3s ease;
+            }
+            
+            /* Sort indicator styles */
+            .incidents-table th {
+                cursor: pointer;
+                position: relative;
+                user-select: none;
+            }
+            
+            .incidents-table th:hover {
+                background-color: rgba(0, 255, 255, 0.1);
+            }
+            
+            .incidents-table th .sort-indicator {
+                display: inline-block;
+                color: #ff00ff;
+                text-shadow: 0 0 5px #ff00ff;
+                margin-left: 8px;
             }
         `;
         document.head.appendChild(style);
