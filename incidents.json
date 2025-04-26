@@ -2097,7 +2097,7 @@
   },
   {
     "date": "20231013",
-    "name": "WiseLending",
+    "name": "WiseLending_",
     "type": "Logic Flaw",
     "Lost": 260000.0,
     "lossType": "USD",
@@ -3433,7 +3433,7 @@
   },
   {
     "date": "20241002",
-    "name": "LavaLending",
+    "name": "LavaLending_",
     "type": "Price Manipulation",
     "Lost": 340000.0,
     "lossType": "USD",
