@@ -39,80 +39,20 @@ document.addEventListener('DOMContentLoaded', async function() {
     // Clear container to prevent duplication issues
     tableContainerElement.innerHTML = '';
     
-    // Create and display loading indicator
-    const loadingContainer = document.createElement('div');
-    loadingContainer.className = 'loading-container';
-    loadingContainer.innerHTML = `
-        <div class="loading-content">
-            <div class="loading-header">Initializing DeFi Hack Explorer</div>
-            <div class="loading-progress-container">
-                <div class="loading-progress-bar" id="loading-progress-bar"></div>
-            </div>
-            <div class="loading-section" id="loading-section">Connecting to blockchain...</div>
-            <div class="loading-details" id="loading-details">Establishing secure connection</div>
-        </div>
-    `;
-    tableContainerElement.appendChild(loadingContainer);
-    
-    // Progress bar and loading text elements
-    const progressBar = document.getElementById('loading-progress-bar');
-    const loadingSection = document.getElementById('loading-section');
-    const loadingDetails = document.getElementById('loading-details');
-    
-    // Update loading progress
-    const updateLoadingProgress = (percent, section, details) => {
-        progressBar.style.width = `${percent}%`;
-        
-        if (section) {
-            loadingSection.textContent = section;
-            // Add glitch effect on text change
-            loadingSection.classList.add('text-glitch');
-            setTimeout(() => loadingSection.classList.remove('text-glitch'), 500);
-        }
-        
-        if (details) {
-            loadingDetails.textContent = details;
-        }
-    };
-    
     try {
-        // Initialize with 0% progress
-        updateLoadingProgress(0, 'Initializing', 'Preparing to fetch data');
-        
-        // Simulate initial delay for visual effect
-        await new Promise(resolve => setTimeout(resolve, 800));
-        updateLoadingProgress(5, 'Establishing Connection', 'Connecting to data sources');
-        await new Promise(resolve => setTimeout(resolve, 600));
-        
         // 1. Load data first
-        updateLoadingProgress(15, 'Loading Incident Data', 'Fetching DeFi hack incidents');
         await loadAndProcessData();
-        updateLoadingProgress(60, 'Analyzing Data', 'Processing incident information');
-        await new Promise(resolve => setTimeout(resolve, 400));
         console.log("Data loaded, proceeding with UI setup.");
         
         // 2. Fetch initial currency rates
-        updateLoadingProgress(75, 'Fetching Currency Rates', 'Converting financial data');
         await fetchCurrencyRates();
-        updateLoadingProgress(90, 'Rendering UI', 'Preparing interactive elements');
         
-        // Add a small delay before completing
-        await new Promise(resolve => setTimeout(resolve, 500));
-        updateLoadingProgress(100, 'Complete', 'Ready to explore');
-        
-        // Remove loading container after a slight delay
-        setTimeout(() => {
-            loadingContainer.classList.add('fade-out');
-            setTimeout(() => {
-                loadingContainer.remove();
-                // 3. Create UI components in the correct order
-                createUI();
-            }, 500);
-        }, 600);
+        // 3. Create UI components
+        createUI();
         
     } catch (error) {
         console.error('Failed to initialize incident explorer:', error);
-        loadingContainer.innerHTML = `
+        tableContainerElement.innerHTML = `
             <div class="loading-error">
                 <div class="error-icon">⚠️</div>
                 <div class="error-message">Failed to load incident data: ${error.message}</div>
@@ -173,6 +113,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                 if (forexData.rates.CNY) conversionRates['CNY'] = forexData.rates.CNY;
                 if (forexData.rates.AED) conversionRates['AED'] = forexData.rates.AED;
                 if (forexData.rates.KWD) conversionRates['KWD'] = forexData.rates.KWD;
+                if (forexData.rates.TWD) conversionRates['TWD'] = forexData.rates.TWD;
             } else {
                 // Fallback values if API fails
                 conversionRates['EUR'] = 0.92;
@@ -181,6 +122,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                 conversionRates['CNY'] = 7.2;
                 conversionRates['AED'] = 3.67;  // Fallback: 1 USD ≈ 3.67 AED
                 conversionRates['KWD'] = 0.31;  // Fallback: 1 USD ≈ 0.31 KWD
+                conversionRates['TWD'] = 32.0;  // Fallback: 1 USD ≈ 32.0 TWD
                 console.warn('Using fallback values for forex conversion');
             }
             
@@ -198,7 +140,8 @@ document.addEventListener('DOMContentLoaded', async function() {
                 'JPY': 150.5,    // Fallback: 1 USD ≈ 150.5 JPY
                 'CNY': 7.2,      // Fallback: 1 USD ≈ 7.2 CNY
                 'AED': 3.67,     // Fallback: 1 USD ≈ 3.67 AED
-                'KWD': 0.31      // Fallback: 1 USD ≈ 0.31 KWD
+                'KWD': 0.31,     // Fallback: 1 USD ≈ 0.31 KWD
+                'TWD': 32.0      // Fallback: 1 USD ≈ 32.0 TWD
             };
         }
     }
@@ -231,67 +174,6 @@ document.addEventListener('DOMContentLoaded', async function() {
             <p>${formatCurrency(analysisResults.totalLoss)}</p>
         `;
         statsContainer.appendChild(totalLossBox);
-        
-        // Add refresh rates button
-        const refreshRatesBox = document.createElement('div');
-        refreshRatesBox.className = 'stat-box refresh-rates-box';
-        refreshRatesBox.innerHTML = `
-            <button id="refresh-rates" class="refresh-rates-btn">
-                <span>Refresh Rates</span>
-                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M23 4v6h-6"></path>
-                    <path d="M1 20v-6h6"></path>
-                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
-                </svg>
-            </button>
-            <div id="rates-updated" class="rates-updated">Last updated: ${new Date().toLocaleTimeString()}</div>
-        `;
-        statsContainer.appendChild(refreshRatesBox);
-        
-        // Add settings button
-        const settingsBox = document.createElement('div');
-        settingsBox.className = 'stat-box settings-box';
-        settingsBox.innerHTML = `
-            <button id="open-settings" class="settings-button">
-                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="3"></circle>
-                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-                </svg>
-                <span>Settings</span>
-            </button>
-        `;
-        statsContainer.appendChild(settingsBox);
-        
-        // Add event listener to refresh rates button
-        document.getElementById('refresh-rates')?.addEventListener('click', async () => {
-            const button = document.getElementById('refresh-rates');
-            if (button) button.disabled = true;
-            
-            try {
-                await fetchCurrencyRates();
-                updateTable(); // Update the table to reflect new rates
-                
-                // Update last updated time
-                const ratesUpdated = document.getElementById('rates-updated');
-                if (ratesUpdated) {
-                    ratesUpdated.textContent = `Last updated: ${new Date().toLocaleTimeString()}`;
-                    ratesUpdated.style.color = '#00ffff'; // Highlight that it was updated
-                    setTimeout(() => {
-                        if (ratesUpdated) ratesUpdated.style.color = ''; // Reset color after 2 seconds
-                    }, 2000);
-                }
-            } catch (error) {
-                console.error('Failed to refresh rates:', error);
-                // Show error message
-                const ratesUpdated = document.getElementById('rates-updated');
-                if (ratesUpdated) {
-                    ratesUpdated.textContent = 'Failed to update rates';
-                    ratesUpdated.style.color = '#ff0000'; // Red for error
-                }
-            } finally {
-                if (button) button.disabled = false;
-            }
-        });
         
         tableContainerElement.appendChild(statsContainer);
         
@@ -349,18 +231,38 @@ document.addEventListener('DOMContentLoaded', async function() {
         const prevButton = modal.querySelector('.prev-button');
         if (prevButton) {
             prevButton.addEventListener('click', () => {
-                if (currentProjectIndex > 0) {
-                    showRootCauseModal(sortedProjects[currentProjectIndex - 1]);
+                // Find the previous project with root cause data
+                for (let i = currentProjectIndex - 1; i >= 0; i--) {
+                    const prevProjectName = sortedProjects[i];
+                    if (rootCauseData[prevProjectName]) {
+                        console.log(`Navigating to previous project: ${prevProjectName}`);
+                        showRootCauseModal(prevProjectName);
+                        return;
+                    }
                 }
+                
+                // If we reached here, there are no previous projects with root cause data
+                console.log('No previous projects with root cause data');
+                alert('No more projects with root cause analysis available.');
             });
         }
         
         const nextButton = modal.querySelector('.next-button');
         if (nextButton) {
             nextButton.addEventListener('click', () => {
-                if (currentProjectIndex < sortedProjects.length - 1) {
-                    showRootCauseModal(sortedProjects[currentProjectIndex + 1]);
+                // Find the next project with root cause data
+                for (let i = currentProjectIndex + 1; i < sortedProjects.length; i++) {
+                    const nextProjectName = sortedProjects[i];
+                    if (rootCauseData[nextProjectName]) {
+                        console.log(`Navigating to next project: ${nextProjectName}`);
+                        showRootCauseModal(nextProjectName);
+                        return;
+                    }
                 }
+                
+                // If we reached here, there are no more projects with root cause data
+                console.log('No more projects with root cause data');
+                alert('No more projects with root cause analysis available.');
             });
         }
         
@@ -449,8 +351,21 @@ document.addEventListener('DOMContentLoaded', async function() {
                 <option value="CNY">Chinese Yuan (¥)</option>
                 <option value="AED">UAE Dirham (د.إ)</option>
                 <option value="KWD">Kuwaiti Dinar (د.ك)</option>
+                <option value="TWD">Taiwan Dollar (NT$)</option>
             </select>
         `;
+        
+        // Create settings button
+        const settingsButton = document.createElement('div');
+        settingsButton.className = 'filter-group settings-filter-group';
+        settingsButton.innerHTML = `
+            <button id="open-settings" class="settings-button" title="Settings">
+                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+        </button>
+    `;
     
         // Create search box
         const searchBox = document.createElement('input');
@@ -468,6 +383,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         filtersContainer.appendChild(typeFilter);
         filtersContainer.appendChild(sortFilter);
         filtersContainer.appendChild(currencyFilter);
+        filtersContainer.appendChild(settingsButton);
         filtersRow.appendChild(filtersContainer);
         tableContainerElement.appendChild(filtersRow);
         
@@ -515,6 +431,11 @@ document.addEventListener('DOMContentLoaded', async function() {
         document.getElementById('search-box')?.addEventListener('input', () => {
             currentPage = 1;
             updateTable();
+        });
+        
+        // Add event listener for the settings button in the filter section
+        document.getElementById('open-settings')?.addEventListener('click', () => {
+            openSettingsPanel();
         });
     }
 
@@ -1019,6 +940,8 @@ document.addEventListener('DOMContentLoaded', async function() {
                 return 'د.إ' + formattedValue;
             case 'KWD':
                 return 'د.ك' + formattedValue;
+            case 'TWD':
+                return 'NT$' + formattedValue;
             default:
                 return formattedValue + ' ' + displayCurrency;
         }
@@ -1040,15 +963,87 @@ document.addEventListener('DOMContentLoaded', async function() {
         return `<a href="${githubPrefix}${pocLink}" target="_blank">View POC</a>`;
     }
 
+    // Function to update navigation button states based on current project index
+    function updateNavigationButtonStates() {
+        const prevButton = document.querySelector('.prev-button');
+        const nextButton = document.querySelector('.next-button');
+        
+        if (!prevButton || !nextButton) {
+            console.warn('Navigation buttons not found');
+            return;
+        }
+        
+        // Find previous project with root cause data
+        let hasPrevious = false;
+        for (let i = currentProjectIndex - 1; i >= 0; i--) {
+            if (rootCauseData[sortedProjects[i]]) {
+                hasPrevious = true;
+                break;
+            }
+        }
+        
+        // Find next project with root cause data
+        let hasNext = false;
+        for (let i = currentProjectIndex + 1; i < sortedProjects.length; i++) {
+            if (rootCauseData[sortedProjects[i]]) {
+                hasNext = true;
+                break;
+            }
+        }
+        
+        // Disable/enable previous button based on available projects with root cause data
+        if (!hasPrevious) {
+            prevButton.disabled = true;
+            prevButton.classList.add('disabled');
+        } else {
+            prevButton.disabled = false;
+            prevButton.classList.remove('disabled');
+        }
+        
+        // Disable/enable next button based on available projects with root cause data
+        if (!hasNext) {
+            nextButton.disabled = true;
+            nextButton.classList.add('disabled');
+        } else {
+            nextButton.disabled = false;
+            nextButton.classList.remove('disabled');
+        }
+        
+        console.log(`Navigation state: index=${currentProjectIndex}, hasPrevious=${hasPrevious}, hasNext=${hasNext}`);
+    }
+    
     // Function to show the root cause modal with the project's data
     function showRootCauseModal(projectName) {
-        const projectData = rootCauseData[projectName];
+        console.log(`Showing root cause for: ${projectName}`);
         
         // Update current project index for navigation
         currentProjectIndex = sortedProjects.indexOf(projectName);
+        console.log(`Current project index: ${currentProjectIndex}`);
         
+        // Get the project data
+        const projectData = rootCauseData[projectName];
+        
+        // If no root cause data is available, try to find the next project with data
         if (!projectData) {
-            console.error(`No root cause data found for ${projectName}`);
+            console.warn(`No root cause data found for ${projectName}`);
+            
+            // Look for the next project with root cause data
+            let nextIndex = currentProjectIndex;
+            let foundProject = false;
+            
+            // Try to find a project with root cause data
+            while (nextIndex < sortedProjects.length - 1 && !foundProject) {
+                nextIndex++;
+                const nextProjectName = sortedProjects[nextIndex];
+                if (rootCauseData[nextProjectName]) {
+                    foundProject = true;
+                    console.log(`Found next project with root cause data: ${nextProjectName}`);
+                    return showRootCauseModal(nextProjectName);
+                }
+            }
+            
+            // If we couldn't find any project with root cause data, show a message
+            alert('No root cause analysis available for this project.');
             return;
         }
         
@@ -1112,8 +1107,22 @@ document.addEventListener('DOMContentLoaded', async function() {
         
         // Display the modal
         modal.style.display = 'block';
+        
+        // Update navigation button states
+        updateNavigationButtonStates();
+        
+        // Log information about the current project
+        console.log(`Project: ${projectName}, Index: ${currentProjectIndex}`);
+        console.log(`Root cause data available: ${Object.keys(rootCauseData).length} projects`);
+        
+        // Debug LavaLending specifically
+        if (projectName === 'LavaLending') {
+            console.log('LavaLending root cause data:', projectData);
+            console.log('LavaLending index in sorted projects:', currentProjectIndex);
+            console.log('Is LavaLending the last project?', currentProjectIndex === sortedProjects.length - 1);
+        }
     }
-
+    
     // Function to prepare sorted projects list for navigation
     function prepareSortedProjects(incidentsData, rootCauseLookup) {
         if (!incidentsData || !rootCauseLookup) {
@@ -1122,6 +1131,8 @@ document.addEventListener('DOMContentLoaded', async function() {
             return;
         }
 
+        // Filter to only include projects with root cause data
+        // This ensures we only navigate between projects that have analysis
         sortedProjects = incidentsData
             .filter(incident => rootCauseLookup[incident.name]) // Only include those with root cause data
             .map(incident => incident.name) // Get project names
@@ -1131,7 +1142,11 @@ document.addEventListener('DOMContentLoaded', async function() {
                 const dateB = incidentsData.find(inc => inc.name === b)?.date || '';
                 return dateB.localeCompare(dateA); // Sort by date, newest first
             });
-         console.log("Sorted projects for navigation:", sortedProjects.length);
+        
+        // Log the projects with root cause data for debugging
+        console.log("Projects with root cause data for navigation:", sortedProjects.length);
+        console.log("First 5 projects:", sortedProjects.slice(0, 5));
+        console.log("Last 5 projects:", sortedProjects.slice(-5));
     }
 
     // Function to make the incidents table collapsible
