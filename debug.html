@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protocol Name Extraction Debug</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .debug-container {
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .protocol-group {
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+        }
+        .protocol-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2980b9;
+            margin-bottom: 10px;
+        }
+        .protocol-count {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            border-radius: 20px;
+            padding: 2px 10px;
+            margin-left: 10px;
+        }
+        .mapped-names {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+        .mapped-name {
+            display: inline-block;
+            background-color: #f1f1f1;
+            padding: 4px 8px;
+            margin: 2px;
+            border-radius: 3px;
+            font-size: 14px;
+        }
+        .controls {
+            margin-bottom: 20px;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        #results-summary {
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .pattern-match {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Protocol Name Extraction Debug</h1>
+    
+    <div class="controls">
+        <button id="analyze-btn">Analyze Protocol Names</button>
+        <button id="show-all-btn">Show All Original Names</button>
+    </div>
+    
+    <div id="results-summary"></div>
+    <div id="results" class="debug-container"></div>
+    
+    <script type="module">
+        import { loadIncidents } from './data.js';
+        
+        document.getElementById('analyze-btn').addEventListener('click', analyzeProtocols);
+        document.getElementById('show-all-btn').addEventListener('click', showAllOriginalNames);
+        
+        async function analyzeProtocols() {
+            const incidentData = await loadIncidents();
+            const { protocolCounts, protocolMap } = getProtocolHackFrequency(incidentData);
+            
+            displayResults(protocolCounts, protocolMap);
+        }
+        
+        async function showAllOriginalNames() {
+            const incidentData = await loadIncidents();
+            const protocolNames = new Set();
+            
+            incidentData.forEach(incident => {
+                if (incident.name) {
+                    protocolNames.add(incident.name);
+                }
+            });
+            
+            const sortedNames = Array.from(protocolNames).sort();
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '<h2>All Original Protocol Names</h2>';
+            
+            sortedNames.forEach(name => {
+                resultsDiv.innerHTML += `<div class="mapped-name">${name}</div>`;
+            });
+            
+            document.getElementById('results-summary').textContent = 
+                `Found ${sortedNames.length} unique protocol names in the dataset.`;
+        }
+        
+        function displayResults(protocolCounts, protocolMap) {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '';
+            
+            // Sort protocols by count (descending)
+            const sortedProtocols = Object.entries(protocolCounts)
+                .sort(([, countA], [, countB]) => countB - countA);
+            
+            sortedProtocols.forEach(([protocol, count]) => {
+                const mappedNames = protocolMap[protocol];
+                
+                const protocolDiv = document.createElement('div');
+                protocolDiv.className = 'protocol-group';
+                
+                protocolDiv.innerHTML = `
+                    <div class="protocol-name">
+                        ${protocol} <span class="protocol-count">${count}</span>
+                    </div>
+                    <div class="mapped-names">
+                        ${Array.from(mappedNames).map(name => 
+                            `<div class="mapped-name">${name}</div>`).join('')}
+                    </div>
+                `;
+                
+                resultsDiv.appendChild(protocolDiv);
+            });
+            
+            document.getElementById('results-summary').textContent = 
+                `Found ${sortedProtocols.length} canonical protocol names from ${
+                    Object.values(protocolMap).reduce((sum, set) => sum + set.size, 0)
+                } original incident names.`;
+        }
+        
+        function getProtocolHackFrequency(incidentData) {
+            const protocolCounts = {};
+            const protocolMap = {}; // Map to normalize similar protocol names
+            
+            // Create a mapping of common protocol name variations
+            const commonProtocolMap = {
+                // Exact matches or substring matches for known protocols
+                'uni': 'Uniswap',
+                'sushi': 'SushiSwap',
+                'pancake': 'PancakeSwap',
+                'curve': 'Curve Finance',
+                'balancer': 'Balancer',
+                'aave': 'Aave',
+                'compound': 'Compound',
+                'maker': 'MakerDAO',
+                'weth': 'Wrapped ETH',
+                'yearn': 'Yearn Finance',
+                'kyber': 'Kyber Network',
+                'synthetix': 'Synthetix',
+                '0x': '0x Protocol',
+                'cream': 'Cream Finance',
+                'harvest': 'Harvest Finance',
+                'bancor': 'Bancor',
+                'parity': 'Parity',
+                'beanstalk': 'Beanstalk',
+                'ronin': 'Ronin Bridge',
+                'badger': 'BadgerDAO',
+                'cover': 'Cover Protocol',
+                'pickle': 'Pickle Finance',
+                'dforce': 'dForce',
+                'lend': 'LendHub',
+                'nomad': 'Nomad Bridge',
+                'poly': 'Polygon',
+                'harmony': 'Harmony',
+                'rari': 'Rari Capital',
+                'bsc': 'Binance Smart Chain',
+                'ftx': 'FTX',
+                'euler': 'Euler Finance',
+                'mango': 'Mango Markets',
+                'deus': 'Deus Finance',
+                'fei': 'Fei Protocol',
+                'platform': 'Generic Platform', // Skip platforms with generic names
+                
+                // Special cases that need exact mapping
+                'orbit': 'Orbit Chain',
+                'opyn': 'Opyn Protocol',
+                'lendf': 'LendfMe',
+                'bsc': 'BSC',
+                'dao': 'Generic DAO',
+                'contract': 'Generic Contract'
+            };
+            
+            // Special full name handling - exact matches override the substring matching
+            const exactNameMap = {
+                'bZx': 'bZx',
+                'dYdX': 'dYdX',
+                'AlchemixFinance': 'Alchemix Finance',
+                'Opyn': 'Opyn Protocol',
+                'pNetwork': 'pNetwork',
+                'OneRing': 'One Ring',
+                'GMX': 'GMX',
+                'BEAN': 'Bean Protocol',
+                'FEI+TRIBE': 'Fei Protocol',
+                'CREAM': 'Cream Finance',
+                'PAID': 'PAID Network',
+                'DODO': 'DODO Exchange',
+                'ENS': 'ENS',
+                'PancakeBunny': 'PancakeBunny',
+                'BurgerSwap': 'BurgerSwap',
+                'ForceDAO': 'ForceDAO',
+                'Grim Finance': 'Grim Finance',
+                '88mph': '88mph',
+                'Orion Protocol': 'Orion Protocol'
+            };
+            
+            // Custom handling for NFT protocols
+            const nftProtocols = ['NFT', 'Bored Ape', 'CryptoPunk', 'Azuki', 'NFTrade', 'Ape', 'OpenSea', 'Doodle', 'BAYC'];
+            
+            // Helper function to check if a string contains any of the patterns
+            const containsAny = (str, patterns) => {
+                const lowerStr = str.toLowerCase();
+                return patterns.some(pattern => lowerStr.includes(pattern.toLowerCase()));
+            };
+            
+            // Specific category mappings
+            const mapToCategory = (name) => {
+                // Check for NFT protocols
+                if (containsAny(name, nftProtocols)) {
+                    return 'NFT Protocol';
+                }
+                
+                // Check for other categories
+                if (name.toLowerCase().includes('bridge')) return 'Bridge Protocol';
+                if (name.toLowerCase().includes('swap')) return 'DEX Protocol';
+                if (name.toLowerCase().includes('lend')) return 'Lending Protocol';
+                if (name.toLowerCase().includes('dao')) return 'DAO Protocol';
+                
+                return null;
+            };
+            
+            // Cache for processed names to ensure consistency
+            const processedNameCache = new Map();
+            
+            // Iterate through all incidents
+            for (const incident of incidentData) {
+                if (!incident.name) continue;
+                
+                // Check if we've already processed this name
+                if (processedNameCache.has(incident.name)) {
+                    const cached = processedNameCache.get(incident.name);
+                    protocolCounts[cached] = (protocolCounts[cached] || 0) + 1;
+                    if (!protocolMap[cached]) protocolMap[cached] = new Set();
+                    protocolMap[cached].add(incident.name);
+                    continue;
+                }
+                
+                // Handle special case where name is just a wallet/address or generic term
+                if (/^0x[a-fA-F0-9]{10,}$/.test(incident.name) ||
+                    containsAny(incident.name, ['unverified', 'unknown', 'null', 'mev', 'wallet'])) {
+                    continue; // Skip these generic entries
+                }
+                
+                // Check for exact name matches first
+                if (exactNameMap[incident.name]) {
+                    const mappedName = exactNameMap[incident.name];
+                    processedNameCache.set(incident.name, mappedName);
+                    protocolCounts[mappedName] = (protocolCounts[mappedName] || 0) + 1;
+                    if (!protocolMap[mappedName]) protocolMap[mappedName] = new Set();
+                    protocolMap[mappedName].add(incident.name);
+                    continue;
+                }
+                
+                // Clean the protocol name for more accurate matching
+                let cleanName = incident.name
+                    .replace(/\s?[vV]\d+(\.\d+)?/i, '') // Remove version numbers like v1, v2.0
+                    .replace(/\s+Protocol$/i, '') // Remove common suffixes
+                    .replace(/\s+Finance$/i, '')
+                    .replace(/\s+DAO$/i, '')
+                    .replace(/\s+DeFi$/i, '')
+                    .replace(/\s+NFT$/i, '')
+                    .replace(/\s+Swap$/i, '')
+                    .replace(/\s+Bridge$/i, '')
+                    .replace(/\s+Exchange$/i, '')
+                    .replace(/\s+Capital$/i, '')
+                    .replace(/\s+Network$/i, '')
+                    .trim();
+                    
+                // Extract core name (use full name or first segment)
+                const nameComponents = cleanName.split(/[\s_\-()]/);
+                const coreName = nameComponents[0].toLowerCase();
+                
+                // Try category mapping first
+                const categoryName = mapToCategory(cleanName);
+                if (categoryName) {
+                    processedNameCache.set(incident.name, categoryName);
+                    protocolCounts[categoryName] = (protocolCounts[categoryName] || 0) + 1;
+                    if (!protocolMap[categoryName]) protocolMap[categoryName] = new Set();
+                    protocolMap[categoryName].add(incident.name);
+                    continue;
+                }
+                
+                // Check for common protocol name matches
+                let foundMatch = false;
+                for (const [pattern, mappedName] of Object.entries(commonProtocolMap)) {
+                    if (coreName === pattern || 
+                        coreName.includes(pattern) || 
+                        cleanName.toLowerCase().includes(pattern.toLowerCase())) {
+                        
+                        processedNameCache.set(incident.name, mappedName);
+                        protocolCounts[mappedName] = (protocolCounts[mappedName] || 0) + 1;
+                        if (!protocolMap[mappedName]) protocolMap[mappedName] = new Set();
+                        protocolMap[mappedName].add(incident.name);
+                        foundMatch = true;
+                        break;
+                    }
+                }
+                
+                if (foundMatch) continue;
+                
+                // If no match found, use the cleaned name with proper capitalization
+                let canonicalName;
+                
+                // For multi-word names, keep the full cleaned name with proper capitalization
+                if (nameComponents.length > 1) {
+                    canonicalName = nameComponents.map(part => 
+                        part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()
+                    ).join(' ');
+                } else {
+                    // For single word, capitalize first letter
+                    canonicalName = coreName.charAt(0).toUpperCase() + coreName.slice(1).toLowerCase();
+                }
+                
+                processedNameCache.set(incident.name, canonicalName);
+                protocolCounts[canonicalName] = (protocolCounts[canonicalName] || 0) + 1;
+                if (!protocolMap[canonicalName]) protocolMap[canonicalName] = new Set();
+                protocolMap[canonicalName].add(incident.name);
+            }
+            
+            return { protocolCounts, protocolMap };
+        }
+    </script>
+</body>
+</html> 

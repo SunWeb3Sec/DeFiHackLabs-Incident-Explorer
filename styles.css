@@ -1,3 +1,214 @@
+/* Base styles for the DeFi Hack Incidents Explorer */
+
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Courier New', monospace;
+}
+
+body {
+    min-height: 100vh;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Layout */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.section {
+    margin-bottom: 30px;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 15px;
+    font-family: 'Courier New', monospace;
+}
+
+p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+a {
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+/* Table Base Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    table-layout: fixed;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid;
+    transition: all 0.3s ease;
+}
+
+thead th {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+/* Button Base Styles */
+button, .button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+/* Header and navigation */
+header {
+    padding: 20px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+/* Form elements */
+input, select, textarea {
+    padding: 10px;
+    border-radius: 4px;
+    width: 100%;
+    margin-bottom: 15px;
+    font-family: 'Courier New', monospace;
+    transition: all 0.3s ease;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+/* Overlay and modal base styles */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal {
+    position: relative;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: slideIn 0.3s ease-out;
+}
+
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+/* Toggle switch */
+.theme-toggle {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+}
+
+.theme-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    left: 4px;
+    bottom: 4px;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+.theme-toggle input:checked + .slider:before {
+    transform: translateX(30px);
+}
+
+/* Loading indicator */
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    animation: loadingPulse 1.5s infinite ease-in-out;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    table {
+        display: block;
+        overflow-x: auto;
+    }
+    
+    th, td {
+        padding: 8px 10px;
+    }
+    
+    .nav-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -5,27 +216,80 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Orbitron', 'Rajdhani', sans-serif;
     line-height: 1.6;
     padding: 20px;
-    background-color: #f5f5f5;
+    background-color: #0a0a0a;
+    color: #00ffff;
+    background-image: 
+        linear-gradient(0deg, rgba(10, 10, 10, 0.9) 0%, rgba(10, 10, 10, 0.9) 100%),
+        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="1" fill="%2300ffff" opacity="0.1"/></svg>');
+    background-size: 100% 3px;
+    position: relative;
+    overflow-x: hidden;
 }
 
-.container {
-    max-width: 1400px;
-    margin: 0 auto;
-    background-color: white;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(10, 10, 10, 0.1) 50%, rgba(0, 0, 0, 0.2) 50%);
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: rgba(0, 255, 255, 0.1);
+    animation: scanline 8s linear infinite;
+    pointer-events: none;
+    z-index: 1001;
+}
+
+.container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        linear-gradient(90deg, transparent 0%, rgba(0, 255, 255, 0.1) 50%, transparent 100%),
+        linear-gradient(180deg, transparent 0%, rgba(255, 0, 255, 0.1) 50%, transparent 100%);
+    pointer-events: none;
+    z-index: -1;
 }
 
 h1 {
+    color: #ff00ff;
     text-align: center;
-    margin-bottom: 30px;
-    color: #2c3e50;
-    font-size: 2.2em;
-    font-weight: 600;
+    margin-bottom: 40px;
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    animation: neonGlow 3s ease-in-out infinite;
+    position: relative;
+}
+
+h1::before {
+    content: attr(data-text);
+    position: absolute;
+    left: 3px;
+    top: 0;
+    color: rgba(255, 0, 255, 0.4);
+    overflow: hidden;
+    clip: rect(0, 900px, 0, 0);
+    animation: glitch 3s infinite linear alternate-reverse;
 }
 
 .stats {
@@ -277,4 +541,144 @@ td a:hover {
     .stat-item:last-child {
         border-bottom: none;
     }
+}
+
+.analytics-charts-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive columns */
+    gap: 20px; /* Spacing between charts */
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.2); /* Thematic separator */
+    margin-bottom: 20px;
+}
+
+.chart-box {
+    background-color: rgba(0, 20, 40, 0.7); /* Dark semi-transparent background */
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
+    min-height: 300px; /* Ensure boxes have some height */
+    display: flex;
+    flex-direction: column;
+}
+
+.chart-box h4 {
+    color: #00ffff; /* Cyan */
+    margin-bottom: 15px;
+    text-align: center;
+    font-family: 'Orbitron', sans-serif; /* Sci-fi font */
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Ensure canvas fits container */
+.chart-box canvas {
+    flex-grow: 1; 
+    max-width: 100%;
+    max-height: 300px; /* Adjust max height as needed */
+}
+
+/* Base styles for the DeFi Hack Incidents Explorer */
+@keyframes neonGlow {
+    0% { text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff, 0 0 15px #ff00ff, 0 0 20px #ff00ff; }
+    50% { text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff, 0 0 40px #00ffff; }
+    100% { text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff, 0 0 15px #ff00ff, 0 0 20px #ff00ff; }
+}
+
+@keyframes scanline {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
+}
+
+@keyframes glitch {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0); }
+}
+
+@keyframes textGlitch {
+    0% { opacity: 1; transform: translate(0); }
+    10% { opacity: 0.8; transform: translate(-2px, 2px); color: #ff00ff; }
+    20% { opacity: 0.9; transform: translate(2px, -2px); }
+    30% { opacity: 0.7; transform: translate(-1px, 1px); color: #00ffff; }
+    40% { opacity: 1; transform: translate(0); }
+    100% { opacity: 1; transform: translate(0); }
+}
+
+@keyframes pulseBar {
+    0% { box-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 15px #00ffff; }
+    50% { box-shadow: 0 0 10px #ff00ff, 0 0 15px #ff00ff, 0 0 20px #ff00ff; }
+    100% { box-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 15px #00ffff; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes floatParticle {
+    0% { transform: translate(0, 0); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 0.8; }
+    100% { transform: translate(var(--tx), var(--ty)); opacity: 0; }
+}
+
+@keyframes pulseHighValue {
+    0% { color: #ffffff; text-shadow: 0 0 5px #ffffff; }
+    50% { color: #ff5500; text-shadow: 0 0 10px #ff5500; }
+    100% { color: #ffffff; text-shadow: 0 0 5px #ffffff; }
+}
+
+/* Particle effect styles */
+.particle-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    --tx: calc(100px - 200px * var(--random, 0.5));
+    --ty: calc(-200px - 100px * var(--random, 0.5));
+    animation: floatParticle 15s linear infinite;
+}
+
+.particle-cyan {
+    background-color: rgba(0, 255, 255, 0.6);
+    box-shadow: 0 0 6px rgba(0, 255, 255, 0.8);
+}
+
+.particle-pink {
+    background-color: rgba(255, 0, 255, 0.6);
+    box-shadow: 0 0 6px rgba(255, 0, 255, 0.8);
+}
+
+/* Table animation styles */
+.animated-row {
+    animation: fadeIn 0.5s ease forwards;
+    opacity: 0;
+}
+
+.high-value {
+    animation: pulseHighValue 2s infinite;
+    font-weight: bold;
 } 

@@ -1,180 +1,602 @@
-document.addEventListener('DOMContentLoaded', function() {
+// Import analysis functions and data loader
+import { 
+    loadAndProcessData, 
+    analysisResults, 
+    combinedData as incidents, 
+    rootCauseData,
+    renderCharts,
+    makeAnalyticsCollapsible
+} from './analysis.js';
+
+document.addEventListener('DOMContentLoaded', async function() {
     // Global variables
     let currentPage = 1;
     const itemsPerPage = 50;
     let filteredIncidents = [];
-    let rootCauseData = {};
     let sortedProjects = [];
     let currentProjectIndex = -1;
     
-    // Load root cause data
-    fetch('rootcause_data.json')
-        .then(response => response.json())
-        .then(data => {
-            rootCauseData = data;
-            updateTable();
-            prepareSortedProjects();
-        })
-        .catch(error => console.error('Error loading root cause data:', error));
-        
-    // Function to prepare sorted projects list for navigation
-    function prepareSortedProjects() {
-        // Get all projects that have root cause data
-        sortedProjects = Object.keys(rootCauseData)
-            .filter(projectName => {
-                const incident = incidents.find(inc => inc.name === projectName);
-                return incident && rootCauseData[projectName];
-            })
-            .sort((a, b) => {
-                const dateA = incidents.find(inc => inc.name === a)?.date || '';
-                const dateB = incidents.find(inc => inc.name === b)?.date || '';
-                return dateB.localeCompare(dateA); // Sort by date, newest first
-            });
+    // Variables for table sorting
+    let currentSortColumn = null;
+    let currentSortDirection = 'desc'; // 'asc' or 'desc'
+    
+    // Currency conversion rates cache
+    let conversionRates = {
+        'USD': 1 // Base currency is always 1
+    };
+    
+    // Selected display currency
+    let displayCurrency = 'USD';
+    
+    // Get the table container element
+    const tableContainerElement = document.getElementById('table-container');
+    if (!tableContainerElement) {
+        console.error('Table container element (#table-container) not found!');
+        document.body.innerHTML = '<div class="error-message">Table container not found. Please check your HTML.</div>';
+        return;
     }
     
-    // Get container element
-    const container = document.getElementById('table-container');
+    // Clear container to prevent duplication issues
+    tableContainerElement.innerHTML = '';
     
-    // Create statistics container
-    const statsContainer = document.createElement('div');
-    statsContainer.className = 'stats-container';
-
-    // Total incidents count
-    const totalIncidents = document.createElement('div');
-    totalIncidents.className = 'stat-box';
-    totalIncidents.innerHTML = `
-        <h3>Total Incidents</h3>
-        <p>${incidents.length}</p>
+    // Create and display loading indicator
+    const loadingContainer = document.createElement('div');
+    loadingContainer.className = 'loading-container';
+    loadingContainer.innerHTML = `
+        <div class="loading-content">
+            <div class="loading-header">Initializing DeFi Hack Explorer</div>
+            <div class="loading-progress-container">
+                <div class="loading-progress-bar" id="loading-progress-bar"></div>
+            </div>
+            <div class="loading-section" id="loading-section">Connecting to blockchain...</div>
+            <div class="loading-details" id="loading-details">Establishing secure connection</div>
+        </div>
     `;
-    statsContainer.appendChild(totalIncidents);
+    tableContainerElement.appendChild(loadingContainer);
     
-    // Total loss amount
-    const totalLoss = document.createElement('div');
-    totalLoss.className = 'stat-box';
-    totalLoss.innerHTML = `
-        <h3>Total Loss</h3>
-        <p>$0</p>
-    `;
-    statsContainer.appendChild(totalLoss);
+    // Progress bar and loading text elements
+    const progressBar = document.getElementById('loading-progress-bar');
+    const loadingSection = document.getElementById('loading-section');
+    const loadingDetails = document.getElementById('loading-details');
     
-    container.appendChild(statsContainer);
+    // Update loading progress
+    const updateLoadingProgress = (percent, section, details) => {
+        progressBar.style.width = `${percent}%`;
+        
+        if (section) {
+            loadingSection.textContent = section;
+            // Add glitch effect on text change
+            loadingSection.classList.add('text-glitch');
+            setTimeout(() => loadingSection.classList.remove('text-glitch'), 500);
+        }
+        
+        if (details) {
+            loadingDetails.textContent = details;
+        }
+    };
     
-    // Create filters container
-    const filtersContainer = document.createElement('div');
-    filtersContainer.className = 'filters-container';
-
-    // Create year filter
-    const yearFilter = document.createElement('div');
-    yearFilter.className = 'filter-group';
-    yearFilter.innerHTML = `
-        <label>Year</label>
-        <select id="year-filter">
-            <option value="">All Years</option>
-            ${[...new Set(incidents.map(i => i.date.substring(0, 4)))]
-                .sort().reverse()
-                .map(year => `<option value="${year}">${year}</option>`)
-                .join('')}
-        </select>
-    `;
-
-    // Create attack type filter
-    const typeFilter = document.createElement('div');
-    typeFilter.className = 'filter-group';
-    typeFilter.innerHTML = `
-        <label>Attack Type</label>
-        <select id="type-filter">
-            <option value="">All Types</option>
-            ${[...new Set(incidents.map(i => i.type))]
-                .filter(type => type)
-                .sort()
-                .map(type => `<option value="${type}">${type}</option>`)
-                .join('')}
-        </select>
-    `;
-
-    // Create sort filter
-    const sortFilter = document.createElement('div');
-    sortFilter.className = 'filter-group';
-    sortFilter.innerHTML = `
-        <label>Sort By</label>
-        <select id="sort-filter">
-            <option value="date">Date (Latest)</option>
-            <option value="loss_high">Loss (High to Low)</option>
-            <option value="loss_low">Loss (Low to High)</option>
-            <option value="root_cause_first">Root Cause First</option>
-        </select>
-        <span id="root-cause-count" style="display: none; margin-left: 10px; font-size: 0.9em;"></span>
-    `;
-
-    // Create search box
-    const searchBox = document.createElement('input');
-    searchBox.id = 'search-box';
-    searchBox.type = 'text';
-    searchBox.placeholder = 'Search by project name...';
-    searchBox.className = 'search-box';
-
-    // Create first row for filters
-    const filtersRow = document.createElement('div');
-    filtersRow.className = 'filters-row';
+    try {
+        // Initialize with 0% progress
+        updateLoadingProgress(0, 'Initializing', 'Preparing to fetch data');
+        
+        // Simulate initial delay for visual effect
+        await new Promise(resolve => setTimeout(resolve, 800));
+        updateLoadingProgress(5, 'Establishing Connection', 'Connecting to data sources');
+        await new Promise(resolve => setTimeout(resolve, 600));
+        
+        // 1. Load data first
+        updateLoadingProgress(15, 'Loading Incident Data', 'Fetching DeFi hack incidents');
+        await loadAndProcessData();
+        updateLoadingProgress(60, 'Analyzing Data', 'Processing incident information');
+        await new Promise(resolve => setTimeout(resolve, 400));
+        console.log("Data loaded, proceeding with UI setup.");
+        
+        // 2. Fetch initial currency rates
+        updateLoadingProgress(75, 'Fetching Currency Rates', 'Converting financial data');
+        await fetchCurrencyRates();
+        updateLoadingProgress(90, 'Rendering UI', 'Preparing interactive elements');
+        
+        // Add a small delay before completing
+        await new Promise(resolve => setTimeout(resolve, 500));
+        updateLoadingProgress(100, 'Complete', 'Ready to explore');
+        
+        // Remove loading container after a slight delay
+        setTimeout(() => {
+            loadingContainer.classList.add('fade-out');
+            setTimeout(() => {
+                loadingContainer.remove();
+                // 3. Create UI components in the correct order
+                createUI();
+            }, 500);
+        }, 600);
+        
+    } catch (error) {
+        console.error('Failed to initialize incident explorer:', error);
+        loadingContainer.innerHTML = `
+            <div class="loading-error">
+                <div class="error-icon">⚠️</div>
+                <div class="error-message">Failed to load incident data: ${error.message}</div>
+                <button class="retry-button">Retry</button>
+            </div>
+        `;
+        
+        // Add retry functionality
+        document.querySelector('.retry-button')?.addEventListener('click', () => {
+            window.location.reload();
+        });
+    }
     
-    // Add all filters to container
-    filtersContainer.appendChild(yearFilter);
-    filtersContainer.appendChild(typeFilter);
-    filtersContainer.appendChild(sortFilter);
-    filtersRow.appendChild(filtersContainer);
-    container.appendChild(filtersRow);
+    // Function to fetch currency rates from APIs
+    async function fetchCurrencyRates() {
+        try {
+            // Fetch crypto rates from CoinGecko
+            const cryptoResponse = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd');
+            if (!cryptoResponse.ok) {
+                throw new Error('Failed to fetch crypto rates');
+            }
+            
+            const cryptoData = await cryptoResponse.json();
+            
+            // Update conversion rates with crypto data
+            if (cryptoData.bitcoin && cryptoData.bitcoin.usd) {
+                conversionRates['BTC'] = 1 / cryptoData.bitcoin.usd; // Rate to convert 1 USD to BTC
+            } else {
+                // Fallback value if API fails
+                conversionRates['BTC'] = 0.000017;
+                console.warn('Using fallback value for BTC conversion');
+            }
+            
+            if (cryptoData.ethereum && cryptoData.ethereum.usd) {
+                conversionRates['ETH'] = 1 / cryptoData.ethereum.usd; // Rate to convert 1 USD to ETH
+            } else {
+                // Fallback value if API fails
+                conversionRates['ETH'] = 0.00033;
+                console.warn('Using fallback value for ETH conversion');
+            }
+            
+            // For forex rates, we'd ideally use XE API but it requires authentication
+            // As an alternative, we'll use the free Exchange Rates API
+            // Note: In a production environment, you'd want to use a proper API with authentication
+            const forexResponse = await fetch('https://open.er-api.com/v6/latest/USD');
+            if (!forexResponse.ok) {
+                throw new Error('Failed to fetch forex rates');
+            }
+            
+            const forexData = await forexResponse.json();
+            
+            // Update conversion rates with forex data
+            if (forexData.rates) {
+                // Add forex rates
+                if (forexData.rates.EUR) conversionRates['EUR'] = forexData.rates.EUR;
+                if (forexData.rates.GBP) conversionRates['GBP'] = forexData.rates.GBP;
+                if (forexData.rates.JPY) conversionRates['JPY'] = forexData.rates.JPY;
+                if (forexData.rates.CNY) conversionRates['CNY'] = forexData.rates.CNY;
+                if (forexData.rates.AED) conversionRates['AED'] = forexData.rates.AED;
+                if (forexData.rates.KWD) conversionRates['KWD'] = forexData.rates.KWD;
+            } else {
+                // Fallback values if API fails
+                conversionRates['EUR'] = 0.92;
+                conversionRates['GBP'] = 0.79;
+                conversionRates['JPY'] = 150.5;
+                conversionRates['CNY'] = 7.2;
+                conversionRates['AED'] = 3.67;  // Fallback: 1 USD ≈ 3.67 AED
+                conversionRates['KWD'] = 0.31;  // Fallback: 1 USD ≈ 0.31 KWD
+                console.warn('Using fallback values for forex conversion');
+            }
+            
+            console.log('Currency rates fetched successfully:', conversionRates);
+            
+        } catch (error) {
+            console.error('Error fetching currency rates:', error);
+            // Set fallback values
+            conversionRates = {
+                'USD': 1,
+                'BTC': 0.000017, // Fallback: 1 USD ≈ 0.000017 BTC
+                'ETH': 0.00033,  // Fallback: 1 USD ≈ 0.00033 ETH
+                'EUR': 0.92,     // Fallback: 1 USD ≈ 0.92 EUR
+                'GBP': 0.79,     // Fallback: 1 USD ≈ 0.79 GBP
+                'JPY': 150.5,    // Fallback: 1 USD ≈ 150.5 JPY
+                'CNY': 7.2,      // Fallback: 1 USD ≈ 7.2 CNY
+                'AED': 3.67,     // Fallback: 1 USD ≈ 3.67 AED
+                'KWD': 0.31      // Fallback: 1 USD ≈ 0.31 KWD
+            };
+        }
+    }
     
-    // Create second row for search
-    const searchRow = document.createElement('div');
-    searchRow.className = 'search-row';
-    searchRow.appendChild(searchBox);
-    container.appendChild(searchRow);
+    // Main function to create the UI components
+    function createUI() {
+        // Get the main data arrays from the imported module
+        const totalIncidentCount = incidents.length; // Get the total count
 
-    // Create table container
-    const tableContainer = document.createElement('div');
-    tableContainer.className = 'table-container';
+        // Create statistics container
+        const statsContainer = document.createElement('div');
+        statsContainer.className = 'stats-container';
 
-    // Create table
-    const table = document.createElement('table');
-    table.className = 'incidents-table';
-    tableContainer.appendChild(table);
-    container.appendChild(tableContainer);
-
-    // Create pagination container
-    const paginationContainer = document.createElement('div');
-    paginationContainer.className = 'pagination-container';
-    container.appendChild(paginationContainer);
+        // Total incidents count
+        const totalIncidentsBox = document.createElement('div');
+        totalIncidentsBox.className = 'stat-box';
+        totalIncidentsBox.id = 'total-incidents-stat'; 
+        totalIncidentsBox.innerHTML = `
+            <h3>Total Incidents</h3>
+            <p>${totalIncidentCount}</p>
+        `;
+        statsContainer.appendChild(totalIncidentsBox);
+        
+        // Total loss amount
+        const totalLossBox = document.createElement('div');
+        totalLossBox.className = 'stat-box';
+        totalLossBox.id = 'total-loss-stat'; 
+        totalLossBox.innerHTML = `
+            <h3>Total Loss (USD)</h3>
+            <p>${formatCurrency(analysisResults.totalLoss)}</p>
+        `;
+        statsContainer.appendChild(totalLossBox);
+        
+        // Add refresh rates button
+        const refreshRatesBox = document.createElement('div');
+        refreshRatesBox.className = 'stat-box refresh-rates-box';
+        refreshRatesBox.innerHTML = `
+            <button id="refresh-rates" class="refresh-rates-btn">
+                <span>Refresh Rates</span>
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M23 4v6h-6"></path>
+                    <path d="M1 20v-6h6"></path>
+                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                </svg>
+            </button>
+            <div id="rates-updated" class="rates-updated">Last updated: ${new Date().toLocaleTimeString()}</div>
+        `;
+        statsContainer.appendChild(refreshRatesBox);
+        
+        // Add settings button
+        const settingsBox = document.createElement('div');
+        settingsBox.className = 'stat-box settings-box';
+        settingsBox.innerHTML = `
+            <button id="open-settings" class="settings-button">
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                </svg>
+                <span>Settings</span>
+            </button>
+        `;
+        statsContainer.appendChild(settingsBox);
+        
+        // Add event listener to refresh rates button
+        document.getElementById('refresh-rates')?.addEventListener('click', async () => {
+            const button = document.getElementById('refresh-rates');
+            if (button) button.disabled = true;
+            
+            try {
+                await fetchCurrencyRates();
+                updateTable(); // Update the table to reflect new rates
+                
+                // Update last updated time
+                const ratesUpdated = document.getElementById('rates-updated');
+                if (ratesUpdated) {
+                    ratesUpdated.textContent = `Last updated: ${new Date().toLocaleTimeString()}`;
+                    ratesUpdated.style.color = '#00ffff'; // Highlight that it was updated
+                    setTimeout(() => {
+                        if (ratesUpdated) ratesUpdated.style.color = ''; // Reset color after 2 seconds
+                    }, 2000);
+                }
+            } catch (error) {
+                console.error('Failed to refresh rates:', error);
+                // Show error message
+                const ratesUpdated = document.getElementById('rates-updated');
+                if (ratesUpdated) {
+                    ratesUpdated.textContent = 'Failed to update rates';
+                    ratesUpdated.style.color = '#ff0000'; // Red for error
+                }
+            } finally {
+                if (button) button.disabled = false;
+            }
+        });
+        
+        tableContainerElement.appendChild(statsContainer);
+        
+        // Create settings panel
+        createSettingsPanel();
+        
+        // Setup filters
+        setupFilters();
+        
+        // Render the table initially
+        updateTable();
+        
+        // Setup projects for navigation
+        prepareSortedProjects(incidents, rootCauseData);
+        
+        // Make the table collapsible
+        makeTableCollapsible();
+        
+        // Setup analytics
+        setupAnalytics();
+        
+        // Setup modal functionality
+        setupModalListeners();
+        
+        // Load user settings
+        loadSettings();
+    }
+    
+    // Helper function to format currency
+    function formatCurrency(value) {
+        if (typeof value !== 'number') return 'Unknown';
+        
+        return '$' + value.toLocaleString('en-US', {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0
+        });
+    }
+    
+    // Function to set up the modal listeners
+    function setupModalListeners() {
+        const modal = document.getElementById('rootCauseModal');
+        if (!modal) {
+            console.warn('Root cause modal not found in the document');
+            return;
+        }
+        
+        const closeBtn = modal.querySelector('.close');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+        }
+        
+        // Navigation buttons functionality
+        const prevButton = modal.querySelector('.prev-button');
+        if (prevButton) {
+            prevButton.addEventListener('click', () => {
+                if (currentProjectIndex > 0) {
+                    showRootCauseModal(sortedProjects[currentProjectIndex - 1]);
+                }
+            });
+        }
+        
+        const nextButton = modal.querySelector('.next-button');
+        if (nextButton) {
+            nextButton.addEventListener('click', () => {
+                if (currentProjectIndex < sortedProjects.length - 1) {
+                    showRootCauseModal(sortedProjects[currentProjectIndex + 1]);
+                }
+            });
+        }
+        
+        // Close the modal when the user clicks anywhere outside of the modal content
+        window.addEventListener('click', (event) => {
+            if (modal && event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    }
+    
+    // Function to set up the analytics section
+    function setupAnalytics() {
+        // Create analytics container
+        const chartsContainer = document.createElement('div');
+        chartsContainer.id = 'analytics-charts';
+        chartsContainer.className = 'analytics-charts-container';
+        tableContainerElement.appendChild(chartsContainer);
+        
+        // Render charts using function from analysis.js
+        renderCharts(incidents);
+        
+        // Make analytics section collapsible
+        makeAnalyticsCollapsible();
+    }
+    
+    // Function to set up filters after data is loaded
+    function setupFilters() {
+        // Create filters container
+        const filtersContainer = document.createElement('div');
+        filtersContainer.className = 'filters-container';
+    
+        // Create year filter
+        const yearFilter = document.createElement('div');
+        yearFilter.className = 'filter-group';
+        yearFilter.innerHTML = `
+            <label>Year</label>
+            <select id="year-filter">
+                <option value="">All Years</option>
+                ${analysisResults.countByYear ? Object.keys(analysisResults.countByYear)
+                    .sort((a, b) => b - a) // Sort years in descending order
+                    .map(year => `<option value="${year}">${year}</option>`)
+                    .join('') : ''}
+            </select>
+        `;
+    
+        // Create attack type filter
+        const typeFilter = document.createElement('div');
+        typeFilter.className = 'filter-group';
+        typeFilter.innerHTML = `
+            <label>Attack Type</label>
+            <select id="type-filter">
+                <option value="">All Types</option>
+                ${analysisResults.countByType ? Object.keys(analysisResults.countByType)
+                    .map(type => `<option value="${type}">${type}</option>`)
+                    .join('') : ''}
+            </select>
+        `;
+    
+        // Create sort filter
+        const sortFilter = document.createElement('div');
+        sortFilter.className = 'filter-group';
+        sortFilter.innerHTML = `
+            <label>Sort By</label>
+            <select id="sort-filter">
+                <option value="date">Date (Latest)</option>
+                <option value="loss_high">Loss (High to Low)</option>
+                <option value="loss_low">Loss (Low to High)</option>
+                <option value="root_cause_first">Root Cause First</option>
+            </select>
+            <span id="root-cause-count" style="display: none; margin-left: 10px; font-size: 0.9em;"></span>
+        `;
+        
+        // Create currency filter
+        const currencyFilter = document.createElement('div');
+        currencyFilter.className = 'filter-group';
+        currencyFilter.innerHTML = `
+            <label>Display Currency</label>
+            <select id="currency-filter">
+                <option value="USD">USD ($)</option>
+                <option value="BTC">Bitcoin (₿)</option>
+                <option value="ETH">Ethereum (Ξ)</option>
+                <option value="EUR">Euro (€)</option>
+                <option value="GBP">British Pound (£)</option>
+                <option value="JPY">Japanese Yen (¥)</option>
+                <option value="CNY">Chinese Yuan (¥)</option>
+                <option value="AED">UAE Dirham (د.إ)</option>
+                <option value="KWD">Kuwaiti Dinar (د.ك)</option>
+            </select>
+        `;
+    
+        // Create search box
+        const searchBox = document.createElement('input');
+        searchBox.id = 'search-box';
+        searchBox.type = 'text';
+        searchBox.placeholder = 'Search by project name...';
+        searchBox.className = 'search-box';
+    
+        // Create first row for filters
+        const filtersRow = document.createElement('div');
+        filtersRow.className = 'filters-row';
+        
+        // Add all filters to container
+        filtersContainer.appendChild(yearFilter);
+        filtersContainer.appendChild(typeFilter);
+        filtersContainer.appendChild(sortFilter);
+        filtersContainer.appendChild(currencyFilter);
+        filtersRow.appendChild(filtersContainer);
+        tableContainerElement.appendChild(filtersRow);
+        
+        // Create second row for search
+        const searchRow = document.createElement('div');
+        searchRow.className = 'search-row';
+        searchRow.appendChild(searchBox);
+        tableContainerElement.appendChild(searchRow);
+    
+        // Create table container
+        const tableWrapper = document.createElement('div');
+        tableWrapper.className = 'table-container';
+    
+        // Create table
+        const table = document.createElement('table');
+        table.className = 'incidents-table';
+        tableWrapper.appendChild(table);
+        tableContainerElement.appendChild(tableWrapper);
+    
+        // Create pagination container
+        const paginationContainer = document.createElement('div');
+        paginationContainer.className = 'pagination-container';
+        tableContainerElement.appendChild(paginationContainer);
+        
+        // Add event listeners to filters after they're created
+        document.getElementById('year-filter')?.addEventListener('change', () => {
+            currentPage = 1;
+            updateTable();
+        });
+        
+        document.getElementById('type-filter')?.addEventListener('change', () => {
+            currentPage = 1;
+            updateTable();
+        });
+        
+        document.getElementById('sort-filter')?.addEventListener('change', () => {
+            updateTable();
+        });
+        
+        document.getElementById('currency-filter')?.addEventListener('change', (e) => {
+            displayCurrency = e.target.value;
+            updateTable();
+        });
+        
+        document.getElementById('search-box')?.addEventListener('input', () => {
+            currentPage = 1;
+            updateTable();
+        });
+    }
 
     // Main function to update the table with filtered data and pagination
     function updateTable() {
-        // Clear the table
-        while (table.firstChild) {
-            table.removeChild(table.firstChild);
+        // Get the table element
+        const table = document.querySelector('.incidents-table');
+        if (!table) {
+            console.error('Table element not found');
+            return;
         }
+        
+        // Clear the table
+        table.innerHTML = '';
 
         // Create table header
         const thead = document.createElement('thead');
         const headerRow = document.createElement('tr');
-        ['Date', 'Project', 'Attack Type', 'Loss Amount', 'Root Cause', 'POC'].forEach(header => {
+        
+        // Column definitions with their data keys and display names
+        const columns = [
+            { key: 'date', display: 'Date' },
+            { key: 'name', display: 'Project' },
+            { key: 'type', display: 'Attack Type' },
+            { key: 'Lost', display: 'Loss Amount' },
+            { key: 'rootCause', display: 'Root Cause' },
+            { key: 'poc', display: 'POC' }
+        ];
+
+        // Add each header with sort functionality
+        columns.forEach(column => {
             const th = document.createElement('th');
-            th.textContent = header;
+            th.textContent = column.display;
+            th.dataset.key = column.key;
+            
+            // Add sort indicator if this column is currently sorted
+            if (currentSortColumn === column.key) {
+                const indicator = document.createElement('span');
+                indicator.className = 'sort-indicator';
+                indicator.textContent = currentSortDirection === 'asc' ? ' ▲' : ' ▼';
+                th.appendChild(indicator);
+            }
+            
+            // Add click event for sorting
+            th.addEventListener('click', () => {
+                // Toggle direction if same column, otherwise default to descending
+                if (currentSortColumn === column.key) {
+                    currentSortDirection = currentSortDirection === 'desc' ? 'asc' : 'desc';
+                } else {
+                    currentSortColumn = column.key;
+                    currentSortDirection = 'desc'; // Default to descending order
+                }
+                
+                updateTable();
+            });
+            
             headerRow.appendChild(th);
         });
+        
         thead.appendChild(headerRow);
         table.appendChild(thead);
 
         // Create table body
         const tbody = document.createElement('tbody');
 
-        // Get filter values
-        const selectedYear = document.getElementById('year-filter').value;
-        const selectedType = document.getElementById('type-filter').value;
-        const sortBy = document.getElementById('sort-filter').value;
-        const searchQuery = document.getElementById('search-box').value.toLowerCase();
+        // Get filter values safely
+        const yearFilter = document.getElementById('year-filter');
+        const typeFilter = document.getElementById('type-filter');
+        const sortFilter = document.getElementById('sort-filter');
+        const searchBox = document.getElementById('search-box');
+        
+        const selectedYear = yearFilter?.value || '';
+        const selectedType = typeFilter?.value || '';
+        const sortBy = sortFilter?.value || 'date';
+        const searchQuery = searchBox?.value.toLowerCase() || '';
 
         // Filter incidents based on selected criteria
         filteredIncidents = incidents.filter(incident => {
-            const matchesYear = !selectedYear || incident.date.startsWith(selectedYear);
+            if (!incident.dateObj) return false;
+            
+            const incidentYear = incident.dateObj.getUTCFullYear().toString();
+            const matchesYear = !selectedYear || incidentYear === selectedYear;
             const matchesType = !selectedType || incident.type === selectedType;
             const matchesSearch = !searchQuery || 
                                 incident.name.toLowerCase().includes(searchQuery) || 
@@ -182,31 +604,75 @@ document.addEventListener('DOMContentLoaded', function() {
             return matchesYear && matchesType && matchesSearch;
         });
 
-        // Sort incidents based on selected criteria
-        switch(sortBy) {
-            case 'loss_high':
-                filteredIncidents.sort((a, b) => (b.Lost || 0) - (a.Lost || 0));
-                break;
-            case 'loss_low':
-                filteredIncidents.sort((a, b) => (a.Lost || 0) - (b.Lost || 0));
-                break;
-            case 'root_cause_first':
-                // Sort by whether the incident has root cause data (those with root cause come first)
-                filteredIncidents.sort((a, b) => {
-                    const aHasRootCause = rootCauseData[a.name] ? 1 : 0;
-                    const bHasRootCause = rootCauseData[b.name] ? 1 : 0;
-                    
-                    // If both have or don't have root cause, sort by date (latest first)
-                    if (aHasRootCause === bHasRootCause) {
-                        return b.date.localeCompare(a.date);
-                    }
-                    
-                    // Otherwise, prioritize the one with root cause
-                    return bHasRootCause - aHasRootCause;
-                });
-                break;
-            default: // date
-                filteredIncidents.sort((a, b) => b.date.localeCompare(a.date));
+        // Sort incidents based on header clicks or dropdown
+        if (currentSortColumn) {
+            // Custom sorting based on the column
+            filteredIncidents.sort((a, b) => {
+                let valueA, valueB;
+                
+                switch(currentSortColumn) {
+                    case 'date':
+                        return currentSortDirection === 'asc' 
+                            ? a.date.localeCompare(b.date)
+                            : b.date.localeCompare(a.date);
+                    case 'name':
+                        return currentSortDirection === 'asc'
+                            ? a.name.localeCompare(b.name)
+                            : b.name.localeCompare(a.name);
+                    case 'type':
+                        valueA = a.type || '';
+                        valueB = b.type || '';
+                        return currentSortDirection === 'asc'
+                            ? valueA.localeCompare(valueB)
+                            : valueB.localeCompare(valueA);
+                    case 'Lost':
+                        valueA = a.Lost || 0;
+                        valueB = b.Lost || 0;
+                        return currentSortDirection === 'asc'
+                            ? valueA - valueB
+                            : valueB - valueA;
+                    case 'rootCause':
+                        valueA = rootCauseData[a.name] ? 1 : 0;
+                        valueB = rootCauseData[b.name] ? 1 : 0;
+                        return currentSortDirection === 'asc'
+                            ? valueA - valueB
+                            : valueB - valueA;
+                    case 'poc':
+                        valueA = a.Contract ? 1 : 0;
+                        valueB = b.Contract ? 1 : 0;
+                        return currentSortDirection === 'asc'
+                            ? valueA - valueB
+                            : valueB - valueA;
+                    default:
+                        return 0;
+                }
+            });
+        } else {
+            // Fallback to the dropdown sort if no column sorting is active
+            switch(sortBy) {
+                case 'loss_high':
+                    filteredIncidents.sort((a, b) => (b.Lost || 0) - (a.Lost || 0));
+                    break;
+                case 'loss_low':
+                    filteredIncidents.sort((a, b) => (a.Lost || 0) - (b.Lost || 0));
+                    break;
+                case 'root_cause_first':
+                    filteredIncidents.sort((a, b) => {
+                        const aHasRootCause = rootCauseData[a.name] ? 1 : 0;
+                        const bHasRootCause = rootCauseData[b.name] ? 1 : 0;
+                        
+                        // If both have or don't have root cause, sort by date (latest first)
+                        if (aHasRootCause === bHasRootCause) {
+                            return b.date.localeCompare(a.date);
+                        }
+                        
+                        // Otherwise, prioritize the one with root cause
+                        return bHasRootCause - aHasRootCause;
+                    });
+                    break;
+                default: // date
+                    filteredIncidents.sort((a, b) => b.date.localeCompare(a.date));
+            }
         }
 
         // Calculate pagination boundaries
@@ -281,13 +747,21 @@ document.addEventListener('DOMContentLoaded', function() {
         updatePagination(totalPages);
         
         // Update statistics
-        updateStats(filteredIncidents);
+        updateStats(filteredIncidents.length); // Pass the count of filtered incidents
+        
+        // Update analytics charts with filtered data
+        updateAnalytics(filteredIncidents);
     }
 
     // Function to update pagination controls
     function updatePagination(totalPages) {
         // Clear pagination container
         const paginationContainer = document.querySelector('.pagination-container');
+        if (!paginationContainer) {
+            console.error('Pagination container not found');
+            return;
+        }
+        
         paginationContainer.innerHTML = '';
         
         if (totalPages <= 1) {
@@ -331,51 +805,139 @@ document.addEventListener('DOMContentLoaded', function() {
         paginationContainer.appendChild(pageButtons);
     }
 
+    // Function to calculate the loss in the selected display currency
+    function convertLossToDisplayCurrency(loss, originalCurrency) {
+        if (!loss || isNaN(loss)) return 0;
+        
+        // First convert to USD
+        let lossInUSD = loss;
+        
+        if (originalCurrency === 'ETH' || originalCurrency === 'WETH') {
+            lossInUSD = loss * 2500; // Approximate ETH to USD conversion
+        } else if (originalCurrency === 'BNB' || originalCurrency === 'WBNB') {
+            lossInUSD = loss * 500; // Approximate BNB to USD conversion
+        } else if (originalCurrency === 'BTC' || originalCurrency === 'WBTC') {
+            lossInUSD = loss * 60000; // Approximate BTC to USD conversion
+        } else if (originalCurrency !== 'USD') {
+            // For other currencies, assume it's already in USD
+            lossInUSD = loss;
+        }
+        
+        // Then convert from USD to display currency using the fetched rates
+        if (displayCurrency === 'USD') return lossInUSD;
+        
+        // Use the conversion rate or fallback to 1 if not available
+        const rate = conversionRates[displayCurrency] || 1;
+        return lossInUSD * rate;
+    }
+
     // Function to update statistics
-    function updateStats(filteredData) {
-        // Update total incidents count
-        totalIncidents.querySelector('p').textContent = filteredData.length;
+    function updateStats(filteredCount) {
+        // Update total incidents count (for the filtered view)
+        const totalIncidentsElement = document.getElementById('total-incidents-stat');
+        if (totalIncidentsElement) {
+             totalIncidentsElement.querySelector('p').textContent = filteredCount;
+        } else {
+            console.warn('Could not find total incidents stat element');
+        }
         
-        // Calculate total loss in USD
-        let totalUsdLoss = 0;
-        filteredData.forEach(incident => {
-            if (incident.Lost && !isNaN(incident.Lost) && incident.lossType === 'USD') {
-                totalUsdLoss += parseFloat(incident.Lost);
-            } else if (incident.Lost && !isNaN(incident.Lost) && incident.lossType === 'ETH' || incident.lossType === 'WETH')  {
-                // Approximate conversion (in a real app, you'd use current rates)
-                totalUsdLoss += parseFloat(incident.Lost) * 2500; // Approximate ETH value
-            } else if (incident.Lost && !isNaN(incident.Lost) && incident.lossType === 'BNB' || incident.lossType === 'WBNB')  {
-                // Approximate conversion
-                totalUsdLoss += parseFloat(incident.Lost) * 500; // Approximate BNB value
-            } else if (incident.Lost && !isNaN(incident.Lost) && incident.lossType === 'BTC' || incident.lossType === 'WBTC') {
-                // Approximate conversion for BTC/WBTC
-                totalUsdLoss += parseFloat(incident.Lost) * 60000; // Approximate BTC value
+        // Calculate total loss for filtered data
+        let totalLoss = 0;
+        filteredIncidents.forEach(incident => {
+            if (incident.Lost && !isNaN(incident.Lost)) {
+                totalLoss += convertLossToDisplayCurrency(parseFloat(incident.Lost), incident.lossType || 'USD');
             }
-            // Add other conversions as needed
         });
         
-        // Format total loss with commas and fixed to 2 decimal places
-        const formattedLoss = '$' + totalUsdLoss.toLocaleString('en-US', {
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 0
-        });
+        // Format total loss with the appropriate currency symbol
+        let formattedLoss;
+        switch(displayCurrency) {
+            case 'USD':
+                formattedLoss = '$' + totalLoss.toLocaleString('en-US', {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0
+                });
+                break;
+            case 'BTC':
+                formattedLoss = '₿' + totalLoss.toLocaleString('en-US', {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 8
+                });
+                break;
+            case 'ETH':
+                formattedLoss = 'Ξ' + totalLoss.toLocaleString('en-US', {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 6
+                });
+                break;
+            case 'EUR':
+                formattedLoss = '€' + totalLoss.toLocaleString('en-US', {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0
+                });
+                break;
+            case 'GBP':
+                formattedLoss = '£' + totalLoss.toLocaleString('en-US', {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0
+                });
+                break;
+            case 'JPY':
+                formattedLoss = '¥' + totalLoss.toLocaleString('en-US', {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0
+                });
+                break;
+            case 'CNY':
+                formattedLoss = '¥' + totalLoss.toLocaleString('en-US', {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0
+                });
+                break;
+            case 'AED':
+                formattedLoss = 'د.إ' + totalLoss.toLocaleString('en-US', {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 2
+                });
+                break;
+            case 'KWD':
+                formattedLoss = 'د.ك' + totalLoss.toLocaleString('en-US', {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 3
+                });
+                break;
+            default:
+                formattedLoss = totalLoss.toLocaleString('en-US', {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 2
+                }) + ' ' + displayCurrency;
+        }
         
         // Update total loss display
-        totalLoss.querySelector('p').textContent = formattedLoss;
+        const totalLossElement = document.getElementById('total-loss-stat');
+        if (totalLossElement) {
+            totalLossElement.querySelector('p').textContent = formattedLoss;
+        }
+        
+        // Update title to include currency
+        const lossTitle = totalLossElement?.querySelector('h3');
+        if (lossTitle) {
+            lossTitle.textContent = `Total Loss (${displayCurrency})`;
+        }
         
         // Update root cause count if sorting by root cause
-        const sortBy = document.getElementById('sort-filter').value;
+        const sortBy = document.getElementById('sort-filter')?.value;
         const rootCauseCountElement = document.getElementById('root-cause-count');
         
-        if (sortBy === 'root_cause_first') {
+        if (rootCauseCountElement && sortBy === 'root_cause_first') {
             // Count incidents with root cause data
-            const rootCauseCount = filteredData.filter(incident => 
-                rootCauseData[incident.name] 
+            const rootCauseCount = filteredIncidents.filter(incident => 
+                rootCauseData && rootCauseData[incident.name] 
             ).length;
             
             rootCauseCountElement.textContent = `(${rootCauseCount} root cause reports available)`;
             rootCauseCountElement.style.display = 'inline';
-        } else {
+        } else if (rootCauseCountElement) {
             rootCauseCountElement.style.display = 'none';
         }
     }
@@ -402,28 +964,63 @@ document.addEventListener('DOMContentLoaded', function() {
         
         return `${year}-${month}-${day}`;
     }
-
+    
     // Function to format loss amount
     function formatLoss(loss, lossType = 'USD') {
         if (!loss && loss !== 0) return 'Unknown';
         
+        // Convert to display currency
+        const convertedLoss = convertLossToDisplayCurrency(loss, lossType);
+        
         // Format number
-        let formattedLoss;
-        if (loss >= 1000000) {
-            formattedLoss = (loss / 1000000).toFixed(2) + 'M';
-        } else if (loss >= 1000) {
-            formattedLoss = (loss / 1000).toFixed(2) + 'K';
+        let formattedValue;
+        if (displayCurrency === 'BTC') {
+            // For BTC, show more decimal places
+            if (convertedLoss >= 1000) {
+                formattedValue = (convertedLoss / 1000).toFixed(4) + 'K';
+            } else {
+                formattedValue = convertedLoss.toFixed(8);
+            }
+        } else if (displayCurrency === 'ETH') {
+            // For ETH, show more decimal places
+            if (convertedLoss >= 1000) {
+                formattedValue = (convertedLoss / 1000).toFixed(3) + 'K';
+            } else {
+                formattedValue = convertedLoss.toFixed(6);
+            }
         } else {
-            formattedLoss = loss.toFixed(2);
+            // For fiat currencies, use standard formatting
+            if (convertedLoss >= 1000000) {
+                formattedValue = (convertedLoss / 1000000).toFixed(2) + 'M';
+            } else if (convertedLoss >= 1000) {
+                formattedValue = (convertedLoss / 1000).toFixed(2) + 'K';
+            } else {
+                formattedValue = convertedLoss.toFixed(2);
+            }
         }
         
         // Add currency symbol
-        if (lossType === 'USD') {
-            return '$' + formattedLoss;
-        } else if (lossType) {
-            return formattedLoss + ' ' + lossType;
-        } else {
-            return '$' + formattedLoss;
+        switch(displayCurrency) {
+            case 'USD':
+                return '$' + formattedValue;
+            case 'BTC':
+                return '₿' + formattedValue;
+            case 'ETH':
+                return 'Ξ' + formattedValue;
+            case 'EUR':
+                return '€' + formattedValue;
+            case 'GBP':
+                return '£' + formattedValue;
+            case 'JPY':
+                return '¥' + formattedValue;
+            case 'CNY':
+                return '¥' + formattedValue;
+            case 'AED':
+                return 'د.إ' + formattedValue;
+            case 'KWD':
+                return 'د.ك' + formattedValue;
+            default:
+                return formattedValue + ' ' + displayCurrency;
         }
     }
     
@@ -434,64 +1031,15 @@ document.addEventListener('DOMContentLoaded', function() {
         // Use full GitHub repository path
         const githubPrefix = 'https://github.com/SunWeb3Sec/DeFiHackLabs/tree/main/';
         
-        // 如果連結已經是完整的 URL，則直接使用
+        // If link is already a complete URL, use it directly
         if (pocLink.startsWith('http')) {
             return `<a href="${pocLink}" target="_blank">View POC</a>`;
         }
         
-        // 否則加上 GitHub 前綴
+        // Otherwise add GitHub prefix
         return `<a href="${githubPrefix}${pocLink}" target="_blank">View POC</a>`;
     }
 
-    // Add event listeners to filters
-    document.getElementById('year-filter').addEventListener('change', () => {
-        currentPage = 1;
-        updateTable();
-    });
-    document.getElementById('type-filter').addEventListener('change', () => {
-        currentPage = 1;
-        updateTable();
-    });
-    document.getElementById('sort-filter').addEventListener('change', () => {
-        updateTable();
-    });
-    document.getElementById('search-box').addEventListener('input', () => {
-        currentPage = 1;
-        updateTable();
-    });
-
-    // Initialize table display
-    updateTable();
-    
-    // Set up modal functionality
-    const modal = document.getElementById('rootCauseModal');
-    const closeBtn = document.querySelector('.close');
-    
-    // Close the modal when the user clicks on the close button
-    closeBtn.addEventListener('click', () => {
-        modal.style.display = 'none';
-    });
-    
-    // Navigation buttons functionality
-    document.querySelector('.prev-button').addEventListener('click', () => {
-        if (currentProjectIndex > 0) {
-            showRootCauseModal(sortedProjects[currentProjectIndex - 1]);
-        }
-    });
-    
-    document.querySelector('.next-button').addEventListener('click', () => {
-        if (currentProjectIndex < sortedProjects.length - 1) {
-            showRootCauseModal(sortedProjects[currentProjectIndex + 1]);
-        }
-    });
-    
-    // Close the modal when the user clicks anywhere outside of the modal content
-    window.addEventListener('click', (event) => {
-        if (event.target === modal) {
-            modal.style.display = 'none';
-        }
-    });
-    
     // Function to show the root cause modal with the project's data
     function showRootCauseModal(projectName) {
         const projectData = rootCauseData[projectName];
@@ -517,37 +1065,649 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log(`Root cause date: ${projectData.date}`);
         console.log(`Formatted incident date: ${formatDateForComparison(incident.date)}`);
         
+        // Get modal elements
+        const modal = document.getElementById('rootCauseModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalProjectName = document.getElementById('modalProjectName');
+        const modalType = document.getElementById('modalType');
+        const modalDate = document.getElementById('modalDate');
+        const modalLoss = document.getElementById('modalLoss');
+        const modalRootCause = document.getElementById('modalRootCause');
+        const modalImagesSection = document.getElementById('modalImagesSection');
+        const modalImages = document.getElementById('modalImages');
+        
+        if (!modal || !modalTitle || !modalProjectName || !modalType || 
+            !modalDate || !modalLoss || !modalRootCause || 
+            !modalImagesSection || !modalImages) {
+            console.error('One or more modal elements not found');
+            return;
+        }
+        
         // Populate modal with project data
-        document.getElementById('modalTitle').textContent = 'Root Cause Analysis';
-        document.getElementById('modalProjectName').textContent = projectName;
-        document.getElementById('modalType').textContent = `Attack Type: ${projectData.type || 'Unknown'}`;
-        document.getElementById('modalDate').textContent = `Date: ${projectData.date || incident.date || 'Unknown'}`;
-        document.getElementById('modalLoss').textContent = `Loss: ${projectData.Lost || incident.Lost || 'Unknown'}`;
+        modalTitle.textContent = 'Root Cause Analysis';
+        modalProjectName.textContent = projectName;
+        modalType.textContent = `Attack Type: ${projectData.type || incident.type || 'Unknown'}`;
+        modalDate.textContent = `Date: ${projectData.date || formatDate(incident.date) || 'Unknown'}`;
+        modalLoss.textContent = `Loss: ${formatLoss(projectData.Lost || incident.Lost, incident.lossType)}`;
         
         // Root cause analysis
-        const rootCauseElement = document.getElementById('modalRootCause');
         // Use innerHTML to render markdown content
-        rootCauseElement.innerHTML = projectData.rootCause ? marked.parse(projectData.rootCause) : 'No root cause analysis available.';
+        modalRootCause.innerHTML = projectData.rootCause ? marked.parse(projectData.rootCause) : 'No root cause analysis available.';
         
         // Images (if any)
-        const imagesContainer = document.getElementById('modalImages');
-        imagesContainer.innerHTML = '';
-        const imagesSection = document.getElementById('modalImagesSection');
+        modalImages.innerHTML = '';
         
         if (projectData.images && projectData.images.length > 0) {
             projectData.images.forEach(imageUrl => {
                 const img = document.createElement('img');
                 img.src = imageUrl;
                 img.alt = `${projectName} incident image`;
-                imagesContainer.appendChild(img);
+                modalImages.appendChild(img);
             });
-            imagesSection.style.display = 'block';
+            modalImagesSection.style.display = 'block';
         } else {
-            imagesContainer.innerHTML = '<p>No images available.</p>';
-            imagesSection.style.display = 'none';
+            modalImages.innerHTML = '<p>No images available.</p>';
+            modalImagesSection.style.display = 'none';
         }
         
         // Display the modal
         modal.style.display = 'block';
+    }
+
+    // Function to prepare sorted projects list for navigation
+    function prepareSortedProjects(incidentsData, rootCauseLookup) {
+        if (!incidentsData || !rootCauseLookup) {
+            console.warn('Missing data for prepareSortedProjects');
+            sortedProjects = [];
+            return;
+        }
+
+        sortedProjects = incidentsData
+            .filter(incident => rootCauseLookup[incident.name]) // Only include those with root cause data
+            .map(incident => incident.name) // Get project names
+            .sort((a, b) => {
+                // Find corresponding incidents to sort by date
+                const dateA = incidentsData.find(inc => inc.name === a)?.date || '';
+                const dateB = incidentsData.find(inc => inc.name === b)?.date || '';
+                return dateB.localeCompare(dateA); // Sort by date, newest first
+            });
+         console.log("Sorted projects for navigation:", sortedProjects.length);
+    }
+
+    // Function to make the incidents table collapsible
+    function makeTableCollapsible() {
+        // Create a toggle button container
+        const toggleContainer = document.createElement('div');
+        toggleContainer.className = 'toggle-container';
+        
+        // Create the toggle button
+        const toggleButton = document.createElement('button');
+        toggleButton.className = 'toggle-table-button';
+        toggleButton.innerHTML = 'Hide Incidents Table <span>▲</span>';
+        toggleButton.setAttribute('aria-expanded', 'true');
+        toggleContainer.appendChild(toggleButton);
+        
+        // Find the table container
+        const tableContainer = document.querySelector('.table-container');
+        const paginationContainer = document.querySelector('.pagination-container');
+        const analyticsChartContainer = document.getElementById('analytics-charts');
+        
+        // If we can't find the elements, return early
+        if (!tableContainer || !analyticsChartContainer) {
+            console.warn('Could not find table or analytics container');
+            return;
+        }
+        
+        // Insert toggle button before the table
+        if (tableContainer.parentNode) {
+            tableContainer.parentNode.insertBefore(toggleContainer, tableContainer);
+        }
+        
+        // Function to toggle the table visibility
+        toggleButton.addEventListener('click', function() {
+            const isExpanded = toggleButton.getAttribute('aria-expanded') === 'true';
+            
+            if (isExpanded) {
+                // Collapse the table
+                tableContainer.style.display = 'none';
+                if (paginationContainer) paginationContainer.style.display = 'none';
+                toggleButton.innerHTML = 'Show Incidents Table <span>▼</span>';
+                toggleButton.setAttribute('aria-expanded', 'false');
+                // Scroll to analytics
+                analyticsChartContainer.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                // Expand the table
+                tableContainer.style.display = 'block';
+                if (paginationContainer) paginationContainer.style.display = 'block';
+                toggleButton.innerHTML = 'Hide Incidents Table <span>▲</span>';
+                toggleButton.setAttribute('aria-expanded', 'true');
+            }
+        });
+    }
+    
+
+    
+    // Function to create and set up the settings panel
+    function createSettingsPanel() {
+        // Create panel overlay 
+        const overlay = document.createElement('div');
+        overlay.className = 'panel-overlay';
+        document.body.appendChild(overlay);
+        
+        // Create settings panel
+        const settingsPanel = document.createElement('div');
+        settingsPanel.className = 'settings-panel';
+        settingsPanel.innerHTML = `
+            <div class="settings-header">
+                <h3>Display Settings</h3>
+                <button class="close-settings">×</button>
+            </div>
+            <div class="settings-content">
+                <div class="settings-section">
+                    <h4>Theme</h4>
+                    <div class="setting-item">
+                        <span class="setting-label">Light Mode</span>
+                        <label class="switch">
+                            <input type="checkbox" id="toggle-theme">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="settings-section">
+                    <h4>Visual Effects</h4>
+                    <div class="setting-item">
+                        <span class="setting-label">Reduce Glow Effects</span>
+                        <label class="switch">
+                            <input type="checkbox" id="toggle-glow">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <span class="setting-label">High Contrast Mode</span>
+                        <label class="switch">
+                            <input type="checkbox" id="toggle-contrast">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <span class="setting-label">Disable Animations</span>
+                        <label class="switch">
+                            <input type="checkbox" id="toggle-animations">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="settings-section">
+                </div>
+                
+                <button class="reset-button" id="reset-settings">Reset to Default</button>
+            </div>
+        `;
+        document.body.appendChild(settingsPanel);
+        
+        // Add event listeners
+        document.getElementById('open-settings')?.addEventListener('click', openSettingsPanel);
+        document.querySelector('.close-settings')?.addEventListener('click', closeSettingsPanel);
+        overlay.addEventListener('click', closeSettingsPanel);
+        
+        // Toggle light/dark mode
+        document.getElementById('toggle-theme')?.addEventListener('change', function() {
+            document.body.classList.toggle('light-mode', this.checked);
+            saveSettings();
+        });
+        
+        // Toggle settings
+        document.getElementById('toggle-glow')?.addEventListener('change', function() {
+            document.body.classList.toggle('low-glow', this.checked);
+            saveSettings();
+        });
+        
+        document.getElementById('toggle-contrast')?.addEventListener('change', function() {
+            document.body.classList.toggle('high-contrast', this.checked);
+            saveSettings();
+        });
+        
+        document.getElementById('toggle-animations')?.addEventListener('change', function() {
+            document.body.classList.toggle('no-animations', this.checked);
+            saveSettings();
+        });
+        
+        // Slider for text size
+        const textSizeSlider = document.getElementById('text-size-slider');
+        if (textSizeSlider) {
+            textSizeSlider.addEventListener('input', function() {
+                document.documentElement.style.fontSize = `${this.value}%`;
+                saveSettings();
+            });
+        }
+        
+        // Reset button
+        document.getElementById('reset-settings')?.addEventListener('click', resetSettings);
+    }
+    
+    // Open settings panel
+    function openSettingsPanel() {
+        const settingsPanel = document.querySelector('.settings-panel');
+        const overlay = document.querySelector('.panel-overlay');
+        
+        if (settingsPanel) settingsPanel.classList.add('open');
+        if (overlay) overlay.classList.add('active');
+    }
+    
+    // Close settings panel
+    function closeSettingsPanel() {
+        const settingsPanel = document.querySelector('.settings-panel');
+        const overlay = document.querySelector('.panel-overlay');
+        
+        if (settingsPanel) settingsPanel.classList.remove('open');
+        if (overlay) overlay.classList.remove('active');
+    }
+    
+    // Save settings to localStorage
+    function saveSettings() {
+        const settings = {
+            lightMode: document.getElementById('toggle-theme')?.checked || false,
+            lowGlow: document.getElementById('toggle-glow')?.checked || false,
+            highContrast: document.getElementById('toggle-contrast')?.checked || false,
+            noAnimations: document.getElementById('toggle-animations')?.checked || false,
+            textSize: document.getElementById('text-size-slider')?.value || 100
+        };
+        
+        localStorage.setItem('defihack-settings', JSON.stringify(settings));
+    }
+    
+    // Load settings from localStorage
+    function loadSettings() {
+        const savedSettings = localStorage.getItem('defihack-settings');
+        if (!savedSettings) return;
+        
+        try {
+            const settings = JSON.parse(savedSettings);
+            
+            // Apply theme setting
+            if (settings.lightMode) {
+                document.body.classList.add('light-mode');
+                document.getElementById('toggle-theme').checked = true;
+            }
+            
+            // Apply visual settings
+            if (settings.lowGlow) {
+                document.body.classList.add('low-glow');
+                document.getElementById('toggle-glow').checked = true;
+            }
+            
+            if (settings.highContrast) {
+                document.body.classList.add('high-contrast');
+                document.getElementById('toggle-contrast').checked = true;
+            }
+            
+            if (settings.noAnimations) {
+                document.body.classList.add('no-animations');
+                document.getElementById('toggle-animations').checked = true;
+            }
+            
+            // Apply text size
+            if (settings.textSize) {
+                document.documentElement.style.fontSize = `${settings.textSize}%`;
+                if (document.getElementById('text-size-slider')) {
+                    document.getElementById('text-size-slider').value = settings.textSize;
+                }
+            }
+            
+        } catch (error) {
+            console.error('Error loading settings:', error);
+        }
+    }
+    
+    // Reset settings to default
+    function resetSettings() {
+        // Clear classes
+        document.body.classList.remove('light-mode', 'low-glow', 'high-contrast', 'no-animations');
+        
+        // Reset form controls
+        if (document.getElementById('toggle-theme')) document.getElementById('toggle-theme').checked = false;
+        if (document.getElementById('toggle-glow')) document.getElementById('toggle-glow').checked = false;
+        if (document.getElementById('toggle-contrast')) document.getElementById('toggle-contrast').checked = false;
+        if (document.getElementById('toggle-animations')) document.getElementById('toggle-animations').checked = false;
+        if (document.getElementById('text-size-slider')) document.getElementById('text-size-slider').value = 100;
+        
+        // Reset text size
+        document.documentElement.style.fontSize = '100%';
+        
+        // Save the default settings
+        saveSettings();
+        
+        // Show feedback
+        const resetButton = document.getElementById('reset-settings');
+        if (resetButton) {
+            const originalText = resetButton.textContent;
+            resetButton.textContent = 'Settings Reset!';
+            setTimeout(() => {
+                resetButton.textContent = originalText;
+            }, 1500);
+        }
+    }
+
+    // Function to update analytics based on filtered data
+    function updateAnalytics(filteredData) {
+        // Don't update if analytics container isn't visible
+        const analyticsContainer = document.getElementById('analytics-charts');
+        if (!analyticsContainer || analyticsContainer.style.display === 'none') {
+            return; // Skip update if analytics are hidden
+        }
+        
+        // Check if we have data to analyze
+        if (!filteredData || filteredData.length === 0) {
+            analyticsContainer.innerHTML = '<p class="no-data-message">No data available for the current filters.</p>';
+            return;
+        }
+        
+        // Analyze the filtered data directly
+        // Calculate analysis results for filtered data
+        let filteredAnalysis = analyzeFilteredData(filteredData);
+        
+        // Render charts with filtered data
+        renderCharts(filteredData, filteredAnalysis);
+    }
+
+    // Function to perform analytics on filtered data
+    function analyzeFilteredData(filteredData) {
+        // Create a filtered analytics result object
+        const filteredResults = {};
+        
+        // Calculate total loss (USD)
+        filteredResults.totalLoss = filteredData.reduce((sum, incident) => {
+            if (incident.lossType && incident.lossType.toUpperCase() === 'USD' && 
+                typeof incident.Lost === 'number' && !isNaN(incident.Lost)) {
+                return sum + incident.Lost;
+            }
+            return sum;
+        }, 0);
+        
+        // Count incidents by year
+        filteredResults.countByYear = {};
+        filteredData.forEach(incident => {
+            if (incident.dateObj) {
+                const year = incident.dateObj.getUTCFullYear().toString();
+                filteredResults.countByYear[year] = (filteredResults.countByYear[year] || 0) + 1;
+            }
+        });
+        
+        // Count incidents by type
+        filteredResults.countByType = {};
+        filteredData.forEach(incident => {
+            if (incident.type) {
+                filteredResults.countByType[incident.type] = (filteredResults.countByType[incident.type] || 0) + 1;
+            }
+        });
+        
+        // Aggregate loss by type
+        filteredResults.lossByType = {};
+        filteredData.forEach(incident => {
+            if (incident.type && incident.lossType && incident.lossType.toUpperCase() === 'USD' && 
+                typeof incident.Lost === 'number' && !isNaN(incident.Lost)) {
+                filteredResults.lossByType[incident.type] = (filteredResults.lossByType[incident.type] || 0) + incident.Lost;
+            }
+        });
+        
+        // Aggregate loss by year
+        filteredResults.lossByYear = {};
+        filteredData.forEach(incident => {
+            if (incident.dateObj && incident.lossType && incident.lossType.toUpperCase() === 'USD' && 
+                typeof incident.Lost === 'number' && !isNaN(incident.Lost)) {
+                const year = incident.dateObj.getUTCFullYear().toString();
+                filteredResults.lossByYear[year] = (filteredResults.lossByYear[year] || 0) + incident.Lost;
+            }
+        });
+        
+        // Get protocol frequency
+        const protocolCounts = getProtocolFrequencyFromData(filteredData);
+        filteredResults.protocolFrequency = protocolCounts;
+        
+        // Attack type by year calculation
+        const attackTypesByYear = getAttackTypesByYearFromData(filteredData, filteredResults.countByType);
+        filteredResults.attackTypesByYear = attackTypesByYear;
+        
+        // Get root cause frequency from filtered data
+        const rootCauseFreq = getRootCauseFrequency(filteredData);
+        filteredResults.rootCauseFrequency = rootCauseFreq;
+        
+        return filteredResults;
+    }
+
+    // Get root cause frequency from filtered data
+    function getRootCauseFrequency(filteredData) {
+        const counts = {};
+        for (const incident of filteredData) {
+            const rootCauseInfo = rootCauseData[incident.name];
+            if (rootCauseInfo && rootCauseInfo.type) {
+                const mainType = rootCauseInfo.type.split(',')[0].trim();
+                if (mainType) {
+                    counts[mainType] = (counts[mainType] || 0) + 1;
+                }
+            } else if (incident.type) {
+                counts[incident.type] = (counts[incident.type] || 0) + 1;
+            }
+        }
+        return counts;
+    }
+
+    // Get protocol frequency from filtered data  
+    function getProtocolFrequencyFromData(filteredData) {
+        const protocolCounts = {};
+        const protocolMap = {}; // Map to normalize similar protocol names
+        
+        // Create a mapping of common protocol name variations
+        const commonProtocolMap = {
+            // Exact matches or substring matches for known protocols
+            'uni': 'Uniswap',
+            'sushi': 'SushiSwap',
+            'pancake': 'PancakeSwap',
+            'curve': 'Curve Finance',
+            'balancer': 'Balancer',
+            'aave': 'Aave',
+            'compound': 'Compound',
+            'maker': 'MakerDAO',
+            'weth': 'Wrapped ETH',
+            'yearn': 'Yearn Finance',
+            'kyber': 'Kyber Network',
+            'synthetix': 'Synthetix',
+            '0x': '0x Protocol',
+            'cream': 'Cream Finance',
+            'harvest': 'Harvest Finance',
+            'bancor': 'Bancor',
+            'parity': 'Parity',
+            'beanstalk': 'Beanstalk',
+            'ronin': 'Ronin Bridge',
+            'badger': 'BadgerDAO',
+            'cover': 'Cover Protocol',
+            'pickle': 'Pickle Finance',
+            'dforce': 'dForce',
+            'lend': 'LendHub',
+            'nomad': 'Nomad Bridge',
+            'poly': 'Polygon',
+            'harmony': 'Harmony',
+            'rari': 'Rari Capital',
+            'bsc': 'Binance Smart Chain',
+            'ftx': 'FTX',
+            'euler': 'Euler Finance',
+            'mango': 'Mango Markets',
+            'deus': 'Deus Finance',
+            'fei': 'Fei Protocol'
+        };
+        
+        // Special full name handling - exact matches override the substring matching
+        const exactNameMap = {
+            'bZx': 'bZx',
+            'dYdX': 'dYdX',
+            'AlchemixFinance': 'Alchemix Finance',
+            'Opyn': 'Opyn Protocol',
+            'pNetwork': 'pNetwork',
+            'GMX': 'GMX',
+            'BEAN': 'Bean Protocol',
+            'FEI+TRIBE': 'Fei Protocol',
+            'CREAM': 'Cream Finance',
+            'PAID': 'PAID Network',
+            'DODO': 'DODO Exchange',
+            'ENS': 'ENS',
+            'PancakeBunny': 'PancakeBunny',
+            'BurgerSwap': 'BurgerSwap',
+            'ForceDAO': 'ForceDAO',
+            'Grim Finance': 'Grim Finance',
+            '88mph': '88mph',
+            'Orion Protocol': 'Orion Protocol'
+        };
+        
+        // Helper function to check if a string contains any of the patterns
+        const containsAny = (str, patterns) => {
+            const lowerStr = str.toLowerCase();
+            return patterns.some(pattern => lowerStr.includes(pattern.toLowerCase()));
+        };
+        
+        // Cache for processed names to ensure consistency
+        const processedNameCache = new Map();
+        
+        // Iterate through all incidents
+        for (const incident of filteredData) {
+            if (!incident.name) continue;
+            
+            // Check if we've already processed this name
+            if (processedNameCache.has(incident.name)) {
+                const cached = processedNameCache.get(incident.name);
+                protocolCounts[cached] = (protocolCounts[cached] || 0) + 1;
+                if (!protocolMap[cached]) protocolMap[cached] = new Set();
+                protocolMap[cached].add(incident.name);
+                continue;
+            }
+            
+            // Skip certain patterns
+            if (/^0x[a-fA-F0-9]{10,}$/.test(incident.name) ||
+                containsAny(incident.name, ['unverified', 'unknown', 'null', 'mev', 'wallet'])) {
+                continue;
+            }
+            
+            // Check for exact name matches first
+            if (exactNameMap[incident.name]) {
+                const mappedName = exactNameMap[incident.name];
+                processedNameCache.set(incident.name, mappedName);
+                protocolCounts[mappedName] = (protocolCounts[mappedName] || 0) + 1;
+                continue;
+            }
+            
+            // Clean the protocol name
+            let cleanName = incident.name
+                .replace(/\s?[vV]\d+(\.\d+)?/i, '')
+                .replace(/\s+Protocol$/i, '')
+                .replace(/\s+Finance$/i, '')
+                .replace(/\s+DAO$/i, '')
+                .replace(/\s+DeFi$/i, '')
+                .replace(/\s+NFT$/i, '')
+                .replace(/\s+Swap$/i, '')
+                .replace(/\s+Bridge$/i, '')
+                .replace(/\s+Exchange$/i, '')
+                .replace(/\s+Capital$/i, '')
+                .replace(/\s+Network$/i, '')
+                .trim();
+                
+            // Extract core name
+            const nameComponents = cleanName.split(/[\s_\-()]/);
+            const coreName = nameComponents[0].toLowerCase();
+            
+            // Check for common protocol name matches
+            let foundMatch = false;
+            for (const [pattern, mappedName] of Object.entries(commonProtocolMap)) {
+                if (coreName === pattern || 
+                    coreName.includes(pattern) || 
+                    cleanName.toLowerCase().includes(pattern.toLowerCase())) {
+                    
+                    processedNameCache.set(incident.name, mappedName);
+                    protocolCounts[mappedName] = (protocolCounts[mappedName] || 0) + 1;
+                    foundMatch = true;
+                    break;
+                }
+            }
+            
+            if (foundMatch) continue;
+            
+            // Default name handling
+            let canonicalName;
+            
+            // For multi-word names, keep the full cleaned name with proper capitalization
+            if (nameComponents.length > 1) {
+                canonicalName = nameComponents.map(part => 
+                    part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()
+                ).join(' ');
+            } else {
+                // For single word, capitalize first letter
+                canonicalName = coreName.charAt(0).toUpperCase() + coreName.slice(1).toLowerCase();
+            }
+            
+            processedNameCache.set(incident.name, canonicalName);
+            protocolCounts[canonicalName] = (protocolCounts[canonicalName] || 0) + 1;
+        }
+        
+        // Filter out protocols with only one occurrence
+        const filteredCounts = Object.entries(protocolCounts)
+            .filter(([, count]) => count > 1)
+            .reduce((obj, [protocol, count]) => { 
+                obj[protocol] = count; 
+                return obj; 
+            }, {});
+        
+        // Return top 15 protocols
+        return Object.entries(filteredCounts)
+            .sort(([, countA], [, countB]) => countB - countA)
+            .slice(0, 15)
+            .reduce((obj, [protocol, count]) => { 
+                obj[protocol] = count; 
+                return obj; 
+            }, {});
+    }
+
+    // Get attack types by year from filtered data
+    function getAttackTypesByYearFromData(filteredData, countByType) {
+        // Get unique years and attack types
+        const years = new Set();
+        
+        // First pass: get all unique years
+        filteredData.forEach(incident => {
+            if (incident.dateObj && incident.type) {
+                const year = incident.dateObj.getUTCFullYear().toString();
+                years.add(year);
+            }
+        });
+        
+        // Convert sets to sorted arrays
+        const sortedYears = Array.from(years).sort();
+        
+        // Keep only top 5 attack types to avoid chart clutter
+        const topAttackTypes = Object.entries(countByType)
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 5)
+            .map(([type]) => type);
+        
+        // Create data structure for each attack type by year
+        const result = {};
+        topAttackTypes.forEach(attackType => {
+            result[attackType] = sortedYears.reduce((acc, year) => {
+                acc[year] = 0;
+                return acc;
+            }, {});
+        });
+        
+        // Second pass: count incidents by attack type and year
+        filteredData.forEach(incident => {
+            if (incident.dateObj && incident.type && topAttackTypes.includes(incident.type)) {
+                const year = incident.dateObj.getUTCFullYear().toString();
+                result[incident.type][year]++;
+            }
+        });
+        
+        return {
+            years: sortedYears,
+            attackTypes: topAttackTypes,
+            data: result
+        };
     }
 });
