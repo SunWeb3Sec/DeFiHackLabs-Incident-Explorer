@@ -730,38 +730,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     function convertLossToDisplayCurrency(loss, originalCurrency) {
         console.log('Loss before conversion:', loss);
 
-        // If loss is already a formatted string (contains $ or other currency symbols)
-        // convert to number
-        // if loss has M, B, K, etc, convert to number
-        if (typeof loss === 'string') {
-            // Remove currency symbols
-            let cleanedLoss = loss.replace(/[$€£₿Ξ¥د.إد.ك]/g, '').trim();
-
-            // Check for suffixes and convert to appropriate number
-            const suffixMatch = cleanedLoss.toUpperCase().match(/([0-9,.]+)\s*([KMB])/);
-            if (suffixMatch) {
-                const numPart = parseFloat(suffixMatch[1].replace(/,/g, ''));
-                const suffix = suffixMatch[2];
-
-                // Convert to appropriate number based on suffix
-                if (suffix === 'K') {
-                    loss = numPart * 1000;
-                } else if (suffix === 'M') {
-                    loss = numPart * 1000000;
-                } else if (suffix === 'B') {
-                    loss = numPart * 1000000000;
-                }
-            } else {
-                // Try to parse as a simple number
-                const parsedLoss = parseFloat(cleanedLoss.replace(/,/g, ''));
-                if (!isNaN(parsedLoss)) {
-                    loss = parsedLoss;
-                } else {
-                    return 0; // If can't parse, return 0
-                }
-            }
-        }
-
 
         if (!loss || isNaN(loss)) return 0;
 
@@ -1118,7 +1086,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         modalProjectName.textContent = projectName;
         modalType.textContent = `Attack Type: ${projectData.type || incident.type || 'Unknown'}`;
         modalDate.textContent = `Date: ${projectData.date || formatDate(incident.date) || 'Unknown'}`;
-        modalLoss.textContent = `Loss: ${formatLoss(projectData.Lost || incident.Lost, incident.lossType)}`;
+        modalLoss.textContent = `Loss: ${projectData.Lost || incident.Lost} ${incident.lossType || 'USD'}`;
 
         // Root cause analysis
         // Use innerHTML to render markdown content
