@@ -259,8 +259,8 @@
     "date": "20210915",
     "name": "NowSwap Platform",
     "type": "Logic Flaw",
-    "Lost": 158.28,
-    "lossType": "WETH",
+    "Lost": 1000000.0,
+    "lossType": "USD",
     "Contract": "src/test/2021-09/NowSwap_exp.sol"
   },
   {
@@ -355,7 +355,7 @@
     "date": "20210622",
     "name": "Eleven Finance",
     "type": "Logic Flaw",
-    "Lost": 300000,
+    "Lost": 4500000.0,
     "lossType": "USD",
     "Contract": "src/test/2021-06/Eleven_exp.sol"
   },
@@ -459,7 +459,7 @@
     "date": "20210308",
     "name": "DODO",
     "type": "Flash Loan Attack",
-    "Lost": 700.0,
+    "Lost": 700000.0,
     "lossType": "USD",
     "Contract": "src/test/2021-03/dodo_flashloan_exp.sol"
   },
@@ -531,7 +531,7 @@
     "date": "20200618",
     "name": "Bancor Protocol",
     "type": "Access Control",
-    "Lost": 130000,
+    "Lost": 545000.0,
     "lossType": "USD",
     "Contract": "src/test/2020-06/Bancor_exp.sol"
   },
@@ -723,7 +723,7 @@
     "date": "20221129",
     "name": "MBC & ZZSH",
     "type": "Access Control",
-    "Lost": 5900.0,
+    "Lost": 5600.0,
     "lossType": "USD",
     "Contract": "src/test/2022-11/MBC_ZZSH_exp.sol"
   },
@@ -827,7 +827,7 @@
     "date": "20221107",
     "name": "MooCAKECTX",
     "type": "Flash Loan Attack",
-    "Lost": 140.0,
+    "Lost": 140000.0,
     "lossType": "USD",
     "Contract": "src/test/2022-11/MooCAKECTX_exp.sol"
   },
@@ -867,7 +867,7 @@
     "date": "20221025",
     "name": "ULME",
     "type": "Access Control",
-    "Lost": 250000.0,
+    "Lost": 200000.0,
     "lossType": "USD",
     "Contract": "src/test/2022-10/ULME_exp.sol"
   },
@@ -891,7 +891,7 @@
     "date": "20221021",
     "name": "OlympusDAO",
     "type": "Incorrect Validation",
-    "Lost": 300000.0,
+    "Lost": 292000.0,
     "lossType": "USD",
     "Contract": "src/test/2022-10/OlympusDao_exp.sol"
   },
@@ -955,8 +955,8 @@
     "date": "20221014",
     "name": "MEVBOTa47b",
     "type": "Front-running Attack",
-    "Lost": 187.75,
-    "lossType": "WETH",
+    "Lost": 241000.0,
+    "lossType": "USD",
     "Contract": "src/test/2022-10/MEVa47b_exp.sol"
   },
   {
@@ -971,7 +971,7 @@
     "date": "20221011",
     "name": "Rabby Wallet SwapRouter",
     "type": "Arbitrary Call",
-    "Lost": 200.0,
+    "Lost": 200000.0,
     "lossType": "USD",
     "Contract": "src/test/2022-10/RabbyWallet_SwapRouter_exp.sol"
   },
@@ -1043,7 +1043,7 @@
     "date": "20220928",
     "name": "BXH",
     "type": "Flash Loan Attack",
-    "Lost": 40.3,
+    "Lost": 40305.0,
     "lossType": "USD",
     "Contract": "src/test/2022-09/BXH_exp.sol"
   },
@@ -1051,7 +1051,7 @@
     "date": "20220928",
     "name": "MEVBOT_0xbaDc0dE",
     "type": "Sandwich Attack",
-    "Lost": 1469.7,
+    "Lost": 94304.0,
     "lossType": "USD",
     "Contract": "src/test/2022-09/MEVbadc0de_exp.sol"
   },
@@ -1059,7 +1059,7 @@
     "date": "20220923",
     "name": "RADT-DAO",
     "type": "Price Manipulation",
-    "Lost": 94.3,
+    "Lost": 94304.0,
     "lossType": "USD",
     "Contract": "src/test/2022-09/RADT_exp.sol"
   },
@@ -1075,7 +1075,7 @@
     "date": "20220909",
     "name": "DPC",
     "type": "Logic Flaw",
-    "Lost": 103.75,
+    "Lost": 1400000.0,
     "lossType": "USD",
     "Contract": "src/test/2022-09/DPC_exp.sol"
   },
@@ -1083,7 +1083,7 @@
     "date": "20220908",
     "name": "YYDS",
     "type": "Price Manipulation",
-    "Lost": 742286.27,
+    "Lost": 742286.0,
     "lossType": "USD",
     "Contract": "src/test/2022-09/Yyds_exp.sol"
   },
@@ -1091,15 +1091,15 @@
     "date": "20220908",
     "name": "Ragnarok Online Invasion",
     "type": "Access Control",
-    "Lost": 157.98,
-    "lossType": "BNB",
+    "Lost": 44000.0,
+    "lossType": "USD",
     "Contract": "src/test/2022-09/ROI_exp.sol"
   },
   {
     "date": "20220908",
     "name": "NewFreeDAO",
     "type": "Flash Loan Attack",
-    "Lost": 1000000.0,
+    "Lost": 125000000.0,
     "lossType": "USD",
     "Contract": "src/test/2022-09/NewFreeDAO_exp.sol"
   },
@@ -1107,7 +1107,7 @@
     "date": "20220906",
     "name": "NXUSD",
     "type": "Flash Loan Attack",
-    "Lost": 50.0,
+    "Lost": 50000.0,
     "lossType": "USD",
     "Contract": "src/test/2022-09/NXUSD_exp.sol"
   },
@@ -1115,7 +1115,7 @@
     "date": "20220905",
     "name": "ZoomproFinance",
     "type": "Price Manipulation",
-    "Lost": 61.16,
+    "Lost": 61160.0,
     "lossType": "USD",
     "Contract": "src/test/2022-09/ZoomproFinance_exp.sol"
   },
@@ -1123,8 +1123,8 @@
     "date": "20220902",
     "name": "ShadowFi",
     "type": "Access Control",
-    "Lost": 1.07,
-    "lossType": "BNB",
+    "Lost": 1078.0,
+    "lossType": "USD",
     "Contract": "src/test/2022-09/Shadowfi_exp.sol"
   },
   {
@@ -1187,7 +1187,7 @@
     "date": "20220807",
     "name": "EGD Finance",
     "type": "Price Manipulation",
-    "Lost": 36.04,
+    "Lost": 36044.0,
     "lossType": "USD",
     "Contract": "src/test/2022-08/EGD_Finance_exp.sol"
   },
@@ -1211,7 +1211,7 @@
     "date": "20220802",
     "name": "Nomad Bridge",
     "type": "Incorrect Validation",
-    "Lost": 154000000.0,
+    "Lost": 152000000.0,
     "lossType": "USD",
     "Contract": "src/test/2022-08/NomadBridge_exp.sol"
   },
@@ -1219,7 +1219,7 @@
     "date": "20220801",
     "name": "Reaper Farm",
     "type": "Access Control",
-    "Lost": 1698423.0,
+    "Lost": 1700000.0,
     "lossType": "USD",
     "Contract": "src/test/2022-08/ReaperFarm_exp.sol"
   },
@@ -1227,23 +1227,23 @@
     "date": "20220725",
     "name": "LPC",
     "type": "Incorrect Validation",
-    "Lost": 178.0,
-    "lossType": "BNB",
+    "Lost": 45000.0,
+    "lossType": "USD",
     "Contract": "src/test/2022-07/LPC_exp.sol"
   },
   {
     "date": "20220723",
     "name": "Audius",
     "type": "Storage Collision",
-    "Lost": 704.0,
-    "lossType": "ETH",
+    "Lost": 6000000.0,
+    "lossType": "USD",
     "Contract": "src/test/2022-07/Audius_exp.sol"
   },
   {
     "date": "20220713",
     "name": "SpaceGodzilla",
     "type": "Price Manipulation",
-    "Lost": 25.37,
+    "Lost": 26000.0,
     "lossType": "USD",
     "Contract": "src/test/2022-07/SpaceGodzilla_exp.sol"
   },
@@ -1275,8 +1275,8 @@
     "date": "20220626",
     "name": "XCarnival",
     "type": "Flash Loan Attack",
-    "Lost": 3087.0,
-    "lossType": "ETH",
+    "Lost": 3870000.0,
+    "lossType": "USD",
     "Contract": "src/test/2022-06/XCarnival_exp.sol"
   },
   {
@@ -1299,7 +1299,7 @@
     "date": "20220616",
     "name": "InverseFinance",
     "type": "Flash Loan Attack",
-    "Lost": 15600000,
+    "Lost": 1260000.0,
     "lossType": "USD",
     "Contract": "src/test/2022-06/InverseFinance_exp.sol"
   },
@@ -1307,7 +1307,7 @@
     "date": "20220608",
     "name": "GYMNetwork",
     "type": "Access Control",
-    "Lost": 2100000.0,
+    "Lost": 2000000.0,
     "lossType": "USD",
     "Contract": "src/test/2022-06/Gym_2_exp.sol"
   },
@@ -1555,7 +1555,7 @@
     "date": "20220303",
     "name": "TreasureDAO",
     "type": "Incorrect Validation",
-    "Lost": 1000000.0,
+    "Lost": 470000.0,
     "lossType": "USD",
     "Contract": "src/test/2022-03/TreasureDAO_exp.sol"
   },
@@ -1643,7 +1643,7 @@
     "date": "20231225",
     "name": "Telcoin",
     "type": "Storage Collision",
-    "Lost": 1240000.0,
+    "Lost": 124000000.0,
     "lossType": "USD",
     "Contract": "src/test/2023-12/Telcoin_exp.sol"
   },
@@ -1675,7 +1675,7 @@
     "date": "20231217",
     "name": "FloorProtocol",
     "type": "Logic Flaw",
-    "Lost": 1600000.0,
+    "Lost": 16000000.0,
     "lossType": "USD",
     "Contract": "src/test/2023-12/FloorProtocol_exp.sol"
   },
@@ -1851,7 +1851,7 @@
     "date": "20231122",
     "name": "KyberSwap",
     "type": "Precision Loss",
-    "Lost": 48.0,
+    "Lost": 48000000.0,
     "lossType": "USD",
     "Contract": "src/test/2023-11/KyberSwap_exp.eth.1.sol"
   },
@@ -2027,7 +2027,7 @@
     "date": "20231031",
     "name": "UniBotRouter",
     "type": "Arbitrary Call",
-    "Lost": 83.94,
+    "Lost": 83944.0,
     "lossType": "USD",
     "Contract": "src/test/2023-10/UniBot_exp.sol"
   },
@@ -2155,7 +2155,7 @@
     "date": "20230930",
     "name": "FireBirdPair",
     "type": "Slippage",
-    "Lost": 8000.0,
+    "Lost": 3200.0,
     "lossType": "USD",
     "Contract": "src/test/2023-09/FireBirdPair_exp.sol"
   },
@@ -2489,7 +2489,7 @@
   },
   {
     "date": "20230712",
-    "name": "Platypus",
+    "name": "Platypus_",
     "type": "Logic Flaw",
     "Lost": 51000.0,
     "lossType": "USD",
@@ -2643,7 +2643,7 @@
     "date": "20230620",
     "name": "MIMSpell",
     "type": "Access Control",
-    "Lost": 17000.0,
+    "Lost": 65000000.0,
     "lossType": "USD",
     "Contract": "src/test/2023-06/MIMSpell_exp.sol"
   },
@@ -2715,7 +2715,7 @@
     "date": "20230607",
     "name": "CompounderFinance",
     "type": "Price Manipulation",
-    "Lost": 27.17,
+    "Lost": 27174.0,
     "lossType": "USD",
     "Contract": "src/test/2023-06/CompounderFinance_exp.sol"
   },
@@ -2835,7 +2835,7 @@
     "date": "20230514",
     "name": "landNFT",
     "type": "Access Control",
-    "Lost": 149.61,
+    "Lost": 149616.0,
     "lossType": "USD",
     "Contract": "src/test/2023-05/landNFT_exp.sol"
   },
@@ -2883,7 +2883,7 @@
     "date": "20230510",
     "name": "SNK",
     "type": "Logic Flaw",
-    "Lost": 197.0,
+    "Lost": 197000.0,
     "lossType": "USD",
     "Contract": "src/test/2023-05/SNK_exp.sol"
   },
@@ -3091,7 +3091,7 @@
     "date": "20230308",
     "name": "DKP",
     "type": "Price Manipulation",
-    "Lost": 80.0,
+    "Lost": 80000.0,
     "lossType": "USD",
     "Contract": "src/test/2023-03/DKP_exp.sol"
   },
@@ -3107,7 +3107,7 @@
     "date": "20230227",
     "name": "LaunchZone",
     "type": "Access Control",
-    "Lost": 320.0,
+    "Lost": 320000.0,
     "lossType": "USD",
     "Contract": "src/test/2023-02/LaunchZone_exp.sol"
   },
@@ -3219,7 +3219,7 @@
     "date": "20230202",
     "name": "BonqDAO",
     "type": "Price Manipulation",
-    "Lost": 120000000.0,
+    "Lost": 88000000.0,
     "lossType": "USD",
     "Contract": "src/test/2023-02/BonqDAO_exp.sol"
   },
@@ -3307,8 +3307,8 @@
     "date": "20230110",
     "name": "BRA",
     "type": "Logic Flaw",
-    "Lost": 819.0,
-    "lossType": "BNB",
+    "Lost": 224000.0,
+    "lossType": "USD",
     "Contract": "src/test/2023-01/BRA_exp.sol"
   },
   {
@@ -3579,8 +3579,8 @@
     "date": "20240714",
     "name": "Minterest",
     "type": "Reentrancy Attack",
-    "Lost": 427.0,
-    "lossType": "ETH",
+    "Lost": 1400000.0,
+    "lossType": "USD",
     "Contract": "src/test/2024-07/Minterest_exp.sol"
   },
   {
@@ -3675,8 +3675,8 @@
     "date": "20240616",
     "name": "WIFCOIN_ETH",
     "type": "Logic Flaw",
-    "Lost": 3.4,
-    "lossType": "ETH",
+    "Lost": 13189920.0,
+    "lossType": "USD",
     "Contract": "src/test/2024-06/WIFCOIN_ETH_exp.sol"
   },
   {
@@ -3763,7 +3763,7 @@
     "date": "20240531",
     "name": "MixedSwapRouter",
     "type": "Arbitrary Call",
-    "Lost": 10700.0,
+    "Lost": 10700000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-05/MixedSwapRouter_exp.sol"
   },
@@ -3931,7 +3931,7 @@
     "date": "20240424",
     "name": "XBridge",
     "type": "Access Control",
-    "Lost": 200.0,
+    "Lost": 200000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-04/XBridge_exp.sol"
   },
@@ -3987,7 +3987,7 @@
     "date": "20240416",
     "name": "MARS",
     "type": "Logic Flaw",
-    "Lost": 100.0,
+    "Lost": 100000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-04/MARS_exp.sol"
   },
@@ -4051,7 +4051,7 @@
     "date": "20240409",
     "name": "UPS",
     "type": "Logic Flaw",
-    "Lost": 28.0,
+    "Lost": 28000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-04/UPS_exp.sol"
   },
@@ -4059,7 +4059,7 @@
     "date": "20240408",
     "name": "SQUID",
     "type": "Sandwich Attack",
-    "Lost": 87.0,
+    "Lost": 87000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-04/SQUID_exp.sol"
   },
@@ -4067,7 +4067,7 @@
     "date": "20240404",
     "name": "wsm",
     "type": "Price Manipulation",
-    "Lost": 18.0,
+    "Lost": 18000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-04/WSM_exp.sol"
   },
@@ -4083,7 +4083,7 @@
     "date": "20240401",
     "name": "ATM",
     "type": "Slippage",
-    "Lost": 182.0,
+    "Lost": 182000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-04/ATM_exp.sol"
   },
@@ -4107,7 +4107,7 @@
     "date": "20240329",
     "name": "PrismaFi",
     "type": "Incorrect Validation",
-    "Lost": 11.0,
+    "Lost": 11000000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-03/Prisma_exp.sol"
   },
@@ -4187,8 +4187,8 @@
     "date": "20240311",
     "name": "Binemon",
     "type": "Precision Loss",
-    "Lost": 0.2,
-    "lossType": "BNB",
+    "Lost": 413000.0,
+    "lossType": "USD",
     "Contract": "src/test/2024-03/Binemon_exp.sol"
   },
   {
@@ -4267,7 +4267,7 @@
     "date": "20240223",
     "name": "CompoundUni",
     "type": "Price Manipulation",
-    "Lost": 439.53,
+    "Lost": 439537.0,
     "lossType": "USD",
     "Contract": "src/test/2024-02/CompoundUni_exp.sol"
   },
@@ -4275,7 +4275,7 @@
     "date": "20240223",
     "name": "BlueberryProtocol",
     "type": "Logic Flaw",
-    "Lost": 1400.0,
+    "Lost": 1400000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-02/BlueberryProtocol_exp.sol"
   },
