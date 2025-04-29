@@ -1356,7 +1356,7 @@
     "name": "Fortress Loans",
     "type": "Price Manipulation",
     "Lost": 3000000.0,
-    "lossType": "ETH",
+    "lossType": "USD",
     "Contract": "src/test/2022-05/FortressLoans_exp.sol"
   },
   {
