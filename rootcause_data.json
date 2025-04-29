@@ -27,10 +27,7 @@
     "type": "Business Logic Flaw",
     "date": "2024-03-11",
     "rootCause": "\n\nThe Root Cause is in \"borrow\" function, it transfer MO tokens from pair to BURN address. After several \"borrow\" call, pair contains a few MO tokens.So hacker could drain pair with small amount of MO. Also in \"borrow\" function, MO token price is calculated using ratio of MO and USDT in pair. After several borrowing, MO price got much higher, he could borrow all USDT with small amount of MO tokens.\n\n\n\n\n\n**Attack Tx:**\n\n[https://phalcon.blocksec.com/explorer/tx/optimism/0x4ec3061724ca9f0b8d400866dd83b92647ad8c943a1c0ae9ae6c9bd1ef789417](https://phalcon.blocksec.com/explorer/tx/optimism/0x4ec3061724ca9f0b8d400866dd83b92647ad8c943a1c0ae9ae6c9bd1ef789417)\n\n**Analysis:**\n\n",
-    "images": [
-      "images/Signature_Untitled.png",
-      "images/Untitled%201.png"
-    ],
+    "images": ["images/Signature_Untitled.png", "images/Untitled%201.png"],
     "Lost": "413k USDT",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2024-03/MO_exp.sol"
   },
@@ -201,10 +198,7 @@
     "type": "Inflation",
     "date": "2023-12-02",
     "rootCause": "Empty pool forked bug.\n\nBy depositing a small amount of tokens to obtain pool tokens,we can front-run other depositors' transactions and inflate the price of pool tokens through a substantial \"donation.\"\nConsequently, the attacker can withdraw a greater quantity of tokens than they initially possessed.\n\nVulnerable code snippet:\n\n [https://etherscan.io/address/0x7f3fe9d492a9a60aebb06d82cba23c6f32cad10b#code](https://etherscan.io/address/0x7f3fe9d492a9a60aebb06d82cba23c6f32cad10b#code)\n\nAttack tx:\n\n[https://etherscan.io/tx/0x0fc5c0d41e5506fdb9434fab4815a4ff671afc834e47a533b3bed7182ece73b0](https://etherscan.io/tx/0x0fc5c0d41e5506fdb9434fab4815a4ff671afc834e47a533b3bed7182ece73b0)\n\n[https://etherscan.io/tx/0xb072f2e88058c147d8ff643694b43a42e36525b7173ce1daf76e6c06170b0e77](https://etherscan.io/tx/0xb072f2e88058c147d8ff643694b43a42e36525b7173ce1daf76e6c06170b0e77)\n\nAnalysis:\n\n\n\nREF Link:\n\n[https://x.com/kankodu/status/1771229163942474096](https://x.com/kankodu/status/1771229163942474096)\n\n",
-    "images": [
-      "images/Signature_Untitled.png",
-      "images/Untitled%201.png"
-    ],
+    "images": ["images/Signature_Untitled.png", "images/Untitled%201.png"],
     "Lost": "$208k",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2023-12/bZx_exp.sol"
   },
@@ -260,9 +254,7 @@
     "type": "Flashloans",
     "date": "2023-06-06",
     "rootCause": "The vulnerable provided a gateway for the attacker to manipulate the token's value\n\nVulnerable code snippet:\n\n\n\nAttack tx:\n\n[https://bscscan.com/tx/0xff5515268d53df41d407036f547b206e288b226989da496fda367bfeb31c5b8b](https://bscscan.com/tx/0xff5515268d53df41d407036f547b206e288b226989da496fda367bfeb31c5b8b)\n\nAnalysis:\n\nhttps://metatrust.io/blogs/post/unraveling-the-un-attack-a-flash-loan-exploits-flaw-in-token-contract",
-    "images": [
-      "images/Signature_Untitled.png"
-    ],
+    "images": ["images/Signature_Untitled.png"],
     "Lost": "$26k",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2023-06/UN_exp.sol"
   },
@@ -342,9 +334,7 @@
     "type": "Access Control",
     "date": "2023-11-07",
     "rootCause": "- The function `0xf6ebebbb` has no access control, and it could be called by anyone to perform swap in `Curve` pool.\n- The attacker could use the funds in the MEV to pump the price of tokens like `WBTC`  to gain profits for his own token.\n\nAttack Path:\n\n(from blocksec)\n\n\n\nAttack tx:\n\nhttps://explorer.phalcon.xyz/tx/eth/0xbc08860cd0a08289c41033bdc84b2bb2b0c54a51ceae59620ed9904384287a38\n\nAnalysis:\n\n[https://twitter.com/BlockSecTeam/status/1722101942061601052](https://twitter.com/BlockSecTeam/status/1722101942061601052)",
-    "images": [
-      "images/Signature_Untitled.png"
-    ],
+    "images": ["images/Signature_Untitled.png"],
     "Lost": "$2M",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2023-11/bot_exp.sol"
   },
@@ -400,9 +390,7 @@
     "type": "Flashloans",
     "date": "2022-12-02",
     "rootCause": " \n\nFlashloan - force investment\n\n**Vulnerable code snippet:**\n\n[https://snowtrace.io/address/0xed2a7edd7413021d440b09d654f3b87712abab66#code#F24#L731](https://snowtrace.io/address/0xed2a7edd7413021d440b09d654f3b87712abab66#code#F24#L731)\n\n\n\nimage:peckshield\n\n**Attack tx:**\n\n[https://explorer.phalcon.xyz/tx/avax/0xf10807f9a675dd2db9a45e39f37c68a4116006f9a40e97a68c145e3859557809](https://explorer.phalcon.xyz/tx/avax/0xf10807f9a675dd2db9a45e39f37c68a4116006f9a40e97a68c145e3859557809)\n\n**Analysis:**\n\n[https://twitter.com/peckshield/status/1598704809690877952](https://twitter.com/peckshield/status/1598704809690877952)\n\n[https://twitter.com/overnight_fi/status/1572614168976691200](https://twitter.com/overnight_fi/status/1572614168976691200)\n\n[https://medium.com/coinmonks/psa-in-crypto-transparency-doesnt-necessarily-equal-safety-86b23ae9f471](https://medium.com/coinmonks/psa-in-crypto-transparency-doesnt-necessarily-equal-safety-86b23ae9f471)",
-    "images": [
-      "images/Signature_Untitled.png"
-    ],
+    "images": ["images/Signature_Untitled.png"],
     "Lost": "$170k",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/Overnight_exp.sol"
   },
@@ -410,10 +398,7 @@
     "type": "Flashloans, Price Manipulation",
     "date": "2022-12-01",
     "rootCause": " \n\nIncorrect price calculation via getReverse\n\nAPC price relies on the reserve balances of the corresponding PancakeSwap pair. You dump APC token price by flashloan.\n\n**Vulnerable code snippet:**\n\n\n\n\n\n**Attack tx:**\n\n[https://explorer.phalcon.xyz/tx/bsc/0xbcaecea2044101c80f186ce5327bec796cd9e054f0c240ddce93e2aead337370](https://explorer.phalcon.xyz/tx/bsc/0xbcaecea2044101c80f186ce5327bec796cd9e054f0c240ddce93e2aead337370)\n\n[https://explorer.phalcon.xyz/tx/bsc/0xf2d4559aeb945fb8e4304da5320ce6a2a96415aa70286715c9fcaf5dbd9d7ed2](https://explorer.phalcon.xyz/tx/bsc/0xf2d4559aeb945fb8e4304da5320ce6a2a96415aa70286715c9fcaf5dbd9d7ed2)\n\n**Analysis:**\n[https://twitter.com/BlockSecTeam/status/1598262002010378241](https://twitter.com/BlockSecTeam/status/1598262002010378241)",
-    "images": [
-      "images/Signature_Untitled.png",
-      "images/Untitled%201.png"
-    ],
+    "images": ["images/Signature_Untitled.png", "images/Untitled%201.png"],
     "Lost": "$6k",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/APC_exp.sol"
   },
@@ -421,9 +406,7 @@
     "type": "Access Control, Incorrect logic",
     "date": "2022-11-29",
     "rootCause": " \n\nBusiness Logic Flaw & Access Control\n\nThe root cause of the issue is a flaw in the MBC contract's implementation. The contract incorrectly uses the addLiquidity() function and mistakenly exposes swapAndLiquifyStepv1() function, which uses the balance of the contract's address as the desired reserve amount for maintaining reserves.\n\nSo attacker can call swapAndLiquifyStepV1, which will add a certain amount of MBC and BUSD to the pool to manipulate MBC price.\n\n**Vulnerable code snippet:**\n\n[https://bscscan.com/address/0x4e87880a72f6896e7e0a635a5838ffc89b13bd17#code#L1263](https://bscscan.com/address/0x4e87880a72f6896e7e0a635a5838ffc89b13bd17#code#L1263)\n\n```jsx\nfunction swapAndLiquifyStepv1() public {. //vulnerable point\n        uint256 ethBalance = ETH.balanceOf(address(this));\n        uint256 tokenBalance = balanceOf(address(this));\n        addLiquidityUsdt(tokenBalance, ethBalance);\n    }\n\n    function addLiquidityUsdt(uint256 tokenAmount, uint256 usdtAmount) private {\n        uniswapV2Router.addLiquidity(\n            address(_baseToken),\n\t\t\taddress(this),\n            usdtAmount,\n            tokenAmount,\n            0,\n            0,\n            _tokenOwner,\n            block.timestamp\n        );\n    }\n```\n\n\n\n**Attack tx:**\n\n[https://phalcon.blocksec.com/tx/bsc/0xdc53a6b5bf8e2962cf0e0eada6451f10956f4c0845a3ce134ddb050365f15c86](https://phalcon.blocksec.com/tx/bsc/0xdc53a6b5bf8e2962cf0e0eada6451f10956f4c0845a3ce134ddb050365f15c86)\n\n**Analysis:**\n\n[https://twitter.com/AnciliaInc/status/1597742575623888896](https://twitter.com/AnciliaInc/status/1597742575623888896)\n[https://twitter.com/CertiKAlert/status/1597639717096460288](https://twitter.com/CertiKAlert/status/1597639717096460288)",
-    "images": [
-      "images/Business_2.png"
-    ],
+    "images": ["images/Business_2.png"],
     "Lost": "$5.6k",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/MBC_exp.sol"
   },
@@ -431,10 +414,7 @@
     "type": "Incorrect logic",
     "date": "2022-11-29",
     "rootCause": " \n\nBusiness Logic Flaw\n\nIn the SEAMAN project, the hacker exploited a vulnerability in the distribution mechanism of GVC tokens in the LP deposits. By calling the transfer function with the minimum unit of $SEAMAN, the attacker triggered a series of swaps. First, $SEAMAN was swapped for $BUSD in the BUSD-SEAMAN pair. Then, $BUSD was further swapped for $GVC in the BUSD-GVC pair. This caused a depletion of GVC tokens in the BUSD-GVC pair and resulted in an increase in the price of $GVC.\n\nAs a result of this flash loan attack, the attacker was able to make a profit of approximately $7,800.\n\n**Vulnerable code snippet:**\n\n```jsx\nhToken = IERC20(0xDB95FBc5532eEb43DeEd56c8dc050c930e31017e);//GVC\nlpToken = IERC20(0xDB95FBc5532eEb43DeEd56c8dc050c930e31017e);//GVC\nfunction transfer(address recipient, uint256 amount)\n    public\n    virtual\n    override\n    returns (bool)\n    {\n        _transfer(_msgSender(), recipient, amount);\n        return true;\n    }\n\nfunction _transfer(\n        address from,\n        address to,\n        uint256 amount\n    ) internal override {\n        require(from != address(0), \"ERC20: transfer from the zero address\");\n        require(to != address(0), \"ERC20: transfer to the zero address\");\n        require(!_isBot[from],\"the bot address\");\n        if(_isDelivers[from] || _isDelivers[to]){\n            super._transfer(from, to, amount);\n            return;\n        }\n         if( uniswapV2Pair.totalSupply() > 0 && balanceOf(address(this)) > balanceOf(address(uniswapV2Pair)).div(10000) && to == address(uniswapV2Pair)){\n            if (\n                !swapping &&\n                _tokenOwner != from &&\n                _tokenOwner != to &&\n               !ammPairs[from] &&\n                !(from == address(uniswapV2Router) && !ammPairs[to])&&\n                swapAndLiquifyEnabled\n            ) {\n                swapping = true;\n                swapAndLiquifyV3(); //vulnerable point\n                swapAndLiquifyV1(); //vulnerable point\n                swapping = false; \n            }\n\t\t\t\t\t\t...\nfunction swapAndLiquifyV1() public {\n        uint256 canlpAmount = lpAmount.sub(lpTokenAmount);\n        uint256 amountT = balanceOf(address(uniswapV2Pair)).div(10000);\n        if(balanceOf(address(this)) >= canlpAmount && canlpAmount >= amountT){\n            if(canlpAmount >= amountT.mul(5))\n                canlpAmount = amountT.mul(5);\n            lpTokenAmount = lpTokenAmount.add(canlpAmount);\n            uint256 beflpBal = lpToken.balanceOf(address(this));\n            swapTokensFor(canlpAmount,address(lpToken),address(this));\n            uint256 newlpBal = lpToken.balanceOf(address(this)).sub(beflpBal);\n            lpDivTokenAmount = lpDivTokenAmount.add(newlpBal);\n            isLpProc = true;  \n        }\n    }\nfunction swapAndLiquifyV3() public {\n        uint256 canhAmount = hAmount.sub(hTokenAmount);\n        uint256 amountT = balanceOf(address(uniswapV2Pair)).div(10000);\n        if(balanceOf(address(this)) >= canhAmount && canhAmount >= amountT){\n            if(canhAmount >= amountT.mul(5))\n                canhAmount = amountT.mul(5);\n            hTokenAmount = hTokenAmount.add(canhAmount);\n            uint256 befhBal = hToken.balanceOf(address(this));\n            swapTokensFor(canhAmount,address(hToken),address(this));\n            uint256 newhBal = hToken.balanceOf(address(this)).sub(befhBal);\n            hDivTokenAmount = hDivTokenAmount.add(newhBal);\n            isHProc = true;\n        }\n    }\n\n    function swapTokensFor(uint256 tokenAmount,address token,address to) private{\n         // generate the uniswap pair path of token -> weth\n            address[] memory path = new address[](3);\n            path[0] = address(this);\n            path[1] = address(usdt);\n            path[2] = address(token);\n             // make the swap\n            uniswapV2Router.swapExactTokensForTokensSupportingFeeOnTransferTokens( //vulnerable point\n                tokenAmount,\n                0, // accept any amount of ETH\n                path,\n                to,\n                block.timestamp\n            );\n    }\n```\n\n\n\n\n\n**Attack tx:**\n\n[https://explorer.phalcon.xyz/tx/bsc/0x6f1af27d08b10caa7e96ec3d580bf39e29fd5ece00abda7d8955715403bf34a8](https://explorer.phalcon.xyz/tx/bsc/0x6f1af27d08b10caa7e96ec3d580bf39e29fd5ece00abda7d8955715403bf34a8)\n\n**Analysis:**\n\n[https://twitter.com/CertiKAlert/status/1597513374841044993](https://twitter.com/CertiKAlert/status/1597513374841044993)\n\n[https://twitter.com/BeosinAlert/status/1597535796621631489](https://twitter.com/BeosinAlert/status/1597535796621631489)",
-    "images": [
-      "images/Signature_Untitled.png",
-      "images/Untitled%201.png"
-    ],
+    "images": ["images/Signature_Untitled.png", "images/Untitled%201.png"],
     "Lost": "$7k",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/SEAMAN_exp.sol"
   },
@@ -442,9 +422,7 @@
     "type": "CrossChain, ERC20, Token Incompatible",
     "date": "2022-11-23",
     "rootCause": " \n\nNUM token incompatible with the Multichain Router.\n\nThe attacker took advantage of a vulnerability in the Multichain bridge Router contract by exploiting the lack of compatibility between the NUM token and the Router. **The NUM token did not implement the required permit()** function but had a fallback() function that could be exploited.\n\nTo carry out the attack, the attacker created a fake token called anyToken, using NUM as the underlying token. They then deceived the Multichain Router by calling the anySwapOutUnderlyingWithPermit() function and providing the fake anyToken and a forged signature as parameters.\n\nSince the fallback function was present in NUM, the invocation of NUM.permit() succeeded. Subsequently, the attacker exchanged all the NUM tokens for approximately 13 Ether, making a profit from the attack.\n\n**Vulnerable code snippet:**\n\n[https://etherscan.io/address/0xd39015041518064743d955cf550c611b0b68888c#code](https://etherscan.io/address/0xd39015041518064743d955cf550c611b0b68888c#code)\n\n\n\n**Attack tx:**\n\n[https://explorer.phalcon.xyz/tx/eth/0x8a8145ab28b5d2a2e61d74c02c12350731f479b3175893de2014124f998bff32](https://explorer.phalcon.xyz/tx/eth/0x8a8145ab28b5d2a2e61d74c02c12350731f479b3175893de2014124f998bff32)\n\n**Analysis:**\n\n[https://twitter.com/BlockSecTeam/status/1595346020237352960](https://twitter.com/BlockSecTeam/status/1595346020237352960)\n\n[https://medium.com/numbers-protocol/investigation-report-of-multi-chain-bridge-incident-d4773cb3e87b](https://medium.com/numbers-protocol/investigation-report-of-multi-chain-bridge-incident-d4773cb3e87b)\n\n[https://neptunemutual.com/blog/taking-a-closer-look-at-the-numbers-protocol-hack/](https://neptunemutual.com/blog/taking-a-closer-look-at-the-numbers-protocol-hack/)",
-    "images": [
-      "images/Signature_Untitled.png"
-    ],
+    "images": ["images/Signature_Untitled.png"],
     "Lost": "$13k",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/NUM_exp.sol"
   },
@@ -508,9 +486,7 @@
     "type": "Access Control, call/delegatecall",
     "date": "2022-11-08",
     "rootCause": "\n\nThe function `0x090f88ca` in the victim contract can perform external calls but without access control.\n\n**Vulnerable code snippet:**\n\n[https://etherscan.io/address/0x0ad8229d4bc84135786ae752b9a9d53392a8afd4#code](https://etherscan.io/address/0x0ad8229d4bc84135786ae752b9a9d53392a8afd4#code)\n\n[https://library.dedaub.com/decompile?md5=cfe9b723db1cc321f10bca2e5ba911aa](https://library.dedaub.com/decompile?md5=cfe9b723db1cc321f10bca2e5ba911aa)\n\n**Attack tx:**\n\n[https://etherscan.io/tx/0x674f74b30a3d7bdf15fa60a7c29d96a402ea894a055f624164a8009df98386a0](https://etherscan.io/tx/0x674f74b30a3d7bdf15fa60a7c29d96a402ea894a055f624164a8009df98386a0)\n\n**Analysis:**\n\nThe attacker invokes function `0x090f88ca` and arbitrary call data: \n\n```solidity\n0x\n000000000000000000000000a0b86991c6218b36c1d19d4a2e9eb0ce3606eb48\n000000000000000000000000c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2\n0000000000000000000000000000000000000000000000000000000000000000\n0000000000000000000000000000000000000000000000000000000000000001\n00000000000000000000000000000000000000000000000000000000000000a0\n0000000000000000000000000000000000000000000000000000000000000064\n23b872dd000000000000000000000000211b6a1137bf539b2750e02b9e525cf5 => 23b872dd TransferFrom\n757a35ae000000000000000000000000ae39a6c2379bef53334ea968f4c711c8 => 211b6a1137bf539b2750e02b9e525cf5 => 23b872dd TransferFrom\n757a35ae victim\ncf3898b600000000000000000000000000000000000000000000000000000015 => ae39a6c2379bef53334ea968f4c711c8cf3898b6 attacker\n560e9ff900000000000000000000000000000000000000000000000000000000\n```\n\n\n\n[https://twitter.com/Supremacy_CA/status/1590337718755954690](https://twitter.com/Supremacy_CA/status/1590337718755954690)",
-    "images": [
-      "images/Signature_Untitled.png"
-    ],
+    "images": ["images/Signature_Untitled.png"],
     "Lost": "$282k",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/MEV_0ad8.t.sol"
   },
@@ -558,9 +534,7 @@
     "type": "Flashloans, Reentrancy",
     "date": "2022-10-26",
     "rootCause": "\n\nThe root cause of this incident is the ERC777 token reentrancy which allows attacker to use old `totalSushi` and updated `totalShares` for mint. \n\n**Vulnerable code snippet:**\n\n```solidity\n// Enter the bar. Pay some SUSHIs. Earn some shares.\n    function enter(uint256 _amount) public {\n        uint256 totalSushi = sushi.balanceOf(address(this));\n        uint256 totalShares = totalSupply();\n        if (totalShares == 0 || totalSushi == 0) {\n            _mint(msg.sender, _amount);\n        } else {\n            uint256 what = _amount.mul(totalShares).div(totalSushi);\n            _mint(msg.sender, what);\n        }\n        sushi.transferFrom(msg.sender, address(this), _amount);\n    }\n```\n\n**Attack tx:**\n\n[https://etherscan.io/tx/0x8037b3dc0bf9d5d396c10506824096afb8125ea96ada011d35faa89fa3893aea](https://etherscan.io/tx/0x8037b3dc0bf9d5d396c10506824096afb8125ea96ada011d35faa89fa3893aea)\n\n**Analysis:**\n\nThe attacker exploits the potential for reentrancy with the ERC777 token (sushi). Within the`enter` function, the reentrancy can be initiated through the `sushi.transferFrom` call. In this function, the `mint` process is invoked first, which updates the total token supply. However, the update of `totalSushi` occurs after the `transferFrom` is finished. As a consequence, the calculation result `uint256 what = _amount.mul(totalShares).div(totalSushi);` becomes magnified due to the unchanged `totalSushi` value, despite an increase in `totalShares`.\n\n \n\n\n\n[https://twitter.com/BlockSecTeam/status/1584959295829180416](https://twitter.com/BlockSecTeam/status/1584959295829180416)\n\n[https://twitter.com/AnciliaInc/status/1584955717877784576](https://twitter.com/AnciliaInc/status/1584955717877784576)",
-    "images": [
-      "images/Signature_Untitled.png"
-    ],
+    "images": ["images/Signature_Untitled.png"],
     "Lost": "$29k",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/N00d_exp.sol"
   },
@@ -608,9 +582,7 @@
     "type": "Insufficient validation, Metaverse",
     "date": "2022-10-20",
     "rootCause": "Insufficient validation\n\nVulnerable code snippet:\n\n[https://www.bscscan.com/address/0xc342774492b54ce5f8ac662113ed702fc1b34972#code#L1232](https://www.bscscan.com/address/0xc342774492b54ce5f8ac662113ed702fc1b34972#code#L1232)\n\nAttacker can input empty data into _r, _s and _v to bypass all checks to mint BEGO token.\n\n```solidity\nmodifier isSigned(\n        string memory _txHash,\n        uint256 _amount,\n        bytes32[] memory _r,\n        bytes32[] memory _s,\n        uint8[] memory _v\n    ) {\n        require(checkSignParams(_r, _s, _v), \"bad-sign-params\");\n        bytes32 _hash = keccak256(abi.encodePacked(bsc, msg.sender, _txHash, _amount));\n        address[] memory _signers = new address[](_r.length); **//vulnerable point**\n        for (uint8 i = 0; i < _r.length; i++) {\n            _signers[i] = ecrecover(_hash, _v[i], _r[i], _s[i]);\n        }\n\n        require(isSigners(_signers), \"bad-signers\");\n        _;\n    }\n\n    function isSigners(address[] memory _signers) public view returns (bool){\n        for (uint8 i = 0; i < _signers.length; i++) {  **//vulnerable point**\n            if (!_containsSigner(_signers[i])) {\n                return false;\n            }\n        }\n        return true;  // null data will return true \n    }\nfunction mint(\n        uint256 _amount,\n        string memory _txHash,\n        address _receiver,\n        bytes32[] memory _r,\n        bytes32[] memory _s,\n        uint8[] memory _v\n    ) isSigned(_txHash, _amount, _r, _s, _v) external returns (bool){ **//trace** isSigned\n        require(!txHashes[_txHash], \"tx-hash-used\");\n        txHashes[_txHash] = true;\n\n        _mint(_receiver, _amount);\n        return true;\n    }\n```\n\n",
-    "images": [
-      "images/Signature_Untitled.png"
-    ],
+    "images": ["images/Signature_Untitled.png"],
     "Lost": "12BNB",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs#20221020-bego---incorrect-signature-verification"
   },
@@ -653,9 +625,7 @@
     "type": "ERC20",
     "date": "2022-10-12",
     "rootCause": "Insecure use balanceOf to calculate price is vulnerable to price manipulation over flash loan.\n\nThe calim Function use getPrice() in ASK Token Contract\n\nVulnerable code snippet:\n\nIncorrect price calculation via balanceOf.\n\n```solidity\nfunction getPrice() public view returns(uint256){\n        uint256 UDPrice;\n        uint256 UDAmount  = balanceOf(_uniswapV2Pair); **//vulnerable point**\n        uint256 USDTAmount = USDT.balanceOf(_uniswapV2Pair); **//vulnerable point**\n        UDPrice = UDAmount.mul(10**18).div(USDTAmount);\n        return UDPrice;\n```\n\n",
-    "images": [
-      "images/ADC_getPrice.png"
-    ],
+    "images": ["images/ADC_getPrice.png"],
     "Lost": "$127 k",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs#20221012-atk---flashloan-manipulate-price"
   },
@@ -681,10 +651,7 @@
     "type": "Arbitrary call, Yield",
     "date": "2022-10-10",
     "rootCause": "public function call, call transferowner 0xbf699b4b. All wallets granted approvals are impacted.\n\nStep1, transReward to set owner.\n\nStep2, transferFrom. \n\nVulnerable code snippet:\n\n[https://bscscan.com/address/0xcFF086EaD392CcB39C49eCda8C974ad5238452aC#code#L1406](https://bscscan.com/address/0xcFF086EaD392CcB39C49eCda8C974ad5238452aC#code#L1406)\n\n```solidity\nfunction transReward(bytes memory data) public { //data is controllable\n        pool.functionCall(data); **//vulnerable point**\n    }\n```\n\nPool contract: 0x6863b549bf730863157318df4496ed111adfa64f\n\n\n\n---\n\n\n\nREF: [https://twitter.com/1nf0s3cpt/status/1580116116151889920](https://twitter.com/1nf0s3cpt/status/1580116116151889920)",
-    "images": [
-      "images/Incorrect_changeowner.png",
-      "images/Incorrect_POC.png"
-    ],
+    "images": ["images/Incorrect_changeowner.png", "images/Incorrect_POC.png"],
     "Lost": "",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs#20221010-carrot---public-functioncall"
   },
@@ -692,9 +659,7 @@
     "type": "Governance, MaliciosProposal",
     "date": "2022-10-09",
     "rootCause": "",
-    "images": [
-      "images/DaoModule_22.png"
-    ],
+    "images": ["images/DaoModule_22.png"],
     "Lost": "",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs#20221009-xave-finance---malicious-proposal-mint--transfer-ownership"
   },
@@ -702,9 +667,7 @@
     "type": "Dex/AMM, Insufficient validation",
     "date": "2022-10-02",
     "rootCause": "Incorrect owner address validation\n\nVulnerable code snippet:\n\n1.You can input any innocent user who granted approvals to \"0xed1afc8c4604958c2f38a3408fa63b32e737c428\" before.\n\n2.Contract \"0xed1afc8c4604958c2f38a3408fa63b32e737c428\" will perform transferFrom to transfer amount of innocent user to attacker.\n\n3.\n\n\"function\": \"claimTokens(address token,address from,address to,uint256 amount)\",\n\"params\": [        \"0x55d398326f99059fF775485246999027B3197955\",\"0x1aAe0303f795b6FCb185ea9526Aa0549963319Fc\",\n0x75F2abA6a44580D7be2C4e42885D4a1917bFFD46\",\n\"6312858905558909501615\"]\n\n4. No owner address validation\n\nDecompiled contract 0xed1afc8c4604958c2f38a3408fa63b32e737c428\n\n",
-    "images": [
-      "images/Signature_Untitled.png"
-    ],
+    "images": ["images/Signature_Untitled.png"],
     "Lost": "$21 M",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs#20221002-transit-swap---incorrect-owner-address-validation"
   },
@@ -728,9 +691,7 @@
     "type": "ERC721, Reentrancy",
     "date": "2022-10-01",
     "rootCause": "claimReward() - rewards are being drained due to a reentrancy bug.\n\nVulnerable code snippet:\n\n[https://bscscan.com/address/0xae191Ca19F0f8E21d754c6CAb99107eD62B6fe53#code#L252](https://bscscan.com/address/0xae191Ca19F0f8E21d754c6CAb99107eD62B6fe53#code#L252)\n\n[https://bscscan.com/address/0x72e901f1bb2bfa2339326dfb90c5cec911e2ba3c#code#L1536](https://bscscan.com/address/0x72e901f1bb2bfa2339326dfb90c5cec911e2ba3c#code#L1536)\n\n---\n\n```solidity\nfunction claimReward(\n        uint256 _ID,\n        address payable _player,\n        uint256 _amount,\n        bool _rewardStatus,\n        uint256 _x,\n        string memory name,\n        address _add\n    ) external {\n        require(gameMode);\n        bool checkValidity = guess(_x, name, _add);\n\n        if (checkValidity == true) {\n            if (winners[_ID][_player] == _amount) {\n                _player.transfer(_amount * 2);\n                if (_rewardStatus == true) {\n                    sendReward(); **//vulnerable point**\n                }\n                delete winners[_ID][_player];\n            } else {\n                if (_rewardStatus == true) {\n                    sendRewardDys();\n                }\n            }\n            rewardStatus = false;\n        }\n    }\nfunction sendReward() public {\n        thunderbrawlRoulette.reward(msg.sender, 1);\n    }\n```\n\n```jsx\nfunction reward(address to,uint256 _mintAmount) external {\n        uint256 supply = totalSupply();\n        uint256 rewardSupply = rewardTotal;\n        require(rewardSupply <= rewardSize,\"\");\n        for (uint256 i = 1; i <= _mintAmount; i++) {          \n          _safeMint(to, supply + i); \n          rewardTotal++;         \n        }\n  }\n/**\n     * @dev Same as {xref-ERC721-_safeMint-address-uint256-}[`_safeMint`], with an additional `data` parameter which is\n     * forwarded in {IERC721Receiver-onERC721Received} to contract recipients.\n     */\n    function _safeMint(\n        address to,\n        uint256 tokenId,\n        bytes memory data\n    ) internal virtual {\n        _mint(to, tokenId);\n        require(\n            _checkOnERC721Received(address(0), to, tokenId, data), **//callback** \n            \"ERC721: transfer to non ERC721Receiver implementer\"\n        );\n    }\n```\n\n![1.png](images/Reentrancy%20in%20claimReward()%201993bab05ffe48ccbc707af915e70f59/1.png)",
-    "images": [
-      "images/Reentrancy%20in%20claimReward("
-    ],
+    "images": ["images/Reentrancy%20in%20claimReward("],
     "Lost": "",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs#20221001-thunder-brawl---reentrancy"
   },
@@ -754,9 +715,7 @@
     "type": "Access Control, MEV",
     "date": "2022-09-13",
     "rootCause": "Incorrect access control.\n\nVulnerable code snippet:\n\nWe can see a public function called pancakeCall, which means anyone can call this function.\n\n1) Decompile contract\n\n[https://bscscan.com/address/0x64dd59d6c7f09dc05b472ce5cb961b6e10106e1d](https://bscscan.com/address/0x64dd59d6c7f09dc05b472ce5cb961b6e10106e1d)\nWe can see a public function called pancakeCall, which means anyone can call this function.\n\n\n\n2)Check pancakeCall code logic\nOnce pass all required check then perform 0x10a(v0, varg2, varg1);\n\n3) Track into 0x10a(), we can see transfer funds to addree \"MEM[varg0.data+32]\". Since variable \"[http://varg0.data](https://t.co/KT6EufOI6Z)\" attacker can control over calldata in pancakeCall. So that's why an attacker can drain out the funds from the MEV contract.\n\n```jsx\nfunction 0x10a(uint256 varg0, uint256 varg1, uint256 varg2) private { \n    require(varg0.data + varg0.length - varg0.data >= 96);\n    require(MEM[varg0.data] == address(MEM[varg0.data]));\n    v0 = v1 = MEM[varg0.data + 64];\n    if (0 == varg2) {\n        v2, v3 = msg.sender.token1().gas(msg.gas);\n        require(v2); // checks call status, propagates error data on error\n        require(MEM[64] + RETURNDATASIZE() - MEM[64] >= 32);\n        require(v3 == address(v3));\n        goto 0x214;\n    } else {\n        v4, v3 = msg.sender.token0().gas(msg.gas);\n        require(v4); // checks call status, propagates error data on error\n        require(MEM[64] + RETURNDATASIZE() - MEM[64] >= 32);\n        require(v3 == address(v3));\n    }\n    if (varg2) {\n    }\n    v5, v6 = address(v3).transfer(address(MEM[varg0.data]), varg1).gas(msg.gas);  **//vulnerable point**\n\n}\n```",
-    "images": [
-      "images/Signature_Untitled.png"
-    ],
+    "images": ["images/Signature_Untitled.png"],
     "Lost": "$140 K",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs#20220913-mevbot-private-tx"
   },
@@ -772,9 +731,7 @@
     "type": "ERC20, Flashloans, Reward",
     "date": "2022-09-08",
     "rootCause": "Calculation of reward being too simple and only depends on the pool reserve by balanceOf.\n\nVulnerable contract (unverified): 0xe70cdd37667cddf52cabf3edabe377c58fae99e9\n\n",
-    "images": [
-      "images/Signature_Untitled.png"
-    ],
+    "images": ["images/Signature_Untitled.png"],
     "Lost": "$742,286",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs#20220909-YYDS---pair-manipulate"
   },
@@ -806,9 +763,7 @@
     "type": "Flashloans, Insufficient validation",
     "date": "2022-09-05",
     "rootCause": "Insufficient validation\n\nAttacker uss fake usdt in zoom pair to trick protocol.\n\nVulnerable code snippet: \n\nunverified contract\n\n[https://bscscan.com/address/0x47391071824569F29381DFEaf2f1b47A4004933B#code](https://bscscan.com/address/0x47391071824569F29381DFEaf2f1b47A4004933B#code)\n\n---\n\nImage from blocksec:\n\n",
-    "images": [
-      "images/Signature_Untitled.png"
-    ],
+    "images": ["images/Signature_Untitled.png"],
     "Lost": "$61,160 USDT",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs#20220905-zoomprofinance---flashloans--price-manipulation"
   },
@@ -1024,9 +979,7 @@
     "type": "DAO, Flashloans, MaliciosProposal, Stablecoin",
     "date": "2022-04-16",
     "rootCause": "insufficient validation\n\nVulnerable code snippet:\n\nAs the BIP18 proposal was created one day ago, validation one will be bypassed. By flashloan, the BIP18 proposal gained more than 78% of the vote, which is more than 67%. So proposal executed.\n\n",
-    "images": [
-      "images/Signature_Untitled.png"
-    ],
+    "images": ["images/Signature_Untitled.png"],
     "Lost": "$182 M",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs#20220416-beanstalkfarms---dao--flashloan"
   },
@@ -1050,9 +1003,7 @@
     "type": "Insufficient validation, lending",
     "date": "2022-03-22",
     "rootCause": "Insufficient validation.\n\nVulnerable code snippet:\n\n[https://etherscan.io/address/0xa035b9e130f2b1aedc733eefb1c67ba4c503491f#code#F1#L120](https://etherscan.io/address/0xa035b9e130f2b1aedc733eefb1c67ba4c503491f#code#F1#L120)\n\nif contract can make calls into arbitrary addresses, this can be abused. Attacker use legacy TUSD smart contract to trick compound.\n\n```solidity\nfunction sweepToken(EIP20NonStandardInterface token) override external {\n    require(address(token) != underlying, \"CErc20::sweepToken: can not sweep underlying token\");\n    uint256 balance = token.balanceOf(address(this));\n    token.transfer(admin, balance);\n}\n```\n\nImage from [OZ](https://blog.openzeppelin.com/compound-tusd-integration-issue-retrospective/)\n\n",
-    "images": [
-      "images/Signature_Untitled.png"
-    ],
+    "images": ["images/Signature_Untitled.png"],
     "Lost": "",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs#20220322-compoundtusdsweeptokenbypass"
   },
@@ -1140,9 +1091,7 @@
     "type": "Bridge, CrossChain, Insufficient validation",
     "date": "2022-02-06",
     "rootCause": "insufficient validation\n\nVulnerable code snippet:\n\nimage from [peckshield](https://twitter.com/peckshield/status/1490121762847092736)\n\n",
-    "images": [
-      "images/Meter_Untitled.png"
-    ],
+    "images": ["images/Meter_Untitled.png"],
     "Lost": "$4.3 M",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs#20220206-meter---bridge"
   },
@@ -1248,9 +1197,7 @@
     "type": "Arbitrary call",
     "date": "2023-12-06",
     "rootCause": "The root cause of this incident was that the arbitrary external call function of the forwarder contract was maliciously used by the hacker.\n\nExecution using \u201cexecute()\u201d and \u201ccall()\u201d:\u00a0The \u201cexecute()\u201d function then called the \u201ccall()\u201d function, packaging \u2018req.data\u2019 and \u2018req.from\u2019 as parameters for the \u201ccall()\u201d function. The \u2018req.to\u2019 was specified as 0x4b0e9a7da8bab813efae92a6651019b8bd6c0a29 (TIME contract), and the selector of the multicall(bytes[]) function was 0xac9650d8.\n\nVulnerable code snippet:\n\n[https://www.oklink.com/es-la/eth/address/0xc82BbE41f2cF04e3a8efA18F7032BDD7f6d98a81/contract](https://www.oklink.com/es-la/eth/address/0xc82BbE41f2cF04e3a8efA18F7032BDD7f6d98a81/contract)\n\n```jsx\n  function execute(ForwardRequest calldata req, bytes calldata signature)\n        public\n        payable\n        returns (bool, bytes memory)\n    {\n        require(verify(req, signature), \"MinimalForwarder: signature does not match request\");\n        _nonces[req.from] = req.nonce + 1;\n\n        // solhint-disable-next-line avoid-low-level-calls\n        (bool success, bytes memory result) = req.to.call{ gas: req.gas, value: req.value }(\n            abi.encodePacked(req.data, req.from) <-- **vulnerable point, req.data**\n        );\n\n        if (!success) {\n            // Next 5 lines from https://ethereum.stackexchange.com/a/83577\n            if (result.length < 68) revert(\"Transaction reverted silently\");\n            assembly {\n                result := add(result, 0x04)\n            }\n            revert(abi.decode(result, (string)));\n        }\n        // Check gas: https://ronan.eth.link/blog/ethereum-gas-dangers/\n        assert(gasleft() > req.gas / 63);\n        return (success, result);\n    }\n}\n```\n\nAttack tx:\n\n[https://www.oklink.com/es-la/eth/tx/0xecdd111a60debfadc6533de30fb7f55dc5ceed01dfadd30e4a7ebdb416d2f6b6](https://www.oklink.com/es-la/eth/tx/0xecdd111a60debfadc6533de30fb7f55dc5ceed01dfadd30e4a7ebdb416d2f6b6)\n\n[https://explorer.phalcon.xyz/tx/eth/0xecdd111a60debfadc6533de30fb7f55dc5ceed01dfadd30e4a7ebdb416d2f6b6](https://explorer.phalcon.xyz/tx/eth/0xecdd111a60debfadc6533de30fb7f55dc5ceed01dfadd30e4a7ebdb416d2f6b6)\n\nAnalysis:\n\n[https://www.immunebytes.com/blog/time-token-hack-dec-7-2023-detailed-analysis-report/](https://www.immunebytes.com/blog/time-token-hack-dec-7-2023-detailed-analysis-report/)\n\n",
-    "images": [
-      "images/IT_Screenshot_2024-06-21_at_12.39.35_PM.png"
-    ],
+    "images": ["images/IT_Screenshot_2024-06-21_at_12.39.35_PM.png"],
     "Lost": "84.59 ETH",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2023-12/TIME_exp.sol"
   },
@@ -1258,9 +1205,7 @@
     "type": "Price Manipulation",
     "date": "2023-12-06",
     "rootCause": "The unprotected sweep() function was exploited. \n\nVulnerable code snippet:\n\n[https://www.oklink.com/es-la/bsc/address/0x8cf0a553ab3896e4832ebcc519a7a60828ab5740/contract](https://www.oklink.com/es-la/bsc/address/0x8cf0a553ab3896e4832ebcc519a7a60828ab5740/contract)\n\nAttack tx:\n\n[https://www.oklink.com/es-la/bsc/tx/0xd423ae0e95e9d6c8a89dcfed243573867e4aad29ee99a9055728cbbe0a523439](https://www.oklink.com/es-la/bsc/tx/0xd423ae0e95e9d6c8a89dcfed243573867e4aad29ee99a9055728cbbe0a523439)\n\n[https://explorer.phalcon.xyz/tx/bsc/0xd423ae0e95e9d6c8a89dcfed243573867e4aad29ee99a9055728cbbe0a523439](https://explorer.phalcon.xyz/tx/bsc/0xd423ae0e95e9d6c8a89dcfed243573867e4aad29ee99a9055728cbbe0a523439)\n\n[https://app.blocksec.com/explorer/tx/bsc/0x7ccb189c78376bdc35294f1779e7156233bcbc65f8681b3d6a7f512c1c2d5218](https://app.blocksec.com/explorer/tx/bsc/0x7ccb189c78376bdc35294f1779e7156233bcbc65f8681b3d6a7f512c1c2d5218)\n\nAnalysis:\n\n// Unprotected function here. Call to sweep will rise WBNB price\nElephant.sweep(); \n\n[https://x.com/Phalcon_xyz/status/1732354930529435940](https://x.com/Phalcon_xyz/status/1732354930529435940)\n\n",
-    "images": [
-      "images/Signature_Untitled.png"
-    ],
+    "images": ["images/Signature_Untitled.png"],
     "Lost": "$165k",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2023-12/ElephantStatus_exp.sol"
   },
@@ -1268,9 +1213,7 @@
     "type": "Business Logic Flaw, Flashloans",
     "date": "2023-12-01",
     "rootCause": "The root cause is a logic flaw in reward calculation. The victim contract is unverified, and after decompilation by Blocksec team, we obtained the following results:\n\n\n\nv4 is the token amount to be distributed, which can be increased through a flash loan, reducing the token balance of v0.\n\nThe attacker first staked some tokens and executed a flash loan of BSC-USD from the pair, then claimed the reward within the flash loan callback. Since the BSC-USD amount in the pair decreases, the reward token amount is calculated incorrectly, allowing the attacker to take an excessive amount of tokens as a reward.\n\nVulnerable code snippet:\n\n[](https://bscscan.com/address/0x431abb27dab05f4e7cdeaa18390fe39364197500)\n\nAttack tx:\n\n- Claim Transaction\n    \n    [](https://bscscan.com/tx/0xbeea4ff215b15870e22ed0e4d36ccd595974ffd55c3d75dad2230196cc379a52)\n    \n- Stake Transaction\n\nAnalysis:\n\n[BlockSec Phalcon on Twitter / X](https://x.com/Phalcon_xyz/status/1730625352953901123)",
-    "images": [
-      "images/Flash_GARV53RbIAAhtbU.jpeg"
-    ],
+    "images": ["images/Flash_GARV53RbIAAhtbU.jpeg"],
     "Lost": "$500k",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2023-12/UnverifiedContr_0x431abb_exp.sol"
   },
@@ -1286,9 +1229,7 @@
     "type": "Insufficient validation",
     "date": "2023-11-29",
     "rootCause": "There is no access control in `AIS::setSwapPairs`, allowing the attacker to set pairs to arbitrary addresses. The attacker sets Pancakeswap as a valid pair and transfers tokens to the pair through `AIS::transfer`, subsequently executing the `Pancakeswap::skim` operation to profit.\n\n\n\nVulnerable code snippet:\n\n```solidity\n  function setSwapPairs(address _address) public { //onlyOwner {\n      Pairs[_address] = true;\n  }\n```\n\nAttack tx:\n\n[](https://bscscan.com/tx/0x0be817b6a522a111e06293435c233dab6576d7437d0e148b45efcf7ab8a10de0)\n\nAnalysis:\n\n[BlockSec Phalcon on Twitter / X](https://x.com/Phalcon_xyz/status/1729861048004391306/photo/1)",
-    "images": [
-      "images/Access_Screenshot_2024-07-18_at_10.05.26_AM.png"
-    ],
+    "images": ["images/Access_Screenshot_2024-07-18_at_10.05.26_AM.png"],
     "Lost": "$61k",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2023-11/AIS_exp.sol"
   },
@@ -1296,9 +1237,7 @@
     "type": "Business Logic Flaw, Incorrect logic",
     "date": "2023-11-25",
     "rootCause": "The attackers keep approving NFT token ID 1071 to themselves and burn the token. After the burn operation, they can retrieve the token through transferFrom and re-burn it repeatedly. During each operation, the attacker receives some $THEDAO tokens as a reward.\n\n\n\nVulnerable code snippet:\n\n- transferFrom\n\n```solidity\nfunction transferFrom(address _from, address _to, uint256 _tokenId) external regulated(_to) {\n    require (_tokenId < max, \"index out of range\");\n    address o = ownership[_tokenId];\n    require (o == _from, \"_from must be owner\");\n    address a = approval[_tokenId];\n    require (o == msg.sender|| (a == msg.sender) || (approvalAll[o][msg.sender]), \"not permitted\");\n    _transfer(_from, _to, _tokenId);\n    if (a != address(0)) {\n        approval[_tokenId] = address(0); // clear previous approval\n        emit Approval(msg.sender, address(0), _tokenId);\n    }\n}\n```\n\n- Burn\n\n```solidity\nfunction burn(uint256 id) external {\n    require (msg.sender == ownership[id], \"only owner can burn\");\n    if (theDAO.transfer(msg.sender, oneDao)) {   // send theDAO token back to sender\n        _transfer(msg.sender, DEAD_ADDRESS, id); // burn the NFT token\n        emit Burn(msg.sender, id);\n    }\n}\n```\n\nAttack tx:\n\n[](https://etherscan.io/tx/0xd5b4d68432cbbd912130bbb5b93399031ddbb400d8f723c78050574de7533106)\n\nAnalysis:\n\n[MetaTrustAlert on Twitter / X](https://x.com/MetaTrustAlert/status/1728616715825848377?s=20)",
-    "images": [
-      "images/Logic_Screenshot_2024-07-18_at_10.18.25_AM.png"
-    ],
+    "images": ["images/Logic_Screenshot_2024-07-18_at_10.18.25_AM.png"],
     "Lost": "$19K",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2023-11/TheNFTV2_exp.sol"
   },
@@ -1306,9 +1245,7 @@
     "type": "Precision, Price Manipulation",
     "date": "2023-11-22",
     "rootCause": "- In the first swap, when calculating Ticks, there is ***incorrect rounding direction during the reinvestment process***. Thus the tick could be manipulated, and `_updateLiquidityAndCrossTick` 0could be bypassed.\n- In the second swap, the `_updateLiquidityAndCrossTick` is being triggered to increase liquidity. However, since there is precision loss in the first swap, the liquidity is then double counted.\n\nVulnerable code snippet:\n\nBy `blocksec` team:\n\n\n\nAttack tx:\n\n<aside>\n\ud83d\udca1 [https://phalcon.blocksec.com/explorer/tx/eth/0x485e08dc2b6a4b3aeadcb89c3d18a37666dc7d9424961a2091d6b3696792f0f3](https://phalcon.blocksec.com/explorer/tx/eth/0x485e08dc2b6a4b3aeadcb89c3d18a37666dc7d9424961a2091d6b3696792f0f3)\n\n</aside>\n\nAnalysis\n\n<aside>\n\ud83d\udca1 [https://blocksec.com/blog/yet-another-tragedy-of-precision-loss-an-in-depth-analysis-of-the-kyber-swap-incident-1](https://blocksec.com/blog/yet-another-tragedy-of-precision-loss-an-in-depth-analysis-of-the-kyber-swap-incident-1)\n\n</aside>",
-    "images": [
-      "images/KyberSwap_Untitled.png"
-    ],
+    "images": ["images/KyberSwap_Untitled.png"],
     "Lost": "$48M",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2023-11/KyberSwap_exp.eth.1.sol"
   },
@@ -1340,10 +1277,7 @@
     "type": "Flashloans, Reward",
     "date": "2023-11-14",
     "rootCause": "- The victim contract `MinerPool` requires `extcodesize!=0`(EOA check) before adding an address to `lpRewardProcessor` array to be eligible for rewards.\n- The victim contract `MinerPool` will distribute the rewards regardless of the LP holding time.\n\nThe attacker leveraged substantial flash loans to borrow a significant amount of USDT and exchanged it for a large quantity of OKC tokens to add liquidity. Additionally, due to the **absence of lock-up requirements for LP reward distribution** in the OKC project, the hacker promptly withdrew liquidity after receiving rewards, thereby claiming the incentives intended for liquidity providers from the project.\n\nVulnerable code snippet:\n\n(Screenshot from the detailed analysis)\n\n1. The check of EOA could be bypassed during the initialization of the contract.\n\n\n\n1. The reward is distributed regardless of the LP holding time.\n\n\n\nAttack tx:\n\nhttps://bscscan.com/tx/0xd85c603f71bb84437bc69b21d785f982f7630355573566fa365dbee4cd236f08\n\nAnalysis:\n\nhttps://lunaray.medium.com/okc-project-hack-analysis-0907312f519b",
-    "images": [
-      "images/Signature_Untitled.png",
-      "images/Untitled%201.png"
-    ],
+    "images": ["images/Signature_Untitled.png", "images/Untitled%201.png"],
     "Lost": "$6268",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2023-11/OKC_exp.sol"
   },
@@ -1351,9 +1285,7 @@
     "type": "Access Control",
     "date": "2023-11-12",
     "rootCause": "- Due to the Lack of Access Control, anyone could designate himself with the privileged role of the MEV bot. Thus the privileged operation could be performed to harvest the assets.\n\nAttack Path:\n\n(from blocksec team)\n\n\n\nAttack tx:\n\n[https://explorer.phalcon.xyz/tx/bsc/0x3dcb26a1f49eb4d02ca29960b4833bfb2e83d7b5d9591aed1204168944c8c9b3](https://explorer.phalcon.xyz/tx/bsc/0x3dcb26a1f49eb4d02ca29960b4833bfb2e83d7b5d9591aed1204168944c8c9b3)\n\nAnalysis\n\n[https://twitter.com/Phalcon_xyz/status/1723897569661657553](https://twitter.com/Phalcon_xyz/status/1723897569661657553)",
-    "images": [
-      "images/Signature_Untitled.png"
-    ],
+    "images": ["images/Signature_Untitled.png"],
     "Lost": "$365K",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2023-11/MEV_0x8c2d_exp.sol"
   },
@@ -1361,9 +1293,7 @@
     "type": "Access Control, Insufficient validation",
     "date": "2023-11-12",
     "rootCause": "The attack on unverified contracts is created by 0x3904ef. The flaw was in function 0xe7d25975, which lacked access control and allowed the attacker to set `_removeAdmin` and withdraw tokens. For example, in contract 0xa24734, the attacker used this flaw to withdraw RAIL tokens and convert them to ETH.\n\nVulnerable code snippet:\n\nBy blocksec team\n\n\n\nAttack tx:\n\n- transaction 1\n\n[0x53eeab4447db331dbb | Phalcon Explorer](https://app.blocksec.com/explorer/tx/eth/0x53eeab4447db331dbb47f93fd58a95d6faa230d559acde0687f8b5f5829e7a45)\n\n- transaction 2\n\n[0x573199feba92ab6577 | Phalcon Explorer](https://t.co/6KcL5OMqoJ)\n\n- transaction 3\n\n[0xb56e984a866afed36c | Phalcon Explorer](https://t.co/2nnjKSbIOJ)\n\n- transaction 4\n\n[0xdfbfb0387129541c65 | Phalcon Explorer](https://t.co/85ueRdaNSZ)\n\nAnalysis:\n\n[BlockSec Phalcon on Twitter / X](https://x.com/Phalcon_xyz/status/1723591214262632562)\n\nRoot cause:\n\nVulnerable code snippet:\n\nAttack tx:\n\nAnalysis:",
-    "images": [
-      "images/Access_F-ti3_vaMAAdkF0.jpeg"
-    ],
+    "images": ["images/Access_F-ti3_vaMAAdkF0.jpeg"],
     "Lost": "$150K",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2023-11/MEV_0xa247_exp.sol"
   },
@@ -1379,9 +1309,7 @@
     "type": "Precision",
     "date": "2023-11-10",
     "rootCause": "- Through `donation` and `self-liquidation`, the variable `collateralIndex` could be manipulated, thus the calculation for minted share amount could be manipulated via precision loss.\n- The minting in `rcbETH-c` uses rounding-up, which could mint `1` share instead of `0` when dust of amount collateral is added.\n- With shares of `cbETH`,  attacker could redeem the shares for profits.\n\nAttack Path:\n\n(from blocksec)\n\n\n\nAttack tx:\n\nhttps://etherscan.io/tx/0xfeedbf51b4e2338e38171f6e19501327294ab1907ab44cfd2d7e7336c975ace7\n\nAnalysis:\n\nhttps://x.com/BlockSecTeam/status/1723229393529835972",
-    "images": [
-      "images/Signature_Untitled.png"
-    ],
+    "images": ["images/Signature_Untitled.png"],
     "Lost": "$3.2 M",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2023-11/Raft_exp.sol"
   },
@@ -1429,9 +1357,7 @@
     "type": "Precision, Price Manipulation",
     "date": "2023-11-01",
     "rootCause": "",
-    "images": [
-      "images/Signature_Untitled.png"
-    ],
+    "images": ["images/Signature_Untitled.png"],
     "Lost": "$2M",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2023-11/OnyxProtocol_exp.sol"
   },
@@ -1439,9 +1365,7 @@
     "type": "Arbitrary call",
     "date": "2023-10-31",
     "rootCause": "The function `0xb2bd16ab` in the `UniBot` does not properly check input parameters. Thus anyone can use this function to arbitrarily call the external token contract and execute the transferFrom() method. Thus anyone who approves the `UniBot` contract may suffer from the attack.\n\nVulnerable code snippet:\n\n(from odaily.news)\n\n\n\nAttack tx:\n\nhttps://etherscan.io/tx/0xcbe521aea28911fe9983030748028e12541e347b8b6b974d026fa5065c22f0cf\n\nAnalysis:\n\nhttps://twitter.com/PeckShieldAlert/status/1719251390319796477",
-    "images": [
-      "images/Signature_Untitled.png"
-    ],
+    "images": ["images/Signature_Untitled.png"],
     "Lost": "$83,944 USD$",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2023-10/UniBot_exp.sol"
   },
@@ -1457,9 +1381,7 @@
     "type": "Arbitrary call",
     "date": "2023-10-24",
     "rootCause": "The `0x9239127f` function in the Maestro Router 2 contract has an external call vulnerability. Attackers can pass in a token address and use the `transferFrom` function with the victim's and their own addresses to transfer the victim's tokens.\n\nVulnerable code snippet:\n\n\n\nAttack tx:\n\n- transaction 1\n\n[](https://etherscan.io/tx/0xc087fbd68b9349b71838982e789e204454bfd00eebf9c8e101574376eb990d92)\n\n- transaction 2\n\n[](https://etherscan.io/tx/0xede874f9a4333a26e97d3be9d1951e6a3c2a8861e4e301787093cfb1293d4756)\n\n- transaction 3\n\n[](https://etherscan.io/tx/0xe60c5a3154094828065049121e244dfd362606c2a5390d40715ba54699ba9da6)\n\n- transaction 4\n\n[](https://etherscan.io/tx/0xf4ae22177c3abbb0f21defe51dd14eff68eb1b0c52ac4104186220138e8e5bb2)\n\n- transaction 5\n\n[](https://etherscan.io/tx/0x6cba3a67d6b8de664d860b096c8c558a1d65e5fa9735c657ddc98f67969561a2)\n\n- transaction 6\n\n[](https://etherscan.io/tx/0xddd1048fe3f2df1fb98e534a97173b32a9fca662dbd257a72725482431d3f25e)\n\n- transaction 7\n\n[](https://etherscan.io/tx/0xffb4bd29825bdd41adf344028f759692021cbadc2d4cb5b587e68fd8285c5eb1)\n\n- transaction 8\n\n[Ethereum Transaction Hash (Txhash) Details | Etherscan](https://etherscan.io/tx/0xa9948c8f0500a867091a090d12125f88868ac29e52af6391569094e82d416904)\n\n- transaction 9\n\n[](https://etherscan.io/tx/0xc49499325cb5ad3bf4391ae95855ce2ee2b0222f9282c524daa1c4586a8fcd8b)\n\n- transaction 10\n\n[](https://etherscan.io/tx/0xcfe1d2b333e1b9da5e2d5f1d7697b628c818cc41f9f3020187d4ce2c2610a05c)\n\n- transaction 11\n\n[Ethereum Transaction Hash (Txhash) Details | Etherscan](https://etherscan.io/tx/0x33f6adf410bbd0ae08b0cd44410de1e5b28e516434567113982fcac36ed9e1a4)\n\n- transaction 12\n\n[](https://etherscan.io/tx/0x4f4d6909a442b4d86f79a9044dcada6a128ddd9f62c26f410134a72d2fc31389)\n\nAnalysis:\n\n[BlockSec Phalcon on Twitter / X](https://twitter.com/Phalcon_xyz/status/1717014871836098663)\n\n[Beosin Alert on Twitter / X](https://twitter.com/BeosinAlert/status/1717013965203804457)",
-    "images": [
-      "images/IT_F9QOgxPaEAAdVW9.png"
-    ],
+    "images": ["images/IT_F9QOgxPaEAAdVW9.png"],
     "Lost": "$280ETH",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2023-10/MaestroRouter2_exp.sol"
   },
@@ -1549,9 +1471,7 @@
     "type": "Business Logic Flaw, Reentrancy",
     "date": "2023-10-07",
     "rootCause": "Analysis from [Peckshield](https://x.com/peckshield/status/1710555944269292009)\n\n\n\nVulnerable code snippet:\n\n[Stars Arena: Shares | Address 0xa481b139a1a654ca19d2074f174f17d7534e8cec Details - Snowtrace](https://snowtrace.io/address/0xa481b139a1a654ca19d2074f174f17d7534e8cec)\n\nAttack tx:\n\n[Transaction Details](https://snowtrace.io/tx/0x4f37ffecdad598f53b8d5a2d9df98e3c00fbda4328585eb9947a412b5fe17ac5)\n\nAnalysis:\n\n[BlockSec on Twitter / X](https://twitter.com/BlockSecTeam/status/1710556926986342911)\n\n[BlockSec Phalcon on Twitter / X](https://twitter.com/Phalcon_xyz/status/1710554341466395065)\n\n[PeckShield Inc. on Twitter / X](https://twitter.com/peckshield/status/1710555944269292009)",
-    "images": [
-      "images/ADC_F70dgwdb0AAhIaX.jpeg"
-    ],
+    "images": ["images/ADC_F70dgwdb0AAhIaX.jpeg"],
     "Lost": "$3M",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2023-10/StarsArena_exp.sol"
   },
@@ -1575,9 +1495,7 @@
     "type": "Arbitrary call",
     "date": "2023-09-29",
     "rootCause": "The attacker exploited 20 BNB from an unverified contract on the BSC network by making arbitrary calls via `functionCallWithValue`.\n\n\n\nVulnerable code snippet:\n\n[](https://bscscan.com/address/0x1f7cf218b46e613d1ba54cac11dc1b5368d94fb7)\n\nAttack tx:\n\n[](https://bscscan.com/tx/0xf77c5904da98d3d4a6e651d0846d35545ef5ca0b969132ae81a9c63e1efc2113)\n\nAnalysis:",
-    "images": [
-      "images/Access_Screenshot_2024-07-20_at_3.22.15_PM.png"
-    ],
+    "images": ["images/Access_Screenshot_2024-07-20_at_3.22.15_PM.png"],
     "Lost": "$4K",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2023-09/DEXRouter_exp.sol"
   },
@@ -1777,9 +1695,7 @@
     "type": "Incorrect logic",
     "date": "2023-07-31",
     "rootCause": "\n\nThe root Cause is the wrong implement of `swapExactTokensForTokensSupportingFeeOnTransferTokens()`\n\nThe `from` should be `msg.sender`\n\n**Vulnerable code snippet:**\n\n\n\n**Attack tx:**\n\n[https://bscscan.com/tx/0x7fe96c00880b329aa0fcb00f0ef3a0766c54e13965becf9cc5e0df6fbd0deca6](https://bscscan.com/tx/0x7fe96c00880b329aa0fcb00f0ef3a0766c54e13965becf9cc5e0df6fbd0deca6)\n\n**Analysis:**\n\n[https://twitter.com/AnciliaInc/status/1686605510655811584](https://twitter.com/AnciliaInc/status/1686605510655811584)",
-    "images": [
-      "images/Signature_Untitled.png"
-    ],
+    "images": ["images/Signature_Untitled.png"],
     "Lost": "Unclear",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2023-07/GYMNET_exp.sol"
   },
@@ -1795,9 +1711,7 @@
     "type": "Flashloans",
     "date": "2023-07-26",
     "rootCause": "\n\nThe root cause was the attacker repeatedly called the `swapExactTokensForTokensSupportingFeeOnTransferTokens` function in the `0x2bdf...341a` contract (not open-source) through flash loans, swapped for [$BUSD](https://twitter.com/search?q=%24BUSD&src=cashtag_click) and burned [$Carson](https://twitter.com/search?q=%24Carson&src=cashtag_click) in the pair, then repeatedly inflated the price of [$Carson](https://twitter.com/search?q=%24Carson&src=cashtag_click) for profit.\n\n\n\n**Attack TX:**\n\n[https://bscscan.com/tx/0x37d921a6bb0ecdd8f1ec918d795f9c354727a3ff6b0dba98a512fceb9662a3ac](https://bscscan.com/tx/0x37d921a6bb0ecdd8f1ec918d795f9c354727a3ff6b0dba98a512fceb9662a3ac)\n\n**Analysis:**\n\n[https://twitter.com/Phalcon_xyz/status/1684503154023448583](https://twitter.com/Phalcon_xyz/status/1684503154023448583)",
-    "images": [
-      "images/Signature_Untitled.png"
-    ],
+    "images": ["images/Signature_Untitled.png"],
     "Lost": "$150K",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2023-07/Carson_exp.sol"
   },
@@ -1833,9 +1747,7 @@
     "type": "Reentrancy",
     "date": "2023-07-21",
     "rootCause": "\n\nIncorrect assumption about the address returned by the Curve element registry for ETH as the underlying for the Curve v2 pool.\n\nSpecifically, the Conic ETH Omnipool uses the `CurveHandlerV3` to check whether we are currently in a reentrant call. This check was only executed if the pool being interacted with contains ETH, which was checked by calling the `_isETH` method. Our assumption was that Curve v2 pools using ETH have the ETH address (`0xeee\u2026eee`) as one of their coins. However, they instead have the WETH address. This led to `_isETH` returning false, and in turn, to the reentrancy guard of the rETH pool being bypassed.\n\nAfter bypass the check, attacker can manipulate the price of rETH Curve LP Token.\n\n\n\n**Attack TX:**\n\n[https://etherscan.io/tx/0x8b74995d1d61d3d7547575649136b8765acb22882960f0636941c44ec7bbe146](https://etherscan.io/tx/0x8b74995d1d61d3d7547575649136b8765acb22882960f0636941c44ec7bbe146)\n\n**Analysis:**\n\n[https://twitter.com/BlockSecTeam/status/1682356244299010049](https://twitter.com/BlockSecTeam/status/1682356244299010049)\n\n[https://medium.com/@ConicFinance/post-mortem-eth-and-crvusd-omnipool-exploits-c9c7fa213a3d](https://medium.com/@ConicFinance/post-mortem-eth-and-crvusd-omnipool-exploits-c9c7fa213a3d)",
-    "images": [
-      "images/Signature_Untitled.png"
-    ],
+    "images": ["images/Signature_Untitled.png"],
     "Lost": "$3.25M",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2023-07/Conic_exp.sol"
   },
@@ -1843,10 +1755,7 @@
     "type": "Arbitrage",
     "date": "2023-07-21",
     "rootCause": "\n\nThe Root cause  is that the tokenPrice in the tokenPrice() function in the `0xF075c5C7BA59208c0B9c41afcCd1f60da9EC9c37` contract is much smaller than the token price in the pool.\n\n**Code Snippet\uff1a**\n\n\n\n\n\n**Attack TX:**\n\n[https://bscscan.com/tx/0xfa1ece5381b9e2b2b83cb10faefde7632ca411bb38dd6bafe1f1140b1360f6ae](https://bscscan.com/tx/0xfa1ece5381b9e2b2b83cb10faefde7632ca411bb38dd6bafe1f1140b1360f6ae)\n\n**Analysis:**\n\n[https://twitter.com/bulu4477/status/1682983956080377857](https://twitter.com/bulu4477/status/1682983956080377857)",
-    "images": [
-      "images/Signature_Untitled.png",
-      "images/Untitled%201.png"
-    ],
+    "images": ["images/Signature_Untitled.png", "images/Untitled%201.png"],
     "Lost": "$8k",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2023-07/SUT_exp.sol"
   },
@@ -1878,9 +1787,7 @@
     "type": "Business Logic Flaw",
     "date": "2023-07-18",
     "rootCause": "\n\nEmergency withdrawals were made without withdrawing the staked NFTs, and the rewardDebt ledger is set to 0, resulting in them still being claimable when the stake was canceled.\nThe attacker repeats this process and obtains a large reward.\n\n\n\n**Attack TX:**\n\n[https://bscscan.com/tx/0x33fed54de490797b99b2fc7a159e43af57e9e6bdefc2c2d052dc814cfe0096b9](https://bscscan.com/tx/0x33fed54de490797b99b2fc7a159e43af57e9e6bdefc2c2d052dc814cfe0096b9)\n\n**Analysis:**\n\n[https://twitter.com/BeosinAlert/status/1681116206663876610](https://twitter.com/BeosinAlert/status/1681116206663876610)",
-    "images": [
-      "images/Signature_Untitled.png"
-    ],
+    "images": ["images/Signature_Untitled.png"],
     "Lost": "$505K",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2023-07/BNO_exp.sol"
   },
@@ -1912,9 +1819,7 @@
     "type": "Reentrancy",
     "date": "2023-07-11",
     "rootCause": "\n\n`Deposit()` function lack of reentrancy protection, which allows the hacker to mint more shares via re-entering deposit() routine.\n\n**Code Snippet:**\n\n%206fb3d54ea5bd4f28935db54211f844c4/Untitled.png)\n\n**Attack TX:**\n\nhttps://polygonscan.com/tx/0x7320accea0ef1d7abca8100c82223533b624c82d3e8d445954731495d4388483\n\n**Analysis:**\n\n[https://twitter.com/peckshield/status/1678688731908411393](https://twitter.com/peckshield/status/1678688731908411393)\n\n[https://twitter.com/Phalcon_xyz/status/1678694679767031809](https://twitter.com/Phalcon_xyz/status/1678694679767031809)",
-    "images": [
-      "images/deposit("
-    ],
+    "images": ["images/deposit("],
     "Lost": "$452k",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2023-07/Libertify_exp.sol"
   },
@@ -1930,10 +1835,7 @@
     "type": "Access Control",
     "date": "2023-07-08",
     "rootCause": "\n\nBecause of a lack of Access control over specific functions `0x7ca06d68` , Attacker can manipulate the\u00a0`_uniswapV3MintCallback`\u00a0value and execute the attack contract directly.\n\n**Code Snippet:**\n\n\n\n\n\n**Attack Tx:**\n\nhttps://etherscan.io/tx/0x93a033917fcdbd5fe8ae24e9fe22f002949cba2f621a1c43a54f6519479caceb\n\nhttps://app.blocksec.com/explorer/tx/eth/0x93a033917fcdbd5fe8ae24e9fe22f002949cba2f621a1c43a54f6519479caceb\n\n**Analysis:**\n\n[https://blog.solidityscan.com/civnft-hack-analysis-4ee79b8c33d1](https://blog.solidityscan.com/civnft-hack-analysis-4ee79b8c33d1)",
-    "images": [
-      "images/Signature_Untitled.png",
-      "images/Untitled%201.png"
-    ],
+    "images": ["images/Signature_Untitled.png", "images/Untitled%201.png"],
     "Lost": "$180k",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2023-07/CIVNFT_exp.sol"
   },
@@ -1941,9 +1843,7 @@
     "type": "Access Control",
     "date": "2023-07-08",
     "rootCause": "\n\nThe root cause is that `uniswapV3MintCallback`  lack of access control so the attacker can call `uniswapV3MintCallback` to transfer the funds approved by other users.\n\n**Code Snippet:**\n\n%20lack%20of%20Access%20control%20322736af06834171b2d67a0a99303b33/Untitled.png)\n\n**Attack Tx:**\n\n[https://etherscan.io/tx/0xc42fc0e22a0f60cc299be80eb0c0ddce83c21c14a3dddd8430628011c3e20d6b](https://etherscan.io/tx/0xc42fc0e22a0f60cc299be80eb0c0ddce83c21c14a3dddd8430628011c3e20d6b)\n\n**Analysis**\n\n[https://twitter.com/HypernativeLabs/status/1677529544062803969](https://twitter.com/HypernativeLabs/status/1677529544062803969)\n\n[https://twitter.com/BeosinAlert/status/1677548773269213184](https://twitter.com/BeosinAlert/status/1677548773269213184)",
-    "images": [
-      "images/uniswapV3MintCallback("
-    ],
+    "images": ["images/uniswapV3MintCallback("],
     "Lost": "$165k",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2023-07/Civfund_exp.sol"
   },
@@ -1959,9 +1859,7 @@
     "type": "Flashloans, Price Manipulation",
     "date": "2023-07-04",
     "rootCause": "when the private updatePool function is invoked in the _transfer function, the resulting token transfer will burn the balance of the $BAMBOO token in the pair, causing a rise in the token price.\n\nVulnerable code snippet:\n\n```jsx\nfunction updatePool(uint256 amount) private {\n        if (amount > 10000 && balanceOf(uniswapPair) > amount) {\n            uint256 fA = amount / 100;\n            _balances[uniswapPair] = _balances[uniswapPair].sub(fA);\n            _balances[Factory] = _balances[Factory].add(fA);\n            try IUniswapV2Pair(uniswapPair).sync() {} catch {}\n        }\n    }\n```\n\n\n\nAttack tx:\n\nhttps://explorer.phalcon.xyz/tx/bsc/0x88a6c2c3ce86d4e0b1356861b749175884293f4302dbfdbfb16a5e373ab58a10\n\nAnalysis:\n\nPost-mortem : [https://twitter.com/Phalcon_xyz/status/1676220090142916611](https://twitter.com/Phalcon_xyz/status/1676220090142916611)",
-    "images": [
-      "images/BambooIA_Untitled.jpeg"
-    ],
+    "images": ["images/BambooIA_Untitled.jpeg"],
     "Lost": "200BNB",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2023-07/Bamboo_exp.sol"
   },
@@ -1977,9 +1875,7 @@
     "type": "Access Control",
     "date": "2023-07-03",
     "rootCause": "The contract recorded the extracted signature, but did not verify the signature. As long as the passed parameters remain unchanged, multiple extractions can be achieved before the signature time limit expires, causing the attacker to use one signature to perform multiple token extraction operations.\n\nVulnerable code snippet:\n\n\n\nAttack tx:\n\nhttps://etherscan.io/tx/0x6233c9315dd3b6a6fcc7d653f4dca6c263e684a76b4ad3d93595e3b8e8714d34\n\nAnalysis:\n\nhttps://twitter.com/sharkteamorg/status/1676892088930271232",
-    "images": [
-      "images/Signature_Untitled.png"
-    ],
+    "images": ["images/Signature_Untitled.png"],
     "Lost": "$69k",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2023-07/AzukiDAO_exp.sol"
   },
@@ -1987,9 +1883,7 @@
     "type": "Access Control",
     "date": "2023-06-30",
     "rootCause": "Biswap's V3Migrator contract lacks parameter check, which allows the attacker to steal tokens from the users who approved LP tokens to the V3Migrator contract.\n\nVulnerable code snippet:\n\n\n\nAttack tx:\n\n[https://bscscan.com/tx/0xebe5248820241d8de80bcf66f4f1bfaaca62962824efaaa662db84bd27f5e47e](https://bscscan.com/tx/0xebe5248820241d8de80bcf66f4f1bfaaca62962824efaaa662db84bd27f5e47e), [https://bscscan.com/address/0xa1e31b29f94296fc85fac8739511360f279b1976](https://bscscan.com/address/0xa1e31b29f94296fc85fac8739511360f279b1976)\n\nAnalysis:\n\nhttps://twitter.com/MetaTrustAlert/status/1674814217122349056?s=20",
-    "images": [
-      "images/Signature_Untitled.png"
-    ],
+    "images": ["images/Signature_Untitled.png"],
     "Lost": "$72k",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2023-06/Biswap_exp.sol"
   },
@@ -1997,9 +1891,7 @@
     "type": "Price Manipulation",
     "date": "2023-06-28",
     "rootCause": "The LP token price is determined by aggregating the total value of all tokens in the pool. In this case, the attacker managed to manipulate the oracle by exchanging tokens within the Balancer pool, leading to the hack.\n\nVulnerable code snippet:\n\n\n\n(source code not available)\n\nAttack tx:\n\nhttps://arbiscan.io/tx/0xff368294ccb3cd6e7e263526b5c820b22dea2b2fd8617119ba5c3ab8417403d8\n\nAnalysis:\n\n[https://twitter.com/BeosinAlert/status/1673930979348717570](https://twitter.com/BeosinAlert/status/1673930979348717570)\n[https://twitter.com/BlockSecTeam/status/1673897088617426946](https://twitter.com/BlockSecTeam/status/1673897088617426946)",
-    "images": [
-      "images/Signature_Untitled.png"
-    ],
+    "images": ["images/Signature_Untitled.png"],
     "Lost": "$370k",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2023-06/Themis_exp.sol"
   },
@@ -2047,9 +1939,7 @@
     "type": "Access Control, Incorrect logic",
     "date": "2023-06-17",
     "rootCause": "A failure of the protocol to verify whether the NFT had actually been transferred when users used a specified NFT as collateral for borrowing.\n\nVulnerable code snippet:\n\n\n\nAttack tx:\n\nhttps://etherscan.io/tx/0x8d3036371ccf27579d3cb3d4b4b71e99334cae8d7e8088247517ec640c7a59a5\n\nAnalysis:\n\nhttps://blog.solidityscan.com/pawnfi-hack-analysis-38ac9160cbb4",
-    "images": [
-      "images/Signature_Untitled.png"
-    ],
+    "images": ["images/Signature_Untitled.png"],
     "Lost": "$820K",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2023-06/Pawnfi_exp.sol"
   },
@@ -2057,9 +1947,7 @@
     "type": "Flashloans, Price Manipulation",
     "date": "2023-06-15",
     "rootCause": "Attacker could initiate transferFrom from the DEX contract that allowed him to transfer users that gave an approval for that contract.\n\nVulnerable code snippet:\n\n%20241501e1d4d2496a8c9e0984c15d0507/Untitled.png)\n\nAttack tx:\n\nhttps://explorer.phalcon.xyz/tx/bsc/0xa3c130ed8348919f73cbefce0f22d46fa381c8def93654e391ddc95553240c1e\n\nAnalysis:\n\nhttps://twitter.com/hexagate_/status/1669280632738906113\n\nhttps://x.com/Phalcon_xyz/status/1669262923758456833",
-    "images": [
-      "images/CFC_Untitled.png"
-    ],
+    "images": ["images/CFC_Untitled.png"],
     "Lost": "$16k",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2023-06/CFC_exp.sol"
   },
@@ -2067,9 +1955,7 @@
     "type": "Access Control",
     "date": "2023-06-15",
     "rootCause": "A public function that enabled the attacker to obtain approval as a spender for $DEPUSDT and $LEVUSDC tokens.\n\nVulnerable code snippet:\n\n\n\nAttack tx:\n\nAttack Tx DEPUSDT : [https://etherscan.io/tx/0xf0a13b445674094c455de9e947a25bade75cac9f5176695fca418898ea25742f](https://etherscan.io/tx/0xf0a13b445674094c455de9e947a25bade75cac9f5176695fca418898ea25742f)\nAttack Tx LEVUSDC : [https://etherscan.io/tx/0x800a5b3178f680feebb81af69bd3dff791b886d4ce31615e601f2bb1f543bb2e](https://etherscan.io/tx/0x800a5b3178f680feebb81af69bd3dff791b886d4ce31615e601f2bb1f543bb2e)\n\nAnalysis:\n\nhttps://blog.solidityscan.com/depusdt-and-levusdc-hack-analysis-d27032d8f2cd",
-    "images": [
-      "images/Signature_Untitled.png"
-    ],
+    "images": ["images/Signature_Untitled.png"],
     "Lost": "$105k",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2023-06/DEPUSDT_LEVUSDC_exp.sol"
   },
@@ -2085,10 +1971,7 @@
     "type": "Flashloans, Price Manipulation",
     "date": "2023-06-11",
     "rootCause": "The price in the USDT-SELLC pool was manipulated, and the sendMiner function relied on the price from that pool.\n\nVulnerable code snippet:\n\n\n\n\n\nAttack tx:\n\nhttps://bscscan.com/tx/0xe968e648b2353cea06fc3da39714fb964b9354a1ee05750a3c5cc118da23444b\n\nAnalysis:",
-    "images": [
-      "images/Signature_Untitled.png",
-      "images/Untitled%201.png"
-    ],
+    "images": ["images/Signature_Untitled.png", "images/Untitled%201.png"],
     "Lost": "$109k",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2023-06/SELLC03_exp.sol"
   },
@@ -2096,9 +1979,7 @@
     "type": "Flashloans, Price Manipulation",
     "date": "2023-06-07",
     "rootCause": "Fluctuations in the amount of funds available for exchange due to changes in the proportions of the liquidity pool.\n\nVulnerable code snippet:\n\n\n\nAttack tx:\n\n[https://etherscan.io/tx/0xcff84cc137c92e427f720ca1f2b36fbad793f34ec5117eed127060686e6797b1](https://etherscan.io/tx/0xcff84cc137c92e427f720ca1f2b36fbad793f34ec5117eed127060686e6797b1)\n\nAnalysis:\n\nhttps://twitter.com/numencyber/status/1666346419702362112",
-    "images": [
-      "images/Signature_Untitled.png"
-    ],
+    "images": ["images/Signature_Untitled.png"],
     "Lost": "$27,174",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2023-06/CompounderFinance_exp.sol"
   },
@@ -2106,9 +1987,7 @@
     "type": "Insufficient validation",
     "date": "2023-06-06",
     "rootCause": "The exploiter passes an existing Uniswap pool as devaddr allowing him to manipulate the price.\n\nVulnerable code snippet:\n\n\n\nAttack tx:\n\nhttps://etherscan.io/tx/0xaf46a42fe1ed7193b25c523723dc047c7500e50a00ecb7bbb822d665adb3e1f3\n\nAnalysis:\n\nhttps://x.com/hexagate_/status/1666051854386511873?cxt=HHwWgoC24bPVgJ8uAAAA",
-    "images": [
-      "images/Signature_Untitled.png"
-    ],
+    "images": ["images/Signature_Untitled.png"],
     "Lost": "$6k",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2023-06/VINU_exp.sol"
   },
@@ -2156,9 +2035,7 @@
     "type": "Incorrect logic, skim",
     "date": "2023-05-25",
     "rootCause": " \n\nFee Mechanism issue\n\n**Vulnerable code snippet:**\n\nBlocksec:\n\n\n\n**Attack tx:**\n\n[https://explorer.phalcon.xyz/tx/bsc/0xb77cb34cd01204bdad930d8c172af12462eef58dea16199185b77147d6533391](https://explorer.phalcon.xyz/tx/bsc/0xb77cb34cd01204bdad930d8c172af12462eef58dea16199185b77147d6533391)\n\n**Analysis:**\n\n[https://twitter.com/Phalcon_xyz/status/1661424685320634368](https://twitter.com/Phalcon_xyz/status/1661424685320634368)",
-    "images": [
-      "images/GPT_Token_Untitled.jpeg"
-    ],
+    "images": ["images/GPT_Token_Untitled.jpeg"],
     "Lost": "$42k",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/GPT_exp.sol"
   },
@@ -2177,9 +2054,7 @@
     "type": "Miscalculation",
     "date": "2023-05-24",
     "rootCause": " \n\nBlocksec: The root cause is that in _transfer(), the burnAmount is calculated from SellAmount, but the issue is that SellAmount is not updated!\n\nNumen: By exploiting the mechanism of burning funds during the transaction, the attacker gradually reduced the quantity of CS tokens in the [BUSD, CS] trading pair.\n\n**Vulnerable code snippet:**\n\n[https://bscscan.com/address/0x8BC6Ce23E5e2c4f0A96429E3C9d482d74171215e#code#L711](https://bscscan.com/address/0x8BC6Ce23E5e2c4f0A96429E3C9d482d74171215e#code#L711)\n\n```jsx\nfunction _transfer(\n        address from,\n        address to,\n        uint256 amount\n    ) private {\n        require(from != address(0), \"ERC20: transfer from the zero address\");\n        require(to != address(0), \"ERC20: transfer to the zero address\");\n        require(amount > 0, \"Transfer amount must be greater than zero\");\n        require(!blackList[from], \"black account\");\n        require(!blackList[to], \"black account\");\n        if (!canContract && _isContract(msg.sender) && !exPairs[from]) {\n            require(whiteContractList[msg.sender], \"not allowed contract trade\");\n        }\n\n        if (!canBuy &&  exPairs[from]){\n            require(whiteList[to], \"not allow trade\");\n        }\n        if (!canSell &&  exPairs[to]){\n            require(whiteList[from], \"not allow trade\");\n        }        \n\n        bool takeTransFee = isTransFee && !feeWhiteList[from] && !feeWhiteList[to] && !exPairs[from] && !exPairs[to] && !_isLiquidity(from,to)  ;\n        bool takeSellFee = isSellFee && !feeWhiteList[from] &&  exPairs[to] && !_isLiquidity(from,to);\n        bool takeBuyFee = isBuyFee && !feeWhiteList[to] &&  exPairs[from] && !_isLiquidity(from,to);\n\n        if (_isLiquidity(from,to) && exPairs[to]){\n            updateLiquidityInfo(amount);\n        }\n\n        bool canSell =  sellAmount >= 1;\n        if(canSell &&from != address(this) &&from != uniswapV2Pair &&from != owner() && to != owner() && !_isLiquidity(from,to)){\n            sync();\n        }\n\n        FeeParam memory param;\n        if (takeBuyFee){\n            require(amount <= limitBuy,\"exceeds buying limit!\");\n            uint256 price = getBuyPrice(from);\n            updatePrice(price);              \n            _getBuyParam(amount,param);\n        }\n        if(takeSellFee){\n            require(amount <= limitSell,\"exceeds selling limit!\");\n            uint256 price = getSellPrice(to);\n            updatePrice(price);\n            _getSellParam(amount,param);\n            sellAmount = amount;  **//vulnerable point**\n            uint256 contractTokenBalance = balanceOf(address(this));\n            bool canSwap = contractTokenBalance >= minTokenNumberToSell;\n\n            if (\n                canSwap &&\n                !inSwapAndLiquify &&\n                from != uniswapV2Pair\n            ) {\n                inSwapAndLiquify = true;\n\n                swapAndLiquify(contractTokenBalance);\n\n                inSwapAndLiquify = false;\n            }\n        }\n        if (takeTransFee){\n            _getTransferParam(amount,param);\n        }\n        if (param.tTransferAmount == 0) {\n            param.tTransferAmount = amount;\n        }        \n        _tokenTransfer(from,to,amount,param);\n    }\n\nfunction sync() private lockTheSync{\n        if (totalBurnAmount>=maxBurnAmount){\n            return;\n        }\n        uint256 burnAmount = sellAmount.mul(800).div(1000); **//vulnerable point**\n        sellAmount = 0;\n```\n\n\n\n**Attack tx:**\n\n[https://explorer.phalcon.xyz/tx/bsc/0x906394b2ee093720955a7d55bff1666f6cf6239e46bea8af99d6352b9687baa4](https://explorer.phalcon.xyz/tx/bsc/0x906394b2ee093720955a7d55bff1666f6cf6239e46bea8af99d6352b9687baa4)\n\n**Analysis:**\n\n[https://twitter.com/BlockSecTeam/status/1661098394130198528](https://twitter.com/BlockSecTeam/status/1661098394130198528)\n[https://twitter.com/numencyber/status/1661207123102167041](https://twitter.com/numencyber/status/1661207123102167041)",
-    "images": [
-      "images/CS_Token_Untitled.jpeg"
-    ],
+    "images": ["images/CS_Token_Untitled.jpeg"],
     "Lost": "714K USD",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/CS_exp.sol"
   },
@@ -2403,9 +2278,7 @@
     "type": "Flashloans, Price Manipulation",
     "date": "2023-03-08",
     "rootCause": "\n\nQuillAudits: The contract was not verified. So, after decompiling it, we found that the vulnerability was present in the exchange() function, which was used to swap USDT for DKP tokens. The problem arises because the price Oracle relies on the balance ratio of the two tokens in the USDT-DKP pair, making it vulnerable to flash loan attacks that allow the attacker to manipulate the pool.\n\n**Vulnerable code snippet:**\n\n[https://bscscan.com/address/0x89257A52Ad585Aacb1137fCc8abbD03a963B9683#code](https://bscscan.com/address/0x89257A52Ad585Aacb1137fCc8abbD03a963B9683#code)\n\n[https://library.dedaub.com/decompile?md5=0795fc50f96b806a37007ea095b360de](https://library.dedaub.com/decompile?md5=0795fc50f96b806a37007ea095b360de)\n\n\n\n```jsx\nfunction 0x1201() private { \n    require(stor_3_0_19.code.size);\n    v0, v1 = stor_3_0_19.balanceOf(_lp).gas(msg.gas);\n    require(v0); // checks call status, propagates error data on error\n    MEM[64] = MEM[64] + (RETURNDATASIZE() + 31 & ~0x1f);\n    require(MEM[64] + RETURNDATASIZE() - MEM[64] >= 32);\n    0x2a44(v1);\n    require(_usdt.code.size);\n    v2, v3 = _usdt.balanceOf(_lp).gas(msg.gas);\n    require(v2); // checks call status, propagates error data on error\n    MEM[64] = MEM[64] + (RETURNDATASIZE() + 31 & ~0x1f);\n    require(MEM[64] + RETURNDATASIZE() - MEM[64] >= 32);\n    0x2a44(v3);\n    v4 = 0x1af2(0xde0b6b3a7640000, v1);\n    v5 = 0x1b6d(v3, v4);\n    return v5;\n}\n```\n\n**Attack tx:**\n\n[https://bscscan.com/tx/0x0c850f54c1b497c077109b3d2ef13c042bb70f7f697201bcf2a4d0cb95e74271](https://bscscan.com/tx/0x0c850f54c1b497c077109b3d2ef13c042bb70f7f697201bcf2a4d0cb95e74271)\n\n[https://bscscan.com/tx/0x2d31e45dce58572a99c51357164dc5283ff0c02d609250df1e6f4248bd62ee01](https://bscscan.com/tx/0x2d31e45dce58572a99c51357164dc5283ff0c02d609250df1e6f4248bd62ee01)\n\n**Analysis:**\n\n[https://twitter.com/CertiKAlert/status/1633421908996763648](https://twitter.com/CertiKAlert/status/1633421908996763648)\n\n[https://blog.solidityscan.com/dkp-hack-analysis-improper-token-pair-ratio-calculation-282672cd0450](https://blog.solidityscan.com/dkp-hack-analysis-improper-token-pair-ratio-calculation-282672cd0450)\n\n[https://medium.com/coinmonks/decoding-dkp-token-s-80k-exploit-quillaudits-45c67df973d6](https://medium.com/coinmonks/decoding-dkp-token-s-80k-exploit-quillaudits-45c67df973d6)",
-    "images": [
-      "images/Signature_Untitled.png"
-    ],
+    "images": ["images/Signature_Untitled.png"],
     "Lost": "$80K",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/DKP_exp.sol"
   },
@@ -2437,9 +2310,7 @@
     "type": "Miscalculation, Storage collision, Upgradable",
     "date": "2023-02-24",
     "rootCause": " \n\nBad contract upgrades cause storage collision\n\n**Details:**\n\n\n\nThe upgrade introduced new storage items, and modifications were made to the existing storage structure. The original storage order of variables was not maintained. \n\nThe data storage structure of the old version was not taken into account, so when reading the `assetDecimal` variable in the new implementation contract, the data read is still the proxy contract slot, which is the value of the `maxDeposit` variable of the old version.\n\n**Vulnerable code snippet:**\n\n[https://etherscan.io/address/0x80cb73074a6965f60df59bf8fa3ce398ffa2702c#code#F1#L145](https://etherscan.io/address/0x80cb73074a6965f60df59bf8fa3ce398ffa2702c#code#F1#L145)\n\n```solidity\nfunction assetsPerShare() internal view returns (uint256) {\n\treturn (IController(controller).totalAssets(false)*assetDecimal*1e18) / totalSupply();\n\nfunction redeem (uint256 shares, address receiver) \n\tpublic \n\tvirtual \n\tnonReentrant \n\tunPaused \n\tonlyAllowed \n\treturns (uint256 assets) \n{\n\trequire (shares > 0, \"ZERO_SHARES\");\n\trequire (shares <= balance0f (msg.sender), \"EXCEED_TOTAL_BALANCE\");\n\tassets = (shares * **assetsPerShare()**) / 1e24; **// Miscalculation of assets**\n\trequire (assets <= maxWithdraw, \"EXCEED_ONE_TIME_MAX_WITHDRAW\");\n\t// Withdraw asset\n\t_withdraw(assets, shares, receiver);\n}\n```\n\nDue to the Storage Collision, The value of maxDeposit was set to 5000000000000, which is much higher than the value it is expected to set. This results in the return value of the `assetPerShare` function being much larger and thus the value of assets becomes larger.\n\n**Attack txns:**\n\nUpgrade tx: [0xab86672eb5335264c4c4b75262630ae1fb8dcf2a68aaafe4bb9fc3232b886712](https://etherscan.io/tx/0xab86672eb5335264c4c4b75262630ae1fb8dcf2a68aaafe4bb9fc3232b886712)\n\nExploit tx: [0x31565843d565ecab7ab65965d180e45a99d4718fa192c2f2221410f65ea03743](https://etherscan.io/tx/0x31565843d565ecab7ab65965d180e45a99d4718fa192c2f2221410f65ea03743)\n\n**Analysis:**\n\n[https://twitter.com/BeosinAlert/status/1630884733671579653](https://twitter.com/BeosinAlert/status/1630884733671579653)\n\n**Recommendation:** \n\nTo prevent similar attacks during contract upgrades, it is crucial to follow best practices and ensure that the original storage order of variables remains unchanged.\n\n---",
-    "images": [
-      "images/Storage_image.png"
-    ],
+    "images": ["images/Storage_image.png"],
     "Lost": "$5.1M",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/EFVault_exp.sol"
   },
@@ -2463,9 +2334,7 @@
     "type": "Flashloans, Misconfiguration, skim",
     "date": "2023-02-17",
     "rootCause": " \n\nMisconfiguration in \"transfer\" function\n\n**Vulnerable code snippet:**\n\n[https://bscscan.com/address/0x518281f34dbf5b76e6cdd3908a6972e8ec49e345#code#L1135](https://bscscan.com/address/0x518281f34dbf5b76e6cdd3908a6972e8ec49e345#code#L1135)\n\n```solidity\nfunction _transfer(\n        address sender,\n        address recipient,\n        uint256 amount\n    ) internal virtual override {\n        if (\n            botAddresses[sender] &&\n            amount > antiBotAmount &&\n            antiBotTime > block.timestamp\n        ) {\n            revert(\"Anti Bot\");\n        }\n\n        uint256 contractTokenBalance = balanceOf(address(this)); \n\n        if(contractTokenBalance >= _maxTxAmount) { \n            contractTokenBalance = _maxTxAmount; \n        }\n        \n        bool overMinTokenBalance = contractTokenBalance >= numTokensSellToAddToLiquidity;\n\n        bool buyLp = buyIndex >= buyIndexSellLiquify;\n\n        if (\n            overMinTokenBalance && \n            !inSwapAndLiquify && \n            sender != uniswapV2Pair && \n            swapAndLiquifyEnabled \n        ) {\n            contractTokenBalance = numTokensSellToAddToLiquidity;\n            swapAndLiquify(contractTokenBalance);\n        }\n\n        if(recipient == uniswapV2Pair){\n            if (\n                sender != address(this) &&\n                recipient != address(this) &&\n                !_isExcludedFromFee[sender]\n            ) {\n                if (\n                    overMinTokenBalance && \n                    !inSwapAndLiquify && \n                    sender != uniswapV2Pair && \n                    swapSellLiquifyEnabled \n                ) {\n                    contractTokenBalance = numTokensSellToAddToLiquidity;\n                    swapAndLiquify(contractTokenBalance);\n                }\n                uint256 _fee = amount.mul(sellFeeRate).div(100);\n                super._transfer(sender,mintContract, _fee.mul(LPSellFees).div(sellFeeRate));\n                super._transfer(sender, addressForMarketing, _fee.mul(marketSellFees).div(sellFeeRate));\n                super._transfer(sender, BurnAddr, _fee.mul(burnSellFees).div(sellFeeRate));\n                amount = amount.sub(_fee);\n            }\n        }else if(sender == uniswapV2Pair){\n            if (\n                sender != address(this) &&\n                recipient != address(this) &&\n                !_isExcludedFromFee[sender]\n            ) {\n                if (\n                    overMinTokenBalance && \n                    !inSwapAndLiquify && \n                    buyLp&&\n                    swapBuyLiquifyEnabled \n                ) {\n                    contractTokenBalance = numTokensSellToAddToLiquidity;\n                    swapAndLiquify(contractTokenBalance);\n                    buyIndex =0;\n\n                }\n                uint256 _fee = amount.mul(buyFeeRate).div(100);\n                super._transfer(sender,mintContract, _fee.mul(LPBuyFees).div(buyFeeRate));\n                super._transfer(sender,addressForMarketing, _fee.mul(marketBuyFees).div(buyFeeRate));\n                super._transfer(sender, BurnAddr, _fee.mul(burnBuyFees).div(buyFeeRate));\n                amount = amount.sub(_fee);\n                buyIndex =buyIndex+1;\n            }\n        }\n    \n        super._transfer(sender, recipient, amount);\n    }\n```\n\nStarlinkCoin contract used the \"_transfer\" function to transfer funds, which incurs a fee when funds come from the LP contract.\n\nThe attacker used the \"skim\" method to directly transfer funds to the LP contract, and the fee was also deducted, causing a change in the proportion of the two tokens in the trading pair contract.\n\nThe attacker then exchanged the tokens for a profit and left the contract.\n\n\n\n**Attack tx:**\n\n[https://bscscan.com/tx/0x146586f05a4513136deab3557ad15df8f77ffbcdbd0dd0724bc66dbeab98a962](https://bscscan.com/tx/0x146586f05a4513136deab3557ad15df8f77ffbcdbd0dd0724bc66dbeab98a962)\n\n**Analysis:**\n\n[https://twitter.com/NumenAlert/status/1626447469361102850](https://twitter.com/NumenAlert/status/1626447469361102850)\n\n[https://twitter.com/bbbb/status/1626392605264351235](https://twitter.com/bbbb/status/1626392605264351235)",
-    "images": [
-      "images/Signature_Untitled.png"
-    ],
+    "images": ["images/Signature_Untitled.png"],
     "Lost": "$12k",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/Starlink_exp.sol"
   },
@@ -2513,9 +2382,7 @@
     "type": "Incorrect logic, Math",
     "date": "2023-02-03",
     "rootCause": " \n\nFlawed internal accounting systems\n\nUSDS has three different accounting systems, two separate auto-migration systems, and all share the same variables, just interpret their meaning differently. Thus, all account variables have to be updated together in order to accurately calculate a user's balance.\n\nHowever, due to improper implementation, these critical updates were not performed accurately, leading to the attack.\n\n**Vulnerable code snippet:**\n\ndanielvf:\n\n\n\n**Attack tx:**\n\n[https://arbiscan.io/tx/0xfaf84cabc3e1b0cf1ff1738dace1b2810f42d98baeea17b146ae032f0bdf82d5](https://arbiscan.io/tx/0xfaf84cabc3e1b0cf1ff1738dace1b2810f42d98baeea17b146ae032f0bdf82d5)\n\n**Analysis:**\n\n[https://medium.com/sperax/usds-feb-3-exploit-report-from-engineering-team-9f0fd3cef00c](https://medium.com/sperax/usds-feb-3-exploit-report-from-engineering-team-9f0fd3cef00c)\n\n[https://twitter.com/danielvf/status/1621965412832350208](https://twitter.com/danielvf/status/1621965412832350208)",
-    "images": [
-      "images/Signature_Untitled.png"
-    ],
+    "images": ["images/Signature_Untitled.png"],
     "Lost": "$309k",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/USDs_exp.sol"
   },
@@ -2583,9 +2450,7 @@
     "type": "Misconfiguration",
     "date": "2023-01-11",
     "rootCause": "\n\nIt\u2019s due to the incorrect parameter setting. The attacker bought a public offer of the UF Dao with 1:1 rate using USDC, then redeemed almost all in UF Dao.\n\n**Vulnerable code snippet:**\n\n```jsx\nfunction buyPublicOffer(address _dao, uint256 _lpAmount)\n        external\n        nonReentrant\n        returns (bool)\n    {\n        require(\n            IFactory(factory).containsDao(_dao),\n            \"Shop: only DAO can sell LPs\"\n        );\n\n        PublicOffer memory publicOffer = publicOffers[_dao]; **// Vulnerable point**\n\n        require(publicOffer.isActive, \"Shop: this offer is disabled\");\n\n        IERC20(publicOffer.currency).safeTransferFrom(\n            msg.sender,\n            _dao,\n            (_lpAmount * publicOffer.rate) / 1e18   **// Vulnerable point**\n        );\n\n        address lp = IDao(_dao).lp();\n\n        bool b = ILP(lp).mint(msg.sender, _lpAmount);\n\n        require(b, \"Shop: mint error\");\n\n        return true;\n    }\n```\n\n\n\nImage from blocksec\n\n**Attack tx:**\n\n[https://bscscan.com/tx/0x933d19d7d822e84e34ca47ac733226367fbee0d9c0c89d88d431c4f99629d77a](https://bscscan.com/tx/0x933d19d7d822e84e34ca47ac733226367fbee0d9c0c89d88d431c4f99629d77a)\n\n**Analysis:**\n\n[https://twitter.com/BlockSecTeam/status/1613507804412940289](https://twitter.com/BlockSecTeam/status/1613507804412940289)",
-    "images": [
-      "images/Signature_Untitled.png"
-    ],
+    "images": ["images/Signature_Untitled.png"],
     "Lost": "$90k",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/UFDao_exp.sol"
   },
@@ -2608,7 +2473,7 @@
   "LavaLending": {
     "type": "Business Logic Flaw, Incorrect logic",
     "date": "2024-03-28",
-        "rootCause": "1. Create an account with LPT tokens as collateral.\n2. Generate one-sided trading fees for the LPT.\n3. Use a different account to borrow and unwind the LPT tokens.\n4. The wrapper mistakenly includes the fees as assets, causing a significant increase in the LPT token price due to low actual liquidity.\n5. This boost in token price increases the first account's borrowing power, allowing it to borrow all the assets in the lending market.\n\nDonating assets via trading fees was identified as an attack vector. The wrapper attempts to prevent this by limiting trading fees to a maximum APR value, but this check was not triggered because only token0 fees exceeded the limit while token1 fees did not.\n\nVulnerable code snippet:\n\n[WrapperOracle | Address 0x7746872c6892bcfb4254390283719f2bd2d4da76 | Arbitrum One](https://arbiscan.io/address/0x7746872c6892bcfb4254390283719f2bd2d4da76#code)\n\nAttack tx:\n\n[0xcb1a2f5eeb1a767ea5 | Phalcon Explorer](https://phalcon.blocksec.com/explorer/tx/arbitrum/0xcb1a2f5eeb1a767ea5ccbc3665351fadc1af135d12a38c504f8f6eb997e9e603)\n\nAnalysis:\n\n\n\n[BlockSec Phalcon on Twitter / X](https://twitter.com/Phalcon_xyz/status/1773546399713345965)\n\n[Lava Post-Mortem: March 28, 2024 - HackMD](https://hackmd.io/@LavaSecurity/03282024)",
+    "rootCause": "1. Create an account with LPT tokens as collateral.\n2. Generate one-sided trading fees for the LPT.\n3. Use a different account to borrow and unwind the LPT tokens.\n4. The wrapper mistakenly includes the fees as assets, causing a significant increase in the LPT token price due to low actual liquidity.\n5. This boost in token price increases the first account's borrowing power, allowing it to borrow all the assets in the lending market.\n\nDonating assets via trading fees was identified as an attack vector. The wrapper attempts to prevent this by limiting trading fees to a maximum APR value, but this check was not triggered because only token0 fees exceeded the limit while token1 fees did not.\n\nVulnerable code snippet:\n\n[WrapperOracle | Address 0x7746872c6892bcfb4254390283719f2bd2d4da76 | Arbitrum One](https://arbiscan.io/address/0x7746872c6892bcfb4254390283719f2bd2d4da76#code)\n\nAttack tx:\n\n[0xcb1a2f5eeb1a767ea5 | Phalcon Explorer](https://phalcon.blocksec.com/explorer/tx/arbitrum/0xcb1a2f5eeb1a767ea5ccbc3665351fadc1af135d12a38c504f8f6eb997e9e603)\n\nAnalysis:\n\n\n\n[BlockSec Phalcon on Twitter / X](https://twitter.com/Phalcon_xyz/status/1773546399713345965)\n\n[Lava Post-Mortem: March 28, 2024 - HackMD](https://hackmd.io/@LavaSecurity/03282024)",
     "images": [],
     "Lost": "340K",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2024-03/LavaLending_exp.sol"
@@ -2617,9 +2482,7 @@
     "type": "Insufficient validation",
     "date": "2024-07-16",
     "rootCause": "arbitrary call\n\nVulnerable code snippet:\n\n[https://x.com/danielvf/status/1505689981385334784/photo/1](https://x.com/danielvf/status/1505689981385334784/photo/1)\n\n\n\nAttack tx:\n\n[https://app.blocksec.com/explorer/tx/eth/0xd82fe84e63b1aa52e1ce540582ee0895ba4a71ec5e7a632a3faa1aff3e763873](https://app.blocksec.com/explorer/tx/eth/0xd82fe84e63b1aa52e1ce540582ee0895ba4a71ec5e7a632a3faa1aff3e763873)\n\nAnalysis:\n\n[https://x.com/danielvf/status/1505689981385334784](https://x.com/danielvf/status/1505689981385334784)",
-    "images": [
-      "images/Lifiprotocol_Untitled.jpeg"
-    ],
+    "images": ["images/Lifiprotocol_Untitled.jpeg"],
     "Lost": "$10M",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2024-07/Lifiprotocol_exp.sol"
   },
@@ -2627,9 +2490,7 @@
     "type": "Reentrancy",
     "date": "2024-07-14",
     "rootCause": "Attackers can lend tokens inside flashloan callbacks and then redeem more tokens after the flashloan.\n\nVulnerable code snippet:\n\n[https://x.com/shoucccc/status/1812659977464729991/photo/1](https://x.com/shoucccc/status/1812659977464729991/photo/1)\n\n\n\nAttack tx:\n\n[https://app.blocksec.com/explorer/tx/mantle/0xb3c4c313a8d3e2843c9e6e313b199d7339211cdc70c2eca9f4d88b1e155fd6bd](https://app.blocksec.com/explorer/tx/mantle/0xb3c4c313a8d3e2843c9e6e313b199d7339211cdc70c2eca9f4d88b1e155fd6bd)\n\nAnalysis:\n\n",
-    "images": [
-      "images/Minterest_Untitled.jpeg"
-    ],
+    "images": ["images/Minterest_Untitled.jpeg"],
     "Lost": "$1.4M",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2024-07/Minterest_exp.sol"
   },
@@ -2637,9 +2498,7 @@
     "type": "Access Control",
     "date": "2024-07-11",
     "rootCause": "attacker transferred 0 GAX and transferred out 49,583 USDT through the 0x6c99d7c8 method of the vulnerable contract.\n\nVulnerable code snippet:\n\n[https://bscscan.com/address/0xdb4b73Df2F6dE4AFCd3A883efE8b7a4B0763822b#code](https://bscscan.com/address/0xdb4b73Df2F6dE4AFCd3A883efE8b7a4B0763822b#code)\n\n\n\nAttack tx:\n\n[https://bscscan.com/tx/0x368f842e79a10bb163d98353711be58431a7cd06098d6f4b6cbbcd4c77b53108](https://bscscan.com/tx/0x368f842e79a10bb163d98353711be58431a7cd06098d6f4b6cbbcd4c77b53108)\n\nAnalysis:\n\n[https://x.com/EXVULSEC/status/1811348160851378333](https://x.com/EXVULSEC/status/1811348160851378333)",
-    "images": [
-      "images/GAX_Untitled.jpeg"
-    ],
+    "images": ["images/GAX_Untitled.jpeg"],
     "Lost": "$50K",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2024-07/GAX_exp.sol"
   },
@@ -2647,9 +2506,7 @@
     "type": "Business Logic Flaw",
     "date": "2024-06-16",
     "rootCause": "Double claimEarned, Each time the `claimEarned` function is called, the code iterates through all the stakes and accumulates the calculated `_earned` amount. However, after calculating the rewards, the already calculated rewards are not marked as claimed. As a result, the next time `claimEarned` is called, it will recalculate those already claimed rewards, allowing users to claim rewards multiple times.\n\nVulnerable code snippet:\n\n```jsx\n    function claimEarned(uint256 _stakingId, uint256 _burnRate) public override {\n        require(_burnRate == 10 || _burnRate == 25 || _burnRate == 40, \"Invalid burn rate\");\n\n        uint256 _earned = 0;\n        Plan storage plan = plans[_stakingId];\n\n        require(stakes[_stakingId][msg.sender].length > 0, \"No stakes found\");\n\n        for (uint256 i = 0; i < stakes[_stakingId][msg.sender].length; i++) {\n            Staking storage _staking = stakes[_stakingId][msg.sender][i];\n            _earned = _earned.add(\n                _staking\n                    .amount\n                    .mul(plan.apr)\n                    .div(10000)\n            );\n\n            totalRewards = totalRewards.add(_earned);\n            totalRewardsPerPlan[_stakingId] = totalRewardsPerPlan[_stakingId].add(_earned);\n\n            totalRewardsPerWalletPerPlan[_stakingId][msg.sender] = totalRewardsPerWalletPerPlan[_stakingId][msg.sender].add(_earned);\n\n            totalEarnedRewardsPerWallet[msg.sender] += _earned;\n        \n            _staking.stakeAt = block.timestamp;\n        }\n\n        require(_earned > 0, \"There is no amount to claim\");\n\n        uint256 burnAmount = _earned.mul(_burnRate).div(100);\n        IERC20(stakingToken).transfer(BURN_ADDRESS, burnAmount);\n        IERC20(stakingToken).transfer(msg.sender, _earned.sub(burnAmount));\n    }\n\n  \n\n```\n\nAttack tx:\n\n[https://etherscan.io/tx/0x58424115c6576b19cfb78b0b7ff00e0c13daa06d259f2a67210c112731519e09](https://etherscan.io/tx/0x58424115c6576b19cfb78b0b7ff00e0c13daa06d259f2a67210c112731519e09)\n\nAnalysis:\n\n[https://x.com/ChainAegis/status/1802550962977964139](https://x.com/ChainAegis/status/1802550962977964139)\n\n",
-    "images": [
-      "images/Business_Screenshot_2024-06-25_at_4.59.58_PM.png"
-    ],
+    "images": ["images/Business_Screenshot_2024-06-25_at_4.59.58_PM.png"],
     "Lost": "13189.92USD(WIF token)",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2024-06/WIFCOIN_ETH_exp.sol"
   },
@@ -2657,9 +2514,7 @@
     "type": "Business Logic Flaw",
     "date": "2024-06-11",
     "rootCause": "Hacker could unstake several times because \"unstake\" function doesn't check \"unstaked\" value. \n\nVulnerable code snippet:\n\n```jsx\n    function unstake(uint256 stakeIndex) external {\n        require(stakeIndex < stakes[msg.sender].length, \"Invalid stake index!\");\n        Stake memory currentStake = stakes[msg.sender][stakeIndex];\n\n        uint256 currentDay = getCurrentDay();\n\n        require(currentDay > currentStake.stakedDay + currentStake.lockPeriod, \"Lock period has not finalized!\");\n        stakes[msg.sender][stakeIndex].unstaked = true; <-- vulnerable point\n        stakes[msg.sender][stakeIndex].unstakedDay = currentDay;\n\n        totalStaked -= currentStake.amountStaked;\n        // Transfer back staked amount\n        require(jokToken.transfer(msg.sender, currentStake.amountStaked), \"Token transfer failed!\");\n\n        emit Unstake(msg.sender, currentStake.amountStaked, block.timestamp, currentStake.lockPeriod, stakeIndex);\n\n    }\n```\n\nAttack tx:\n\n[https://app.blocksec.com/explorer/tx/eth/0xe8277ef6ba8611bd12dc5a6e7ca4b984423bc0b3828159f83b466fdcf4fe054f](https://app.blocksec.com/explorer/tx/eth/0xe8277ef6ba8611bd12dc5a6e7ca4b984423bc0b3828159f83b466fdcf4fe054f)\n\nAnalysis:\n\n\n\n",
-    "images": [
-      "images/Business_Screenshot_2024-06-25_at_4.46.45_PM.png"
-    ],
+    "images": ["images/Business_Screenshot_2024-06-25_at_4.46.45_PM.png"],
     "Lost": "9.2 eth",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2024-06/JokInTheBox_exp.sol"
   },
@@ -2678,9 +2533,7 @@
     "type": "Business Logic Flaw",
     "date": "2024-06-08",
     "rootCause": "Root cause is the same as STM token exploit, wrong calculation of liquidity amount to remove in \"sell\" function.\n\nVulnerable code snippet:\n\nhttps://bscscan.com/address/0xcC0F0f41f4c4c17493517dd6c6d9DD1aDb134Fc9#code\n\n```jsx\n    function sell(uint256 amount) external {\n        eve_token_erc20.transferFrom(msg.sender, address(this), amount);\n        (, uint256 r1, ) = inner_pair.getReserves();  <-- vulnerable point\n        uint256 lpAmount = amount*inner_pair.totalSupply()/(2*r1);\n        uniswapV2Router.removeLiquidity(address(usdt_token_erc20),address(eve_token_erc20),lpAmount,0,0,msg.sender,block.timestamp);\n    }\n```\n\nAttack tx:\n\n[https://app.blocksec.com/explorer/tx/bsc/0x397a09af6494c0bfcd89e010f5dd65d90f3ee1cf1ff813ce5b0c1d42a1c8dec9](https://app.blocksec.com/explorer/tx/bsc/0x397a09af6494c0bfcd89e010f5dd65d90f3ee1cf1ff813ce5b0c1d42a1c8dec9)\n\nAnalysis:\n\n\n\nIt's similar to STM token, used \"sell\" function to drain pool. He swapped large amount of USDT to YYS, and in first \"sell\" function, he could remove some liquidity with a few YYS tokens, decrease k(x*y) value. Then swapped YYS to USDT\n\n\n\n[https://www.notion.so](https://www.notion.so)",
-    "images": [
-      "images/Signature_Untitled.png"
-    ],
+    "images": ["images/Signature_Untitled.png"],
     "Lost": "$28K",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2024-06/YYS_exp.sol"
   },
@@ -2688,9 +2541,7 @@
     "type": "Business Logic Flaw",
     "date": "2024-06-06",
     "rootCause": "Incorrect uses reserve of pair for liquidity calculation\n\nVulnerable code snippet:\n\n[https://bscscan.com/address/0xb7D0A1aDaFA3e9e8D8e244C20B6277Bee17a09b6#code](https://bscscan.com/address/0xb7D0A1aDaFA3e9e8D8e244C20B6277Bee17a09b6#code)\n\n```jsx\n    function sell(uint256 amount) external {\n        eve_token_erc20.transferFrom(msg.sender, address(this), amount);\n        (, uint256 r1, ) = inner_pair.getReserves(); <-- vulnerable point\n        uint256 lpAmount = amount*inner_pair.totalSupply()/(2*r1);\n        uniswapV2Router.removeLiquidity(address(usdt_token_erc20),address(eve_token_erc20),lpAmount,0,0,msg.sender,block.timestamp);\n    }\n```\n\nAttack tx:\n\n[https://app.blocksec.com/explorer/tx/bsc/0x849ed7f687cc2ebd1f7c4bed0849893e829a74f512b7f4a18aea39a3ef4d83b1](https://app.blocksec.com/explorer/tx/bsc/0x849ed7f687cc2ebd1f7c4bed0849893e829a74f512b7f4a18aea39a3ef4d83b1)\n\nAnalysis:\n\n\n\nThere's \"sell\" function in \"MineSTM\" contract, and it uses reserve of pair for liquidity calculation. Hacker manipulated reserve amount by swapping large amount of tokens, and then called \"sell\" function to get lots of tokens.\n\n",
-    "images": [
-      "images/IT_Screenshot_2024-07-02_at_12.49.04_PM.png"
-    ],
+    "images": ["images/IT_Screenshot_2024-07-02_at_12.49.04_PM.png"],
     "Lost": "$13.8K",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2024-06/MineSTM_exp.sol"
   },
@@ -2698,10 +2549,7 @@
     "type": "Access Control, Lack of permission control",
     "date": "2024-06-01",
     "rootCause": "lacks permission verification (velocore__execute)\n\nVulnerable code snippet:\n\n[https://lineascan.build/address/0xb7f6354b2cfd3018b3261fbc63248a56a24ae91a](https://lineascan.build/address/0xb7f6354b2cfd3018b3261fbc63248a56a24ae91a)\n\n\n\n\n\nAttack tx:\n\n[https://lineascan.build/tx/0xed11d5b013bf3296b1507da38b7bcb97845dd037d33d3d1b0c5e763889cdbed1](https://lineascan.build/tx/0xed11d5b013bf3296b1507da38b7bcb97845dd037d33d3d1b0c5e763889cdbed1)\n\nAnalysis:\n\nThe LP Pool lacks permission verification. The attacker directly invoke the velocore__execute function (0xec378808) of the LP contract with a carefully constructed parameter to manipulate the feeMultiplier parameter of the contract.\n\n[https://x.com/BeosinAlert/status/1797247874528645333](https://x.com/BeosinAlert/status/1797247874528645333)\n\n[https://blog.solidityscan.com/velocore-hack-analysis-642a13630be0](https://blog.solidityscan.com/velocore-hack-analysis-642a13630be0)",
-    "images": [
-      "images/Signature_Untitled.png",
-      "images/Untitled%201.png"
-    ],
+    "images": ["images/Signature_Untitled.png", "images/Untitled%201.png"],
     "Lost": "$6.88M",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2024-06/Velocore_exp.sol"
   },
@@ -2709,9 +2557,7 @@
     "type": "Arbitrary call",
     "date": "2024-05-31",
     "rootCause": "Arbitrary Call, controllable data.pool.\n\nVulnerable code snippet:\n\n[https://arbiscan.io/address/0x58637aaac44e2a2f190d9e1976e236d86d691542](https://arbiscan.io/address/0x58637aaac44e2a2f190d9e1976e236d86d691542)\n\n```jsx\n    //AlgebraSwap v3 callback\n    function algebraSwapCallback(\n        int256 amount0,\n        int256 amount1,\n        bytes calldata data <-- vulnerable point\n    ) public {\n        _processV3Callback(amount0, amount1, data);\n    }\n    \n       function _processV3Callback(\n        int256 amount0Delta,\n        int256 amount1Delta,\n        bytes calldata _data\n    ) internal {\n        require(_reentrancyGuardEntered(), \"FBD\");\n        require(amount0Delta > 0 || amount1Delta > 0, \"Invalid amount\"); // swaps entirely within 0-liquidity regions are not supported\n        SwapCallbackData memory data = abi.decode(_data, (SwapCallbackData));\n        require(msg.sender == data.pool, \"Invalid caller\");\n        (address tokenIn, address tokenOut, ) = data.path.decodeFirstPool();\n        _validatePoolTokens(\n            tokenIn,\n            tokenOut,\n            data.pool\n        );\n\n        (bool isExactInput, uint256 amountToPay) =\n            amount0Delta > 0\n                ? (tokenIn < tokenOut, uint256(amount0Delta))\n                : (tokenOut < tokenIn, uint256(amount1Delta));\n        if (isExactInput) {\n            pay(tokenIn, data.payer, msg.sender, amountToPay);\n        } else {\n            // either initiate the next swap or pay\n            if (data.path.hasMultiplePools()) {\n                data.path = data.path.skipToken();\n                _exactOutputInternalV3(\n                    amountToPay,\n                    msg.sender,\n                    0,\n                    data. <-- vulnerable point\n                );\n            } else {\n                tokenIn = tokenOut; // swap in/out because exact output swaps are reversed\n                pay(tokenIn, data.payer, msg.sender, amountToPay);\n            }\n        }\n    }\n\n    /// @dev Performs a single exact output swap\n    function _exactOutputInternalV3(\n        uint256 amountOut,\n        address recipient,\n        uint160 sqrtPriceLimitX96,\n        SwapCallbackData memory data.  \n    ) private returns (uint256 amountIn) {\n        require(data.pool != address(0), \"InvalidPool\");\n        // allow swapping to the router address with address 0\n        if (recipient == address(0)) recipient = address(this);\n\n        (address tokenA, address tokenB, ) = data.path.decodeFirstPool();\n        _validatePoolTokens(\n            tokenA,\n            tokenB,\n            data.pool.  \n        );\n        bool zeroForOne = tokenA < tokenB;\n\n        (int256 amount0Delta, int256 amount1Delta) = IUniswap(data.pool).swap(    <-- data.pool vulnerable point\n                recipient,\n                zeroForOne,\n                -amountOut.toInt256(),\n                sqrtPriceLimitX96 == 0\n                    ? (zeroForOne ? TickMath.MIN_SQRT_RATIO + 1 : TickMath.MAX_SQRT_RATIO - 1)\n                    : sqrtPriceLimitX96,\n                abi.encode(data)\n            );\n\n        uint256 amountOutReceived;\n        (amountIn, amountOutReceived) = zeroForOne\n            ? (uint256(amount0Delta), uint256(-amount1Delta))\n            : (uint256(amount1Delta), uint256(-amount0Delta));\n        // it's technically possible to not receive the full output amount,\n        // so if no price limit has been specified, require this possibility away\n        if (sqrtPriceLimitX96 == 0) require(amountOutReceived == amountOut);\n    }\n\n```\n\nAttack tx:\n\n[https://arbiscan.io/tx/0xf57f041cb6d8a10e11edab50b84e49b59ff834c7d114d1e049cedd654c36194d](https://arbiscan.io/tx/0xf57f041cb6d8a10e11edab50b84e49b59ff834c7d114d1e049cedd654c36194d)\n\n[https://app.blocksec.com/explorer/tx/arbitrum/0xf57f041cb6d8a10e11edab50b84e49b59ff834c7d114d1e049cedd654c36194d](https://app.blocksec.com/explorer/tx/arbitrum/0xf57f041cb6d8a10e11edab50b84e49b59ff834c7d114d1e049cedd654c36194d)\n\nAnalysis:\n\n",
-    "images": [
-      "images/IT_Screenshot_2024-07-02_at_2.15.44_PM.png"
-    ],
+    "images": ["images/IT_Screenshot_2024-07-02_at_2.15.44_PM.png"],
     "Lost": ">10700USD(WINR token)",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2024-05/MixedSwapRouter_exp.sol"
   },
@@ -2719,10 +2565,7 @@
     "type": "Under/Overflow",
     "date": "2024-05-29",
     "rootCause": "Integer Underflow**\n\nVulnerable code snippet:\n\n\n\nAttack tx:\n\n[https://app.blocksec.com/explorer/tx/eth/0x661505c39efe1174da44e0548158db95e8e71ce867d5b7190b9eabc9f314fe91](https://app.blocksec.com/explorer/tx/eth/0x661505c39efe1174da44e0548158db95e8e71ce867d5b7190b9eabc9f314fe91)\n\nAnalysis:\n\n\n\nAnyone can transfer tokens to owner address even though he has no tokens. I have simulated it. Strange! According to decompile, solidity version is 0.8.19. How is underflow possible?\n\n",
-    "images": [
-      "images/Signature_Untitled.png",
-      "images/Untitled%201.png"
-    ],
+    "images": ["images/Signature_Untitled.png", "images/Untitled%201.png"],
     "Lost": "76 ETH",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2024-05/SCROLL_exp.sol"
   },
@@ -2730,9 +2573,7 @@
     "type": "Business Logic Flaw",
     "date": "2024-05-29",
     "rootCause": "Incorrect logic check\n\n`if (to == address(this) || to == erc721) {transform(value);}` allows for unrestricted minting\n\nVulnerable code snippet:\n\n[https://bscscan.com/address/0xEF1f39d8391cdDcaee62b8b383cB992F46a6ce4f](https://bscscan.com/address/0xEF1f39d8391cdDcaee62b8b383cB992F46a6ce4f)\n\n```jsx\n    function transfer(address to, uint256 value) public virtual returns (bool) {\n        address owner = _msgSender();\n        _transfer(owner, to, value);\n        return true;\n    }\n    function _update(\n        address from,\n        address to,\n        uint256 value\n    ) internal override {\n        // if to is this contract, transform\n        if (!isValidTokenId(value)) {\n            super._update(from, to, value);\n        }\n\n        if (to == address(this) || to == erc721) { <-- vulnerable point\n            transform(value);\n        } else {\n            if (isValidTokenId(value)) {\n                // erc721 transfer\n                // check auth\n                if (from != address(0)) {\n                    require(\n                        iERC721CheckAuth(erc721).isAuthorized(\n                            from,\n                            msg.sender,\n                            value\n                        ),\n                        \"P404: not authorized\"\n                    );\n                }\n                IERC721(erc721).safeTransferFrom(from, to, value);\n            }\n        }\n    }\n```\n\nAttack tx:\n\n[https://app.blocksec.com/explorer/tx/bsc/0x3ad998a01ad1f1bbe6dba6a08e658c1749dabfa4a07da20ded3c73bcd6970d20](https://app.blocksec.com/explorer/tx/bsc/0x3ad998a01ad1f1bbe6dba6a08e658c1749dabfa4a07da20ded3c73bcd6970d20)\n\nAnalysis:\n\n[https://x.com/Phalcon_xyz/status/1795746828064854497](https://x.com/Phalcon_xyz/status/1795746828064854497)\n\n",
-    "images": [
-      "images/Lack_Screenshot_2024-07-02_at_3.24.08_PM.png"
-    ],
+    "images": ["images/Lack_Screenshot_2024-07-02_at_3.24.08_PM.png"],
     "Lost": "$180k",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2024-05/MetaDragon_exp.sol"
   },
@@ -2740,9 +2581,7 @@
     "type": "Weak RNG",
     "date": "2024-05-27",
     "rootCause": "Due to weak RNG, we can estimate bet result by calculating the result of the function randomNumber\n\nVulnerable code snippet:\n\n[https://bscscan.com/address/0x71e3056aa4985de9f5441f079e6c74454a3c95f0](https://bscscan.com/address/0x71e3056aa4985de9f5441f079e6c74454a3c95f0)\n\n```jsx\n function randomNumber() internal view returns (uint256) { <--vulnerable point\n        uint256 seed = uint256(\n            keccak256(\n                abi.encodePacked(\n                    counter +\n                        block.timestamp +\n                        block.prevrandao +\n                        ((\n                            uint256(keccak256(abi.encodePacked(block.coinbase)))\n                        ) / (block.timestamp)) +\n                        block.gaslimit +\n                        ((uint256(keccak256(abi.encodePacked(msg.sender)))) /\n                            (block.timestamp)) +\n                        block.number\n                )\n            )\n        );\n\n        return (seed - ((seed / 1000) * 1000));\n    }\n```\n\nAttack tx:\n\n[https://bscscan.com/tx/0x8d5fb97b35b830f8addcf31c8e0c6135f15bbc2163d891a3701ada0ad654d427](https://bscscan.com/tx/0x8d5fb97b35b830f8addcf31c8e0c6135f15bbc2163d891a3701ada0ad654d427)\n\nAnalysis:\n\n[https://x.com/SlowMist_Team/status/1794975336192438494](https://x.com/SlowMist_Team/status/1794975336192438494)\n\n",
-    "images": [
-      "images/Weak_Screenshot_2024-07-02_at_5.29.12_PM.png"
-    ],
+    "images": ["images/Weak_Screenshot_2024-07-02_at_5.29.12_PM.png"],
     "Lost": "$12K",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2024-05/RedKeysCoin_exp.sol"
   },
@@ -2777,9 +2616,7 @@
     "type": "Precision",
     "date": "2024-05-14",
     "rootCause": "Compound v2 forks bug. first deposit\n\nVulnerable code snippet:\n\n[https://optimistic.etherscan.io/address/0xe3b81318b1b6776f0877c3770afddff97b9f5fe5](https://optimistic.etherscan.io/address/0xe3b81318b1b6776f0877c3770afddff97b9f5fe5)\n\n```jsx\n    function exchangeRateStoredInternal()\n        internal\n        view\n        virtual\n        returns (uint256)\n    {\n        uint256 _totalSupply = totalSupply;\n        if (_totalSupply == 0) {\n            /*\n             * If there are no tokens minted:\n             *  exchangeRate = initialExchangeRate\n             */\n            return initialExchangeRateMantissa;\n        } else {\n            /*\n             * Otherwise:\n             *  exchangeRate = (totalCash + totalBorrows - totalReserves) / totalSupply\n             */\n            uint256 totalCash = getCashPrior();\n            uint256 cashPlusBorrowsMinusReserves = totalCash +\n                totalBorrows -\n                totalReserves;\n            uint256 exchangeRate = (cashPlusBorrowsMinusReserves * expScale) /\n                _totalSupply; <-- vulnerable point\n\n            return exchangeRate;\n        }\n```\n\n\n\nAttack tx:\n\n[https://optimistic.etherscan.io/tx/0x45c0ccfd3ca1b4a937feebcb0f5a166c409c9e403070808835d41da40732db96](https://optimistic.etherscan.io/tx/0x45c0ccfd3ca1b4a937feebcb0f5a166c409c9e403070808835d41da40732db96)\n\n[https://optimistic.etherscan.io/tx/0x9312ae377d7ebdf3c7c3a86f80514878deb5df51aad38b6191d55db53e42b7f0](https://optimistic.etherscan.io/tx/0x9312ae377d7ebdf3c7c3a86f80514878deb5df51aad38b6191d55db53e42b7f0)\n\nAnalysis:\n\n[https://www.quillaudits.com/blog/hack-analysis/sonne-finance-hack](https://www.quillaudits.com/blog/hack-analysis/sonne-finance-hack)\n\n[https://www.quillaudits.com/blog/hack-analysis/sonne-finance-hack](https://www.quillaudits.com/blog/hack-analysis/sonne-finance-hack)",
-    "images": [
-      "images/Signature_Untitled.png"
-    ],
+    "images": ["images/Signature_Untitled.png"],
     "Lost": "$20M",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2024-05/Sonne_exp.sol"
   },
@@ -2787,9 +2624,7 @@
     "type": "Reentrancy",
     "date": "2024-05-14",
     "rootCause": "Reentrancy**\n\nVulnerable code snippet:\n\n[https://arbiscan.io/address/0x7b8b944ab2f24c829504a7a6d70fce5298f2147c#code](https://arbiscan.io/address/0x7b8b944ab2f24c829504a7a6d70fce5298f2147c#code)\n\n```jsx\n    function trade(\n        GlobalDataLibrary.GlobalData storage globalData,\n        IPredyPool.TradeParams memory tradeParams,\n        bytes memory settlementData\n    ) external returns (IPredyPool.TradeResult memory tradeResult) { <-- no reentrancy guard\n        DataType.PairStatus storage pairStatus = globalData.pairs[tradeParams.pairId];\n\n        // update interest growth\n        ApplyInterestLib.applyInterestForToken(globalData.pairs, tradeParams.pairId);\n\n        // update rebalance interest growth\n        Perp.updateRebalanceInterestGrowth(pairStatus, pairStatus.sqrtAssetStatus);\n\n        tradeResult = Trade.trade(globalData, tradeParams, settlementData);\n\n        globalData.vaults[tradeParams.vaultId].margin +=\n            tradeResult.fee + tradeResult.payoff.perpPayoff + tradeResult.payoff.sqrtPayoff;\n\n        (tradeResult.minMargin,,, tradeResult.sqrtTwap) = PositionCalculator.calculateMinDeposit(\n            pairStatus, globalData.vaults[tradeParams.vaultId], DataType.FeeAmount(0, 0)\n        );\n\n        // The caller deposits or withdraws margin from the callback that is called below.\n        callTradeAfterCallback(globalData, tradeParams, tradeResult); **<-- vulnerable point**\n\n        // check vault safety\n        tradeResult.minMargin =\n            PositionCalculator.checkSafe(pairStatus, globalData.vaults[tradeParams.vaultId], DataType.FeeAmount(0, 0));\n\n        emit PositionUpdated(\n            tradeParams.vaultId,\n            tradeParams.pairId,\n            tradeParams.tradeAmount,\n            tradeParams.tradeAmountSqrt,\n            tradeResult.payoff,\n            tradeResult.fee\n        );\n    }\n    function callTradeAfterCallback(\n        GlobalDataLibrary.GlobalData storage globalData,\n        IPredyPool.TradeParams memory tradeParams,\n        IPredyPool.TradeResult memory tradeResult\n    ) internal {\n        globalData.initializeLock(tradeParams.pairId);\n\n        IHooks(msg.sender).predyTradeAfterCallback(tradeParams, tradeResult); <-- vulnerable callback point\n\n        (int256 marginAmountUpdate, int256 settledBaseAmount) = globalData.finalizeLock();\n\n        if (settledBaseAmount != 0) {\n            revert IPredyPool.BaseTokenNotSettled();\n        }\n\n        globalData.vaults[tradeParams.vaultId].margin += marginAmountUpdate;\n\n        emit MarginUpdated(tradeParams.vaultId, marginAmountUpdate);\n    }\n}\n```\n\nAttack tx:\n\n[https://arbiscan.io/tx/0xbe163f651d23f0c9e4d4a443c0cc163134a31a1c2761b60188adcfd33178f50f](https://arbiscan.io/tx/0xbe163f651d23f0c9e4d4a443c0cc163134a31a1c2761b60188adcfd33178f50f)\n\nAnalysis:\n\n[https://predyfinance.medium.com/postmortem-report-on-the-details-of-the-events-of-may-14-2024-8690508c820b](https://predyfinance.medium.com/postmortem-report-on-the-details-of-the-events-of-may-14-2024-8690508c820b)\n\n",
-    "images": [
-      "images/EAC_Screenshot_2024-07-03_at_2.09.47_PM.png"
-    ],
+    "images": ["images/EAC_Screenshot_2024-07-03_at_2.09.47_PM.png"],
     "Lost": "$464K",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2024-05/PredyFinance_exp.sol"
   },
@@ -2805,9 +2640,7 @@
     "type": "Access Control, Insufficient validation",
     "date": "2024-05-10",
     "rootCause": "Everyone can call this function to get free tokens. No access control\n\nVulnerable code snippet:\n\n[https://basescan.org/address/0x75Ac62EA5D058A7F88f0C3a5F8f73195277c93dA#code](https://basescan.org/address/0x75Ac62EA5D058A7F88f0C3a5F8f73195277c93dA#code)\n\n```jsx\n    function onERC1155Received( <--vulnerable point\n        address,\n        address from,\n        uint256 id,\n        uint256 amount,\n        bytes calldata\n    ) external override nonReentrant returns (bytes4) {\n        require(id == tokenID, \"Token ID does not match\");\n        \n        if (msg.sender == address(erc1155Contract)) {\n            return this.onERC1155Received.selector;\n        }\n\n        _safeMint(from, amount * ERC1155_RATIO); // Adjust minting based on the ERC1155_RATIO\n        return this.onERC1155Received.selector;\n    }\n```\n\nAttack tx:\n\n[https://basescan.org/tx/0xe63a8df8759f41937432cd34c590d85af61b3343cf438796c6ed2c8f5b906f62](https://basescan.org/tx/0xe63a8df8759f41937432cd34c590d85af61b3343cf438796c6ed2c8f5b906f62)\n\n[https://app.blocksec.com/explorer/tx/base/0xe63a8df8759f41937432cd34c590d85af61b3343cf438796c6ed2c8f5b906f62](https://app.blocksec.com/explorer/tx/base/0xe63a8df8759f41937432cd34c590d85af61b3343cf438796c6ed2c8f5b906f62)\n\nAnalysis:\n\n[https://x.com/shoucccc/status/1788941548929110416](https://x.com/shoucccc/status/1788941548929110416)\n\n",
-    "images": [
-      "images/No_Screenshot_2024-07-03_at_5.27.16_PM.png"
-    ],
+    "images": ["images/No_Screenshot_2024-07-03_at_5.27.16_PM.png"],
     "Lost": "140K",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2024-05/TSURU_exp.sol"
   },
@@ -2815,9 +2648,7 @@
     "type": "Business Logic Flaw",
     "date": "2024-05-08",
     "rootCause": "self transfer\n\nVulnerable code snippet:\n\n[https://bscscan.com/address/0xf51cbf9f8e089ca48e454eb79731037a405972ce](https://bscscan.com/address/0xf51cbf9f8e089ca48e454eb79731037a405972ce)\n\n```jsx\n    function _transfer(\n        address sender,\n        address recipient,\n        uint256 amount\n    ) internal virtual {\n        require(sender != address(0), \"ERC20: transfer from the zero address\");\n        require(recipient != address(0), \"ERC20: transfer to the zero address\");\n        uint256 senderAmount = _balances[sender]; <-- vulnerable point\n        uint256 recipientAmount = _balances[recipient]; <-- vulnerable point\n        require(senderAmount >= amount, \"ERC20: transfer amount exceeds balance\");\n        _balances[sender] = senderAmount.sub(amount);\n        _balances[recipient] = recipientAmount.add(amount); <-- vulnerable point\n        emit Transfer(sender, recipient, amount);\n    }\n```\n\nAttack tx:\n\n[https://bscscan.com/tx/0x2c0ada695a507d7a03f4f308f545c7db4847b2b2c82de79e702d655d8c95dadb](https://bscscan.com/tx/0x2c0ada695a507d7a03f4f308f545c7db4847b2b2c82de79e702d655d8c95dadb)\n\n[https://app.blocksec.com/explorer/tx/bsc/0x2c0ada695a507d7a03f4f308f545c7db4847b2b2c82de79e702d655d8c95dadb](https://app.blocksec.com/explorer/tx/bsc/0x2c0ada695a507d7a03f4f308f545c7db4847b2b2c82de79e702d655d8c95dadb)\n\nAnalysis:\n\n[https://blog.solidityscan.com/gpu-hack-analysis-bf11f7c00534](https://blog.solidityscan.com/gpu-hack-analysis-bf11f7c00534)\n\n",
-    "images": [
-      "images/Self_Screenshot_2024-07-03_at_5.32.35_PM.png"
-    ],
+    "images": ["images/Self_Screenshot_2024-07-03_at_5.32.35_PM.png"],
     "Lost": "32K USD",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2024-05/GPU_exp.sol"
   },
@@ -2833,9 +2664,7 @@
     "type": "Business Logic Flaw, Reward",
     "date": "2024-05-06",
     "rootCause": "Distribution contract did not check the LP hold time or whether the reciever is contract or not\n\nVulnerable code snippet:\n\nAttack tx:\n\n[https://app.blocksec.com/explorer/tx/bsc/0xc7927a68464ebab1c0b1af58a5466da88f09ba9b30e6c255b46b1bc2e7d1bf09](https://app.blocksec.com/explorer/tx/bsc/0xc7927a68464ebab1c0b1af58a5466da88f09ba9b30e6c255b46b1bc2e7d1bf09)\n\n// TX1:create help contract,split money : [https://app.blocksec.com/explorer/tx/bsc/0xbf22eabb5db8785642ba17930bddef48d0d1bb94ebd1e03e7faa6f2a3d1a5540](https://app.blocksec.com/explorer/tx/bsc/0xbf22eabb5db8785642ba17930bddef48d0d1bb94ebd1e03e7faa6f2a3d1a5540)\n// TX2:help contract add Liq : [https://app.blocksec.com/explorer/tx/bsc/0x69c64b226f8bf06216cc665ad5e3777ad1b120909326f120f0816ac65a9099c0](https://app.blocksec.com/explorer/tx/bsc/0x69c64b226f8bf06216cc665ad5e3777ad1b120909326f120f0816ac65a9099c0)\n\nAttacker: [https://bscscan.com/address/0x810f4c6ae97bcc66da5ae6383cc31bd3670f6d13](https://bscscan.com/address/0x810f4c6ae97bcc66da5ae6383cc31bd3670f6d13)\n\nAnalysis:\n\n[https://x.com/SlowMist_Team/status/1787330586857861564](https://x.com/SlowMist_Team/status/1787330586857861564)\n\n",
-    "images": [
-      "images/Reward_Screenshot_2024-07-04_at_10.03.25_AM.png"
-    ],
+    "images": ["images/Reward_Screenshot_2024-07-04_at_10.03.25_AM.png"],
     "Lost": "109K USD",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2024-05/OSN_exp.sol"
   },
@@ -2843,9 +2672,7 @@
     "type": "Business Logic Flaw",
     "date": "2024-04-30",
     "rootCause": "This vulnerability is associated with the burning shares functionality\u00a0`burn(address to)`\u00a0of the strategy contract which is responsible for burning the strategy tokens and allowing the user to withdraw the LP tokens.\n\nVulnerable code snippet:\n\n[https://arbiscan.io/address/0x3b4ffd93ce5fcf97e61aa8275ec241c76cc01a47](https://arbiscan.io/address/0x3b4ffd93ce5fcf97e61aa8275ec241c76cc01a47)\n\n```jsx\nfunction burn(address to) external isState(State.INVESTED)\n    returns (uint256 poolTokensObtained)\n{\n  // Caching\n   IPool pool_ = pool;\n   uint256 poolCached_ = poolCached;\n   uint256 totalSupply_ = _totalSupply;\n\n   // Burn strategy tokens\n   uint256 burnt = _balanceOf[address(this)];\n   _burn(address(this), burnt);\n\n   poolTokensObtained = pool.balanceOf(address(this)) * burnt / totalSupply_;\n   pool_.safeTransfer(address(to), poolTokensObtained);\n\n   // Update pool cache\n   poolCached = poolCached_ - poolTokensObtained;\n}\n```\n\nAttack tx:\n\n[https://arbiscan.io/tx/0x6caa65b3fc5c8d4c7104574c3a15cd6208f742f9ada7d81ba027b20473137705](https://arbiscan.io/tx/0x6caa65b3fc5c8d4c7104574c3a15cd6208f742f9ada7d81ba027b20473137705)\n\nAnalysis:\n\n[https://medium.com/immunefi/yield-protocol-logic-error-bugfix-review-7b86741e6f50](https://medium.com/immunefi/yield-protocol-logic-error-bugfix-review-7b86741e6f50)\n\n",
-    "images": [
-      "images/Business_Screenshot_2024-07-04_at_10.25.36_AM.png"
-    ],
+    "images": ["images/Business_Screenshot_2024-07-04_at_10.25.36_AM.png"],
     "Lost": "181K",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2024-04/Yield_exp.sol"
   },
@@ -2864,9 +2691,7 @@
     "type": "Access Control",
     "date": "2024-04-25",
     "rootCause": "Access Control\n\nVulnerable code snippet:\n\n[https://bscscan.com/address/0xa608985f5b40cdf6862bec775207f84280a91e3a#code](https://bscscan.com/address/0xa608985f5b40cdf6862bec775207f84280a91e3a#code)\n\n```jsx\n        function setProxySync(address _addr) external {\n        require(_addr != ZERO, \"ERC20: library to the zero address\");\n        require(_addr != DEAD, \"ERC20: library to the dead address\");\n        require(msg.sender == _uniswapV2Proxy, \"ERC20: uniswapPrivileges\");\n\n        _uniswapV2Library = IPancakeLibrary(_addr);\n        _isExcludedFromFee[_addr] = true;\n    }\n    function reserveMultiSync(address syncAddr, uint256 syncAmount) public { <-- vulnerable point - public\n        require(_msgSender() == address(_uniswapV2Library), \"ERC20: uniswapPrivileges\");\n        require(syncAddr != address(0), \"ERC20: multiSync address is zero\");\n        require(syncAmount > 0, \"ERC20: multiSync amount equal to zero\");\n        _balances[syncAddr] = _balances[syncAddr].air(syncAmount);\n        _isExcludedFromFee[syncAddr] = true;\n    }\n\n```\n\nAttack tx:\n\n[https://bscscan.com/tx/0x8ff764dde572928c353716358e271638fa05af54be69f043df72ad9ad054de25](https://bscscan.com/tx/0x8ff764dde572928c353716358e271638fa05af54be69f043df72ad9ad054de25)\n\n[https://app.blocksec.com/explorer/tx/bsc/0x8ff764dde572928c353716358e271638fa05af54be69f043df72ad9ad054de25](https://app.blocksec.com/explorer/tx/bsc/0x8ff764dde572928c353716358e271638fa05af54be69f043df72ad9ad054de25)\n\nAnalysis:\n\n[https://blog.solidityscan.com/ngfs-token-hack-analysis-7a17f183e6a1](https://blog.solidityscan.com/ngfs-token-hack-analysis-7a17f183e6a1)\n\n- The attacker initiated a call to delegateCallReserves, thereby assigning the uniswapV2Proxy to the attacker\u2019s address.\n- Then the attacker gained the ability to manipulate the _uniswapV2Library to any desired address, facilitating access to the crucial third function.\n- Leveraging the reserveMultiSync function, the attacker was able to siphon off all funds from the PancakeSwap BSC-USD \u2014 NGFS pool to their own address, resulting in a loss of approximately $191k.\n\n",
-    "images": [
-      "images/Access_Screenshot_2024-07-04_at_10.31.20_AM.png"
-    ],
+    "images": ["images/Access_Screenshot_2024-07-04_at_10.31.20_AM.png"],
     "Lost": "190K",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2024-04/NGFS_exp.sol"
   },
@@ -2874,9 +2699,7 @@
     "type": "Access Control, Insufficient validation",
     "date": "2024-04-24",
     "rootCause": "lack of regulated access control.\n\nVulnerable code snippet:\n\n[https://etherscan.io/address/0x354cca2f55dde182d36fe34d673430e226a3cb8c#code](https://etherscan.io/address/0x354cca2f55dde182d36fe34d673430e226a3cb8c#code)\n\n```jsx\n    function listToken(tokenInfo memory baseToken, tokenInfo memory correspondingToken, bool _isMintable) external payable { <-- vulnerable point\n        address _baseToken = baseToken.token;\n        address _correspondingToken = correspondingToken.token;\n        require(_baseToken != address(0), \"INVALID_ADDR\");\n        require(_correspondingToken != address(0), \"INVALID_ADDR\");\n        require(tokenToTokenWithChainId[baseToken.chain][correspondingToken.chain][_baseToken] == address(0) && tokenToTokenWithChainId[baseToken.chain][correspondingToken.chain][_correspondingToken] == address(0), \"THIS_PAIR_ALREADY_LISTED\");\n```\n\nAttack tx:\n\n// Attack Tx Step1(deposit) : [https://etherscan.io/tx/0xe09d350d8574ac1728ab5797e3aa46841f6c97239940db010943f23ad4acf7ae](https://etherscan.io/tx/0xe09d350d8574ac1728ab5797e3aa46841f6c97239940db010943f23ad4acf7ae)\n// Attack Tx Step2(withdrawToken): [https://etherscan.io/tx/0x903d88a92cbc0165a7f662305ac1bff97430dbcccaa0fe71e101e18aa9109c92](https://etherscan.io/tx/0x903d88a92cbc0165a7f662305ac1bff97430dbcccaa0fe71e101e18aa9109c92)\n\nAnalysis:\n\nWhen a user makes an external call to the\u00a0[listToken function](https://etherscan.io/address/0x354cca2f55dde182d36fe34d673430e226a3cb8c#code#F1#L413)\u00a0of\u00a0[this exploited contract](https://etherscan.io/address/0x354cca2f55dde182d36fe34d673430e226a3cb8c#code), if the base token matches the corresponding token, then without any prior verification of the token owner or the caller of the contract, anyone would be able to set the token owner to themselves.\n\n[https://medium.com/neptune-mutual/understanding-the-xbridge-exploit-d3d56c0dc19c](https://medium.com/neptune-mutual/understanding-the-xbridge-exploit-d3d56c0dc19c)\n\n",
-    "images": [
-      "images/Access_Screenshot_2024-07-04_at_10.40.56_AM.png"
-    ],
+    "images": ["images/Access_Screenshot_2024-07-04_at_10.40.56_AM.png"],
     "Lost": ">200k USD",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2024-04/XBridge_exp.sol"
   },
@@ -2884,9 +2707,7 @@
     "type": "Insufficient validation",
     "date": "2024-04-24",
     "rootCause": "insufficient parameter validation\n\nVulnerable code snippet:\n\n[https://bscscan.com/address/0x4edda16ab4f4cc46b160abc42763ba63885862a4#code](https://bscscan.com/address/0x4edda16ab4f4cc46b160abc42763ba63885862a4#code)\n\n```jsx\n/* User Functions */\nfunction redeem(uint256 sharesToRedeem, address receivingAsset, uint256 minTokensToReceive, bytes[] calldata dataList, bool useDiscount) external nonReentrant returns (uint256 tokensToReturn) { <-- vulnerable point, dataList\n  require(depositableAssets.contains(receivingAsset), \"da\");\n  TxParams memory dp;\n  (dp.aum, dp.assets, dp.prices, dp.usdValues) = _getAllocations(0);\n  dp.nav = getNav();\n  dp.nominalFinalAum = dp.aum - ((dp.nav * sharesToRedeem) / UNIT);\n  require(dataList.length == dp.assets.length, \"l\");\n  dp.totalSupply = totalSupply();\n  uint256 rcvTokenAccumulator = ((receivingAsset == NATIVE_TOKEN ? address(this).balance : ERC20(receivingAsset).balanceOf(address(this))) * sharesToRedeem) / dp.totalSupply;\n\n  for (uint256 i = 0; i < dp.assets.length; i++) {\n    if (dp.assets[i] == receivingAsset) {\n      continue;\n    }\n    uint256 rcvTokenSize = receivingAsset == NATIVE_TOKEN ? address(this).balance : ERC20(receivingAsset).balanceOf(address(this));\n\n    if (dp.assets[i] != NATIVE_TOKEN) {\n      ONE_INCH_AGG_ROUTER.functionCall(dataList[i]);\n    } else {\n      uint256 sizeToSwap = (address(this).balance * sharesToRedeem) / dp.totalSupply;\n      ONE_INCH_AGG_ROUTER.functionCallWithValue(dataList[i], sizeToSwap);\n    }\n\n    rcvTokenAccumulator += receivingAsset == NATIVE_TOKEN ? address(this).balance - rcvTokenSize : ERC20(receivingAsset).balanceOf(address(this)) - rcvTokenSize;\n  }\n  _burn(msg.sender, sharesToRedeem);\n\n  uint256 feePortion = (rcvTokenAccumulator * feePercentages[FeeType.REDEEM]) / UNIT;\n  dp.feeRecipient = feeRecipient;\n  if (useDiscount) {\n    (uint256 discountTokensToSpend, uint256 discountMultiplier) = discountPolicy.computeDiscountTokensToSpend(_getUsdValue(receivingAsset, feePortion));\n    ERC20(discountPolicy.discountToken()).safeTransferFrom(msg.sender, dp.feeRecipient, discountTokensToSpend);\n    feePortion = (feePortion * discountMultiplier) / (10 ** discountPolicy.decimals());\n    emit FeeCollected(discountPolicy.discountToken(), discountTokensToSpend);\n  }\n\n  tokensToReturn = rcvTokenAccumulator - feePortion;\n  require((tokensToReturn) >= minTokensToReceive, \"s4\");\n  if (receivingAsset == NATIVE_TOKEN) {\n    payable(msg.sender).sendValue(tokensToReturn);\n  } else {\n    ERC20(receivingAsset).safeTransfer(msg.sender, tokensToReturn);\n  }\n\n  if (feePortion > 0) {\n    uint256 feeTokenAmount;\n    dp.feeAsset = feeAsset;\n    if (receivingAsset == dp.feeAsset) {\n      feeTokenAmount = feePortion;\n    } else {\n      feeTokenAmount = _directSwapForFee(\n        feePortion,\n        0, // don't hinder redemptions due to low liquidity for the fee conversion.\n        receivingAsset,\n        dp.feeAsset\n      );\n    }\n\n    ERC20(dp.feeAsset).safeTransfer(dp.feeRecipient, feeTokenAmount);\n    emit FeeCollected(dp.feeAsset, feeTokenAmount);\n  }\n\n  require(absSlippage(dp.nav, getNav(), UNIT) <= slippageTolerances[SlippageType.NAV], \"s3\");\n  _postSwapHandler(receivingAsset, dp);\n\n  emit Transaction(false, msg.sender, receivingAsset, tokensToReturn, sharesToRedeem);\n}\n```\n\nAttack tx:\n\n[https://app.blocksec.com/explorer/tx/bsc/0x49ca5e188c538b4f2efb45552f13309cc0dd1f3592eee54decfc9da54620c2ec](https://app.blocksec.com/explorer/tx/bsc/0x49ca5e188c538b4f2efb45552f13309cc0dd1f3592eee54decfc9da54620c2ec)\n\nAnalysis:\n\n[https://medium.com/neptune-mutual/taking-a-closer-look-at-the-yiedl-exploit-e31f04cea592](https://medium.com/neptune-mutual/taking-a-closer-look-at-the-yiedl-exploit-e31f04cea592)\n\n[redeem function](https://bscscan.com/address/0x4edda16ab4f4cc46b160abc42763ba63885862a4#code#F1#L296)\u00a0that allows users to exchange a specific number of shares they hold in an asset pool for a certain asset.\n\nThe dataList parameter is used to make external calls to control asset exchange with information relating to transactions or other routing details. Due to a lack of validation in this parameter, the attacker was able to inject payloads that led to unintentioned interactions with the router contracts, leading to unauthorized asset transfers.\n\n",
-    "images": [
-      "images/Meter_Screenshot_2024-07-04_at_10.46.19_AM.png"
-    ],
+    "images": ["images/Meter_Screenshot_2024-07-04_at_10.46.19_AM.png"],
     "Lost": "150k USD",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2024-04/YIEDL_exp.sol"
   },
@@ -2905,9 +2726,7 @@
     "type": "Arbitrary call",
     "date": "2024-04-20",
     "rootCause": "Arbitrary Call over flash()\n\nVulnerable code snippet:\n\n[https://arbiscan.io/address/0x598c6c1cd9459f882530fc9d7da438cb74c6cb3b](https://arbiscan.io/address/0x598c6c1cd9459f882530fc9d7da438cb74c6cb3b)\n\n```jsx\n    // locked with itself to avoid flashing more than MINT\n    function flash(address code, bytes calldata data)\n      external payable returns (bytes memory result) {\n        // lock->mint->call->burn->unlock\n        VatStorage storage vs = getVatStorage();\n        if (vs.flock == LOCKED) revert ErrLock();\n        vs.flock = LOCKED;\n\n        getBankStorage().rico.mint(code, _MINT);\n        bool ok;\n        (ok, result) = code.call(data); <-- vulnerable point\n        if (!ok) bubble(result);\n        getBankStorage().rico.burn(code, _MINT);\n\n        vs.flock = UNLOCKED;\n    }\n\n```\n\nAttack tx:\n\n[https://arbiscan.io/tx/0x5d2a94785d95a740ec5f778e79ff014c880bcefec70d1a7c2440e611f84713d6](https://arbiscan.io/tx/0x5d2a94785d95a740ec5f778e79ff014c880bcefec70d1a7c2440e611f84713d6)\n\n[https://app.blocksec.com/explorer/tx/arbitrum/0x5d2a94785d95a740ec5f778e79ff014c880bcefec70d1a7c2440e611f84713d6](https://app.blocksec.com/explorer/tx/arbitrum/0x5d2a94785d95a740ec5f778e79ff014c880bcefec70d1a7c2440e611f84713d6)\n\nAnalysis:\n\n[https://x.com/ricocreditsys/status/1781803698940781009](https://x.com/ricocreditsys/status/1781803698940781009)\n\n![Screenshot 2024-07-04 at 1.50.27\u202fPM.png](images/Arbitrary%20Call%20over%20flash()%202b25db69bd4944fca7f82fb0edff98f1/Screenshot_2024-07-04_at_1.50.27_PM.png)",
-    "images": [
-      "images/Arbitrary%20Call%20over%20flash("
-    ],
+    "images": ["images/Arbitrary%20Call%20over%20flash("],
     "Lost": "36K",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2024-04/Rico_exp.sol"
   },
@@ -2915,9 +2734,7 @@
     "type": "Business Logic Flaw",
     "date": "2024-04-19",
     "rootCause": "Incorrect logic, After the user cancels the campaign, the contract withdraws all the locked tokens to the campaign manager. The vulnerability lies in the failure to revoke the allowance for the campaign manager.\n\nVulnerable code snippet:\n\n[https://etherscan.io/address/0xBc452fdC8F851d7c5B72e1Fe74DFB63bb793D511#code](https://etherscan.io/address/0xBc452fdC8F851d7c5B72e1Fe74DFB63bb793D511#code)\n\n```jsx\n  function createLockedCampaign(\n    bytes16 id,\n    Campaign memory campaign,\n    ClaimLockup memory claimLockup,\n    Donation memory donation\n  ) external nonReentrant {\n    require(!usedIds[id], 'in use');\n    usedIds[id] = true;\n    require(campaign.token != address(0), '0_address');\n    require(campaign.manager != address(0), '0_manager');\n    require(campaign.amount > 0, '0_amount');\n    require(campaign.end > block.timestamp, 'end error');\n    require(campaign.tokenLockup != TokenLockup.Unlocked, '!locked');\n    require(claimLockup.tokenLocker != address(0), 'invalide locker');\n    TransferHelper.transferTokens(campaign.token, msg.sender, address(this), campaign.amount + donation.amount);\n    if (donation.amount > 0) {\n      if (donation.start > 0) {\n        SafeERC20.safeIncreaseAllowance(IERC20(campaign.token), donation.tokenLocker, donation.amount); <-- vulnerable point\n        ILockupPlans(donation.tokenLocker).createPlan(\n          donationCollector,\n          campaign.token,\n          donation.amount,\n          donation.start,\n          donation.cliff,\n          donation.rate,\n          donation.period\n        );\n      } else {\n        TransferHelper.withdrawTokens(campaign.token, donationCollector, donation.amount);\n      }\n      emit TokensDonated(id, donationCollector, campaign.token, donation.amount, donation.tokenLocker);\n    }\n    claimLockups[id] = claimLockup;\n    SafeERC20.safeIncreaseAllowance(IERC20(campaign.token), claimLockup.tokenLocker, campaign.amount);\n    campaigns[id] = campaign;\n    emit ClaimLockupCreated(id, claimLockup);\n    emit CampaignStarted(id, campaign);\n  }\n```\n\nAttack tx:\n\n[https://etherscan.io/tx/0x2606d459a50ca4920722a111745c2eeced1d8a01ff25ee762e22d5d4b1595739](https://etherscan.io/tx/0x2606d459a50ca4920722a111745c2eeced1d8a01ff25ee762e22d5d4b1595739)\n\nAnalysis:\n\n[https://x.com/Cube3AI/status/1781294512716820918](https://x.com/Cube3AI/status/1781294512716820918)\n\n[https://medium.com/@CUBE3AI/hedgey-finance-hack-detected-by-cube3-ai-minutes-before-exploit-1f500e7052d4](https://medium.com/@CUBE3AI/hedgey-finance-hack-detected-by-cube3-ai-minutes-before-exploit-1f500e7052d4)\n\n",
-    "images": [
-      "images/Business_Screenshot_2024-07-04_at_3.35.51_PM.png"
-    ],
+    "images": ["images/Business_Screenshot_2024-07-04_at_3.35.51_PM.png"],
     "Lost": "48M USD",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2024-04/HedgeyFinance_exp.sol"
   },
@@ -2933,9 +2750,7 @@
     "type": "Business Logic Flaw",
     "date": "2024-04-16",
     "rootCause": "The pair contract can get reflections from taxes. Thus the attacker can user flashloan to repeated swap and sync for better pricing.\n\nVulnerable code snippet:\n\n[https://bscscan.com/address/0x436D3629888B50127EC4947D54Bb0aB1120962A0#code](https://bscscan.com/address/0x436D3629888B50127EC4947D54Bb0aB1120962A0#code)\n\nAttack tx:\n\n[https://app.blocksec.com/explorer/tx/bsc/0x25e2af0a55581d5629a933af9fedd3c70e6d0c320f0b72700ca80e5cdd36c80b](https://app.blocksec.com/explorer/tx/bsc/0x25e2af0a55581d5629a933af9fedd3c70e6d0c320f0b72700ca80e5cdd36c80b)\n\n[https://app.blocksec.com/explorer/tx/bsc/0x25e2af0a55581d5629a933af9fedd3c70e6d0c320f0b72700ca80e5cdd36c80b](https://app.blocksec.com/explorer/tx/bsc/0x25e2af0a55581d5629a933af9fedd3c70e6d0c320f0b72700ca80e5cdd36c80b)\n\nAnalysis:\n\n[https://x.com/Phalcon_xyz/status/1780150315603701933](https://x.com/Phalcon_xyz/status/1780150315603701933)\n\n",
-    "images": [
-      "images/Bad_Screenshot_2024-07-05_at_10.27.10_AM.png"
-    ],
+    "images": ["images/Bad_Screenshot_2024-07-05_at_10.27.10_AM.png"],
     "Lost": ">100K",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2024-04/MARS_exp.sol"
   },
@@ -2959,9 +2774,7 @@
     "type": "Arbitrary call, Insufficient validation",
     "date": "2024-04-12",
     "rootCause": "Arbitrary call\n\nVulnerable code snippet:\n\n[https://bscscan.com/address/0x80a0d7a6fd2a22982ce282933b384568e5c852bf#code](https://bscscan.com/address/0x80a0d7a6fd2a22982ce282933b384568e5c852bf#code)\n\n```jsx\n    function swap(\n        address tokenAddr,\n        uint256 amount,\n        address target,\n        address receiveToken,\n        address receiver,\n        uint256 minAmount,\n        bytes calldata callData,\n        bytes calldata order\n    ) external payable nonReentrant whenNotPaused {\n        _checkVaultOut(tokenAddr, amount, order);\n        require(\n            target != address(this) && target != address(0),\n            \"MP: target is invalid\"\n        );\n        require(callData.length > 0, \"MP: calldata is empty\");\n        require(receiveToken != address(0), \"MP: receiveToken is empty\");\n        require(receiver != address(0), \"MP: receiver is empty\");\n        require(minAmount > 0, \"MP: minAmount is empty\");\n\n        uint256 old_balance = _balanceOfSelf(receiveToken);\n        if (tokenAddr == NATIVE) {\n            require(amount == msg.value, \"MP: amount is invalid\");\n            target.functionCallWithValue(\n                callData,   <--vulnerable point\n                amount,\n                \"MP: CallWithValue failed\"\n            );\n        } else {\n            IERC20(tokenAddr).safeTransferFrom(\n                _msgSender(),\n                address(this),\n                amount\n            );\n            if (IERC20(tokenAddr).allowance(address(this), target) < amount) {\n                IERC20(tokenAddr).safeApprove(target, MAX_UINT256);\n            }\n            target.functionCall(callData, \"MP: FunctionCall failed\");   <--vulnerable point\n        }\n\n        uint256 _amountOut = 0;\n\n        uint256 new_balance = _balanceOfSelf(receiveToken);\n        require(\n            new_balance > old_balance,\n            \"MP: receive amount should above zero\"\n        );\n        _amountOut = new_balance - old_balance;\n\n        require(_amountOut >= minAmount, \"MP: receive amount not enough\");\n        if (receiveToken == NATIVE) {\n            TransferHelper.safeTransferNative(receiver, _amountOut);\n        } else {\n            IERC20(receiveToken).safeTransfer(receiver, _amountOut);\n        }\n\n        _orderID++;\n        emit LogVaultOut(\n            receiveToken,\n            _msgSender(),\n            _orderID,\n            _amountOut,\n            receiver,\n            order\n        );\n    }\n\n```\n\nAttack tx:\n\n[https://bscscan.com/tx/0x051276afa96f2a2bd2ac224339793d82f6076f76ffa8d1b9e6febd49a4ec11b2](https://bscscan.com/tx/0x051276afa96f2a2bd2ac224339793d82f6076f76ffa8d1b9e6febd49a4ec11b2)\n\n[https://app.blocksec.com/explorer/tx/bsc/0x051276afa96f2a2bd2ac224339793d82f6076f76ffa8d1b9e6febd49a4ec11b2](https://app.blocksec.com/explorer/tx/bsc/0x051276afa96f2a2bd2ac224339793d82f6076f76ffa8d1b9e6febd49a4ec11b2)\n\nAnalysis:\n\n[https://x.com/Phalcon_xyz/status/1779843813151739918](https://x.com/Phalcon_xyz/status/1779843813151739918)\n\n",
-    "images": [
-      "images/IT_Screenshot_2024-07-05_at_10.46.06_AM.png"
-    ],
+    "images": ["images/IT_Screenshot_2024-07-05_at_10.46.06_AM.png"],
     "Lost": "14 BNB",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2024-04/FIL314_exp.sol"
   },
@@ -3068,9 +2881,7 @@
     "type": "Business Logic Flaw",
     "date": "2024-03-06",
     "rootCause": "\n\nThe `_swap()` is public which should be internal\n\n**Vulnerable code snippet:**\n\n\n\n**Attack tx:**\n\n[https://phalcon.blocksec.com/explorer/tx/bsc/0x9983ca8eaee9ee69629f74537eaf031272af75f1e5a7725911d8b06df17c67ca](https://phalcon.blocksec.com/explorer/tx/bsc/0x9983ca8eaee9ee69629f74537eaf031272af75f1e5a7725911d8b06df17c67ca)\n\n**Analysis:**\n\n",
-    "images": [
-      "images/Signature_Untitled.png"
-    ],
+    "images": ["images/Signature_Untitled.png"],
     "Lost": "10K",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2024-03/ALP_exp.sol"
   },
@@ -3086,9 +2897,7 @@
     "type": "Price Manipulation",
     "date": "2024-03-05",
     "rootCause": "\n\nPrice of `WOO` can be manipulated in `WooPPV2`\n\n**Vulnerable code snippet:**\n\n\n\nAttack tx:\n\n[https://arbiscan.io/tx/0x57e555328b7def90e1fc2a0f7aa6df8d601a8f15803800a5aaf0a20382f21fbd](https://arbiscan.io/tx/0x57e555328b7def90e1fc2a0f7aa6df8d601a8f15803800a5aaf0a20382f21fbd)\n\nAnalysis:\n\nhttps://twitter.com/spreekaway/status/1765046559832764886",
-    "images": [
-      "images/Signature_Untitled.png"
-    ],
+    "images": ["images/Signature_Untitled.png"],
     "Lost": "8M",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2024-03/Woofi_exp.sol"
   },
@@ -3108,9 +2917,7 @@
     "type": "Reentrancy",
     "date": "2024-02-28",
     "rootCause": "\n\nBecause the `_removeStake()` call is too late, the attacker can call withdraw multiple times.\n\n**Vulnerable code snippet:**\n\n\n\n**Attack tx:**\n\n[https://phalcon.blocksec.com/explorer/tx/polygon/0xde51af983193b1be3844934b2937a76c19610ddefcdd3ffcf127db3e68749a50](https://phalcon.blocksec.com/explorer/tx/polygon/0xde51af983193b1be3844934b2937a76c19610ddefcdd3ffcf127db3e68749a50)\n\n**Analysis:**\n\nhttps://twitter.com/AnciliaInc/status/1762893563103428783",
-    "images": [
-      "images/Signature_Untitled.png"
-    ],
+    "images": ["images/Signature_Untitled.png"],
     "Lost": "Unclear",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2024-02/SMOOFSStaking_exp.sol"
   },
@@ -3134,9 +2941,7 @@
     "type": "Flashloans",
     "date": "2024-02-21",
     "rootCause": "\n\nSelf transfer in `_transfer()`\n\n**Vulnerable code snippet:**\n\n\n\n**Attack tx:**\n\n[https://etherscan.io/tx/0xbeefd8faba2aa82704afe821fd41b670319203dd9090f7af8affdf6bcfec2d61](https://etherscan.io/tx/0xbeefd8faba2aa82704afe821fd41b670319203dd9090f7af8affdf6bcfec2d61)\n\n**Analysis:**\n\n[https://twitter.com/ImmuneBytes/status/1664239580210495489](https://twitter.com/ImmuneBytes/status/1664239580210495489)",
-    "images": [
-      "images/Signature_Untitled.png"
-    ],
+    "images": ["images/Signature_Untitled.png"],
     "Lost": "170k",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2024-02/DeezNutz404_exp.sol"
   },
@@ -3223,9 +3028,7 @@
     "type": "Arbitrary call, MEV",
     "date": "2022-09-28",
     "rootCause": "Arbitrary call via callFunction.\n\nVulnerable code snippet:\n\nIn this case dYdX called \"callFunction\" on 0xbad.\n\nUnfortunately for 0xbad, their code allowed for arbitrary execution.\n\nNeed to decompiled:\n\n[https://etherscan.io/address/0xbadc0defafcf6d4239bdf0b66da4d7bd36fcf05a#code](https://etherscan.io/address/0xbadc0defafcf6d4239bdf0b66da4d7bd36fcf05a#code)\n\n",
-    "images": [
-      "images/ADC_Untitled.png"
-    ],
+    "images": ["images/ADC_Untitled.png"],
     "Lost": "$94,304",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs#20220928-MEVBOT---Badc0de"
   },
@@ -3342,9 +3145,7 @@
     "type": "Flashloans, skim",
     "date": "2023-01-26",
     "rootCause": " \n\nreflective token skim abuse\n\n**Vulnerable code snippet:**\n\n[https://etherscan.io/address/0x2d0e64b6bf13660a4c0de42a0b88144a7c10991f#code#L919](https://etherscan.io/address/0x2d0e64b6bf13660a4c0de42a0b88144a7c10991f#code#L919)\n\n```solidity\nfunction deliver(uint256 tAmount) public {\n            address sender = _msgSender();\n            require(!_isExcluded[sender], \"Excluded addresses cannot call this function\");\n            (uint256 rAmount,,,,,) = _getValues(tAmount);\n            _rOwned[sender] = _rOwned[sender].sub(rAmount);\n            _rTotal = _rTotal.sub(rAmount);\n            _tFeeTotal = _tFeeTotal.add(tAmount);\n        }\n```\n\nTom Inu is a reflective token, aka each time a transfer happens holders will earn fees from it. \n\n1. The Attacker Flashloan many WETH\n2. Swap many WETH -> Tom Inu tokens, giving Uniswapv2 Pair large fees\n3. Call skim on the Pair (gets fee). The skim function will balance the supply of pair and send the excess funds to the specified address.\n4. Swap Tom Inu to WETH for profit.\n    \n    \n    \n\n**Attack tx:**\n\n[https://etherscan.io/tx/0x6200bf5c43c214caa1177c3676293442059b4f39eb5dbae6cfd4e6ad16305668](https://etherscan.io/tx/0x6200bf5c43c214caa1177c3676293442059b4f39eb5dbae6cfd4e6ad16305668)\n\n**Analysis:**\n\n[https://twitter.com/libevm/status/1618731761894309889](https://twitter.com/libevm/status/1618731761894309889)",
-    "images": [
-      "images/Signature_Untitled.png"
-    ],
+    "images": ["images/Signature_Untitled.png"],
     "Lost": "22 ETH",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/TINU_exp.t.sol"
   },
@@ -3368,9 +3169,7 @@
     "type": "Deflationary token, Miscalculation",
     "date": "2023-02-10",
     "rootCause": " \n\nThe pool balance can be manipulated due to pair addresses not _isExcluded addresses.\n\n**Vulnerable code snippet:**\n\n[https://bscscan.com/address/0x0025b42bfc22cbba6c02d23d4ec2abfcf6e014d4#code#L523](https://bscscan.com/address/0x0025b42bfc22cbba6c02d23d4ec2abfcf6e014d4#code#L523)\n\n```solidity\nfunction balanceOf(address account) public view override returns (uint256) {\n        if (_isExcluded[account]) return _tOwned[account];\n        return tokenFromReflection(_rOwned[account]);\n    }\n```\n\n[https://bscscan.com/address/0x0025b42bfc22cbba6c02d23d4ec2abfcf6e014d4#code#L646](https://bscscan.com/address/0x0025b42bfc22cbba6c02d23d4ec2abfcf6e014d4#code#L646)\n\n```solidity\nfunction _burn(address _who, uint256 _value) internal {\n\t\trequire(_value <= _rOwned[_who]);\n\t\t_rOwned[_who] = _rOwned[_who].sub(_value);\n\t\t_tTotal = _tTotal.sub(_value);\n\t\temit Transfer(_who, address(0), _value);\n\t}\n```\n\nThe attacker flash loaned some [$WBNB](https://twitter.com/search?q=%24WBNB&src=cashtag_click), bought some Sheep tokens, and burned the tokens in the attack contract by repeatedly calling the burn function.\n\nThis results in a decrease in _tTotal and a larger return value for _getrate, which led to a gradual decrease in the pool balance. The remaining tokens were then swapped for a large amount of WBNB at a high price.\n\n\n\n**Attack tx:**\n\n[https://bscscan.com/tx/0x61293c6dd5211a98f1a26c9f6821146e12fb5e20c850ad3ed2528195c8d4c98e](https://bscscan.com/tx/0x61293c6dd5211a98f1a26c9f6821146e12fb5e20c850ad3ed2528195c8d4c98e)\n\n**Analysis:**\n\n[https://twitter.com/BlockSecTeam/status/1623999717482045440](https://twitter.com/BlockSecTeam/status/1623999717482045440)\n\n[https://twitter.com/BlockSecTeam/status/1624077078852210691](https://twitter.com/BlockSecTeam/status/1624077078852210691)",
-    "images": [
-      "images/Signature_Untitled.png"
-    ],
+    "images": ["images/Signature_Untitled.png"],
     "Lost": "$3K",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/Sheep_exp.sol"
   },
@@ -3394,9 +3193,7 @@
     "type": "Bridge, KeyCompromised",
     "date": "2022-06-27",
     "rootCause": "private key compromised\n\nAttacker control ***2***\u00a0of 5 wallet can sign the transaction.\n\n",
-    "images": [
-      "images/Private_sign.png"
-    ],
+    "images": ["images/Private_sign.png"],
     "Lost": "$100M",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs#20220624-harmonys-horizon-bridge---private-key-compromised"
   },
@@ -3412,9 +3209,7 @@
     "type": "Insufficient validation",
     "date": "2024-07-24",
     "rootCause": "arbitrary call\n\nVulnerable code snippet:\n\n[https://x.com/shoucccc/status/1815981585637990899/photo/1](https://x.com/shoucccc/status/1815981585637990899/photo/1)\n\n\n\nAttack tx:\n\n[https://app.blocksec.com/explorer/tx/eth/0x491cf8b2a5753fdbf3096b42e0a16bc109b957dc112d6537b1ed306e483d0744](https://app.blocksec.com/explorer/tx/eth/0x491cf8b2a5753fdbf3096b42e0a16bc109b957dc112d6537b1ed306e483d0744)\n\nAnalysis:\n\n[https://x.com/shoucccc/status/1815981585637990899](https://x.com/shoucccc/status/1815981585637990899)",
-    "images": [
-      "images/Spectra_finance_Untitled.jpeg"
-    ],
+    "images": ["images/Spectra_finance_Untitled.jpeg"],
     "Lost": "73K",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2024-07/Spectra_finance_exp.sol"
   },
