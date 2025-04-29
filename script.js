@@ -69,8 +69,8 @@ document.addEventListener('DOMContentLoaded', async function() {
     // Function to fetch currency rates from APIs
     async function fetchCurrencyRates() {
         try {
-            // Fetch crypto rates from CoinGecko
-            const cryptoResponse = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd');
+            // Fetch crypto rates from CoinGecko - adding BNB and other relevant cryptos
+            const cryptoResponse = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,binancecoin,matic-network,solana,avalanche-2&vs_currencies=usd');
             if (!cryptoResponse.ok) {
                 throw new Error('Failed to fetch crypto rates');
             }
@@ -92,6 +92,39 @@ document.addEventListener('DOMContentLoaded', async function() {
                 // Fallback value if API fails
                 conversionRates['ETH'] = 0.00033;
                 console.warn('Using fallback value for ETH conversion');
+            }
+            
+            // Add BNB conversion rate
+            if (cryptoData.binancecoin && cryptoData.binancecoin.usd) {
+                conversionRates['BNB'] = 1 / cryptoData.binancecoin.usd; // Rate to convert 1 USD to BNB
+            } else {
+                // Fallback value if API fails
+                conversionRates['BNB'] = 0.002; // Approximate: 1 USD ≈ 0.002 BNB
+                console.warn('Using fallback value for BNB conversion');
+            }
+            
+            // Add MATIC conversion rate
+            if (cryptoData['matic-network'] && cryptoData['matic-network'].usd) {
+                conversionRates['MATIC'] = 1 / cryptoData['matic-network'].usd;
+            } else {
+                conversionRates['MATIC'] = 0.5; // Fallback
+                console.warn('Using fallback value for MATIC conversion');
+            }
+            
+            // Add SOL conversion rate
+            if (cryptoData.solana && cryptoData.solana.usd) {
+                conversionRates['SOL'] = 1 / cryptoData.solana.usd;
+            } else {
+                conversionRates['SOL'] = 0.01; // Fallback
+                console.warn('Using fallback value for SOL conversion');
+            }
+            
+            // Add AVAX conversion rate
+            if (cryptoData['avalanche-2'] && cryptoData['avalanche-2'].usd) {
+                conversionRates['AVAX'] = 1 / cryptoData['avalanche-2'].usd;
+            } else {
+                conversionRates['AVAX'] = 0.02; // Fallback
+                console.warn('Using fallback value for AVAX conversion');
             }
             
             // For forex rates, we'd ideally use XE API but it requires authentication
@@ -135,6 +168,10 @@ document.addEventListener('DOMContentLoaded', async function() {
                 'USD': 1,
                 'BTC': 0.000017, // Fallback: 1 USD ≈ 0.000017 BTC
                 'ETH': 0.00033,  // Fallback: 1 USD ≈ 0.00033 ETH
+                'BNB': 0.002,    // Fallback: 1 USD ≈ 0.002 BNB
+                'MATIC': 0.5,    // Fallback: 1 USD ≈ 0.5 MATIC
+                'SOL': 0.01,     // Fallback: 1 USD ≈ 0.01 SOL
+                'AVAX': 0.02,    // Fallback: 1 USD ≈ 0.02 AVAX
                 'EUR': 0.92,     // Fallback: 1 USD ≈ 0.92 EUR
                 'GBP': 0.79,     // Fallback: 1 USD ≈ 0.79 GBP
                 'JPY': 150.5,    // Fallback: 1 USD ≈ 150.5 JPY
@@ -363,9 +400,9 @@ document.addEventListener('DOMContentLoaded', async function() {
                 <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="3"></circle>
                     <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-            </svg>
-        </button>
-    `;
+                </svg>
+            </button>
+        `;
     
         // Create search box
         const searchBox = document.createElement('input');
@@ -730,18 +767,62 @@ document.addEventListener('DOMContentLoaded', async function() {
     function convertLossToDisplayCurrency(loss, originalCurrency) {
         if (!loss || isNaN(loss)) return 0;
         
-        // First convert to USD
+        // First convert to USD using the live rates from CoinGecko
         let lossInUSD = loss;
         
+        // Convert original currency to USD based on the currency type
         if (originalCurrency === 'ETH' || originalCurrency === 'WETH') {
-            lossInUSD = loss * 2500; // Approximate ETH to USD conversion
+            if (conversionRates['ETH']) {
+                // We have the ETH rate (1/ETH price in USD), need to convert ETH to USD
+                // If 1 USD = 0.0004 ETH, then 1 ETH = 1/0.0004 = 2500 USD
+                lossInUSD = loss * (1 / conversionRates['ETH']);
+            } else {
+                // Fallback value if rate is not available
+                lossInUSD = loss * 2500;
+                console.warn('Using fallback value for ETH to USD conversion');
+            }
         } else if (originalCurrency === 'BNB' || originalCurrency === 'WBNB') {
-            lossInUSD = loss * 500; // Approximate BNB to USD conversion
+            if (conversionRates['BNB']) {
+                lossInUSD = loss * (1 / conversionRates['BNB']);
+            } else {
+                // Fallback value if rate is not available
+                lossInUSD = loss * 500;
+                console.warn('Using fallback value for BNB to USD conversion');
+            }
         } else if (originalCurrency === 'BTC' || originalCurrency === 'WBTC') {
-            lossInUSD = loss * 60000; // Approximate BTC to USD conversion
+            if (conversionRates['BTC']) {
+                lossInUSD = loss * (1 / conversionRates['BTC']);
+            } else {
+                // Fallback value if rate is not available
+                lossInUSD = loss * 60000;
+                console.warn('Using fallback value for BTC to USD conversion');
+            }
+        } else if (originalCurrency === 'MATIC') {
+            if (conversionRates['MATIC']) {
+                lossInUSD = loss * (1 / conversionRates['MATIC']);
+            } else {
+                lossInUSD = loss * 2; // Fallback: 1 MATIC ≈ $2
+                console.warn('Using fallback value for MATIC to USD conversion');
+            }
+        } else if (originalCurrency === 'SOL') {
+            if (conversionRates['SOL']) {
+                lossInUSD = loss * (1 / conversionRates['SOL']);
+            } else {
+                lossInUSD = loss * 100; // Fallback: 1 SOL ≈ $100
+                console.warn('Using fallback value for SOL to USD conversion');
+            }
+        } else if (originalCurrency === 'AVAX') {
+            if (conversionRates['AVAX']) {
+                lossInUSD = loss * (1 / conversionRates['AVAX']);
+            } else {
+                lossInUSD = loss * 50; // Fallback: 1 AVAX ≈ $50
+                console.warn('Using fallback value for AVAX to USD conversion');
+            }
         } else if (originalCurrency !== 'USD') {
             // For other currencies, assume it's already in USD
+            // This is a fallback for currencies we haven't added specific handling for
             lossInUSD = loss;
+            console.warn(`No specific handling for ${originalCurrency}, assuming USD equivalent`);
         }
         
         // Then convert from USD to display currency using the fetched rates
