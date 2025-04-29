@@ -41,6 +41,21 @@ async function loadAndProcessData() {
 
             console.log('Incident data loaded:', rawIncidents.length, 'records');
             console.log('Root cause data loaded:', Object.keys(rootCauseData).length, 'records');
+            
+            // Wait for currency rates to be fully loaded if they're being loaded in script.js
+            // Give it a few seconds to complete
+            if (typeof window !== 'undefined') {
+                // Check if we already have conversion rates
+                if (!window.conversionRates || Object.keys(window.conversionRates).length <= 1) {
+                    console.log('Waiting for currency rates to be loaded...');
+                    // Wait for a few seconds to make sure rates are loaded
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+                }
+                
+                // Log the available conversion rates
+                console.log('Available conversion rates for analysis:', 
+                    window.conversionRates ? Object.keys(window.conversionRates) : 'None');
+            }
 
             // --- Analysis Functions (keep internal or move to separate utils file if large) ---
             function parseDate(dateString) {
@@ -63,10 +78,96 @@ async function loadAndProcessData() {
                 }
             }
 
+            // Utility function to convert different currencies to USD
+            function convertToUSD(loss, currencyType) {
+                if (!loss || isNaN(loss)) return 0;
+                
+                // Default to USD if no currency type is specified
+                const currency = currencyType || 'USD';
+                
+                // If currency is already USD, no conversion needed
+                if (currency === 'USD') return loss;
+                
+                let lossInUSD = loss;
+                
+                // Check if we can access the conversion rates from script.js
+                if (typeof window !== 'undefined' && window.conversionRates) {
+                    const rates = window.conversionRates;
+                    
+                    // For cryptocurrencies, rates are stored as inverse (USD to crypto)
+                    // So we need to divide 1 by the rate to get the crypto to USD rate
+                    if (currency === 'ETH' || currency === 'WETH') {
+                        if (rates['ETH']) {
+                            lossInUSD = loss * (1 / rates['ETH']);
+                        } else {
+                            lossInUSD = loss * 2500; // Fallback
+                            console.warn('Using fallback value for ETH to USD conversion');
+                        }
+                    } else if (currency === 'BNB' || currency === 'WBNB') {
+                        if (rates['BNB']) {
+                            lossInUSD = loss * (1 / rates['BNB']);
+                        } else {
+                            lossInUSD = loss * 500; // Fallback
+                            console.warn('Using fallback value for BNB to USD conversion');
+                        }
+                    } else if (currency === 'BTC' || currency === 'WBTC') {
+                        if (rates['BTC']) {
+                            lossInUSD = loss * (1 / rates['BTC']);
+                        } else {
+                            lossInUSD = loss * 60000; // Fallback
+                            console.warn('Using fallback value for BTC to USD conversion');
+                        }
+                    } else if (currency === 'MATIC') {
+                        if (rates['MATIC']) {
+                            lossInUSD = loss * (1 / rates['MATIC']);
+                        } else {
+                            lossInUSD = loss * 2; // Fallback
+                            console.warn('Using fallback value for MATIC to USD conversion');
+                        }
+                    } else if (currency === 'SOL') {
+                        if (rates['SOL']) {
+                            lossInUSD = loss * (1 / rates['SOL']);
+                        } else {
+                            lossInUSD = loss * 100; // Fallback
+                            console.warn('Using fallback value for SOL to USD conversion');
+                        }
+                    } else if (currency === 'AVAX') {
+                        if (rates['AVAX']) {
+                            lossInUSD = loss * (1 / rates['AVAX']);
+                        } else {
+                            lossInUSD = loss * 50; // Fallback
+                            console.warn('Using fallback value for AVAX to USD conversion');
+                        }
+                    }
+                } else {
+                    // Fallback to approximations if conversion rates are not available
+                    console.warn('Conversion rates not available, using approximations');
+                    
+                    // Convert to USD based on currency type (fallback values)
+                    if (currency === 'ETH' || currency === 'WETH') {
+                        lossInUSD = loss * 2500; // Approximate ETH to USD conversion
+                    } else if (currency === 'BNB' || currency === 'WBNB') {
+                        lossInUSD = loss * 500; // Approximate BNB to USD conversion
+                    } else if (currency === 'BTC' || currency === 'WBTC') {
+                        lossInUSD = loss * 60000; // Approximate BTC to USD conversion
+                    } else if (currency === 'MATIC') {
+                        lossInUSD = loss * 2; // Approximate MATIC to USD conversion
+                    } else if (currency === 'SOL') {
+                        lossInUSD = loss * 100; // Approximate SOL to USD conversion
+                    } else if (currency === 'AVAX') {
+                        lossInUSD = loss * 50; // Approximate AVAX to USD conversion
+                    }
+                }
+                
+                return lossInUSD;
+            }
+
             function calculateTotalLossUSD(incidentData) {
                  return incidentData.reduce((sum, incident) => {
-                    if (incident.lossType && incident.lossType.toUpperCase() === 'USD' && typeof incident.Lost === 'number' && !isNaN(incident.Lost)) {
-                        return sum + incident.Lost;
+                    if (typeof incident.Lost === 'number' && !isNaN(incident.Lost)) {
+                        // Convert to USD using utility function
+                        const lossInUSD = convertToUSD(incident.Lost, incident.lossType);
+                        return sum + lossInUSD;
                     }
                     return sum;
                 }, 0);
@@ -75,9 +176,12 @@ async function loadAndProcessData() {
             function aggregateLossByYearUSD(incidentData) {
                 const yearlyLosses = {};
                 for (const incident of incidentData) {
-                    if (incident.dateObj && incident.lossType && incident.lossType.toUpperCase() === 'USD' && typeof incident.Lost === 'number' && !isNaN(incident.Lost)) {
-                         const year = incident.dateObj.getUTCFullYear().toString();
-                         yearlyLosses[year] = (yearlyLosses[year] || 0) + incident.Lost;
+                    if (incident.dateObj && typeof incident.Lost === 'number' && !isNaN(incident.Lost)) {
+                        const year = incident.dateObj.getUTCFullYear().toString();
+                        
+                        // Convert to USD using utility function
+                        const lossInUSD = convertToUSD(incident.Lost, incident.lossType);
+                        yearlyLosses[year] = (yearlyLosses[year] || 0) + lossInUSD;
                     }
                 }
                 return Object.entries(yearlyLosses)
@@ -88,8 +192,10 @@ async function loadAndProcessData() {
             function aggregateLossByTypeUSD(incidentData) {
                 const typeLosses = {};
                 for (const incident of incidentData) {
-                    if (incident.type && incident.lossType && incident.lossType.toUpperCase() === 'USD' && typeof incident.Lost === 'number' && !isNaN(incident.Lost)) {
-                        typeLosses[incident.type] = (typeLosses[incident.type] || 0) + incident.Lost;
+                    if (incident.type && typeof incident.Lost === 'number' && !isNaN(incident.Lost)) {
+                        // Convert to USD using utility function
+                        const lossInUSD = convertToUSD(incident.Lost, incident.lossType);
+                        typeLosses[incident.type] = (typeLosses[incident.type] || 0) + lossInUSD;
                     }
                 }
                 return Object.entries(typeLosses)
@@ -632,6 +738,10 @@ function renderChartsWhenReady(incidentData, filteredAnalysisResults = null) {
 function renderCompactAnalytics(container, results) {
     if (!results) return;
     
+    // Get the current display currency from the dropdown
+    const currencyDropdown = document.getElementById('currency-filter');
+    const displayCurrency = currencyDropdown ? currencyDropdown.value : 'USD';
+    
     // Create compact analytics container
     const compactContainer = document.createElement('div');
     compactContainer.className = 'compact-analytics-container';
@@ -651,7 +761,7 @@ function renderCompactAnalytics(container, results) {
     totalLossSection.className = 'compact-analytics-section';
     totalLossSection.innerHTML = `
         <h4>Total Estimated Loss</h4>
-        <div class="analytics-value">${formatCurrency(results.totalLoss)}</div>
+        <div class="analytics-value">${formatCurrency(results.totalLoss, displayCurrency)}</div>
     `;
     grid.appendChild(totalLossSection);
     
@@ -780,12 +890,54 @@ function renderCompactAnalytics(container, results) {
 }
 
 // Helper function to format currency
-function formatCurrency(value) {
+function formatCurrency(value, currency = 'USD') {
     if (typeof value !== 'number') return 'Unknown';
     
-    return '$' + value.toLocaleString('en-US', {
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 2
+    // Get appropriate currency symbol
+    let symbol = '$';
+    let minFrac = 0;
+    let maxFrac = 2;
+    
+    // Customize formatting based on currency
+    switch(currency) {
+        case 'BTC':
+            symbol = '₿';
+            minFrac = 0;
+            maxFrac = 8;
+            break;
+        case 'ETH':
+            symbol = 'Ξ';
+            minFrac = 0;
+            maxFrac = 6;
+            break;
+        case 'EUR':
+            symbol = '€';
+            break;
+        case 'GBP':
+            symbol = '£';
+            break;
+        case 'JPY':
+            symbol = '¥';
+            maxFrac = 0;
+            break;
+        case 'CNY':
+            symbol = '¥';
+            break;
+        case 'AED':
+            symbol = 'د.إ';
+            break;
+        case 'KWD':
+            symbol = 'د.ك';
+            maxFrac = 3;
+            break;
+        case 'TWD':
+            symbol = 'NT$';
+            break;
+    }
+    
+    return symbol + value.toLocaleString('en-US', {
+        minimumFractionDigits: minFrac,
+        maximumFractionDigits: maxFrac
     });
 }
 
@@ -809,6 +961,24 @@ function createChartBox(title, canvasId) {
 function renderLossOverTimeChart(lossByYear, canvasId) {
     const ctx = document.getElementById(canvasId).getContext('2d');
     
+    // Get the current display currency from the dropdown
+    const currencyDropdown = document.getElementById('currency-filter');
+    const displayCurrency = currencyDropdown ? currencyDropdown.value : 'USD';
+    
+    // Get currency symbol
+    let currencySymbol = '$';
+    switch(displayCurrency) {
+        case 'BTC': currencySymbol = '₿'; break;
+        case 'ETH': currencySymbol = 'Ξ'; break;
+        case 'EUR': currencySymbol = '€'; break;
+        case 'GBP': currencySymbol = '£'; break;
+        case 'JPY': currencySymbol = '¥'; break;
+        case 'CNY': currencySymbol = '¥'; break;
+        case 'AED': currencySymbol = 'د.إ'; break;
+        case 'KWD': currencySymbol = 'د.ك'; break;
+        case 'TWD': currencySymbol = 'NT$'; break;
+    }
+    
     // Sort years chronologically
     const sortedYears = Object.keys(lossByYear).sort((a, b) => a - b);
     const sortedLosses = sortedYears.map(year => lossByYear[year]);
@@ -818,7 +988,7 @@ function renderLossOverTimeChart(lossByYear, canvasId) {
         data: {
             labels: sortedYears,
             datasets: [{
-                label: 'Total Loss (USD)',
+                label: `Total Loss (${displayCurrency})`,
                 data: sortedLosses,
                 borderColor: sciFiColors[0],
                 backgroundColor: 'rgba(0, 255, 255, 0.1)',
@@ -843,10 +1013,10 @@ function renderLossOverTimeChart(lossByYear, canvasId) {
                         color: sciFiTickColor,
                         font: sciFiFont,
                         callback: function(value) { 
-                            if (value >= 1e9) return '$' + (value / 1e9).toFixed(1) + 'B';
-                            if (value >= 1e6) return '$' + (value / 1e6).toFixed(1) + 'M';
-                            if (value >= 1e3) return '$' + (value / 1e3).toFixed(1) + 'K';
-                            return '$' + value;
+                            if (value >= 1e9) return currencySymbol + (value / 1e9).toFixed(1) + 'B';
+                            if (value >= 1e6) return currencySymbol + (value / 1e6).toFixed(1) + 'M';
+                            if (value >= 1e3) return currencySymbol + (value / 1e3).toFixed(1) + 'K';
+                            return currencySymbol + value;
                         }
                     },
                     grid: { color: sciFiGridColor }
@@ -864,8 +1034,12 @@ function renderLossOverTimeChart(lossByYear, canvasId) {
 function renderLossByTypeChart(lossByType, canvasId) {
     const ctx = document.getElementById(canvasId).getContext('2d');
     
+    // Get the current display currency from the dropdown
+    const currencyDropdown = document.getElementById('currency-filter');
+    const displayCurrency = currencyDropdown ? currencyDropdown.value : 'USD';
+    
     // Limit to top types for clarity if too many
-    const topN = 6;
+    const topN = 40;
     const topTypesData = Object.entries(lossByType).slice(0, topN);
     const otherLoss = Object.entries(lossByType).slice(topN).reduce((sum, [, loss]) => sum + loss, 0);
     
@@ -879,7 +1053,7 @@ function renderLossByTypeChart(lossByType, canvasId) {
         data: {
             labels: chartData.map(([type]) => type),
             datasets: [{
-                label: 'Loss (USD)',
+                label: `Loss (${displayCurrency})`,
                 data: chartData.map(([, loss]) => loss),
                 backgroundColor: sciFiColors.slice(0, chartData.length),
                 borderColor: 'rgba(0, 10, 20, 0.8)',
@@ -1025,19 +1199,70 @@ function renderIncidentsByYearChart(countByYear, canvasId) {
 
 // Function to render top projects by loss amount
 function renderTopProjectsByLossChart(incidentData, canvasId, chartGrid) {
-    const chartBox = createChartBox('Top 10 Projects by Loss Amount (USD)', canvasId);
+    // Get the current display currency from the dropdown
+    const currencyDropdown = document.getElementById('currency-filter');
+    const displayCurrency = currencyDropdown ? currencyDropdown.value : 'USD';
+    
+    // Get currency symbol
+    let currencySymbol = '$';
+    switch(displayCurrency) {
+        case 'BTC': currencySymbol = '₿'; break;
+        case 'ETH': currencySymbol = 'Ξ'; break;
+        case 'EUR': currencySymbol = '€'; break;
+        case 'GBP': currencySymbol = '£'; break;
+        case 'JPY': currencySymbol = '¥'; break;
+        case 'CNY': currencySymbol = '¥'; break;
+        case 'AED': currencySymbol = 'د.إ'; break;
+        case 'KWD': currencySymbol = 'د.ك'; break;
+        case 'TWD': currencySymbol = 'NT$'; break;
+    }
+    
+    const chartBox = createChartBox(`Top 10 Projects by Loss Amount (${displayCurrency})`, canvasId);
     chartGrid.appendChild(chartBox);
     
     const ctx = document.getElementById(canvasId).getContext('2d');
     
-    // Filter projects with USD loss and sort by loss amount
+    // Define convertLossToDisplayCurrency function if it doesn't exist in this scope
+    // This is a simplified version that merely converts to the selected currency for analytics charts
+    const convertToDisplayCurrency = (loss, lossType) => {
+        if (!window.convertLossToDisplayCurrency) {
+            // No conversion function available, use simple conversion
+            if (displayCurrency === 'USD' || lossType === displayCurrency) return loss;
+            
+            // Basic conversion rates from USD to other currencies if the main conversion function is not available
+            const basicRates = {
+                'BTC': 0.000017, 'ETH': 0.00033, 'BNB': 0.002, 
+                'EUR': 0.92, 'GBP': 0.79, 'JPY': 150.5, 'CNY': 7.2, 
+                'AED': 3.67, 'KWD': 0.31, 'TWD': 32.0
+            };
+            
+            return loss * (basicRates[displayCurrency] || 1);
+        }
+        
+        // Use the main conversion function if available
+        return window.convertLossToDisplayCurrency(loss, lossType || 'USD');
+    };
+    
+    // Map for storing converted losses to avoid recalculating
+    const lossMap = new Map();
+    
+    // Filter and preprocess projects with loss data
     const projectsWithLoss = incidentData
         .filter(incident => 
-            incident.lossType && 
-            incident.lossType.toUpperCase() === 'USD' && 
             typeof incident.Lost === 'number' && 
             !isNaN(incident.Lost))
-        .sort((a, b) => b.Lost - a.Lost)
+        .map(incident => {
+            // Convert loss to display currency
+            const convertedLoss = convertToDisplayCurrency(incident.Lost, incident.lossType || 'USD');
+            // Store for future reference
+            lossMap.set(incident.name, convertedLoss);
+            return {
+                name: incident.name,
+                originalLoss: incident.Lost,
+                convertedLoss: convertedLoss
+            };
+        })
+        .sort((a, b) => b.convertedLoss - a.convertedLoss)
         .slice(0, 10);
     
     new Chart(ctx, {
@@ -1045,8 +1270,8 @@ function renderTopProjectsByLossChart(incidentData, canvasId, chartGrid) {
         data: {
             labels: projectsWithLoss.map(p => p.name),
             datasets: [{
-                label: 'Loss Amount (USD)',
-                data: projectsWithLoss.map(p => p.Lost),
+                label: `Loss Amount (${displayCurrency})`,
+                data: projectsWithLoss.map(p => p.convertedLoss),
                 backgroundColor: sciFiColors[3],
                 borderColor: 'rgba(0, 10, 20, 0.8)',
                 borderWidth: 1,
@@ -1068,10 +1293,10 @@ function renderTopProjectsByLossChart(incidentData, canvasId, chartGrid) {
                         color: sciFiTickColor, 
                         font: sciFiFont,
                         callback: function(value) { 
-                            if (value >= 1e9) return '$' + (value / 1e9).toFixed(1) + 'B';
-                            if (value >= 1e6) return '$' + (value / 1e6).toFixed(1) + 'M';
-                            if (value >= 1e3) return '$' + (value / 1e3).toFixed(1) + 'K';
-                            return '$' + value;
+                            if (value >= 1e9) return currencySymbol + (value / 1e9).toFixed(1) + 'B';
+                            if (value >= 1e6) return currencySymbol + (value / 1e6).toFixed(1) + 'M';
+                            if (value >= 1e3) return currencySymbol + (value / 1e3).toFixed(1) + 'K';
+                            return currencySymbol + value;
                         }
                     },
                     grid: { color: sciFiGridColor }

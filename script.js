@@ -20,8 +20,8 @@ document.addEventListener('DOMContentLoaded', async function() {
     let currentSortColumn = null;
     let currentSortDirection = 'desc'; // 'asc' or 'desc'
     
-    // Currency conversion rates cache
-    let conversionRates = {
+    // Currency conversion rates cache - make accessible globally
+    window.conversionRates = {
         'USD': 1 // Base currency is always 1
     };
     
@@ -79,51 +79,51 @@ document.addEventListener('DOMContentLoaded', async function() {
             
             // Update conversion rates with crypto data
             if (cryptoData.bitcoin && cryptoData.bitcoin.usd) {
-                conversionRates['BTC'] = 1 / cryptoData.bitcoin.usd; // Rate to convert 1 USD to BTC
+                window.conversionRates['BTC'] = 1 / cryptoData.bitcoin.usd; // Rate to convert 1 USD to BTC
             } else {
                 // Fallback value if API fails
-                conversionRates['BTC'] = 0.000017;
+                window.conversionRates['BTC'] = 0.000017;
                 console.warn('Using fallback value for BTC conversion');
             }
             
             if (cryptoData.ethereum && cryptoData.ethereum.usd) {
-                conversionRates['ETH'] = 1 / cryptoData.ethereum.usd; // Rate to convert 1 USD to ETH
+                window.conversionRates['ETH'] = 1 / cryptoData.ethereum.usd; // Rate to convert 1 USD to ETH
             } else {
                 // Fallback value if API fails
-                conversionRates['ETH'] = 0.00033;
+                window.conversionRates['ETH'] = 0.00033;
                 console.warn('Using fallback value for ETH conversion');
             }
             
             // Add BNB conversion rate
             if (cryptoData.binancecoin && cryptoData.binancecoin.usd) {
-                conversionRates['BNB'] = 1 / cryptoData.binancecoin.usd; // Rate to convert 1 USD to BNB
+                window.conversionRates['BNB'] = 1 / cryptoData.binancecoin.usd; // Rate to convert 1 USD to BNB
             } else {
                 // Fallback value if API fails
-                conversionRates['BNB'] = 0.002; // Approximate: 1 USD ≈ 0.002 BNB
+                window.conversionRates['BNB'] = 0.002; // Approximate: 1 USD ≈ 0.002 BNB
                 console.warn('Using fallback value for BNB conversion');
             }
             
             // Add MATIC conversion rate
             if (cryptoData['matic-network'] && cryptoData['matic-network'].usd) {
-                conversionRates['MATIC'] = 1 / cryptoData['matic-network'].usd;
+                window.conversionRates['MATIC'] = 1 / cryptoData['matic-network'].usd;
             } else {
-                conversionRates['MATIC'] = 0.5; // Fallback
+                window.conversionRates['MATIC'] = 0.5; // Fallback
                 console.warn('Using fallback value for MATIC conversion');
             }
             
             // Add SOL conversion rate
             if (cryptoData.solana && cryptoData.solana.usd) {
-                conversionRates['SOL'] = 1 / cryptoData.solana.usd;
+                window.conversionRates['SOL'] = 1 / cryptoData.solana.usd;
             } else {
-                conversionRates['SOL'] = 0.01; // Fallback
+                window.conversionRates['SOL'] = 0.01; // Fallback
                 console.warn('Using fallback value for SOL conversion');
             }
             
             // Add AVAX conversion rate
             if (cryptoData['avalanche-2'] && cryptoData['avalanche-2'].usd) {
-                conversionRates['AVAX'] = 1 / cryptoData['avalanche-2'].usd;
+                window.conversionRates['AVAX'] = 1 / cryptoData['avalanche-2'].usd;
             } else {
-                conversionRates['AVAX'] = 0.02; // Fallback
+                window.conversionRates['AVAX'] = 0.02; // Fallback
                 console.warn('Using fallback value for AVAX conversion');
             }
             
@@ -140,31 +140,31 @@ document.addEventListener('DOMContentLoaded', async function() {
             // Update conversion rates with forex data
             if (forexData.rates) {
                 // Add forex rates
-                if (forexData.rates.EUR) conversionRates['EUR'] = forexData.rates.EUR;
-                if (forexData.rates.GBP) conversionRates['GBP'] = forexData.rates.GBP;
-                if (forexData.rates.JPY) conversionRates['JPY'] = forexData.rates.JPY;
-                if (forexData.rates.CNY) conversionRates['CNY'] = forexData.rates.CNY;
-                if (forexData.rates.AED) conversionRates['AED'] = forexData.rates.AED;
-                if (forexData.rates.KWD) conversionRates['KWD'] = forexData.rates.KWD;
-                if (forexData.rates.TWD) conversionRates['TWD'] = forexData.rates.TWD;
+                if (forexData.rates.EUR) window.conversionRates['EUR'] = forexData.rates.EUR;
+                if (forexData.rates.GBP) window.conversionRates['GBP'] = forexData.rates.GBP;
+                if (forexData.rates.JPY) window.conversionRates['JPY'] = forexData.rates.JPY;
+                if (forexData.rates.CNY) window.conversionRates['CNY'] = forexData.rates.CNY;
+                if (forexData.rates.AED) window.conversionRates['AED'] = forexData.rates.AED;
+                if (forexData.rates.KWD) window.conversionRates['KWD'] = forexData.rates.KWD;
+                if (forexData.rates.TWD) window.conversionRates['TWD'] = forexData.rates.TWD;
             } else {
                 // Fallback values if API fails
-                conversionRates['EUR'] = 0.92;
-                conversionRates['GBP'] = 0.79;
-                conversionRates['JPY'] = 150.5;
-                conversionRates['CNY'] = 7.2;
-                conversionRates['AED'] = 3.67;  // Fallback: 1 USD ≈ 3.67 AED
-                conversionRates['KWD'] = 0.31;  // Fallback: 1 USD ≈ 0.31 KWD
-                conversionRates['TWD'] = 32.0;  // Fallback: 1 USD ≈ 32.0 TWD
+                window.conversionRates['EUR'] = 0.92;
+                window.conversionRates['GBP'] = 0.79;
+                window.conversionRates['JPY'] = 150.5;
+                window.conversionRates['CNY'] = 7.2;
+                window.conversionRates['AED'] = 3.67;  // Fallback: 1 USD ≈ 3.67 AED
+                window.conversionRates['KWD'] = 0.31;  // Fallback: 1 USD ≈ 0.31 KWD
+                window.conversionRates['TWD'] = 32.0;  // Fallback: 1 USD ≈ 32.0 TWD
                 console.warn('Using fallback values for forex conversion');
             }
             
-            console.log('Currency rates fetched successfully:', conversionRates);
+            console.log('Currency rates fetched successfully:', window.conversionRates);
             
         } catch (error) {
             console.error('Error fetching currency rates:', error);
             // Set fallback values
-            conversionRates = {
+            window.conversionRates = {
                 'USD': 1,
                 'BTC': 0.000017, // Fallback: 1 USD ≈ 0.000017 BTC
                 'ETH': 0.00033,  // Fallback: 1 USD ≈ 0.00033 ETH
@@ -772,48 +772,48 @@ document.addEventListener('DOMContentLoaded', async function() {
         
         // Convert original currency to USD based on the currency type
         if (originalCurrency === 'ETH' || originalCurrency === 'WETH') {
-            if (conversionRates['ETH']) {
+            if (window.conversionRates['ETH']) {
                 // We have the ETH rate (1/ETH price in USD), need to convert ETH to USD
                 // If 1 USD = 0.0004 ETH, then 1 ETH = 1/0.0004 = 2500 USD
-                lossInUSD = loss * (1 / conversionRates['ETH']);
+                lossInUSD = loss * (1 / window.conversionRates['ETH']);
             } else {
                 // Fallback value if rate is not available
                 lossInUSD = loss * 2500;
                 console.warn('Using fallback value for ETH to USD conversion');
             }
         } else if (originalCurrency === 'BNB' || originalCurrency === 'WBNB') {
-            if (conversionRates['BNB']) {
-                lossInUSD = loss * (1 / conversionRates['BNB']);
+            if (window.conversionRates['BNB']) {
+                lossInUSD = loss * (1 / window.conversionRates['BNB']);
             } else {
                 // Fallback value if rate is not available
                 lossInUSD = loss * 500;
                 console.warn('Using fallback value for BNB to USD conversion');
             }
         } else if (originalCurrency === 'BTC' || originalCurrency === 'WBTC') {
-            if (conversionRates['BTC']) {
-                lossInUSD = loss * (1 / conversionRates['BTC']);
+            if (window.conversionRates['BTC']) {
+                lossInUSD = loss * (1 / window.conversionRates['BTC']);
             } else {
                 // Fallback value if rate is not available
                 lossInUSD = loss * 60000;
                 console.warn('Using fallback value for BTC to USD conversion');
             }
         } else if (originalCurrency === 'MATIC') {
-            if (conversionRates['MATIC']) {
-                lossInUSD = loss * (1 / conversionRates['MATIC']);
+            if (window.conversionRates['MATIC']) {
+                lossInUSD = loss * (1 / window.conversionRates['MATIC']);
             } else {
                 lossInUSD = loss * 2; // Fallback: 1 MATIC ≈ $2
                 console.warn('Using fallback value for MATIC to USD conversion');
             }
         } else if (originalCurrency === 'SOL') {
-            if (conversionRates['SOL']) {
-                lossInUSD = loss * (1 / conversionRates['SOL']);
+            if (window.conversionRates['SOL']) {
+                lossInUSD = loss * (1 / window.conversionRates['SOL']);
             } else {
                 lossInUSD = loss * 100; // Fallback: 1 SOL ≈ $100
                 console.warn('Using fallback value for SOL to USD conversion');
             }
         } else if (originalCurrency === 'AVAX') {
-            if (conversionRates['AVAX']) {
-                lossInUSD = loss * (1 / conversionRates['AVAX']);
+            if (window.conversionRates['AVAX']) {
+                lossInUSD = loss * (1 / window.conversionRates['AVAX']);
             } else {
                 lossInUSD = loss * 50; // Fallback: 1 AVAX ≈ $50
                 console.warn('Using fallback value for AVAX to USD conversion');
@@ -829,7 +829,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         if (displayCurrency === 'USD') return lossInUSD;
         
         // Use the conversion rate or fallback to 1 if not available
-        const rate = conversionRates[displayCurrency] || 1;
+        const rate = window.conversionRates[displayCurrency] || 1;
         return lossInUSD * rate;
     }
 
@@ -1512,14 +1512,21 @@ document.addEventListener('DOMContentLoaded', async function() {
         // Create a filtered analytics result object
         const filteredResults = {};
         
-        // Calculate total loss (USD)
+        // Calculate total loss in user's preferred display currency
         filteredResults.totalLoss = filteredData.reduce((sum, incident) => {
-            if (incident.lossType && incident.lossType.toUpperCase() === 'USD' && 
-                typeof incident.Lost === 'number' && !isNaN(incident.Lost)) {
-                return sum + incident.Lost;
+            if (typeof incident.Lost === 'number' && !isNaN(incident.Lost)) {
+                // Convert to user's selected display currency
+                const lossInDisplayCurrency = convertLossToDisplayCurrency(incident.Lost, incident.lossType || 'USD');
+                return sum + lossInDisplayCurrency;
             }
             return sum;
         }, 0);
+        
+        // Normalize to USD for consistent analytics if not in USD
+        if (displayCurrency !== 'USD') {
+            const conversionFactor = 1 / (window.conversionRates[displayCurrency] || 1);
+            filteredResults.totalLoss = filteredResults.totalLoss * conversionFactor;
+        }
         
         // Count incidents by year
         filteredResults.countByYear = {};
@@ -1538,22 +1545,38 @@ document.addEventListener('DOMContentLoaded', async function() {
             }
         });
         
-        // Aggregate loss by type
+        // Aggregate loss by type in user's preferred display currency
         filteredResults.lossByType = {};
         filteredData.forEach(incident => {
-            if (incident.type && incident.lossType && incident.lossType.toUpperCase() === 'USD' && 
-                typeof incident.Lost === 'number' && !isNaN(incident.Lost)) {
-                filteredResults.lossByType[incident.type] = (filteredResults.lossByType[incident.type] || 0) + incident.Lost;
+            if (incident.type && typeof incident.Lost === 'number' && !isNaN(incident.Lost)) {
+                const lossInDisplayCurrency = convertLossToDisplayCurrency(incident.Lost, incident.lossType || 'USD');
+                
+                // Normalize to USD if not already in USD
+                let normalizedLoss = lossInDisplayCurrency;
+                if (displayCurrency !== 'USD') {
+                    const conversionFactor = 1 / (window.conversionRates[displayCurrency] || 1);
+                    normalizedLoss = lossInDisplayCurrency * conversionFactor;
+                }
+                
+                filteredResults.lossByType[incident.type] = (filteredResults.lossByType[incident.type] || 0) + normalizedLoss;
             }
         });
         
-        // Aggregate loss by year
+        // Aggregate loss by year in user's preferred display currency
         filteredResults.lossByYear = {};
         filteredData.forEach(incident => {
-            if (incident.dateObj && incident.lossType && incident.lossType.toUpperCase() === 'USD' && 
-                typeof incident.Lost === 'number' && !isNaN(incident.Lost)) {
+            if (incident.dateObj && typeof incident.Lost === 'number' && !isNaN(incident.Lost)) {
                 const year = incident.dateObj.getUTCFullYear().toString();
-                filteredResults.lossByYear[year] = (filteredResults.lossByYear[year] || 0) + incident.Lost;
+                const lossInDisplayCurrency = convertLossToDisplayCurrency(incident.Lost, incident.lossType || 'USD');
+                
+                // Normalize to USD if not already in USD
+                let normalizedLoss = lossInDisplayCurrency;
+                if (displayCurrency !== 'USD') {
+                    const conversionFactor = 1 / (window.conversionRates[displayCurrency] || 1);
+                    normalizedLoss = lossInDisplayCurrency * conversionFactor;
+                }
+                
+                filteredResults.lossByYear[year] = (filteredResults.lossByYear[year] || 0) + normalizedLoss;
             }
         });
         
