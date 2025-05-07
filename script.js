@@ -355,16 +355,15 @@ document.addEventListener("DOMContentLoaded", async function () {
             <label>Year</label>
             <select id="year-filter">
                 <option value="">All Years</option>
-                ${
-                  analysisResults.countByYear
-                    ? Object.keys(analysisResults.countByYear)
-                        .sort((a, b) => b - a) // Sort years in descending order
-                        .map(
-                          (year) => `<option value="${year}">${year}</option>`
-                        )
-                        .join("")
-                    : ""
-                }
+                ${analysisResults.countByYear
+        ? Object.keys(analysisResults.countByYear)
+          .sort((a, b) => b - a) // Sort years in descending order
+          .map(
+            (year) => `<option value="${year}">${year}</option>`
+          )
+          .join("")
+        : ""
+      }
             </select>
         `;
 
@@ -375,15 +374,14 @@ document.addEventListener("DOMContentLoaded", async function () {
             <label>Attack Type</label>
             <select id="type-filter">
                 <option value="">All Types</option>
-                ${
-                  analysisResults.countByType
-                    ? Object.keys(analysisResults.countByType)
-                        .map(
-                          (type) => `<option value="${type}">${type}</option>`
-                        )
-                        .join("")
-                    : ""
-                }
+                ${analysisResults.countByType
+        ? Object.keys(analysisResults.countByType)
+          .map(
+            (type) => `<option value="${type}">${type}</option>`
+          )
+          .join("")
+        : ""
+      }
             </select>
         `;
 
@@ -616,8 +614,8 @@ document.addEventListener("DOMContentLoaded", async function () {
               ? valueA.localeCompare(valueB)
               : valueB.localeCompare(valueA);
           case "Lost":
-            valueA = a.Lost || 0;
-            valueB = b.Lost || 0;
+            valueA = convertLossToDisplayCurrency(a.Lost || 0, a.lossType || "USD");
+            valueB = convertLossToDisplayCurrency(b.Lost || 0, b.lossType || "USD");
             return currentSortDirection === "asc"
               ? valueA - valueB
               : valueB - valueA;
@@ -1253,16 +1251,11 @@ document.addEventListener("DOMContentLoaded", async function () {
     // Populate modal with project data
     modalTitle.textContent = "Root Cause Analysis";
     modalProjectName.textContent = projectName;
-    modalType.textContent = `Attack Type: ${
-      projectData.type || incident.type || "Unknown"
-    }`;
-    modalDate.textContent = `Date: ${
-      projectData.date || formatDate(incident.date) || "Unknown"
-    }`;
-    modalLoss.textContent = `Loss: ${formatLoss(
-      projectData.Lost || incident.Lost,
-      incident.lossType
-    )}`;
+    modalType.textContent = `Attack Type: ${projectData.type || incident.type || "Unknown"
+      }`;
+    modalDate.textContent = `Date: ${projectData.date || formatDate(incident.date) || "Unknown"
+      }`;
+    modalLoss.textContent = `Loss: ${(projectData.Lost || incident.Lost)} ${incident.lossType}`;
 
     // Root cause analysis
     // Use innerHTML to render markdown content
