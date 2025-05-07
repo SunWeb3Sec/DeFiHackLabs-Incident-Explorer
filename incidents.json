@@ -105,7 +105,7 @@
     },
     {
         "date": "20250118",
-        "name": "Paribus2",
+        "name": "Paribus",
         "type": "Price Manipulation",
         "Lost": 86000.0,
         "lossType": "USD",
@@ -2643,7 +2643,7 @@
         "date": "20230620",
         "name": "MIMSpell",
         "type": "Access Control",
-        "Lost": 65000000.0,
+        "Lost": 170000.0,
         "lossType": "USD",
         "Contract": "src/test/2023-06/MIMSpell_exp.sol"
     },
@@ -3408,7 +3408,7 @@
         "Contract": "src/test/2024-10/SASHAToken_exp.sol"
     },
     {
-        "date": "20241010",
+        "date": "20241006",
         "name": "HYDT",
         "type": "Price Manipulation",
         "Lost": null,
@@ -3433,9 +3433,9 @@
     },
     {
         "date": "20241002",
-        "name": "LavaLending_",
+        "name": "LavaLending",
         "type": "Price Manipulation",
-        "Lost": 340000.0,
+        "Lost": 130000.0,
         "lossType": "USD",
         "Contract": "src/test/2024-10/LavaLending_exp.sol"
     },
