@@ -1805,11 +1805,7 @@
         "type": "Price Manipulation",
         "date": "2023-07-24",
         "rootCause": "\n\nThe root cause is that the price of `$PLP`  is determined by the number of `$USDT` in the\u00a0Vault contract\u00a0and the $USDP supply.\nThe attacker was able to manipulate the amount of `$USDT` in the Vault by calling the `buyUSDP`function.\n\n**Code Snippet:**\n\n%206b65d8d5661447daacea002107cfec94/Untitled.png)\n\n%206b65d8d5661447daacea002107cfec94/Untitled%201.png)\n\n%206b65d8d5661447daacea002107cfec94/Untitled%202.png)\n\n**Attack TX:**\n\n[https://app.blocksec.com/explorer/tx/bsc/0x62dba55054fa628845fecded658ff5b1ec1c5823f1a5e0118601aa455a30eac9](https://app.blocksec.com/explorer/tx/bsc/0x62dba55054fa628845fecded658ff5b1ec1c5823f1a5e0118601aa455a30eac9)\n\n**Analysis:**\n\n[https://twitter.com/BlockSecTeam/status/1683680026766737408](https://twitter.com/BlockSecTeam/status/1683680026766737408)",
-        "images": [
-            "images/Manipulate%20price%20by%20butUSDP(",
-            "images/Manipulate%20price%20by%20butUSDP(",
-            "images/Manipulate%20price%20by%20butUSDP("
-        ],
+        "images": [],
         "Lost": "$900K",
         "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2023-07/Palmswap_exp.sol"
     },
