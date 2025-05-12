@@ -547,8 +547,8 @@ document.addEventListener('DOMContentLoaded', async function () {
                             ? valueA.localeCompare(valueB)
                             : valueB.localeCompare(valueA);
                     case 'Lost':
-                        valueA = a.Lost || 0;
-                        valueB = b.Lost || 0;
+                        valueA = convertLossToDisplayCurrency(a.Lost || 0, a.lossType || 'USD');
+                        valueB = convertLossToDisplayCurrency(b.Lost || 0, b.lossType || 'USD');
                         return currentSortDirection === 'asc'
                             ? valueA - valueB
                             : valueB - valueA;
