@@ -1,5 +1,37 @@
 [
     {
+        "date": "20250511",
+        "name": "MBUToken",
+        "type": "Price Manipulation",
+        "Lost": 2.16,
+        "lossType": "M",
+        "Contract": "src/test/2025-05/MBUToken_exp.sol"
+    },
+    {
+        "date": "20250426",
+        "name": "Lifeprotocol",
+        "type": "Price Manipulation",
+        "Lost": 62628.66,
+        "lossType": "USD",
+        "Contract": "src/test/2025-04/Lifeprotocol_exp.sol"
+    },
+    {
+        "date": "20250426",
+        "name": "ImpermaxV3",
+        "type": "Flashloan",
+        "Lost": 62628.66,
+        "lossType": "USD",
+        "Contract": "src/test/2025-04/ImpermaxV3_exp.sol"
+    },
+    {
+        "date": "20250418",
+        "name": "BTNFT",
+        "type": "Slippage",
+        "Lost": 19025.919331278623,
+        "lossType": "BUSD",
+        "Contract": "src/test/2025-04/BTNFT_exp.sol"
+    },
+    {
         "date": "20250416",
         "name": "YVToken",
         "type": "Slippage",
