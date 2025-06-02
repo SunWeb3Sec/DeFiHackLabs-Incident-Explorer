@@ -355,6 +355,20 @@ document.addEventListener('DOMContentLoaded', async function () {
             </select>
         `;
 
+        // Create chain filter
+        const chainFilter = document.createElement('div');
+        chainFilter.className = 'filter-group';
+        chainFilter.innerHTML = `
+            <label>Chain</label>
+            <select id="chain-filter">
+                <option value="">All Chains</option>
+                ${Array.from(new Set(incidents.map(incident => incident.chain)))
+                .sort()
+                .map(chain => `<option value="${chain}">${chain}</option>`)
+                .join('')}
+            </select>
+        `;
+
         // Create settings button
         const settingsButton = document.createElement('div');
         settingsButton.className = 'filter-group settings-filter-group';
@@ -383,6 +397,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         filtersContainer.appendChild(typeFilter);
         filtersContainer.appendChild(sortFilter);
         filtersContainer.appendChild(currencyFilter);
+        filtersContainer.appendChild(chainFilter);
         filtersContainer.appendChild(settingsButton);
         filtersRow.appendChild(filtersContainer);
         tableContainerElement.appendChild(filtersRow);
@@ -428,6 +443,11 @@ document.addEventListener('DOMContentLoaded', async function () {
             updateTable();
         });
 
+        document.getElementById('chain-filter')?.addEventListener('change', () => {
+            currentPage = 1;
+            updateTable();
+        });
+
         document.getElementById('search-box')?.addEventListener('input', () => {
             currentPage = 1;
             updateTable();
@@ -460,9 +480,10 @@ document.addEventListener('DOMContentLoaded', async function () {
             { key: 'date', display: 'Date' },
             { key: 'name', display: 'Project' },
             { key: 'type', display: 'Attack Type' },
+            { key: 'chain', display: 'Chain' },
             { key: 'Lost', display: 'Loss Amount' },
             { key: 'rootCause', display: 'Root Cause' },
-            { key: 'poc', display: 'POC' }
+            { key: 'poc', display: 'POC' },
         ];
 
         // Add each header with sort functionality
@@ -506,11 +527,13 @@ document.addEventListener('DOMContentLoaded', async function () {
         const typeFilter = document.getElementById('type-filter');
         const sortFilter = document.getElementById('sort-filter');
         const searchBox = document.getElementById('search-box');
+        const chainFilter = document.getElementById('chain-filter');
 
         const selectedYear = yearFilter?.value || '';
         const selectedType = typeFilter?.value || '';
         const sortBy = sortFilter?.value || 'date';
         const searchQuery = searchBox?.value.toLowerCase() || '';
+        const selectedChain = chainFilter?.value || '';
 
         // Filter incidents based on selected criteria
         filteredIncidents = incidents.filter(incident => {
@@ -522,7 +545,8 @@ document.addEventListener('DOMContentLoaded', async function () {
             const matchesSearch = !searchQuery ||
                 incident.name.toLowerCase().includes(searchQuery) ||
                 (incident.type && incident.type.toLowerCase().includes(searchQuery));
-            return matchesYear && matchesType && matchesSearch;
+            const matchesChain = !selectedChain || incident.chain === selectedChain;
+            return matchesYear && matchesType && matchesSearch && matchesChain;
         });
 
         // Sort incidents based on header clicks or dropdown
@@ -564,6 +588,12 @@ document.addEventListener('DOMContentLoaded', async function () {
                         return currentSortDirection === 'asc'
                             ? valueA - valueB
                             : valueB - valueA;
+                    case 'chain':
+                        valueA = a.chain || '';
+                        valueB = b.chain || '';
+                        return currentSortDirection === 'asc'
+                            ? valueA.localeCompare(valueB)
+                            : valueB.localeCompare(valueA);
                     default:
                         return 0;
                 }
@@ -624,6 +654,14 @@ document.addEventListener('DOMContentLoaded', async function () {
             typeCell.textContent = incident.type || '-';
             row.appendChild(typeCell);
 
+
+            // Chain column
+            const chainCell = document.createElement('td');
+            chainCell.textContent = incident.chain || '-';
+            row.appendChild(chainCell);
+
+            tbody.appendChild(row);
+
             // Loss amount column
             const lossCell = document.createElement('td');
             lossCell.textContent = formatLoss(incident.Lost, incident.lossType);
@@ -659,7 +697,6 @@ document.addEventListener('DOMContentLoaded', async function () {
             }
             row.appendChild(pocCell);
 
-            tbody.appendChild(row);
         });
 
         table.appendChild(tbody);
@@ -1202,8 +1239,6 @@ document.addEventListener('DOMContentLoaded', async function () {
             }
         });
     }
-
-
 
     // Function to create and set up the settings panel
     function createSettingsPanel() {
