@@ -4111,19 +4111,6 @@
             "images/FZYHYdMaMAAp22m.png"
         ]
     },
-    "sorraStaking": {
-        "type": "Miscalculation",
-        "date": "2025-01-04",
-        "rootCause": "The attack was caused by a logical flaw in the `withdraw` function. Specifically, the contract calculated the reward based on all expired deposits for a user but did not track whether these rewards had already been claimed. Consequently, when a user's deposit matured, they could withdraw any amount of their initial deposit (`_amount` set to 1 in the attack transactions) and still receive the accumulated rewards for *all* their expired deposits. Because the reward withdrawal status was not recorded or checked, the attacker could repeatedly call the `withdraw` function after their initial deposit matured, each time claiming the accumulated rewards again, effectively draining the SOR tokens from the project.\n\nVulnerable code snippet:\n\n![image.png](image%2079.png)\n\n![image.png](image%2080.png)\n\n![image.png](image%2081.png)\n\n![image.png](image%2082.png)\n\nAttack tx:\n\n[https://app.blocksec.com/explorer/tx/eth/0x6439d63cc57fb68a32ea8ffd8f02496e8abad67292be94904c0b47a4d14ce90d](https://app.blocksec.com/explorer/tx/eth/0x6439d63cc57fb68a32ea8ffd8f02496e8abad67292be94904c0b47a4d14ce90d)\n\nAnalysis:\n\n[https://main.learnblockchain.cn/article/10605](https://main.learnblockchain.cn/article/10605)",
-        "loss": "8 ETH",
-        "pocLink": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2025-01/sorraStaking.sol",
-        "images": [
-            "images/image%2079.png",
-            "images/image%2080.png",
-            "images/image%2081.png",
-            "images/image%2082.png"
-        ]
-    },
     "BNBX": {
         "type": "Access Control, Business Logic Flaw",
         "date": "2024-04-27",
