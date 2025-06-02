@@ -1965,7 +1965,7 @@
     "type": "Precision Loss",
     "Lost": 20000.0,
     "lossType": "USD",
-    "Contract": ""
+    "Contract": "src/test/2023-11/MahaLend_exp.sol"
   },
   {
     "date": "20231110",
@@ -1973,7 +1973,7 @@
     "type": "Logic Flaw",
     "Lost": 3200000.0,
     "lossType": "USD",
-    "Contract": ""
+    "Contract": "src/test/2023-11/Raft_exp.sol"
   },
   {
     "date": "20231110",
@@ -2733,7 +2733,7 @@
     "type": "Reentrancy Attack",
     "Lost": 800000.0,
     "lossType": "USD",
-    "Contract": ""
+    "Contract": "src/test/2023-06/Sturdy_exp.sol"
   },
   {
     "date": "20230611",
