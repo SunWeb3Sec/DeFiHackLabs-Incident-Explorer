@@ -12,7 +12,7 @@
     "date": "20250426",
     "name": "Lifeprotocol",
     "type": "Price Manipulation",
-    "Lost": 62628.66,
+    "Lost": 15114,
     "lossType": "USD",
     "Contract": "src/test/2025-04/Lifeprotocol_exp.sol",
     "chain": "Unknown"
@@ -21,7 +21,7 @@
     "date": "20250426",
     "name": "ImpermaxV3",
     "type": "Flashloan",
-    "Lost": 62628.66,
+    "Lost": 300000,
     "lossType": "USD",
     "Contract": "src/test/2025-04/ImpermaxV3_exp.sol",
     "chain": "Unknown"
