@@ -1,8 +1,8 @@
 name: Auto-update incidents and rootcause data (PR mode)
 
 on:
-  schedule:
-    - cron: "0 3 * * *"   # daily at 03:00 UTC
+  # schedule:
+  #   - cron: "0 3 * * *"   # daily at 03:00 UTC
   workflow_dispatch:
     inputs:
       base_branch:
