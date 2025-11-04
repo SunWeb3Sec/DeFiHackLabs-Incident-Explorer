@@ -6,7 +6,7 @@
     "Lost": 2160000,
     "lossType": "USD",
     "Contract": "src/test/2025-05/MBUToken_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20250426",
@@ -15,7 +15,7 @@
     "Lost": 15114,
     "lossType": "USD",
     "Contract": "src/test/2025-04/Lifeprotocol_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20250426",
@@ -24,7 +24,7 @@
     "Lost": 300000,
     "lossType": "USD",
     "Contract": "src/test/2025-04/ImpermaxV3_exp.sol",
-    "chain": "Unknown"
+    "chain": "Base"
   },
   {
     "date": "20250418",
@@ -33,7 +33,7 @@
     "Lost": 19025.919331278623,
     "lossType": "BUSD",
     "Contract": "src/test/2025-04/BTNFT_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20250416",
@@ -42,7 +42,7 @@
     "Lost": 15261.68,
     "lossType": "USD",
     "Contract": "src/test/2025-04/YBToken_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20250330",
@@ -51,7 +51,7 @@
     "Lost": 353800.0,
     "lossType": "USD",
     "Contract": "src/test/2025-03/LeverageSIR_exp.sol",
-    "chain": "Unknown"
+    "chain": "Ethereum"
   },
   {
     "date": "20250328",
@@ -60,7 +60,7 @@
     "Lost": 95500.0,
     "lossType": "USD",
     "Contract": "src/test/2025-03/Alkimiya_io_exp.sol",
-    "chain": "Unknown"
+    "chain": "Ethereum"
   },
   {
     "date": "20250318",
@@ -96,7 +96,7 @@
     "Lost": 4500000.0,
     "lossType": "USD",
     "Contract": "src/test/2025-03/OneInchFusionV1SettlementHack.sol_exp.sol",
-    "chain": "Unknown"
+    "chain": "Ethereum"
   },
   {
     "date": "20241210",
@@ -123,7 +123,7 @@
     "Lost": 1500000000.0,
     "lossType": "USD",
     "Contract": "src/test/2025-02/Bybit_exp.sol",
-    "chain": "No info"
+    "chain": "Ethereum"
   },
   {
     "date": "20250211",
@@ -177,7 +177,7 @@
     "Lost": 28000.0,
     "lossType": "USD",
     "Contract": "src/test/2025-01/RoulettePotV2_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20250110",
@@ -204,7 +204,7 @@
     "Lost": 590000.0,
     "lossType": "USD",
     "Contract": "src/test/2025-01/IPC_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20250106",
@@ -267,7 +267,7 @@
     "Lost": 900.0,
     "lossType": "BNB",
     "Contract": "src/test/2021-12/NerveBridge_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20211130",
@@ -285,7 +285,7 @@
     "Lost": 365000.0,
     "lossType": "USD",
     "Contract": "src/test/2021-11/Ploutoz_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20211027",
@@ -294,7 +294,7 @@
     "Lost": 130000000.0,
     "lossType": "USD",
     "Contract": "src/test/2021-10/Cream_2_exp.sol",
-    "chain": "Unknown"
+    "chain": "Ethereum"
   },
   {
     "date": "20211015",
@@ -303,7 +303,7 @@
     "Lost": 16000000.0,
     "lossType": "USD",
     "Contract": "src/test/2021-10/IndexedFinance_exp.sol",
-    "chain": "Unknown"
+    "chain": "Ethereum"
   },
   {
     "date": "20210916",
@@ -312,7 +312,7 @@
     "Lost": 3000000,
     "lossType": "USD",
     "Contract": "src/test/2021-09/Sushimiso_exp.sol",
-    "chain": "Unknown"
+    "chain": "Ethereum"
   },
   {
     "date": "20210915",
@@ -339,7 +339,7 @@
     "Lost": 3200000,
     "lossType": "USD",
     "Contract": "src/test/2021-09/ZABU_exp.sol",
-    "chain": "No info"
+    "chain": "Avalanche"
   },
   {
     "date": "20210903",
@@ -375,7 +375,7 @@
     "Lost": 611000000.0,
     "lossType": "USD",
     "Contract": "src/test/2021-08/PolyNetwork_exp.sol",
-    "chain": "No info"
+    "chain": "Ethereum"
   },
   {
     "date": "20210804",
@@ -393,7 +393,7 @@
     "Lost": 1500000.0,
     "lossType": "USD",
     "Contract": "src/test/2021-07/Levyathan_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20210710",
@@ -402,7 +402,7 @@
     "Lost": 4400000.0,
     "lossType": "USD",
     "Contract": "src/test/2021-07/Chainswap_exp2.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20210702",
@@ -429,7 +429,7 @@
     "Lost": 300000.0,
     "lossType": "USD",
     "Contract": "src/test/2021-06/xWin_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20210622",
@@ -465,7 +465,7 @@
     "Lost": 1500000.0,
     "lossType": "USD",
     "Contract": "src/test/2021-05/JulSwap_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20210527",
@@ -474,7 +474,7 @@
     "Lost": 7000000,
     "lossType": "USD",
     "Contract": "src/test/2021-05/BurgerSwap_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20210519",
@@ -492,7 +492,7 @@
     "Lost": 11000000.0,
     "lossType": "USD",
     "Contract": "src/test/2021-05/bEarn_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20210509",
@@ -501,7 +501,7 @@
     "Lost": null,
     "lossType": "USD",
     "Contract": "src/test/2021-05/RariCapital_exp.sol",
-    "chain": "Unknown"
+    "chain": "Ethereum"
   },
   {
     "date": "20210508",
@@ -510,7 +510,7 @@
     "Lost": 10000000,
     "lossType": "USD",
     "Contract": "src/test/2021-05/ValueDefi_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20210502",
@@ -519,7 +519,7 @@
     "Lost": 30500000.0,
     "lossType": "USD",
     "Contract": "src/test/2021-05/Spartan_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20210428",
@@ -537,7 +537,7 @@
     "Lost": 8100000,
     "lossType": "USD",
     "Contract": "src/test/2020-09/bzx_exp.sol",
-    "chain": "Unknown"
+    "chain": "Ethereum"
   },
   {
     "date": "20180424",
@@ -546,7 +546,7 @@
     "Lost": 140000000.0,
     "lossType": "USD",
     "Contract": "src/test/2018-04/SmartMesh_exp.sol",
-    "chain": "Unknown"
+    "chain": "Ethereum"
   },
   {
     "date": "20210308",
@@ -564,7 +564,7 @@
     "Lost": 3000000.0,
     "lossType": "USD",
     "Contract": "src/test/2021-03/PAID_exp.sol",
-    "chain": "Unknown"
+    "chain": "Ethereum"
   },
   {
     "date": "20210204",
@@ -573,7 +573,7 @@
     "Lost": 11000000.0,
     "lossType": "USD",
     "Contract": "src/test/2021-02/Yearn_ydai_exp.sol",
-    "chain": "Unknown"
+    "chain": "Ethereum"
   },
   {
     "date": "20210125",
@@ -582,7 +582,7 @@
     "Lost": 81.68,
     "lossType": "ETH",
     "Contract": "src/test/2021-01/Sushi_Badger_Digg_exp.sol",
-    "chain": "Unknown"
+    "chain": "Ethereum"
   },
   {
     "date": "20201229",
@@ -609,7 +609,7 @@
     "Lost": 33800000.0,
     "lossType": "USD",
     "Contract": "src/test/2020-10/HarvestFinance_exp.sol",
-    "chain": "No info"
+    "chain": "Ethereum"
   },
   {
     "date": "20200804",
@@ -618,7 +618,7 @@
     "Lost": 370000,
     "lossType": "USD",
     "Contract": "src/test/2020-08/Opyn_exp.sol",
-    "chain": "Unknown"
+    "chain": "Ethereum"
   },
   {
     "date": "20200628",
@@ -627,7 +627,7 @@
     "Lost": 500000,
     "lossType": "USD",
     "Contract": "src/test/2020-06/Balancer_20200628_exp.sol",
-    "chain": "Unknown"
+    "chain": "Ethereum"
   },
   {
     "date": "20200618",
@@ -645,7 +645,7 @@
     "Lost": 25000.0,
     "lossType": "USD",
     "Contract": "src/test/2020-04/LendfMe_exp.sol",
-    "chain": "Unknown"
+    "chain": "Ethereum"
   },
   {
     "date": "20200418",
@@ -654,7 +654,7 @@
     "Lost": 220000.0,
     "lossType": "USD",
     "Contract": "src/test/2020-04/uniswap-erc777.sol",
-    "chain": "Unknown"
+    "chain": "Ethereum"
   },
   {
     "date": "20181007",
@@ -663,7 +663,7 @@
     "Lost": 155.0,
     "lossType": "ETH",
     "Contract": "src/test/2018-10/SpankChain_exp.sol",
-    "chain": "Unknown"
+    "chain": "Ethereum"
   },
   {
     "date": "20180422",
@@ -717,7 +717,7 @@
     "Lost": 170000.0,
     "lossType": "USD",
     "Contract": "src/test/2022-12/Defrost_exp.sol",
-    "chain": "No info"
+    "chain": "Avalanche"
   },
   {
     "date": "20221214",
@@ -735,7 +735,7 @@
     "Lost": 29000.0,
     "lossType": "USD",
     "Contract": "src/test/2022-12/FPR_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20221213",
@@ -771,7 +771,7 @@
     "Lost": 2000.0,
     "lossType": "USD",
     "Contract": "src/test/2022-12/MEVbot_0x28d9_exp.sol",
-    "chain": "Unknown"
+    "chain": "Ethereum"
   },
   {
     "date": "20221210",
@@ -1032,7 +1032,7 @@
     "Lost": 600.0,
     "lossType": "USD",
     "Contract": "src/test/2022-10/MulticallWithoutCheck_exp.sol",
-    "chain": "Unknown"
+    "chain": "Polygon"
   },
   {
     "date": "20221021",
@@ -1077,7 +1077,7 @@
     "Lost": 24000.0,
     "lossType": "USD",
     "Contract": "src/test/2022-10/PLTD_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20221017",
@@ -1095,7 +1095,7 @@
     "Lost": 50000.0,
     "lossType": "USD",
     "Contract": "src/test/2022-10/INUKO_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20221014",
@@ -1122,7 +1122,7 @@
     "Lost": 127000.0,
     "lossType": "USD",
     "Contract": "src/test/2022-10/ATK_exp.sol",
-    "chain": "No info"
+    "chain": "BSC"
   },
   {
     "date": "20221011",
@@ -1131,7 +1131,7 @@
     "Lost": 200000.0,
     "lossType": "USD",
     "Contract": "src/test/2022-10/RabbyWallet_SwapRouter_exp.sol",
-    "chain": "No info"
+    "chain": "Ethereum"
   },
   {
     "date": "20221011",
@@ -1158,7 +1158,7 @@
     "Lost": 700.0,
     "lossType": "USD",
     "Contract": "src/test/2022-10/XaveFinance_exp.sol",
-    "chain": "No info"
+    "chain": "Ethereum"
   },
   {
     "date": "20221006",
@@ -1176,7 +1176,7 @@
     "Lost": 21000000.0,
     "lossType": "USD",
     "Contract": "src/test/2022-10/TransitSwap_exp.sol",
-    "chain": "No info"
+    "chain": "BSC"
   },
   {
     "date": "20221001",
@@ -1230,7 +1230,7 @@
     "Lost": 94304.0,
     "lossType": "USD",
     "Contract": "src/test/2022-09/RADT_exp.sol",
-    "chain": "No info"
+    "chain": "BSC"
   },
   {
     "date": "20220913",
@@ -1257,7 +1257,7 @@
     "Lost": 742286.0,
     "lossType": "USD",
     "Contract": "src/test/2022-09/Yyds_exp.sol",
-    "chain": "No info"
+    "chain": "BSC"
   },
   {
     "date": "20220908",
@@ -1284,7 +1284,7 @@
     "Lost": 50000.0,
     "lossType": "USD",
     "Contract": "src/test/2022-09/NXUSD_exp.sol",
-    "chain": "No info"
+    "chain": "Avalanche"
   },
   {
     "date": "20220905",
@@ -1302,7 +1302,7 @@
     "Lost": 1078.0,
     "lossType": "USD",
     "Contract": "src/test/2022-09/Shadowfi_exp.sol",
-    "chain": "No info"
+    "chain": "BSC"
   },
   {
     "date": "20220902",
@@ -1482,7 +1482,7 @@
     "Lost": 100000000.0,
     "lossType": "USD",
     "Contract": "src/test/2022-06/Harmony_multisig_exp.sol",
-    "chain": "No info"
+    "chain": "Ethereum"
   },
   {
     "date": "20220618",
@@ -1572,7 +1572,7 @@
     "Lost": 10000000.0,
     "lossType": "USD",
     "Contract": "src/test/2022-04/Saddle_exp.sol",
-    "chain": "Unknown"
+    "chain": "Ethereum"
   },
   {
     "date": "20220430",
@@ -1590,7 +1590,7 @@
     "Lost": 13000000.0,
     "lossType": "USD",
     "Contract": "src/test/2022-04/deus_exp.sol",
-    "chain": "No info"
+    "chain": "Fantom"
   },
   {
     "date": "20220424",
@@ -1626,7 +1626,7 @@
     "Lost": 182000000.0,
     "lossType": "USD",
     "Contract": "src/test/2022-04/Beanstalk_exp.sol",
-    "chain": "No info"
+    "chain": "Ethereum"
   },
   {
     "date": "20220415",
@@ -1680,7 +1680,7 @@
     "Lost": null,
     "lossType": "USD",
     "Contract": "src/test/2022-03/RedactedCartel_exp.sol",
-    "chain": "Unknown"
+    "chain": "Ethereum"
   },
   {
     "date": "20220327",
@@ -1797,7 +1797,7 @@
     "Lost": 470000.0,
     "lossType": "USD",
     "Contract": "src/test/2022-02/BuildF_exp.sol",
-    "chain": "No info"
+    "chain": "Ethereum"
   },
   {
     "date": "20220208",
@@ -1815,7 +1815,7 @@
     "Lost": 4300000.0,
     "lossType": "USD",
     "Contract": "src/test/2022-02/meter_exp.sol",
-    "chain": "No info"
+    "chain": "Moonriver"
   },
   {
     "date": "20220204",
@@ -1824,7 +1824,7 @@
     "Lost": 63000.0,
     "lossType": "USD",
     "Contract": "src/test/2022-02/TecraSpace_exp.sol",
-    "chain": "Unknown"
+    "chain": "Ethereum"
   },
   {
     "date": "20220128",
@@ -1851,7 +1851,7 @@
     "Lost": 4400.0,
     "lossType": "USD",
     "Contract": "src/test/2023-12/Channels_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20231230",
@@ -1869,7 +1869,7 @@
     "Lost": 3200.0,
     "lossType": "USD",
     "Contract": "src/test/2023-12/CCV_exp.sol",
-    "chain": "No info"
+    "chain": "BSC"
   },
   {
     "date": "20231228",
@@ -1878,7 +1878,7 @@
     "Lost": 5.0,
     "lossType": "WBNB",
     "Contract": "src/test/2023-12/DominoTT_exp.sol",
-    "chain": "No info"
+    "chain": "BSC"
   },
   {
     "date": "20231225",
@@ -1914,7 +1914,7 @@
     "Lost": 3.0,
     "lossType": "BNB",
     "Contract": "src/test/2023-12/Bob_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20231217",
@@ -1941,7 +1941,7 @@
     "Lost": 2300,
     "lossType": "USD",
     "Contract": "src/test/2023-12/KEST_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20231216",
@@ -1959,7 +1959,7 @@
     "Lost": 2.0,
     "lossType": "BNB",
     "Contract": "src/test/2023-12/PHIL_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20231213",
@@ -1977,7 +1977,7 @@
     "Lost": 13000.0,
     "lossType": "USD",
     "Contract": "src/test/2023-12/GoodCompound_exp.sol",
-    "chain": "Unknown"
+    "chain": "Ethereum"
   },
   {
     "date": "20231209",
@@ -1986,7 +1986,7 @@
     "Lost": 10.2,
     "lossType": "BNB",
     "Contract": "src/test/2023-12/BCT_exp.sol",
-    "chain": "No info"
+    "chain": "BSC"
   },
   {
     "date": "20231207",
@@ -1995,7 +1995,7 @@
     "Lost": 2.4,
     "lossType": "WBNB",
     "Contract": "src/test/2023-12/HNet_exp.sol",
-    "chain": "No info"
+    "chain": "BSC"
   },
   {
     "date": "20231206",
@@ -2022,7 +2022,7 @@
     "Lost": 3300.0,
     "lossType": "USD",
     "Contract": "src/test/2023-12/MAMO_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20231205",
@@ -2058,7 +2058,7 @@
     "Lost": 22800.0,
     "lossType": "USD",
     "Contract": "src/test/2023-11/EEE_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20231130",
@@ -2076,7 +2076,7 @@
     "Lost": 3000.0,
     "lossType": "USD",
     "Contract": "src/test/2023-11/Burntbubba_exp.sol",
-    "chain": "Unknown"
+    "chain": "Ethereum"
   },
   {
     "date": "20231129",
@@ -2094,7 +2094,7 @@
     "Lost": 18.0,
     "lossType": "ETH",
     "Contract": "src/test/2023-11/FiberRouter_exp.sol",
-    "chain": "No info"
+    "chain": "BSC"
   },
   {
     "date": "20231125",
@@ -2103,7 +2103,7 @@
     "Lost": 4000.0,
     "lossType": "USD",
     "Contract": "src/test/2023-11/MetaLend_exp.sol",
-    "chain": "Unknown"
+    "chain": "Ethereum"
   },
   {
     "date": "20231125",
@@ -2148,7 +2148,7 @@
     "Lost": 18000.0,
     "lossType": "USD",
     "Contract": "src/test/2023-11/WECO_exp.sol",
-    "chain": "No info"
+    "chain": "BSC"
   },
   {
     "date": "20231115",
@@ -2157,7 +2157,7 @@
     "Lost": null,
     "lossType": "USD",
     "Contract": "src/test/2023-11/EHX_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20231115",
@@ -2166,7 +2166,7 @@
     "Lost": null,
     "lossType": "USD",
     "Contract": "src/test/2023-11/XAI_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20231115",
@@ -2238,7 +2238,7 @@
     "Lost": 17.0,
     "lossType": "ETH",
     "Contract": "src/test/2023-11/RBalancer_exp.sol",
-    "chain": "Unknown"
+    "chain": "Ethereum"
   },
   {
     "date": "20231107",
@@ -2265,7 +2265,7 @@
     "Lost": 15000.0,
     "lossType": "USD",
     "Contract": "src/test/2023-11/KR_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20231106",
@@ -2283,7 +2283,7 @@
     "Lost": 23.0,
     "lossType": "WBNB",
     "Contract": "src/test/2023-11/BRAND_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20231102",
@@ -2301,7 +2301,7 @@
     "Lost": 2000000.0,
     "lossType": "USD",
     "Contract": "src/test/2023-11/OnyxProtocol_exp.sol",
-    "chain": "No info"
+    "chain": "Ethereum"
   },
   {
     "date": "20231101",
@@ -2310,7 +2310,7 @@
     "Lost": null,
     "lossType": "USD",
     "Contract": "src/test/2023-11/SwampFinance_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20231031",
@@ -2328,7 +2328,7 @@
     "Lost": 1.8,
     "lossType": "WBNB",
     "Contract": "src/test/2023-10/LaEeb_exp.sol",
-    "chain": "No info"
+    "chain": "BSC"
   },
   {
     "date": "20231028",
@@ -2400,7 +2400,7 @@
     "Lost": 260000.0,
     "lossType": "USD",
     "Contract": "src/test/2023-10/WiseLending_exp.sol",
-    "chain": "Unknown"
+    "chain": "Ethereum"
   },
   {
     "date": "20231012",
@@ -2409,7 +2409,7 @@
     "Lost": 2000000.0,
     "lossType": "USD",
     "Contract": "src/test/2023-10/Platypus03_exp.sol",
-    "chain": "No info"
+    "chain": "Avalanche"
   },
   {
     "date": "20231011",
@@ -2427,7 +2427,7 @@
     "Lost": 14000.0,
     "lossType": "USD",
     "Contract": "src/test/2023-10/ZS_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20231008",
@@ -2445,7 +2445,7 @@
     "Lost": 3000000.0,
     "lossType": "USD",
     "Contract": "src/test/2023-10/StarsArena_exp.sol",
-    "chain": "No info"
+    "chain": "Avalanche"
   },
   {
     "date": "20231005",
@@ -2553,7 +2553,7 @@
     "Lost": 0.5,
     "lossType": "ETH",
     "Contract": "src/test/2023-09/QuantumWN_exp.sol",
-    "chain": "Unknown"
+    "chain": "Ethereum"
   },
   {
     "date": "20230905",
@@ -2562,7 +2562,7 @@
     "Lost": 2.4,
     "lossType": "ETH",
     "Contract": "src/test/2023-09/JumpFarm_exp.sol",
-    "chain": "No info"
+    "chain": "Ethereum"
   },
   {
     "date": "20230905",
@@ -2580,7 +2580,7 @@
     "Lost": 40.0,
     "lossType": "ETH",
     "Contract": "src/test/2023-09/FloorDAO_exp.sol",
-    "chain": "No info"
+    "chain": "Ethereum"
   },
   {
     "date": "20230902",
@@ -2616,7 +2616,7 @@
     "Lost": 400000.0,
     "lossType": "USD",
     "Contract": "src/test/2023-08/SVT_exp.sol",
-    "chain": "No info"
+    "chain": "BSC"
   },
   {
     "date": "20230824",
@@ -2697,7 +2697,7 @@
     "Lost": 23.0,
     "lossType": "ETH",
     "Contract": "src/test/2023-08/NeutraFinance_exp.sol",
-    "chain": "No info"
+    "chain": "Arbitrum"
   },
   {
     "date": "20230801",
@@ -2832,7 +2832,7 @@
     "Lost": 20999.0,
     "lossType": "USD",
     "Contract": "src/test/2023-07/USDTStakingContract28_exp.sol",
-    "chain": "No info"
+    "chain": "Ethereum"
   },
   {
     "date": "20230712",
@@ -2841,7 +2841,7 @@
     "Lost": 51000.0,
     "lossType": "USD",
     "Contract": "src/test/2023-07/Platypus02_exp.sol",
-    "chain": "Unknown"
+    "chain": "Avalanche"
   },
   {
     "date": "20230712",
@@ -2949,7 +2949,7 @@
     "Lost": 2.0,
     "lossType": "BNB",
     "Contract": "src/test/2023-06/MyAi_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20230628",
@@ -2967,7 +2967,7 @@
     "Lost": 5955.0,
     "lossType": "USD",
     "Contract": "src/test/2023-06/UnverifiedContr_9ad32_exp.sol",
-    "chain": "No info"
+    "chain": "BSC"
   },
   {
     "date": "20230627",
@@ -2976,7 +2976,7 @@
     "Lost": 12.0,
     "lossType": "ETH",
     "Contract": "src/test/2023-06/STRAC_exp.sol",
-    "chain": "No info"
+    "chain": "BSC"
   },
   {
     "date": "20230623",
@@ -3012,7 +3012,7 @@
     "Lost": 170000.0,
     "lossType": "USD",
     "Contract": "src/test/2023-06/MIMSpell_exp.sol",
-    "chain": "Unknown"
+    "chain": "Ethereum"
   },
   {
     "date": "20230619",
@@ -3048,7 +3048,7 @@
     "Lost": 600000.0,
     "lossType": "USD",
     "Contract": "src/test/2023-06/MidasCapitalXYZ_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20230615",
@@ -3138,7 +3138,7 @@
     "Lost": 76000.0,
     "lossType": "USD",
     "Contract": "src/test/2023-06/Cellframe_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20230531",
@@ -3354,7 +3354,7 @@
     "Lost": null,
     "lossType": "USD",
     "Contract": "src/test/2023-04/silo_finance_exp.sol",
-    "chain": "No info"
+    "chain": "Ethereum"
   },
   {
     "date": "20230424",
@@ -3462,7 +3462,7 @@
     "Lost": 10000.0,
     "lossType": "USD",
     "Contract": "src/test/2023-03/Thena_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20230325",
@@ -3597,7 +3597,7 @@
     "Lost": 8500000.0,
     "lossType": "USD",
     "Contract": "src/test/2023-02/Platypus_exp.sol",
-    "chain": "No info"
+    "chain": "Avalanche"
   },
   {
     "date": "20230210",
@@ -3687,7 +3687,7 @@
     "Lost": 4.0,
     "lossType": "ETH",
     "Contract": "src/test/2023-01/SHOCO_exp.sol",
-    "chain": "Unknown"
+    "chain": "Ethereum"
   },
   {
     "date": "20230119",
@@ -3714,7 +3714,7 @@
     "Lost": 22.0,
     "lossType": "ETH",
     "Contract": "src/test/2023-01/Upswing_exp.sol",
-    "chain": "Unknown"
+    "chain": "Ethereum"
   },
   {
     "date": "20230117",
@@ -3759,7 +3759,7 @@
     "Lost": 224000.0,
     "lossType": "USD",
     "Contract": "src/test/2023-01/BRA_exp.sol",
-    "chain": "No info"
+    "chain": "BSC"
   },
   {
     "date": "20230103",
@@ -3786,7 +3786,7 @@
     "Lost": 15000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-12/Pledge_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20241119",
@@ -3804,7 +3804,7 @@
     "Lost": 447000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-11/vETH_exp.sol",
-    "chain": "Unknown"
+    "chain": "Ethereum"
   },
   {
     "date": "20241111",
@@ -3831,7 +3831,7 @@
     "Lost": 14773.35,
     "lossType": "USD",
     "Contract": "src/test/2024-10/Erc20transfer_exp.sol",
-    "chain": "Unknown"
+    "chain": "Ethereum"
   },
   {
     "date": "20241022",
@@ -3993,7 +3993,7 @@
     "Lost": 5000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-08/YodlRouter_exp.sol",
-    "chain": "Unknown"
+    "chain": "Ethereum"
   },
   {
     "date": "20240813",
@@ -4101,7 +4101,7 @@
     "Lost": 7000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-07/LW_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20240705",
@@ -4146,7 +4146,7 @@
     "Lost": 9.0,
     "lossType": "ETH",
     "Contract": "src/test/2024-06/APEMAGA_exp.sol",
-    "chain": "No info"
+    "chain": "Ethereum"
   },
   {
     "date": "20240618",
@@ -4182,7 +4182,7 @@
     "Lost": 15000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-06/Crb2_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20240611",
@@ -4200,7 +4200,7 @@
     "Lost": 19300000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-06/UwuLend_First_exp.sol",
-    "chain": "Unknown"
+    "chain": "Ethereum"
   },
   {
     "date": "20240610",
@@ -4227,7 +4227,7 @@
     "Lost": 91000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-06/SteamSwap_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20240606",
@@ -4263,7 +4263,7 @@
     "Lost": 200000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-05/Liquiditytokens_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20240531",
@@ -4299,7 +4299,7 @@
     "Lost": 645000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-05/Tradeonorion_exp.sol",
-    "chain": "No info"
+    "chain": "BSC"
   },
   {
     "date": "20240528",
@@ -4371,7 +4371,7 @@
     "Lost": 32000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-05/TGC_exp.sol",
-    "chain": "No info"
+    "chain": "BSC"
   },
   {
     "date": "20240510",
@@ -4506,7 +4506,7 @@
     "Lost": 18.0,
     "lossType": "ETH",
     "Contract": "src/test/2024-04/UnverifiedContr_0x00C409_exp.sol",
-    "chain": "No info"
+    "chain": "Ethereum"
   },
   {
     "date": "20240416",
@@ -4533,7 +4533,7 @@
     "Lost": 14000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-04/GFA_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20240415",
@@ -4551,7 +4551,7 @@
     "Lost": 20000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-04/Hackathon_exp.sol",
-    "chain": "No info"
+    "chain": "BSC"
   },
   {
     "date": "20240412",
@@ -4587,7 +4587,7 @@
     "Lost": 5000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-04/BigBangSwap_exp.sol",
-    "chain": "No info"
+    "chain": "BSC"
   },
   {
     "date": "20240409",
@@ -4623,7 +4623,7 @@
     "Lost": 0.3,
     "lossType": "ETH",
     "Contract": "src/test/2024-04/HoppyFrogERC_exp.sol",
-    "chain": "No info"
+    "chain": "Ethereum"
   },
   {
     "date": "20240401",
@@ -4650,7 +4650,7 @@
     "Lost": 1240.0,
     "lossType": "BNB",
     "Contract": "src/test/2024-03/ETHFIN_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20240329",
@@ -4686,7 +4686,7 @@
     "Lost": 2000000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-03/CGT_exp.sol",
-    "chain": "No info"
+    "chain": "Ethereum"
   },
   {
     "date": "20240321",
@@ -4722,7 +4722,7 @@
     "Lost": 413000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-03/MO_exp.sol",
-    "chain": "Unknown"
+    "chain": "Optimism"
   },
   {
     "date": "20240313",
@@ -4740,7 +4740,7 @@
     "Lost": 5.06,
     "lossType": "ETH",
     "Contract": "src/test/2024-03/BBT_exp.sol",
-    "chain": "No info"
+    "chain": "Ethereum"
   },
   {
     "date": "20240311",
@@ -4749,7 +4749,7 @@
     "Lost": 413000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-03/Binemon_exp.sol",
-    "chain": "No info"
+    "chain": "BSC"
   },
   {
     "date": "20240309",
@@ -4776,7 +4776,7 @@
     "Lost": 57000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-03/GHT_exp.sol",
-    "chain": "No info"
+    "chain": "Ethereum"
   },
   {
     "date": "20240306",
@@ -4830,7 +4830,7 @@
     "Lost": 14.0,
     "lossType": "ETH",
     "Contract": "src/test/2024-02/Zoomer_exp.sol",
-    "chain": "Unknown"
+    "chain": "Ethereum"
   },
   {
     "date": "20240223",
@@ -4857,7 +4857,7 @@
     "Lost": 120000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-02/SwarmMarkets_exp.sol",
-    "chain": "No info"
+    "chain": "Ethereum"
   },
   {
     "date": "20240221",
@@ -4884,7 +4884,7 @@
     "Lost": 2.0,
     "lossType": "ETH",
     "Contract": "src/test/2024-02/EGGX_exp.sol",
-    "chain": "No info"
+    "chain": "Ethereum"
   },
   {
     "date": "20240219",
@@ -4920,7 +4920,7 @@
     "Lost": 2.0,
     "lossType": "BNB",
     "Contract": "src/test/2024-02/Babyloogn_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20240215",
@@ -4938,7 +4938,7 @@
     "Lost": 3.5,
     "lossType": "WBNB",
     "Contract": "src/test/2024-02/MINER_bsc_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20240211",
@@ -4974,7 +4974,7 @@
     "Lost": 67000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-02/BurnsDefi_exp.sol",
-    "chain": "No info"
+    "chain": "BSC"
   },
   {
     "date": "20240202",
@@ -4983,7 +4983,7 @@
     "Lost": 20.0,
     "lossType": "ETH",
     "Contract": "src/test/2024-02/ADC_exp.sol",
-    "chain": "No info"
+    "chain": "Ethereum"
   },
   {
     "date": "20240201",
@@ -4992,7 +4992,7 @@
     "Lost": 88000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-02/AffineDeFi_exp.sol",
-    "chain": "No info"
+    "chain": "Ethereum"
   },
   {
     "date": "20240130",
@@ -5001,7 +5001,7 @@
     "Lost": 51000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-01/XSIJ_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20240130",
@@ -5010,7 +5010,7 @@
     "Lost": 65000000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-01/MIMSpell2_exp.sol",
-    "chain": "No info"
+    "chain": "Ethereum"
   },
   {
     "date": "20240129",
@@ -5019,7 +5019,7 @@
     "Lost": 1000.0,
     "lossType": "DAI",
     "Contract": "src/test/2024-01/PeapodsFinance_exp.sol",
-    "chain": "No info"
+    "chain": "Ethereum"
   },
   {
     "date": "20240128",
@@ -5037,7 +5037,7 @@
     "Lost": 93000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-01/CitadelFinance_exp.sol",
-    "chain": "No info"
+    "chain": "Arbitrum"
   },
   {
     "date": "20240125",
@@ -5046,7 +5046,7 @@
     "Lost": 180000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-01/NBLGAME_exp.sol",
-    "chain": "No info"
+    "chain": "Optimism"
   },
   {
     "date": "20240122",
@@ -5055,7 +5055,7 @@
     "Lost": 319000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-01/DAO_SoulMate_exp.sol",
-    "chain": "No info"
+    "chain": "Ethereum"
   },
   {
     "date": "20240117",
@@ -5064,7 +5064,7 @@
     "Lost": 114000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-01/BmiZapper_exp.sol",
-    "chain": "No info"
+    "chain": "Ethereum"
   },
   {
     "date": "20240115",
@@ -5073,7 +5073,7 @@
     "Lost": 1000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-01/Shell_MEV_0xa898_exp.sol",
-    "chain": "No info"
+    "chain": "BSC"
   },
   {
     "date": "20240112",
@@ -5100,7 +5100,7 @@
     "Lost": 74.0,
     "lossType": "WBNB",
     "Contract": "src/test/2024-01/Freedom_exp.sol",
-    "chain": "Unknown"
+    "chain": "BSC"
   },
   {
     "date": "20240110",
@@ -5109,7 +5109,7 @@
     "Lost": null,
     "lossType": "USD",
     "Contract": "src/test/2024-01/LQDX_alert_exp.sol",
-    "chain": "No info"
+    "chain": "Ethereum"
   },
   {
     "date": "20240104",
@@ -5127,7 +5127,7 @@
     "Lost": 500000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-01/MIC_exp.sol",
-    "chain": "No info"
+    "chain": "BSC"
   },
   {
     "date": "20240102",

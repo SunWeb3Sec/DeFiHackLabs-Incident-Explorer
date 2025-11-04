@@ -2,6 +2,7 @@
 import os
 import re
 import json
+import argparse
 from typing import Dict, Any, List, Optional, Tuple
 
 
@@ -24,10 +25,14 @@ def _norm_date(raw: str) -> Optional[str]:
 
 def _normalize_currency(token: str) -> str:
     t = (token or "").strip()
-    t = t.replace("US$", "USD").replace("$", "USD")
+    if not t:
+        return "USD"
     t = t.upper()
-    if t in {"USD$", "US D", "US", "U S D", ""}:
-        t = "USD"
+    t = re.sub(r"\s+", "", t)
+    t = t.replace("US$", "USD")
+    t = t.replace("$", "")
+    if t in {"US", "USD", ""}:
+        return "USD"
     return t
 
 
@@ -40,25 +45,44 @@ def _parse_loss(text: str) -> Tuple[float, str]:
       - Total Lost: 20 WBNB
       - ### Lost: 15,261.68 BUSD
       - Lost: 1.23M US$ / $ 1.23M
+      - Lost: ~ $88.1K
+      - Lost: 41M USD
+      - Lost: ~ 105.5K USD
+      - Lost: ~2.16 M BUSD
+
+
     """
     patterns = [
-        # Generic lost/loss line with optional Total/~/$, value, optional K/M/B, optional currency token.
-        # Use a lookahead so the number ends only before whitespace, suffix, currency, or end.
+        # Generic lost/loss line; allow optional en/em dash, fullwidth tilde, parens, and space before K/M/B suffix
         re.compile(
-            r"(?:Total\s+)?Lo(?:ss|st)\s*[:\-]\s*~?\s*\$?\s*"
-            r"([0-9][0-9,\.]*)(?=\s|[KMBkmb]|$)\s*([KMBkmb]?)\s*([A-Za-z$][A-Za-z0-9$.+\-]{0,15})?",
+            r"(?:Total\s+)?Lo(?:ss|st)\s*[:\-–—]\s*[~～]?\s*\(?\s*\$?\s*"
+            r"([0-9][0-9,\.]*)"  # numeric amount
+            r"(?:\s*([KMBkmb])(?=\s|$))?"  # suffix only if followed by whitespace/line end
+            r"(?:\s+([A-Za-z$][A-Za-z0-9$.+\-]{1,15}))?",  # optional token/currency
             re.IGNORECASE,
         ),
-        # Heading style lost
+        # Heading style lost (e.g., '### Lost: $777k')
         re.compile(
-            r"^\s*#+\s*Lo(?:ss|st):?\s+([0-9][0-9,\.]*)(?=\s|[KMBkmb]|$)\s*([KMBkmb]?)\s*([A-Za-z$][A-Za-z0-9$.+\-]{1,15})?",
+            r"^\s*#+\s*Lo(?:ss|st):?\s*[~～]?\s*\$?\s*"
+            r"([0-9][0-9,\.]*)"
+            r"(?:\s*([KMBkmb])(?=\s|$))?"
+            r"(?:\s+([A-Za-z$][A-Za-z0-9$.+\-]{1,15}))?",
             re.IGNORECASE | re.MULTILINE,
+        ),
+        # Adjacent token right after number (e.g., 'Lost: 1.7eth')
+        re.compile(
+            r"(?:Total\s+)?Lo(?:ss|st)\s*[:\-–—]\s*[~～]?\s*\(?\s*\$?\s*"
+            r"([0-9][0-9,\.]*)\s*([KMBkmb])?([A-Za-z][A-Za-z0-9$.+\-]{1,15})",
+            re.IGNORECASE,
         ),
     ]
 
+    # Pre-clean: drop standalone '$' before numbers (keep 'US$' etc.)
+    cleaned = re.sub(r"(?<![A-Za-z])\$(?=\s*[0-9])", "", text)
+
     m = None
     for pat in patterns:
-        m = pat.search(text)
+        m = pat.search(cleaned)
         if m:
             break
     if not m:
@@ -120,7 +144,9 @@ def _parse_chain_from_contract(full_contract_fs_path: str) -> str:
     return mapping.get(net, net.capitalize())
 
 
-def _parse_section(section_text: str, folder_year: str, folder_month: str) -> Optional[Dict[str, Any]]:
+def _parse_section(
+    section_text: str, folder_year: str, folder_month: str
+) -> Optional[Dict[str, Any]]:
     # Header with date: e.g., '### 20251007 Name - Type' or '## 2025-10-07 Name - Type'
     pat_hdr = re.compile(
         r"^[#*\-\s]*"
@@ -157,12 +183,16 @@ def _parse_section(section_text: str, folder_year: str, folder_month: str) -> Op
 
     # Extract contract path (prefer markdown link in section)
     contract = None
-    m_mdlink = re.search(r"\[[^\]]+_exp\.sol\]\((src/test/[^\)]+)\)", section_text, re.IGNORECASE)
+    m_mdlink = re.search(
+        r"\[[^\]]+\]\((src/test/[^\)]+\.sol)\)", section_text, re.IGNORECASE
+    )
     if m_mdlink:
         contract = m_mdlink.group(1).lstrip("./")
     else:
         # Look for forge test line (capture any contract path, not only *_exp.sol)
-        m_forge = re.search(r"forge\s+test[^\n]*--contracts\s+(\S+)", section_text, re.IGNORECASE)
+        m_forge = re.search(
+            r"forge\s+test[^\n]*--contracts\s+(\S+)", section_text, re.IGNORECASE
+        )
         if m_forge:
             cand = m_forge.group(1).strip()
             # Stop at first whitespace or flag
@@ -170,7 +200,11 @@ def _parse_section(section_text: str, folder_year: str, folder_month: str) -> Op
             contract = cand.lstrip("./")
     # Or '#### Contract' block
     if not contract:
-        m_block = re.search(r"####\s*Contract[\s\S]{0,80}?\((src/test/[^\)]+)\)", section_text, re.IGNORECASE)
+        m_block = re.search(
+            r"####\s*Contract[\s\S]{0,80}?\((src/test/[^\)]+)\)",
+            section_text,
+            re.IGNORECASE,
+        )
         if m_block:
             contract = m_block.group(1).lstrip("./")
     # Or two-line plain Contract block: a line 'Contract' followed by filename
@@ -249,8 +283,16 @@ def _iter_readmes() -> List[str]:
     return paths
 
 
-def build_incidents() -> List[Dict[str, Any]]:
+def _norm_start_ym(s: Optional[str]) -> Optional[str]:
+    if not s:
+        return None
+    digits = re.sub(r"[^0-9]", "", str(s))
+    return digits[:6] if len(digits) >= 6 else None
+
+
+def build_incidents(start_ym: Optional[str] = None) -> List[Dict[str, Any]]:
     incidents_by_contract: Dict[str, Dict[str, Any]] = {}
+    start_ym = _norm_start_ym(start_ym)
 
     for readme_path in _iter_readmes():
         # Derive folder year/month from path .../YYYY-MM/README.md. For root README-POC.md this will be None.
@@ -271,6 +313,11 @@ def build_incidents() -> List[Dict[str, Any]]:
             inc = _parse_section(sec, folder_y, folder_m)
             if not inc:
                 continue
+            # Skip incidents older than requested start year-month
+            if start_ym:
+                d = inc.get("date") or ""
+                if len(d) >= 6 and d[:6] < start_ym:
+                    continue
 
             # Determine chain from referenced contract
             contract_rel = inc.get("Contract") or ""
@@ -289,10 +336,29 @@ def build_incidents() -> List[Dict[str, Any]]:
 
 def main():
     if not os.path.isdir(SRC_ROOT):
-        raise SystemExit(f"Missing source repo at {SRC_ROOT}. Shallow-clone DeFiHackLabs into ./source.")
+        raise SystemExit(
+            f"Missing source repo at {SRC_ROOT}. Shallow-clone DeFiHackLabs into ./source."
+        )
 
     # Build from READMEs
-    new_incidents = build_incidents()
+    parser = argparse.ArgumentParser(
+        description="Build incidents.json from README sources"
+    )
+    parser.add_argument(
+        "--start-ym",
+        dest="start_ym",
+        help="Include only incidents from this YYYYMM onward (e.g., 202505)",
+        default=None,
+    )
+    parser.add_argument(
+        "--preserve-order",
+        dest="preserve_order",
+        help="Preserve existing incidents.json order and append new items at the end",
+        action="store_true",
+    )
+    args = parser.parse_args()
+
+    new_incidents = build_incidents(start_ym=args.start_ym)
 
     # Load existing incidents.json if present and merge (add-on, not overwrite)
     existing: List[Dict[str, Any]] = []
@@ -303,37 +369,24 @@ def main():
         except Exception:
             existing = []
 
-    merged: Dict[str, Dict[str, Any]] = {}
-
-    # Index existing by Contract
-    for it in existing:
-        key = it.get("Contract")
-        if not key:
-            continue
-        merged[key] = it
-
-    # Merge in new items, preferring new non-empty fields
-    for it in new_incidents:
-        key = it.get("Contract")
-        if not key:
-            continue
-        prev = merged.get(key, {})
-
+    def merge_item(prev: Dict[str, Any], it: Dict[str, Any]) -> Dict[str, Any]:
         def pick(field: str, transform=None):
             nv = it.get(field)
             pv = prev.get(field)
             if transform:
                 nv = transform(nv)
-            # For numbers: prefer new if provided and > 0
             if isinstance(nv, (int, float)):
-                return nv if (nv or nv == 0) and (nv > 0 or isinstance(nv, int) and nv == 0) else pv
-            # For strings: prefer new if non-empty
+                return (
+                    nv
+                    if (nv or nv == 0) and (nv > 0 or isinstance(nv, int) and nv == 0)
+                    else pv
+                )
             if isinstance(nv, str):
-                return nv if nv.strip() else pv
-            # Fallback: prefer new if truthy
+                return nv.strip() if nv and nv.strip() else pv
             return nv if nv is not None else pv
 
-        merged[key] = {
+        key = it.get("Contract") or prev.get("Contract")
+        return {
             "date": pick("date"),
             "name": pick("name"),
             "type": pick("type"),
@@ -343,9 +396,44 @@ def main():
             "chain": pick("chain"),
         }
 
-    # Materialize and sort
-    out_list = list(merged.values())
-    out_list.sort(key=lambda x: x.get("date", "00000000"), reverse=True)
+    if args.preserve_order:
+        # Update in place and append new items; do not reorder existing
+        existing_by_contract: Dict[str, Dict[str, Any]] = {}
+        for it in existing:
+            k = it.get("Contract")
+            if k:
+                existing_by_contract[k] = it
+
+        new_to_append: List[Dict[str, Any]] = []
+        for it in new_incidents:
+            key = it.get("Contract")
+            if not key:
+                continue
+            if key in existing_by_contract:
+                updated = merge_item(existing_by_contract[key], it)
+                # mutate the original dict to keep reference in existing list
+                existing_by_contract[key].clear()
+                existing_by_contract[key].update(updated)
+            else:
+                new_to_append.append(it)
+
+        out_list = existing + new_to_append
+    else:
+        merged: Dict[str, Dict[str, Any]] = {}
+        for it in existing:
+            key = it.get("Contract")
+            if not key:
+                continue
+            merged[key] = it
+        for it in new_incidents:
+            key = it.get("Contract")
+            if not key:
+                continue
+            prev = merged.get(key, {})
+            merged[key] = merge_item(prev, it)
+
+        out_list = list(merged.values())
+        out_list.sort(key=lambda x: x.get("date", "00000000"), reverse=True)
 
     with open(OUT_PATH, "w", encoding="utf-8") as f:
         json.dump(out_list, f, indent=2, ensure_ascii=False)
