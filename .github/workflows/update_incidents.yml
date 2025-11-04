@@ -63,4 +63,4 @@ jobs:
 
             - Updates `incidents.json`
             - Source: [SunWeb3Sec/DeFiHackLabs](https://github.com/SunWeb3Sec/DeFiHackLabs)
-          labels: [auto-update]
+          labels: auto-update
