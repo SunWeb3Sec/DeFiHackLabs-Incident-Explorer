@@ -5596,5 +5596,23 @@
     "lossType": "USD",
     "Contract": "src/test/2025-05/Nalakuvara_LotteryTicket50_exp.sol",
     "chain": "Base"
+  },
+  {
+    "date": "20260109",
+    "name": "Truebit",
+    "type": "OverFlow",
+    "Lost": 8540.0,
+    "lossType": "USD",
+    "Contract": "src/test/2026-01/Truebit_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20250918",
+    "name": "NGP",
+    "type": "Price Manipulation",
+    "Lost": 2000000.0,
+    "lossType": "USD",
+    "Contract": "src/test/2025-09/NGP_exp.sol",
+    "chain": "BSC"
   }
 ]
