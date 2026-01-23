@@ -5596,5 +5596,41 @@
     "lossType": "USD",
     "Contract": "src/test/2025-05/Nalakuvara_LotteryTicket50_exp.sol",
     "chain": "Base"
+  },
+  {
+    "date": "20260112",
+    "name": "MTToken",
+    "type": "Incorrect Fee Logic",
+    "Lost": 37000.0,
+    "lossType": "USD",
+    "Contract": "src/test/2026-01/MTToken_exp.sol",
+    "chain": "Unknown"
+  },
+  {
+    "date": "20260110",
+    "name": "FutureSwap",
+    "type": "Unit Mismatch",
+    "Lost": 433000.0,
+    "lossType": "USD",
+    "Contract": "src/test/2026-01/futureswap_exp.sol",
+    "chain": "Unknown"
+  },
+  {
+    "date": "20260109",
+    "name": "Truebit",
+    "type": "OverFlow",
+    "Lost": 8540.0,
+    "lossType": "USD",
+    "Contract": "src/test/2026-01/Truebit_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260101",
+    "name": "PRXVT",
+    "type": "Bussiness Logic Flaw",
+    "Lost": 32.8,
+    "lossType": "ETH",
+    "Contract": "src/test/2026-01/PRXVT_exp.sol",
+    "chain": "Base"
   }
 ]
