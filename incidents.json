@@ -5613,7 +5613,7 @@
     "Lost": 433000.0,
     "lossType": "USD",
     "Contract": "src/test/2026-01/futureswap_exp.sol",
-    "chain": "Unknown"
+    "chain": "Arbitrum"
   },
   {
     "date": "20260109",
@@ -5631,6 +5631,15 @@
     "Lost": 32.8,
     "lossType": "ETH",
     "Contract": "src/test/2026-01/PRXVT_exp.sol",
+    "chain": "Base"
+  },
+  {
+    "date": "20260120",
+    "name": "SynapLogic",
+    "type": "Business Logic Flaw",
+    "Lost": 27.6,
+    "lossType": "ETH",
+    "Contract": "src/test/2026-01/SynapLogic_exp.sol",
     "chain": "Base"
   }
 ]
