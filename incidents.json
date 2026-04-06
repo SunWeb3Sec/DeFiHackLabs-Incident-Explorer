@@ -5641,5 +5641,50 @@
     "lossType": "ETH",
     "Contract": "src/test/2026-01/SynapLogic_exp.sol",
     "chain": "Base"
+  },
+  {
+    "date": "20260315",
+    "name": "Venus THE",
+    "type": "BorrowBehalf + Donation Attack",
+    "Lost": 913858.2633605214,
+    "lossType": "CAKE",
+    "Contract": "src/test/2026-03/Venus_THE_exp.sol",
+    "chain": "Unknown"
+  },
+  {
+    "date": "20260310",
+    "name": "AlkemiEarn",
+    "type": "Business Logic",
+    "Lost": 43.45,
+    "lossType": "ETH",
+    "Contract": "src/test/2026-03/AlkemiEarn_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260302",
+    "name": "Curve LlamaLend",
+    "type": "Share price manipulation",
+    "Lost": 240000.0,
+    "lossType": "USD",
+    "Contract": "src/test/2026-03/Curve_LlamaLend_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260222",
+    "name": "LAXO Token",
+    "type": "Incorrect Burn Logic",
+    "Lost": 137000.0,
+    "lossType": "USD",
+    "Contract": "src/test/2026-02/LAXO_Token_exp.sol",
+    "chain": "BSC"
+  },
+  {
+    "date": "20260215",
+    "name": "Moonwell",
+    "type": "Faulty Oracle",
+    "Lost": 1780000.0,
+    "lossType": "USD",
+    "Contract": "src/test/2026-02/Moonwell_exp.sol",
+    "chain": "Base"
   }
 ]
