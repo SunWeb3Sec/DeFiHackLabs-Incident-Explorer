@@ -5643,6 +5643,24 @@
     "chain": "Base"
   },
   {
+    "date": "20260414",
+    "name": "MONA LisaVault",
+    "type": "reward-farming / BurnAddress accounting exploit!",
+    "Lost": 60950.0,
+    "lossType": "USDT",
+    "Contract": "src/test/2026-04/MONA_LisaVault_exp.sol",
+    "chain": "BSC"
+  },
+  {
+    "date": "20260414",
+    "name": "Saturn Protocol",
+    "type": "Vulnerability Disclosure",
+    "Lost": 0.0,
+    "lossType": "USD",
+    "Contract": "src/test/2026-04/SaturnProtocol_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20260327",
     "name": "EST Token",
     "type": "Incorrect Token Burn Mechanism",
