@@ -5713,5 +5713,284 @@
     "lossType": "USD",
     "Contract": "src/test/2026-02/Moonwell_exp.sol",
     "chain": "Base"
+  },
+  {
+    "date": "20260617",
+    "name": "WHALE",
+    "type": "Transfer Accounting Reserve Desync",
+    "Lost": 3460.41,
+    "lossType": "USDT",
+    "Contract": "src/test/2026-06/WHALE_exp.sol",
+    "chain": "BSC"
+  },
+  {
+    "date": "20260617",
+    "name": "LBP",
+    "type": "LBP balanceOf reward accounting",
+    "Lost": 610.56,
+    "lossType": "BNB",
+    "Contract": "src/test/2026-06/LBP_exp.sol",
+    "chain": "BSC"
+  },
+  {
+    "date": "20260616",
+    "name": "DIP",
+    "type": "Fee-on-Transfer Reserve Manipulation",
+    "Lost": 111097.59,
+    "lossType": "USDC",
+    "Contract": "src/test/2026-06/DIP_exp.sol",
+    "chain": "BSC"
+  },
+  {
+    "date": "20260615",
+    "name": "Thetanuts",
+    "type": "Index vault component-share accounting flaw",
+    "Lost": 105471.5,
+    "lossType": "USDC",
+    "Contract": "src/test/2026-06/Thetanuts_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260614",
+    "name": "Aztec Connect",
+    "type": "numRealTxs Proof/Settlement Mismatch (permissionless RollupProcessorV3)",
+    "Lost": 2190000.0,
+    "lossType": "USD",
+    "Contract": "src/test/2026-06/AztecConnect_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260609",
+    "name": "TOPBPool",
+    "type": "Governance-controlled token mint and Balancer pool drain",
+    "Lost": 944.2,
+    "lossType": "WETH",
+    "Contract": "src/test/2026-06/TOPBPool_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260609",
+    "name": "NovaBox",
+    "type": "Constructor Dividend Checkpoint Bypass",
+    "Lost": 56.73,
+    "lossType": "ETH",
+    "Contract": "src/test/2026-06/NovaBox_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260607",
+    "name": "AmbientCrocSwapDex",
+    "type": "Native surplus accounting flaw",
+    "Lost": 67.85,
+    "lossType": "ETH",
+    "Contract": "src/test/2026-06/AmbientCrocSwapDex_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260606",
+    "name": "BOSS",
+    "type": "BOSS helper mint/burn and transfer-tax pool skew",
+    "Lost": 10207.54,
+    "lossType": "USDT",
+    "Contract": "src/test/2026-06/BOSS_exp.sol",
+    "chain": "BSC"
+  },
+  {
+    "date": "20260605",
+    "name": "DTXT",
+    "type": "Liquidity Misclassification Fee Bypass",
+    "Lost": 35041.11,
+    "lossType": "USDT",
+    "Contract": "src/test/2026-06/DTXT_exp.sol",
+    "chain": "BSC"
+  },
+  {
+    "date": "20260605",
+    "name": "AISOTHPresale",
+    "type": "Fixed-price presale arbitrage",
+    "Lost": 30314.76,
+    "lossType": "USDT",
+    "Contract": "src/test/2026-06/AISOTHPresale_exp.sol",
+    "chain": "BSC"
+  },
+  {
+    "date": "20260604",
+    "name": "BYToken",
+    "type": "Permissionless triggerAutoBurn Reserve Manipulation",
+    "Lost": 87402.0,
+    "lossType": "USD",
+    "Contract": "src/test/2026-06/BYToken_exp.sol",
+    "chain": "BSC"
+  },
+  {
+    "date": "20260530",
+    "name": "AROS",
+    "type": "Signature Replay",
+    "Lost": 295000.0,
+    "lossType": "USD",
+    "Contract": "src/test/2026-05/AROS_exp.sol",
+    "chain": "Unknown"
+  },
+  {
+    "date": "20260529",
+    "name": "YSDAO",
+    "type": "Price Manipulation and Tax Bypass",
+    "Lost": 19490.0,
+    "lossType": "USDT",
+    "Contract": "src/test/2026-05/YSDAO_exp.sol",
+    "chain": "BSC"
+  },
+  {
+    "date": "20260528",
+    "name": "LegendaryMoneyMonNft",
+    "type": "ecrecover address(0) Signature Bypass",
+    "Lost": 85500.0,
+    "lossType": "USD",
+    "Contract": "src/test/2026-05/LegendaryMoneyMonNft_exp.sol",
+    "chain": "BSC"
+  },
+  {
+    "date": "20260528",
+    "name": "DxSale",
+    "type": "Ownership Override Attack",
+    "Lost": 7300000.0,
+    "lossType": "USD",
+    "Contract": "src/test/2026-05/DxSale_exp.sol",
+    "chain": "BSC"
+  },
+  {
+    "date": "20260527",
+    "name": "Joe Agent",
+    "type": "Reentrancy in removeLiquidityViaContract",
+    "Lost": 45000.0,
+    "lossType": "USD",
+    "Contract": "src/test/2026-05/JoeAgent_exp.sol",
+    "chain": "BSC"
+  },
+  {
+    "date": "20260526",
+    "name": "SKP Token",
+    "type": "Owner Backdoor LP Burn + Price Manipulation",
+    "Lost": 212000.0,
+    "lossType": "USD",
+    "Contract": "src/test/2026-05/SKP_exp.sol",
+    "chain": "BSC"
+  },
+  {
+    "date": "20260525",
+    "name": "New Market Trading",
+    "type": "SquidRouterModule Missing Caller Check",
+    "Lost": 3980000.0,
+    "lossType": "USD",
+    "Contract": "src/test/2026-05/NewMarketTrading_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260525",
+    "name": "WUSD.fi",
+    "type": "_englove Sybil Incentive Abuse",
+    "Lost": 200000.0,
+    "lossType": "USD",
+    "Contract": "src/test/2026-05/WUSD_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260522",
+    "name": "FractalProtocol",
+    "type": "Business Logic Flaw",
+    "Lost": 13700.0,
+    "lossType": "USD",
+    "Contract": "src/test/2026-05/FractalProtocol_exp.sol",
+    "chain": "Arbitrum"
+  },
+  {
+    "date": "20260521",
+    "name": "MureDistribution",
+    "type": "Signature Verification Bypass",
+    "Lost": 5.45,
+    "lossType": "ETH",
+    "Contract": "src/test/2026-05/MureDistribution_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260520",
+    "name": "MAPProtocol",
+    "type": "Arbitrary Mint",
+    "Lost": 180000.0,
+    "lossType": "USD",
+    "Contract": "src/test/2026-05/MAPProtocol_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260517",
+    "name": "VerusBridge",
+    "type": "Insufficient Validation",
+    "Lost": 11580000.0,
+    "lossType": "USD",
+    "Contract": "src/test/2026-05/VerusBridge_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260517",
+    "name": "SEAToken",
+    "type": "Business Logic Flaw",
+    "Lost": 110000.0,
+    "lossType": "USD",
+    "Contract": "src/test/2026-05/SEAToken_exp.sol",
+    "chain": "Arbitrum"
+  },
+  {
+    "date": "20260515",
+    "name": "AdsharesBridge",
+    "type": "Insufficient Validation",
+    "Lost": 628000.0,
+    "lossType": "USD",
+    "Contract": "src/test/2026-05/AdsharesBridge_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260512",
+    "name": "SQTokenStaking",
+    "type": "Access Control",
+    "Lost": 346100.0,
+    "lossType": "USD",
+    "Contract": "src/test/2026-05/SQTokenStaking_exp.sol",
+    "chain": "BSC"
+  },
+  {
+    "date": "20260511",
+    "name": "INKFinance",
+    "type": "Business Logic Flaw",
+    "Lost": 140000.0,
+    "lossType": "USD",
+    "Contract": "src/test/2026-05/INKFinance_exp.sol",
+    "chain": "Polygon"
+  },
+  {
+    "date": "20260510",
+    "name": "Renegade",
+    "type": "Uninitialized Proxy",
+    "Lost": 209000.0,
+    "lossType": "USD",
+    "Contract": "src/test/2026-05/Renegade_exp.sol",
+    "chain": "Arbitrum"
+  },
+  {
+    "date": "20260507",
+    "name": "TrustedVolumes",
+    "type": "Signature Replay",
+    "Lost": 5870000.0,
+    "lossType": "USD",
+    "Contract": "src/test/2026-05/TrustedVolumes_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260505",
+    "name": "Ekubo",
+    "type": "Business Logic Flaw",
+    "Lost": 1400000.0,
+    "lossType": "USD",
+    "Contract": "src/test/2026-05/Ekubo_exp.sol",
+    "chain": "Ethereum"
   }
 ]
