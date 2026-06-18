@@ -802,10 +802,15 @@ document.addEventListener('DOMContentLoaded', async function () {
             console.warn('Could not find total incidents stat element');
         }
 
-        // Calculate total loss for filtered data
+        // Calculate total loss for filtered data.
+        // Only sum USD-pegged currencies (USD + stablecoins). Native-token amounts
+        // (ETH/BNB/BTC...) are NOT price-converted here — fixed-rate conversion both
+        // overstates value and amplifies any mislabeled-unit data errors.
+        const USD_LIKE = ['USD', 'BUSD', 'USDT', 'USDC', 'DAI', 'TUSD', 'FDUSD', 'USDD', 'FRAX', 'USDE', 'SUSD'];
         let totalLoss = 0;
         filteredIncidents.forEach(incident => {
-            if (incident.Lost && !isNaN(incident.Lost)) {
+            const lt = (incident.lossType || 'USD').toUpperCase();
+            if (incident.Lost && !isNaN(incident.Lost) && USD_LIKE.includes(lt)) {
                 totalLoss += convertLossToDisplayCurrency(parseFloat(incident.Lost), incident.lossType || 'USD');
             }
         });
