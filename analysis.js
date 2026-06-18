@@ -33,7 +33,7 @@ async function loadAndProcessData() {
             const rawIncidents = await loadIncidents();
 
             // Load root cause data using fetch
-            const response = await fetch('./rootcause_data.json');
+            const response = await fetch('./rootcause_data.json?v=20260618');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -63,9 +63,15 @@ async function loadAndProcessData() {
                 }
             }
 
+            // USD-pegged stablecoins are counted 1:1 toward the USD total.
+            const USD_LIKE = ['USD', 'BUSD', 'USDT', 'USDC', 'DAI', 'TUSD', 'FDUSD', 'USDD', 'FRAX', 'USDE', 'SUSD'];
+            function isUsdLike(lossType) {
+                return !!lossType && USD_LIKE.includes(lossType.toUpperCase());
+            }
+
             function calculateTotalLossUSD(incidentData) {
                  return incidentData.reduce((sum, incident) => {
-                    if (incident.lossType && incident.lossType.toUpperCase() === 'USD' && typeof incident.Lost === 'number' && !isNaN(incident.Lost)) {
+                    if (isUsdLike(incident.lossType) && typeof incident.Lost === 'number' && !isNaN(incident.Lost)) {
                         return sum + incident.Lost;
                     }
                     return sum;
@@ -75,7 +81,7 @@ async function loadAndProcessData() {
             function aggregateLossByYearUSD(incidentData) {
                 const yearlyLosses = {};
                 for (const incident of incidentData) {
-                    if (incident.dateObj && incident.lossType && incident.lossType.toUpperCase() === 'USD' && typeof incident.Lost === 'number' && !isNaN(incident.Lost)) {
+                    if (incident.dateObj && isUsdLike(incident.lossType) && typeof incident.Lost === 'number' && !isNaN(incident.Lost)) {
                          const year = incident.dateObj.getUTCFullYear().toString();
                          yearlyLosses[year] = (yearlyLosses[year] || 0) + incident.Lost;
                     }
@@ -88,7 +94,7 @@ async function loadAndProcessData() {
             function aggregateLossByTypeUSD(incidentData) {
                 const typeLosses = {};
                 for (const incident of incidentData) {
-                    if (incident.type && incident.lossType && incident.lossType.toUpperCase() === 'USD' && typeof incident.Lost === 'number' && !isNaN(incident.Lost)) {
+                    if (incident.type && isUsdLike(incident.lossType) && typeof incident.Lost === 'number' && !isNaN(incident.Lost)) {
                         typeLosses[incident.type] = (typeLosses[incident.type] || 0) + incident.Lost;
                     }
                 }

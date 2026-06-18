@@ -12,7 +12,7 @@ async function loadIncidents() {
 
     incidentsLoadPromise = new Promise(async (resolve, reject) => {
         try {
-            const response = await fetch('./incidents.json');
+            const response = await fetch('./incidents.json?v=20260618');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
