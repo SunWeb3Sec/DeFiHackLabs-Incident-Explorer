@@ -5715,6 +5715,105 @@
     "chain": "Base"
   },
   {
+    "date": "20260617",
+    "name": "WHALE",
+    "type": "Transfer Accounting Reserve Desync",
+    "Lost": 3460.41,
+    "lossType": "USDT",
+    "Contract": "src/test/2026-06/WHALE_exp.sol",
+    "chain": "BSC"
+  },
+  {
+    "date": "20260617",
+    "name": "LBP",
+    "type": "LBP balanceOf reward accounting",
+    "Lost": 610.56,
+    "lossType": "BNB",
+    "Contract": "src/test/2026-06/LBP_exp.sol",
+    "chain": "BSC"
+  },
+  {
+    "date": "20260616",
+    "name": "DIP",
+    "type": "Fee-on-Transfer Reserve Manipulation",
+    "Lost": 111097.59,
+    "lossType": "USDC",
+    "Contract": "src/test/2026-06/DIP_exp.sol",
+    "chain": "BSC"
+  },
+  {
+    "date": "20260615",
+    "name": "Thetanuts",
+    "type": "Index vault component-share accounting flaw",
+    "Lost": 105471.5,
+    "lossType": "USDC",
+    "Contract": "src/test/2026-06/Thetanuts_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260614",
+    "name": "Aztec Connect",
+    "type": "numRealTxs Proof/Settlement Mismatch (permissionless RollupProcessorV3)",
+    "Lost": 2190000.0,
+    "lossType": "USD",
+    "Contract": "src/test/2026-06/AztecConnect_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260609",
+    "name": "TOPBPool",
+    "type": "Governance-controlled token mint and Balancer pool drain",
+    "Lost": 944.2,
+    "lossType": "WETH",
+    "Contract": "src/test/2026-06/TOPBPool_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260609",
+    "name": "NovaBox",
+    "type": "Constructor Dividend Checkpoint Bypass",
+    "Lost": 56.73,
+    "lossType": "ETH",
+    "Contract": "src/test/2026-06/NovaBox_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260607",
+    "name": "AmbientCrocSwapDex",
+    "type": "Native surplus accounting flaw",
+    "Lost": 67.85,
+    "lossType": "ETH",
+    "Contract": "src/test/2026-06/AmbientCrocSwapDex_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260606",
+    "name": "BOSS",
+    "type": "BOSS helper mint/burn and transfer-tax pool skew",
+    "Lost": 10207.54,
+    "lossType": "USDT",
+    "Contract": "src/test/2026-06/BOSS_exp.sol",
+    "chain": "BSC"
+  },
+  {
+    "date": "20260605",
+    "name": "DTXT",
+    "type": "Liquidity Misclassification Fee Bypass",
+    "Lost": 35041.11,
+    "lossType": "USDT",
+    "Contract": "src/test/2026-06/DTXT_exp.sol",
+    "chain": "BSC"
+  },
+  {
+    "date": "20260605",
+    "name": "AISOTHPresale",
+    "type": "Fixed-price presale arbitrage",
+    "Lost": 30314.76,
+    "lossType": "USDT",
+    "Contract": "src/test/2026-06/AISOTHPresale_exp.sol",
+    "chain": "BSC"
+  },
+  {
     "date": "20260604",
     "name": "BYToken",
     "type": "Permissionless triggerAutoBurn Reserve Manipulation",
