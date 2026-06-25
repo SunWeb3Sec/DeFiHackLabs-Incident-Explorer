@@ -272,6 +272,13 @@ document.addEventListener('DOMContentLoaded', async function () {
                 modal.style.display = 'none';
             }
         });
+
+        // Close the modal when the user presses the Escape key
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && modal && modal.style.display === 'block') {
+                modal.style.display = 'none';
+            }
+        });
     }
 
     // Function to set up the analytics section

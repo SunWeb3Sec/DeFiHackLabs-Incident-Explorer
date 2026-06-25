@@ -32,14 +32,25 @@ jobs:
           role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
           aws-region: ap-northeast-1
 
-      - name: Sync static site to S3
+      # Pass 1: images change rarely and are large -> cache them for a long time
+      - name: Sync images (long cache)
+        run: |
+          aws s3 sync ./images s3://defihacklabs.io-web/explorer/images/ \
+            --delete \
+            --cache-control "public, max-age=31536000, immutable"
+
+      # Pass 2: HTML/JS/CSS/JSON -> always revalidate so data updates show
+      # immediately (this is what keeps the incident count from going stale)
+      - name: Sync site files (always revalidate)
         run: |
           aws s3 sync . s3://defihacklabs.io-web/explorer/ \
             --delete \
+            --cache-control "no-cache" \
             --exclude ".git/*" \
             --exclude ".github/*" \
             --exclude "scripts/*" \
             --exclude "*.DS_Store" \
             --exclude "README.md" \
             --exclude ".gitignore" \
-            --exclude "debug.html"
+            --exclude "debug.html" \
+            --exclude "images/*"
