@@ -1,0 +1,45 @@
+name: Deploy to S3 (on PR merge)
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+  workflow_dispatch:        # 允許手動觸發重新部署
+
+# 避免多個部署同時跑
+concurrency:
+  group: deploy-s3
+  cancel-in-progress: false
+
+permissions:
+  id-token: write           # OIDC 需要
+  contents: read
+
+jobs:
+  deploy:
+    # 只有「PR 真的被合併」或「手動觸發」才部署
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ap-northeast-1
+
+      - name: Sync static site to S3
+        run: |
+          aws s3 sync . s3://defihacklabs.io-web/explorer/ \
+            --delete \
+            --exclude ".git/*" \
+            --exclude ".github/*" \
+            --exclude "scripts/*" \
+            --exclude "*.DS_Store" \
+            --exclude "README.md" \
+            --exclude ".gitignore" \
+            --exclude "debug.html"
