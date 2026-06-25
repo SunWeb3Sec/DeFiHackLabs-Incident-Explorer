@@ -5992,5 +5992,23 @@
     "lossType": "USD",
     "Contract": "src/test/2026-05/Ekubo_exp.sol",
     "chain": "Ethereum"
+  },
+  {
+    "date": "20260620",
+    "name": "OLPC",
+    "type": "OLPC pair reserve manipulation",
+    "Lost": 1115903.66,
+    "lossType": "USDT",
+    "Contract": "src/test/2026-06/OLPC_exp.sol",
+    "chain": "BSC"
+  },
+  {
+    "date": "20260618",
+    "name": "JB",
+    "type": "JB helper repeated cycle drains JB/USDT pair",
+    "Lost": 49958.06,
+    "lossType": "USDT",
+    "Contract": "src/test/2026-06/JB_exp.sol",
+    "chain": "BSC"
   }
 ]
