@@ -135,12 +135,39 @@
     "chain": "Ethereum"
   },
   {
+    "date": "20260609",
+    "name": "Raydium V3",
+    "type": "Lack of Input Validation",
+    "Lost": 1340000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Solana"
+  },
+  {
+    "date": "20260609",
+    "name": "TOP Token",
+    "type": "Governance Attack",
+    "Lost": 1590000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20260607",
     "name": "AmbientCrocSwapDex",
     "type": "Native surplus accounting flaw",
     "Lost": 67.85,
     "lossType": "ETH",
     "Contract": "src/test/2026-06/AmbientCrocSwapDex_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260607",
+    "name": "Flooring Protocol",
+    "type": "Integer Overflow",
+    "Lost": 900000.0,
+    "lossType": "USD",
+    "Contract": "",
     "chain": "Ethereum"
   },
   {
@@ -196,6 +223,15 @@
     "lossType": "USDT",
     "Contract": "src/test/2026-05/YSDAO_exp.sol",
     "chain": "BSC"
+  },
+  {
+    "date": "20260529",
+    "name": "Alephium",
+    "type": "Signature",
+    "Lost": 305000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
   },
   {
     "date": "20260528",
@@ -261,6 +297,15 @@
     "chain": "Ethereum"
   },
   {
+    "date": "20260523",
+    "name": "StablR",
+    "type": "Compromised Private Key",
+    "Lost": 12800000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20260522",
     "name": "FractalProtocol",
     "type": "Business Logic Flaw",
@@ -304,6 +349,15 @@
     "lossType": "USD",
     "Contract": "src/test/2026-05/TesseraSwap_exp.sol",
     "chain": "Base"
+  },
+  {
+    "date": "20260518",
+    "name": "EchoProtocol",
+    "type": "Compromised Private Key",
+    "Lost": 76700000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "143"
   },
   {
     "date": "20260517",
@@ -378,6 +432,15 @@
     "chain": "Ethereum"
   },
   {
+    "date": "20260507",
+    "name": "Trusted Volumes",
+    "type": "Business Logic Flaw",
+    "Lost": 5870000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20260505",
     "name": "Ekubo",
     "type": "Business Logic Flaw",
@@ -394,6 +457,24 @@
     "lossType": "USDC",
     "Contract": "src/test/2026-05/SharwaMarginTrading_exp.sol",
     "chain": "Arbitrum"
+  },
+  {
+    "date": "20260429",
+    "name": "Wasabi Protocol",
+    "type": "Compromised Private Key",
+    "Lost": 5700000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "80094"
+  },
+  {
+    "date": "20260429",
+    "name": "Aftermath Finance",
+    "type": "Business Logic Flaw",
+    "Lost": 1140000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "5"
   },
   {
     "date": "20260428",
@@ -414,12 +495,48 @@
     "chain": "BSC"
   },
   {
+    "date": "20260428",
+    "name": "Ycdeal3",
+    "type": "Access Control",
+    "Lost": 398000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20260427",
     "name": "Unverified_a152",
     "type": "AllowanceTarget approval drain",
     "Lost": 229000.0,
     "lossType": "USDT",
     "Contract": "src/test/2026-04/unverified_a152_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260427",
+    "name": "QNT",
+    "type": "Access Control",
+    "Lost": 125000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260427",
+    "name": "JetonRouter",
+    "type": "Business Logic Flaw",
+    "Lost": 229000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260426",
+    "name": "ZetaChain",
+    "type": "Access Control",
+    "Lost": 334000.0,
+    "lossType": "USD",
+    "Contract": "",
     "chain": "Ethereum"
   },
   {
@@ -477,6 +594,15 @@
     "chain": "Avalanche"
   },
   {
+    "date": "20260418",
+    "name": "KelpDAO",
+    "type": "Compromised Private Key",
+    "Lost": 290000000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20260415",
     "name": "XLootStaking",
     "type": "Duplicate xLOOT Redemption",
@@ -504,6 +630,24 @@
     "chain": "Ethereum"
   },
   {
+    "date": "20260413",
+    "name": "Dango",
+    "type": "Business Logic Flaw",
+    "Lost": 410000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260413",
+    "name": "Hyperbridge",
+    "type": "Business Logic Flaw",
+    "Lost": 242000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20260412",
     "name": "SubQuerySettings",
     "type": "Settings access control",
@@ -522,6 +666,15 @@
     "chain": "BSC"
   },
   {
+    "date": "20260407",
+    "name": "HB Token",
+    "type": "Business Logic Flaw",
+    "Lost": 193914.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "BSC"
+  },
+  {
     "date": "20260405",
     "name": "PerpPair",
     "type": "Virtual AMM Manipulation",
@@ -529,6 +682,15 @@
     "lossType": "USDC",
     "Contract": "src/test/2026-04/PerpPair_exp.sol",
     "chain": "Linea"
+  },
+  {
+    "date": "20260405",
+    "name": "Denaria",
+    "type": "Business Logic Flaw",
+    "Lost": 165600.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "59144"
   },
   {
     "date": "20260331",
@@ -585,6 +747,33 @@
     "chain": "BSC"
   },
   {
+    "date": "20260323",
+    "name": "BCE Token",
+    "type": "Business Logic Flaw",
+    "Lost": 679000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "BSC"
+  },
+  {
+    "date": "20260322",
+    "name": "Cyrus Finance",
+    "type": "Business Logic Flaw",
+    "Lost": 512000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "BSC"
+  },
+  {
+    "date": "20260321",
+    "name": "Resolv",
+    "type": "Compromised Private Key",
+    "Lost": 80000000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20260319",
     "name": "ATMBlindBox",
     "type": "Weak Randomness / Predictable RNG",
@@ -630,12 +819,39 @@
     "chain": "Ethereum"
   },
   {
+    "date": "20260311",
+    "name": "AM Token",
+    "type": "Business Logic Flaw",
+    "Lost": 131000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "BSC"
+  },
+  {
+    "date": "20260311",
+    "name": "DBXen",
+    "type": "Business Logic Flaw",
+    "Lost": 149000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20260310",
     "name": "AlkemiEarn",
     "type": "Business Logic",
     "Lost": 43.45,
     "lossType": "ETH",
     "Contract": "src/test/2026-03/AlkemiEarn_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260309",
+    "name": "MT Token",
+    "type": "Business Logic Flaw",
+    "Lost": 242000.0,
+    "lossType": "USD",
+    "Contract": "",
     "chain": "Ethereum"
   },
   {
@@ -648,6 +864,24 @@
     "chain": "Ethereum"
   },
   {
+    "date": "20260226",
+    "name": "FOOMCASH",
+    "type": "Business Logic Flaw",
+    "Lost": 2260000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Base"
+  },
+  {
+    "date": "20260226",
+    "name": "Ploutos",
+    "type": "Misconfiguration",
+    "Lost": 390000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20260222",
     "name": "LAXO Token",
     "type": "Incorrect Burn Logic",
@@ -655,6 +889,15 @@
     "lossType": "USD",
     "Contract": "src/test/2026-02/LAXO_Token_exp.sol",
     "chain": "BSC"
+  },
+  {
+    "date": "20260221",
+    "name": "IoTeX",
+    "type": "Compromised Private Key",
+    "Lost": 4400000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
   },
   {
     "date": "20260216",
@@ -675,6 +918,69 @@
     "chain": "Base"
   },
   {
+    "date": "20260214",
+    "name": "SOF Token",
+    "type": "Business Logic Flaw",
+    "Lost": 225000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "BSC"
+  },
+  {
+    "date": "20260131",
+    "name": "Step Finance",
+    "type": "KeyCompromised",
+    "Lost": 261854.0,
+    "lossType": "SOL",
+    "Contract": "",
+    "chain": "Solana"
+  },
+  {
+    "date": "20260130",
+    "name": "Gyro.finance",
+    "type": "Arbitrary Call",
+    "Lost": 700000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Arbitrum"
+  },
+  {
+    "date": "20260128",
+    "name": "Holdstation",
+    "type": "Compromised Private Key",
+    "Lost": 100000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "80094"
+  },
+  {
+    "date": "20260125",
+    "name": "SwapNet",
+    "type": "Arbitrary Call",
+    "Lost": 13410000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Arbitrum"
+  },
+  {
+    "date": "20260125",
+    "name": "Aperture Finance",
+    "type": "Lack of Input Validation",
+    "Lost": 3670000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260121",
+    "name": "Saga",
+    "type": "Unknown",
+    "Lost": 7000000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "5464"
+  },
+  {
     "date": "20260120",
     "name": "SynapLogic",
     "type": "Business Logic Flaw",
@@ -682,6 +988,15 @@
     "lossType": "ETH",
     "Contract": "src/test/2026-01/SynapLogic_exp.sol",
     "chain": "Base"
+  },
+  {
+    "date": "20260120",
+    "name": "Makina",
+    "type": "Price Manipulation",
+    "Lost": 5000000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
   },
   {
     "date": "20260112",
@@ -720,6 +1035,42 @@
     "chain": "Base"
   },
   {
+    "date": "20251224",
+    "name": "Trust Wallet",
+    "type": "Unknown",
+    "Lost": 8500000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20251212",
+    "name": "Ribbon Finance",
+    "type": "Access Control",
+    "Lost": 2700000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20251211",
+    "name": "SixSeven & Prism Tokens",
+    "type": "Business Logic Flaw",
+    "Lost": 193000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "BSC"
+  },
+  {
+    "date": "20251202",
+    "name": "Goldfinch",
+    "type": "Unknown",
+    "Lost": 350000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20251201",
     "name": "yETH",
     "type": "Unsafe Math",
@@ -747,6 +1098,15 @@
     "chain": "Base"
   },
   {
+    "date": "20251104",
+    "name": "Dexodus Finance",
+    "type": "Price Manipulation",
+    "Lost": 144000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Base"
+  },
+  {
     "date": "20251103",
     "name": "BalancerV2",
     "type": "Precision Loss",
@@ -756,6 +1116,15 @@
     "chain": "Ethereum"
   },
   {
+    "date": "20251030",
+    "name": "Garden",
+    "type": "Compromised Private Key",
+    "Lost": 11000000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Arbitrum"
+  },
+  {
     "date": "20251020",
     "name": "SharwaFinance",
     "type": "Post Insolvency Check",
@@ -763,6 +1132,24 @@
     "lossType": "USD",
     "Contract": "src/test/2025-10/SharwaFinance_exp.sol",
     "chain": "Arbitrum"
+  },
+  {
+    "date": "20251020",
+    "name": "Sharwa Finance",
+    "type": "Business Logic Flaw",
+    "Lost": 146000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Arbitrum"
+  },
+  {
+    "date": "20251015",
+    "name": "Typus Finance",
+    "type": "Access Control",
+    "Lost": 3440000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "5"
   },
   {
     "date": "20251007",
@@ -781,6 +1168,33 @@
     "lossType": "USD",
     "Contract": "src/test/2025-10/Abracadabra_exp.sol",
     "chain": "Unknown"
+  },
+  {
+    "date": "20250924",
+    "name": "GriffinAI",
+    "type": "Compromised Private Key",
+    "Lost": 3000000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "BSC"
+  },
+  {
+    "date": "20250923",
+    "name": "Seedify",
+    "type": "Compromised Private Key",
+    "Lost": 1800000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Polygon"
+  },
+  {
+    "date": "20250922",
+    "name": "UXLINK",
+    "type": "Compromised Private Key",
+    "Lost": 11300000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
   },
   {
     "date": "20250913",
@@ -810,6 +1224,24 @@
     "chain": "Unknown"
   },
   {
+    "date": "20250829",
+    "name": "Cozy Finance",
+    "type": "Business Logic Flaw",
+    "Lost": 472563.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Optimism"
+  },
+  {
+    "date": "20250828",
+    "name": "Panoptic",
+    "type": "Unknown",
+    "Lost": 400000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20250827",
     "name": "0xf340",
     "type": "Access Control",
@@ -819,6 +1251,15 @@
     "chain": "Ethereum"
   },
   {
+    "date": "20250826",
+    "name": "BetterBank",
+    "type": "Business Logic Flaw",
+    "Lost": 5000000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "369"
+  },
+  {
     "date": "20250823",
     "name": "ABCCApp",
     "type": "Lack of Access Control",
@@ -826,6 +1267,15 @@
     "lossType": "USD",
     "Contract": "src/test/2025-08/ABCCApp_exp.sol",
     "chain": "BSC"
+  },
+  {
+    "date": "20250823",
+    "name": "Equilibria",
+    "type": "Business Logic Flaw",
+    "Lost": 68000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
   },
   {
     "date": "20250820",
@@ -870,6 +1320,15 @@
     "Lost": 19700.0,
     "lossType": "USD",
     "Contract": "src/test/2025-08/SizeCredit_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20250814",
+    "name": "BtcTurk",
+    "type": "Compromised Private Key",
+    "Lost": 49000000.0,
+    "lossType": "USD",
+    "Contract": "",
     "chain": "Ethereum"
   },
   {
@@ -918,6 +1377,15 @@
     "chain": "BSC"
   },
   {
+    "date": "20250729",
+    "name": "CerdiX",
+    "type": "Compromised Private Key",
+    "Lost": 4400000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "146"
+  },
+  {
     "date": "20250728",
     "name": "SuperRare",
     "type": "Access Control",
@@ -942,6 +1410,15 @@
     "Lost": 32196.28,
     "lossType": "USD",
     "Contract": "src/test/2025-07/SWAPPStaking_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20250724",
+    "name": "WOO X",
+    "type": "Compromised Private Key",
+    "Lost": 14000000.0,
+    "lossType": "USD",
+    "Contract": "",
     "chain": "Ethereum"
   },
   {
@@ -972,6 +1449,15 @@
     "chain": "BSC"
   },
   {
+    "date": "20250715",
+    "name": "BigONE",
+    "type": "Unknown",
+    "Lost": 4000212.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20250709",
     "name": "GMX",
     "type": "Share price manipulation",
@@ -979,6 +1465,15 @@
     "lossType": "USD",
     "Contract": "src/test/2025-07/gmx_exp.sol",
     "chain": "Arbitrum"
+  },
+  {
+    "date": "20250709",
+    "name": "ZKSwap",
+    "type": "Business Logic Flaw",
+    "Lost": 5000000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
   },
   {
     "date": "20250705",
@@ -1008,6 +1503,15 @@
     "chain": "BSC"
   },
   {
+    "date": "20250702",
+    "name": "Future Protocol",
+    "type": "Business Logic Flaw",
+    "Lost": 4600000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "BSC"
+  },
+  {
     "date": "20250629",
     "name": "Stead",
     "type": "Access Control",
@@ -1032,6 +1536,24 @@
     "Lost": 2000000.0,
     "lossType": "USD",
     "Contract": "src/test/2025-06/unverified_b5cb_exp.sol",
+    "chain": "BSC"
+  },
+  {
+    "date": "20250625",
+    "name": "SiloFinance",
+    "type": "Arbitrary Call",
+    "Lost": 552000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20250625",
+    "name": "MEV Bot 0xB5CB05",
+    "type": "Access Control",
+    "Lost": 2000000.0,
+    "lossType": "USD",
+    "Contract": "",
     "chain": "BSC"
   },
   {
@@ -1080,6 +1602,15 @@
     "chain": "Ethereum"
   },
   {
+    "date": "20250617",
+    "name": "Meta Pool",
+    "type": "Access Control",
+    "Lost": 140000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20250612",
     "name": "AAVEBoost",
     "type": "Logic Flaw",
@@ -1096,6 +1627,15 @@
     "lossType": "USD",
     "Contract": "src/test/2025-06/unverified_8490_exp.sol",
     "chain": "BSC"
+  },
+  {
+    "date": "20250530",
+    "name": "Malda",
+    "type": "Access Control",
+    "Lost": 273000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "59144"
   },
   {
     "date": "20250528",
@@ -1134,6 +1674,15 @@
     "chain": "Base"
   },
   {
+    "date": "20250522",
+    "name": "Cetus",
+    "type": "Integer Overflow",
+    "Lost": 223000000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "5"
+  },
+  {
     "date": "20250520",
     "name": "IRYSAI",
     "type": "rug pull",
@@ -1170,6 +1719,15 @@
     "chain": "BSC"
   },
   {
+    "date": "20250511",
+    "name": "MBU Token",
+    "type": "Business Logic Flaw",
+    "Lost": 2157341.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "BSC"
+  },
+  {
     "date": "20250509",
     "name": "Nalakuvara_LotteryTicket50",
     "type": "Price Manipulation",
@@ -1197,6 +1755,33 @@
     "chain": "Base"
   },
   {
+    "date": "20250426",
+    "name": "Loop scale",
+    "type": "Price Manipulation",
+    "Lost": 5800000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Solana"
+  },
+  {
+    "date": "20250426",
+    "name": "Impermax Finance",
+    "type": "Business Logic Flaw",
+    "Lost": 300000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Base"
+  },
+  {
+    "date": "20250424",
+    "name": "Zora token",
+    "type": "Business Logic Flaw",
+    "Lost": 128000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Base"
+  },
+  {
     "date": "20250418",
     "name": "BTNFT",
     "type": "Slippage",
@@ -1215,6 +1800,24 @@
     "chain": "BSC"
   },
   {
+    "date": "20250414",
+    "name": "KiloEx_perp",
+    "type": "Access Control",
+    "Lost": 8400000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Base"
+  },
+  {
+    "date": "20250401",
+    "name": "OPC",
+    "type": "Business Logic Flaw",
+    "Lost": 107000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "BSC"
+  },
+  {
     "date": "20250330",
     "name": "LeverageSIR",
     "type": "Storage Collision",
@@ -1230,6 +1833,24 @@
     "Lost": 95500.0,
     "lossType": "USD",
     "Contract": "src/test/2025-03/Alkimiya_io_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20250325",
+    "name": "MIM_Spell",
+    "type": "Business Logic Flaw",
+    "Lost": 13408309.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Arbitrum"
+  },
+  {
+    "date": "20250321",
+    "name": "Zoth",
+    "type": "Compromised Private Key",
+    "Lost": 8851750.0,
+    "lossType": "USD",
+    "Contract": "",
     "chain": "Ethereum"
   },
   {
@@ -1269,6 +1890,33 @@
     "chain": "Ethereum"
   },
   {
+    "date": "20250305",
+    "name": "1inch Fusion V1",
+    "type": "Business Logic Flaw",
+    "Lost": 5000000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20250301",
+    "name": "ZeUSD",
+    "type": "Lack of Slippage Protection",
+    "Lost": 286000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20250224",
+    "name": "Infini",
+    "type": "Compromised Private Key",
+    "Lost": 50000000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20250223",
     "name": "HegicOptions",
     "type": "Logic Flaw",
@@ -1293,6 +1941,33 @@
     "Lost": 186000.0,
     "lossType": "USD",
     "Contract": "src/test/2025-02/FourMeme_exp.sol",
+    "chain": "BSC"
+  },
+  {
+    "date": "20250211",
+    "name": "Zklend",
+    "type": "Precision Loss",
+    "Lost": 9500000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "920637907288165"
+  },
+  {
+    "date": "20250211",
+    "name": "Four.MeMe",
+    "type": "Business Logic Flaw",
+    "Lost": 183000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "BSC"
+  },
+  {
+    "date": "20250207",
+    "name": "ADACash",
+    "type": "Lack of Slippage Protection",
+    "Lost": 107900.0,
+    "lossType": "USD",
+    "Contract": "",
     "chain": "BSC"
   },
   {
@@ -1321,6 +1996,15 @@
     "lossType": "USD",
     "Contract": "src/test/2025-01/Paribus_exp.sol",
     "chain": "Arbitrum"
+  },
+  {
+    "date": "20250114",
+    "name": "The Idols NFT",
+    "type": "Business Logic Flaw",
+    "Lost": 340503.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
   },
   {
     "date": "20250113",
@@ -1404,6 +2088,15 @@
     "chain": "Ethereum"
   },
   {
+    "date": "20241229",
+    "name": "FEG (Feed Every Gorilla)",
+    "type": "Access Control",
+    "Lost": 1000000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20241223",
     "name": "Moonhacker",
     "type": "Logic Flaw",
@@ -1411,6 +2104,15 @@
     "lossType": "USD",
     "Contract": "src/test/2024-12/Moonhacker_exp.sol",
     "chain": "Optimism"
+  },
+  {
+    "date": "20241217",
+    "name": "GemPad",
+    "type": "Reentrancy",
+    "Lost": 1800000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
   },
   {
     "date": "20241210",
@@ -1422,12 +2124,39 @@
     "chain": "Base"
   },
   {
+    "date": "20241204",
+    "name": "VestraDAO",
+    "type": "Business Logic Flaw",
+    "Lost": 400000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20241203",
     "name": "Pledge",
     "type": "Access Control",
     "Lost": 15000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-12/Pledge_exp.sol",
+    "chain": "BSC"
+  },
+  {
+    "date": "20241203",
+    "name": "BYC Token",
+    "type": "Business Logic Flaw",
+    "Lost": 100000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "BSC"
+  },
+  {
+    "date": "20241124",
+    "name": "DCF token",
+    "type": "Lack of Slippage Protection",
+    "Lost": 442000.0,
+    "lossType": "USD",
+    "Contract": "",
     "chain": "BSC"
   },
   {
@@ -1438,6 +2167,15 @@
     "lossType": "USD",
     "Contract": "src/test/2024-11/PolterFinance_exploit.sol",
     "chain": "Fantom"
+  },
+  {
+    "date": "20241118",
+    "name": "ARC token",
+    "type": "Compromised Private Key",
+    "Lost": 749210.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Arbitrum"
   },
   {
     "date": "20241114",
@@ -1456,6 +2194,15 @@
     "lossType": "USD",
     "Contract": "src/test/2024-11/DeltaPrime_exp.sol",
     "chain": "Arbitrum"
+  },
+  {
+    "date": "20241110",
+    "name": "BGM",
+    "type": "Price Manipulation",
+    "Lost": 450000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "BSC"
   },
   {
     "date": "20241026",
@@ -1503,6 +2250,15 @@
     "chain": "BSC"
   },
   {
+    "date": "20241011",
+    "name": "P719 Token",
+    "type": "Business Logic Flaw",
+    "Lost": 315072.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "BSC"
+  },
+  {
     "date": "20241006",
     "name": "SASHAToken",
     "type": "Price Manipulation",
@@ -1527,6 +2283,15 @@
     "Lost": 20000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-10/AIZPTToken_exp.sol",
+    "chain": "BSC"
+  },
+  {
+    "date": "20241005",
+    "name": "EGA Token",
+    "type": "Lack of Slippage Protection",
+    "Lost": 554000.0,
+    "lossType": "USD",
+    "Contract": "",
     "chain": "BSC"
   },
   {
@@ -1575,12 +2340,30 @@
     "chain": "BSC"
   },
   {
+    "date": "20240920",
+    "name": "Shezmu",
+    "type": "Business Logic Flaw",
+    "Lost": 1492389.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20240913",
     "name": "OTSeaStaking",
     "type": "Logic Flaw",
     "Lost": 26000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-09/OTSeaStaking_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20240911",
+    "name": "Inferno",
+    "type": "Lack of Slippage Protection",
+    "Lost": 440000.0,
+    "lossType": "USD",
+    "Contract": "",
     "chain": "Ethereum"
   },
   {
@@ -1665,6 +2448,15 @@
     "chain": "BSC"
   },
   {
+    "date": "20240806",
+    "name": "Ronin Bridge",
+    "type": "Misconfiguration",
+    "Lost": 11810813.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20240801",
     "name": "Convergence",
     "type": "Logic Flaw",
@@ -1692,6 +2484,15 @@
     "chain": "Ethereum"
   },
   {
+    "date": "20240718",
+    "name": "WazirX",
+    "type": "Compromised Private Key",
+    "Lost": 207000000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20240716",
     "name": "Lifiprotocol",
     "type": "Incorrect Validation",
@@ -1716,6 +2517,15 @@
     "Lost": 1800000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-07/DoughFina_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20240712",
+    "name": "Dough Finance",
+    "type": "Access Control",
+    "Lost": 1800000.0,
+    "lossType": "USD",
+    "Contract": "",
     "chain": "Ethereum"
   },
   {
@@ -1827,6 +2637,15 @@
     "chain": "BSC"
   },
   {
+    "date": "20240613",
+    "name": "Holograph",
+    "type": "Compromised Private Key",
+    "Lost": 1300000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20240611",
     "name": "JokInTheBox",
     "type": "Logic Flaw",
@@ -1852,6 +2671,15 @@
     "lossType": "USD",
     "Contract": "src/test/2024-06/Bazaar_exp.sol",
     "chain": "Blast"
+  },
+  {
+    "date": "20240610",
+    "name": "UwU Lend",
+    "type": "Price Manipulation",
+    "Lost": 23000000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
   },
   {
     "date": "20240608",
@@ -1917,6 +2745,15 @@
     "chain": "Arbitrum"
   },
   {
+    "date": "20240531",
+    "name": "TLN Protocol",
+    "type": "Price Manipulation",
+    "Lost": 163000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "BSC"
+  },
+  {
     "date": "20240529",
     "name": "SCROLL",
     "type": "Overflow",
@@ -1980,6 +2817,15 @@
     "chain": "Ethereum"
   },
   {
+    "date": "20240520",
+    "name": "Gala",
+    "type": "Compromised Private Key",
+    "Lost": 21000000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20240516",
     "name": "TCH",
     "type": "Signature Verification",
@@ -2004,6 +2850,24 @@
     "Lost": 464000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-05/PredyFinance_exp.sol",
+    "chain": "Arbitrum"
+  },
+  {
+    "date": "20240514",
+    "name": "SonneFinance",
+    "type": "Precision Loss",
+    "Lost": 20000000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Optimism"
+  },
+  {
+    "date": "20240514",
+    "name": "Predy Finance",
+    "type": "Logic",
+    "Lost": 464000.0,
+    "lossType": "USD",
+    "Contract": "",
     "chain": "Arbitrum"
   },
   {
@@ -2032,6 +2896,15 @@
     "lossType": "USD",
     "Contract": "src/test/2024-05/TSURU_exp.sol",
     "chain": "Base"
+  },
+  {
+    "date": "20240510",
+    "name": "GalaxyFoxToken",
+    "type": "Access Control",
+    "Lost": 330000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
   },
   {
     "date": "20240508",
@@ -2088,6 +2961,15 @@
     "chain": "BSC"
   },
   {
+    "date": "20240427",
+    "name": "Ember Sword",
+    "type": "Access Control",
+    "Lost": 196000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Polygon"
+  },
+  {
     "date": "20240425",
     "name": "NGFS",
     "type": "Access Control",
@@ -2139,6 +3021,15 @@
     "Lost": 48000000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-04/HedgeyFinance_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20240419",
+    "name": "Hedgey Finance",
+    "type": "Lack of Input Validation",
+    "Lost": 1800000.0,
+    "lossType": "USD",
+    "Contract": "",
     "chain": "Ethereum"
   },
   {
@@ -2340,6 +3231,15 @@
     "chain": "Ethereum"
   },
   {
+    "date": "20240323",
+    "name": "Curio Ecosystem",
+    "type": "Governance Attack",
+    "Lost": 100000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20240321",
     "name": "SSS",
     "type": "Logic Flaw",
@@ -2520,6 +3420,15 @@
     "chain": "Ethereum"
   },
   {
+    "date": "20240221",
+    "name": "DeezNutz_404",
+    "type": "Logic",
+    "Lost": 170000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20240220",
     "name": "EGGX",
     "type": "Reentrancy Attack",
@@ -2571,6 +3480,15 @@
     "Lost": 150000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-02/Miner_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20240215",
+    "name": "Particle Trade",
+    "type": "Lack of Input Validation",
+    "Lost": 139000.0,
+    "lossType": "USD",
+    "Contract": "",
     "chain": "Ethereum"
   },
   {
@@ -2637,6 +3555,15 @@
     "chain": "Ethereum"
   },
   {
+    "date": "20240131",
+    "name": "CheckDot Protocol",
+    "type": "Access Control",
+    "Lost": 120000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "BSC"
+  },
+  {
     "date": "20240130",
     "name": "XSIJ",
     "type": "Logic Flaw",
@@ -2670,6 +3597,15 @@
     "Lost": 130000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-01/BarleyFinance_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20240128",
+    "name": "Barley Finance",
+    "type": "Reentrancy",
+    "Lost": 130000.0,
+    "lossType": "USD",
+    "Contract": "",
     "chain": "Ethereum"
   },
   {
@@ -2709,6 +3645,15 @@
     "chain": "Ethereum"
   },
   {
+    "date": "20240117",
+    "name": "BasketDAO",
+    "type": "Lack of Input Validation",
+    "Lost": 107000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20240115",
     "name": "Shell_MEV_0xa898",
     "type": "Access Control",
@@ -2733,6 +3678,15 @@
     "Lost": 464000.0,
     "lossType": "USD",
     "Contract": "src/test/2024-01/WiseLending02_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20240112",
+    "name": "Wise Lending",
+    "type": "Business Logic Flaw",
+    "Lost": 460000.0,
+    "lossType": "USD",
+    "Contract": "",
     "chain": "Ethereum"
   },
   {
@@ -2871,6 +3825,15 @@
     "chain": "Ethereum"
   },
   {
+    "date": "20231217",
+    "name": "Floor Protocol",
+    "type": "Business Logic Flaw",
+    "Lost": 1600000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20231216",
     "name": "GoodDollar",
     "type": "Reentrancy Attack",
@@ -2895,6 +3858,15 @@
     "Lost": 3000000.0,
     "lossType": "USD",
     "Contract": "src/test/2023-12/NFTTrader_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20231216",
+    "name": "NFT Trader",
+    "type": "Reentrancy",
+    "Lost": 3000000.0,
+    "lossType": "USD",
+    "Contract": "",
     "chain": "Ethereum"
   },
   {
@@ -3150,6 +4122,24 @@
     "chain": "Ethereum"
   },
   {
+    "date": "20231112",
+    "name": "MEV Bot 0x8c2d4e",
+    "type": "Access Control",
+    "Lost": 365000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "BSC"
+  },
+  {
+    "date": "20231112",
+    "name": "MEV Bot 0xa24734",
+    "type": "Access Control",
+    "Lost": 150000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20231111",
     "name": "MahaLend",
     "type": "Precision Loss",
@@ -3195,6 +4185,15 @@
     "chain": "Ethereum"
   },
   {
+    "date": "20231107",
+    "name": "MEV Bot 0x05f016",
+    "type": "Access Control",
+    "Lost": 2000000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20231106",
     "name": "TrustPad",
     "type": "Access Control",
@@ -3219,6 +4218,15 @@
     "Lost": 290000.0,
     "lossType": "USD",
     "Contract": "src/test/2023-11/TheStandard_io_exp.sol",
+    "chain": "Arbitrum"
+  },
+  {
+    "date": "20231106",
+    "name": "TheStandard.io",
+    "type": "Lack of Slippage Protection",
+    "Lost": 290000.0,
+    "lossType": "USD",
+    "Contract": "",
     "chain": "Arbitrum"
   },
   {
@@ -3438,6 +4446,15 @@
     "chain": "BSC"
   },
   {
+    "date": "20230923",
+    "name": "Stars Arena",
+    "type": "Reentrancy",
+    "Lost": 3000000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Avalanche"
+  },
+  {
     "date": "20230921",
     "name": "CEXISWAP",
     "type": "Access Control",
@@ -3600,6 +4617,15 @@
     "chain": "Ethereum"
   },
   {
+    "date": "20230818",
+    "name": "Exactly Protocol",
+    "type": "Lack of Input Validation",
+    "Lost": 7000000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Optimism"
+  },
+  {
     "date": "20230814",
     "name": "ZunamiProtocol",
     "type": "Price Manipulation",
@@ -3616,6 +4642,24 @@
     "lossType": "USD",
     "Contract": "src/test/2023-08/EarningFram_exp.sol",
     "chain": "Ethereum"
+  },
+  {
+    "date": "20230809",
+    "name": "Earning.Farm",
+    "type": "Reentrancy",
+    "Lost": 286000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20230803",
+    "name": "MEV Bot 0xd61492",
+    "type": "Lack of Input Validation",
+    "Lost": 800000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Arbitrum"
   },
   {
     "date": "20230802",
@@ -3816,12 +4860,30 @@
     "chain": "Polygon"
   },
   {
+    "date": "20230711",
+    "name": "Rodeo Finance",
+    "type": "Price Manipulation",
+    "Lost": 888000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Arbitrum"
+  },
+  {
     "date": "20230710",
     "name": "ArcadiaFi",
     "type": "Reentrancy Attack",
     "Lost": 400000.0,
     "lossType": "USD",
     "Contract": "src/test/2023-07/ArcadiaFi_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20230710",
+    "name": "Arcadia Finance",
+    "type": "Reentrancy",
+    "Lost": 400000.0,
+    "lossType": "USD",
+    "Contract": "",
     "chain": "Ethereum"
   },
   {
@@ -4392,6 +5454,15 @@
     "chain": "BSC"
   },
   {
+    "date": "20230402",
+    "name": "Low-Carb-Crusader",
+    "type": "Business Logic Flaw",
+    "Lost": 25000000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20230328",
     "name": "SafeMoon Hack",
     "type": "Access Control",
@@ -4452,6 +5523,15 @@
     "Lost": 200000000.0,
     "lossType": "USD",
     "Contract": "src/test/2023-03/Euler_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20230313",
+    "name": "Euler Finance",
+    "type": "Business Logic Flaw",
+    "Lost": 200000000.0,
+    "lossType": "USD",
+    "Contract": "",
     "chain": "Ethereum"
   },
   {
