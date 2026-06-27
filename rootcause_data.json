@@ -5212,5 +5212,13 @@
     "images": [],
     "Lost": "",
     "Contract": "https://github.com/SunWeb3Sec/DeFiHackLabs/blob/main/src/test/2026-06/LBP_exp.sol"
+  },
+  "JaredFromSubway": {
+    "type": "MEV Exploit",
+    "date": "2026-06-20",
+    "rootCause": "JaredFromSubway MEV bot was exploited, resulting in a loss of 4,424 ETH (~$7.5M). Analysis: https://www.certik.com/blog/jaredfromsubway-mev-bot-incident-analysis\n\n**Source:** [https://twitter.com/CertiKAlert/status/2070478621139935316](https://twitter.com/CertiKAlert/status/2070478621139935316)",
+    "images": [],
+    "Lost": "4424.00 ETH",
+    "Contract": ""
   }
 }
