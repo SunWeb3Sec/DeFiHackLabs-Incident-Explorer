@@ -6172,5 +6172,77 @@
     "lossType": "WBNB",
     "Contract": "src/test/2026-02/XDKRecycle_exp.sol",
     "chain": "BSC"
+  },
+  {
+    "date": "20260625",
+    "name": "LixirPermitDrain",
+    "type": "Broken Signature Verification",
+    "Lost": 2.6,
+    "lossType": "ETH",
+    "Contract": "src/test/2026-06/LixirPermitDrain_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260625",
+    "name": "OceanBPoolSideStaking",
+    "type": "BPool single-sided join/exit math with SideStaking gulp accounting",
+    "Lost": 127860.0,
+    "lossType": "MOCEAN",
+    "Contract": "src/test/2026-06/OceanBPoolSideStaking_exp.sol",
+    "chain": "Polygon"
+  },
+  {
+    "date": "20260501",
+    "name": "SharwaMarginTrading",
+    "type": "Hegic collateral spot price manipulation",
+    "Lost": 32850.0,
+    "lossType": "USDC",
+    "Contract": "src/test/2026-05/SharwaMarginTrading_exp.sol",
+    "chain": "Arbitrum"
+  },
+  {
+    "date": "20260428",
+    "name": "JUDAO",
+    "type": "JUDAO sell-hook reserve drain",
+    "Lost": 205000.0,
+    "lossType": "USDT",
+    "Contract": "src/test/2026-04/JUDAO_exp.sol",
+    "chain": "BSC"
+  },
+  {
+    "date": "20260427",
+    "name": "Unverified_a152",
+    "type": "AllowanceTarget approval drain",
+    "Lost": 229000.0,
+    "lossType": "USDT",
+    "Contract": "src/test/2026-04/unverified_a152_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260423",
+    "name": "GiddyVaultV3",
+    "type": "Incomplete Signature Coverage",
+    "Lost": 1300000.0,
+    "lossType": "USD",
+    "Contract": "src/test/2026-04/giddyvaultv3_compound_auth_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260419",
+    "name": "AaveRebalancerCreditDelegation",
+    "type": "Arbitrary External Call / Credit Delegation Abuse",
+    "Lost": 6999.91,
+    "lossType": "WAVAX",
+    "Contract": "src/test/2026-04/AaveRebalancerCreditDelegation_exp.sol",
+    "chain": "Avalanche"
+  },
+  {
+    "date": "20260324",
+    "name": "XocolatlLiquidator",
+    "type": "Access Control / Input Validation",
+    "Lost": 3.25,
+    "lossType": "CBETH",
+    "Contract": "src/test/2026-03/XocolatlLiquidator_exp.sol",
+    "chain": "Base"
   }
 ]
