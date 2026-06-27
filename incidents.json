@@ -6244,5 +6244,68 @@
     "lossType": "CBETH",
     "Contract": "src/test/2026-03/XocolatlLiquidator_exp.sol",
     "chain": "Base"
+  },
+  {
+    "date": "20260328",
+    "name": "VTSwapHook",
+    "type": "Pricing Error in UniswapV4 Hook",
+    "Lost": 4507034.03,
+    "lossType": "VATH",
+    "Contract": "src/test/2026-03/VTSwapHook_exp.sol",
+    "chain": "Arbitrum"
+  },
+  {
+    "date": "20260324",
+    "name": "Univ3CollateralToken",
+    "type": "Logic Error",
+    "Lost": 57000.0,
+    "lossType": "USD",
+    "Contract": "src/test/2026-03/Univ3CollateralToken_exp.sol",
+    "chain": "Optimism"
+  },
+  {
+    "date": "20260323",
+    "name": "BCE",
+    "type": "Deflationary Token Logic Error",
+    "Lost": 800000.0,
+    "lossType": "USDT",
+    "Contract": "src/test/2026-03/bce_exp.sol",
+    "chain": "BSC"
+  },
+  {
+    "date": "20260319",
+    "name": "ATMBlindBox",
+    "type": "Weak Randomness / Predictable RNG",
+    "Lost": 99000.0,
+    "lossType": "USD",
+    "Contract": "src/test/2026-03/ATMBlindBox_exp.sol",
+    "chain": "BSC"
+  },
+  {
+    "date": "20260319",
+    "name": "Revamp",
+    "type": "Reward Accounting Drain",
+    "Lost": 2.99,
+    "lossType": "BNB",
+    "Contract": "src/test/2026-03/Revamp_exp.sol",
+    "chain": "BSC"
+  },
+  {
+    "date": "20260316",
+    "name": "unverified",
+    "type": "CheckoutPool Old BOC Missing Access Control",
+    "Lost": 85730.0,
+    "lossType": "USDC",
+    "Contract": "src/test/2026-03/unverified_1304_exp.sol",
+    "chain": "Polygon"
+  },
+  {
+    "date": "20260315",
+    "name": "StakeOnMe",
+    "type": "Owner-privileged JAKE burn reserve drain",
+    "Lost": 0.28,
+    "lossType": "ETH",
+    "Contract": "src/test/2026-03/unverified_237d_exp.sol",
+    "chain": "Ethereum"
   }
 ]
