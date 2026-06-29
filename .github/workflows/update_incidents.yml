@@ -30,7 +30,7 @@ jobs:
           git clone --depth 1 https://github.com/SunWeb3Sec/DeFiHackLabs.git source
           # Optional sparse-checkout to reduce size
           git -C source sparse-checkout init --cone || true
-          git -C source sparse-checkout set README-POC.md src/test || true
+          git -C source sparse-checkout set README-POC.md src/test past || true
 
       - name: Build incidents.json from READMEs
         run: python3 scripts/build_from_readmes.py --start-ym ${{ github.event.inputs.start_ym || '202505' }} --preserve-order

@@ -275,11 +275,18 @@ def _iter_readmes() -> List[str]:
     root_readme = os.path.join("source", "README.md")
     if os.path.exists(root_readme):
         paths.append(root_readme)
-    # Monthly READMEs (if present)
+    # Monthly READMEs under src/test (if present)
     for root, _, files in os.walk(SRC_ROOT):
         for f in files:
             if f.lower() == "readme.md":
                 paths.append(os.path.join(root, f))
+    # Historical year READMEs under past/ (e.g., past/2025/README.md)
+    past_dir = os.path.join("source", "past")
+    if os.path.isdir(past_dir):
+        for root, _, files in os.walk(past_dir):
+            for f in files:
+                if f.lower() == "readme.md":
+                    paths.append(os.path.join(root, f))
     return paths
 
 
