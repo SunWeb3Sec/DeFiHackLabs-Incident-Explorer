@@ -6275,5 +6275,13 @@
     "images": [],
     "Lost": "4424.00 ETH",
     "Contract": ""
+  },
+  "AIDC": {
+    "type": "Smart Contract Logic Flaw",
+    "date": "2026-06-29",
+    "rootCause": "AIDCToken's `_sellTransfer()` accumulates a 30% burn amount without deducting it from the seller. Any non-Pair transfer triggers `_executeAccumulatedBurn()`, which incorrectly burns tokens from the `uniswapPair` balance instead of the seller. After burning, `sync()` is called, artificially deflating the AIDC reserve in the AMM, enabling repeated reserve manipulation and a final swap that drained WBNB from the Pancake V2 AIDC/WBNB Pair. Attacker: 0x89eb2c99e970d831525c7a52badc290afa116b63, Vulnerable Contract: 0x5021d71859f81b4c905b573591db8f9cc4a0c6fe (AIDCToken)\n\n**Source:** [https://twitter.com/SlowMist_Team/status/2071437371590238249](https://twitter.com/SlowMist_Team/status/2071437371590238249)",
+    "images": [],
+    "Lost": "220.12 WBNB",
+    "Contract": ""
   }
 }
