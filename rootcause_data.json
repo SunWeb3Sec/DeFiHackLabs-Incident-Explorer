@@ -6283,5 +6283,29 @@
     "images": [],
     "Lost": "220.12 WBNB",
     "Contract": ""
+  },
+  "EdelFinance": {
+    "type": "Collateral Price Manipulation",
+    "date": "2026-07-02",
+    "rootCause": "Attacker manipulated the wGOOGLx collateral price, which is derived from its underlying GOOGLx balance, allowing them to borrow against the inflated collateral and drain approximately $353K. Stolen assets were swapped for 224 ETH and deposited into Tornado Cash.\n\n**Source:** [https://twitter.com/CyversAlerts/status/2072259516435939780](https://twitter.com/CyversAlerts/status/2072259516435939780)",
+    "images": [],
+    "Lost": "$353.0K",
+    "Contract": ""
+  },
+  "Taiko": {
+    "type": "Unknown",
+    "date": "2026-07-02",
+    "rootCause": "Taiko exploiter deposited 180 ETH (~$288K) into Tornado Cash. Alert indicates additional fund mixing from an exploit.\n\n**Source:** [https://twitter.com/PeckShieldAlert/status/2072486031707005283](https://twitter.com/PeckShieldAlert/status/2072486031707005283)",
+    "images": [],
+    "Lost": "180.00 ETH",
+    "Contract": ""
+  },
+  "AztecNetwork": {
+    "type": "Bridge Exploit",
+    "date": "2026-07-02",
+    "rootCause": "Aztec Network Private Rollup Bridge exploiter-labeled address deposited total of 200 ETH (~$314K equivalent) into Tornado Cash for fund mixing. Exploit confirmed via on-chain tracking of exploiter addresses.\n\n**Source:** [https://twitter.com/PeckShieldAlert/status/2072489141573693603](https://twitter.com/PeckShieldAlert/status/2072489141573693603)",
+    "images": [],
+    "Lost": "200.00 ETH",
+    "Contract": ""
   }
 }
