@@ -1,5 +1,32 @@
 [
   {
+    "date": "20260702",
+    "name": "EdelFinance",
+    "type": "Collateral Price Manipulation",
+    "Lost": 353000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260702",
+    "name": "Taiko",
+    "type": "Unknown",
+    "Lost": 180.0,
+    "lossType": "ETH",
+    "Contract": "",
+    "chain": "Taiko"
+  },
+  {
+    "date": "20260702",
+    "name": "AztecNetwork",
+    "type": "Bridge Exploit",
+    "Lost": 200.0,
+    "lossType": "ETH",
+    "Contract": "",
+    "chain": "Aztec"
+  },
+  {
     "date": "20260629",
     "name": "AIDC",
     "type": "Smart Contract Logic Flaw",
