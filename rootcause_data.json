@@ -6307,5 +6307,21 @@
     "images": [],
     "Lost": "200.00 ETH",
     "Contract": ""
+  },
+  "AtlantisLoan": {
+    "type": "Smart Contract Vulnerability",
+    "date": "2026-07-07",
+    "rootCause": "Attacker exploited a flaw in Atlantis Loan's smart contract code and drained $931K via attack transaction\n\n**Attack Tx:** [https://etherscan.io/tx/0x0cf758688f0f50df70b439eed3e743add93fb3b1f6a0c1328f116646ee5255be](https://etherscan.io/tx/0x0cf758688f0f50df70b439eed3e743add93fb3b1f6a0c1328f116646ee5255be)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2074125598016913504](https://twitter.com/DefimonAlerts/status/2074125598016913504)",
+    "images": [],
+    "Lost": "$931.0K",
+    "Contract": ""
+  },
+  "BonkDAO": {
+    "type": "Governance Attack",
+    "date": "2026-07-07",
+    "rootCause": "Malicious governance proposal drained 4.426 trillion BONK tokens (~$21.3M at transfer time) from treasury. Proposal stayed live for 6 days without intervention. Stolen tokens sent to 9bxWkNf3BtJ6iehq9KbX9uCWMjem4TFiPZ19T2sYJHvQ; ~$148K moved to OKX.\n\n**Attack Tx:** [https://v2.realms.today/dao/84pGFuy1Y27ApK67ApethaPvexeDWA66zNV8gm38TVeQ/proposal/6wR1jdhhJ31bbdRNXva8MxqsgsNLKTxargcdAyZ7FcRj](https://v2.realms.today/dao/84pGFuy1Y27ApK67ApethaPvexeDWA66zNV8gm38TVeQ/proposal/6wR1jdhhJ31bbdRNXva8MxqsgsNLKTxargcdAyZ7FcRj)\n\n**Source:** [https://twitter.com/CertiKAlert/status/2074295582131449903](https://twitter.com/CertiKAlert/status/2074295582131449903)",
+    "images": [],
+    "Lost": "$21.30M",
+    "Contract": ""
   }
 }
