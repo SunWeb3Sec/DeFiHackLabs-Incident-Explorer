@@ -1,5 +1,23 @@
 [
   {
+    "date": "20260709",
+    "name": "Hinkal",
+    "type": "Double-Spend / Circuit Binding Gap",
+    "Lost": 800000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260708",
+    "name": "BFB",
+    "type": "Flash Loan + Logic Error",
+    "Lost": 198000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "BNB Chain"
+  },
+  {
     "date": "20260702",
     "name": "EdelFinance",
     "type": "Collateral Price Manipulation",
@@ -27,12 +45,48 @@
     "chain": "Aztec"
   },
   {
+    "date": "20260701",
+    "name": "edel-xstock",
+    "type": "Price Oracle Manipulation",
+    "Lost": 204215.57,
+    "lossType": "USDC",
+    "Contract": "src/test/2026-07/edel-xstock_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20260629",
     "name": "AIDC",
     "type": "Smart Contract Logic Flaw",
     "Lost": 220.12,
     "lossType": "WBNB",
     "Contract": "",
+    "chain": "BSC"
+  },
+  {
+    "date": "20260629",
+    "name": "Vault4626",
+    "type": "Business Logic Flaw",
+    "Lost": 13.53,
+    "lossType": "WETH",
+    "Contract": "src/test/2026-06/Vault4626_exp.sol",
+    "chain": "Base"
+  },
+  {
+    "date": "20260628",
+    "name": "AIDC",
+    "type": "Business Logic Flaw",
+    "Lost": 220.13,
+    "lossType": "WBNB",
+    "Contract": "src/test/2026-06/AIDC_exp.sol",
+    "chain": "BSC"
+  },
+  {
+    "date": "20260627",
+    "name": "CookFinanceIssuance",
+    "type": "Price Oracle Manipulation",
+    "Lost": 50000.0,
+    "lossType": "USD",
+    "Contract": "src/test/2026-06/CookFinanceIssuance_exp.sol",
     "chain": "BSC"
   },
   {
@@ -7873,41 +7927,5 @@
     "lossType": "ETH",
     "Contract": "src/test/2017-11/Parity_kill_exp.sol",
     "chain": "Ethereum"
-  },
-  {
-    "date": "20260701",
-    "name": "edel-xstock",
-    "type": "Price Oracle Manipulation",
-    "Lost": 204215.57,
-    "lossType": "USDC",
-    "Contract": "src/test/2026-07/edel-xstock_exp.sol",
-    "chain": "Ethereum"
-  },
-  {
-    "date": "20260629",
-    "name": "Vault4626",
-    "type": "Business Logic Flaw",
-    "Lost": 13.53,
-    "lossType": "WETH",
-    "Contract": "src/test/2026-06/Vault4626_exp.sol",
-    "chain": "Base"
-  },
-  {
-    "date": "20260628",
-    "name": "AIDC",
-    "type": "Business Logic Flaw",
-    "Lost": 220.13,
-    "lossType": "WBNB",
-    "Contract": "src/test/2026-06/AIDC_exp.sol",
-    "chain": "BSC"
-  },
-  {
-    "date": "20260627",
-    "name": "CookFinanceIssuance",
-    "type": "Price Oracle Manipulation",
-    "Lost": 50000.0,
-    "lossType": "USD",
-    "Contract": "src/test/2026-06/CookFinanceIssuance_exp.sol",
-    "chain": "BSC"
   }
 ]
