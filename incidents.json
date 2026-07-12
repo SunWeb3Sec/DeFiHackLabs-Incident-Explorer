@@ -9,6 +9,15 @@
     "chain": "Ethereum"
   },
   {
+    "date": "20260707",
+    "name": "BonkDAO",
+    "type": "Governance Attack",
+    "Lost": 21300000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Solana"
+  },
+  {
     "date": "20260706",
     "name": "SummerFinance",
     "type": "Share Manipulation",
