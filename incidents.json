@@ -1,5 +1,23 @@
 [
   {
+    "date": "20260709",
+    "name": "Hinkal",
+    "type": "Double-Spend / Circuit Binding Gap",
+    "Lost": 800000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260708",
+    "name": "BFB",
+    "type": "Flash Loan + Logic Error",
+    "Lost": 198000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "BNB Chain"
+  },
+  {
     "date": "20260707",
     "name": "AtlantisLoan",
     "type": "Code Exploit",

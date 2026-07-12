@@ -6331,5 +6331,21 @@
     "images": [],
     "Lost": "$21.30M",
     "Contract": ""
+  },
+  "BFB": {
+    "type": "Flash Loan + Logic Error",
+    "date": "2026-07-08",
+    "rootCause": "Flash loan exploit targeting deflationary reserve-burn logic in `_priceDeflPool()` (Contract.sol:448). Function burns 5% of LP pair's BFB and calls sync() when price drops >5% below fallLastPrice. Guard only required EOA checks, allowing attacker to trigger repeatedly with zero-value self-transfers across 151 rounds. Collapsed BFB/WBNB pair reserve toward zero, enabling dust BFB swaps for entire WBNB reserve (~350.6 WBNB).\n\n**Attack Tx:** [https://bscscan.com/tx/0xabcf5c5c846595b2d0849f2579b67465ed8d06f3b469cee5e3a57c1f7aed3520](https://bscscan.com/tx/0xabcf5c5c846595b2d0849f2579b67465ed8d06f3b469cee5e3a57c1f7aed3520)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2075080496573284853](https://twitter.com/DefimonAlerts/status/2075080496573284853)",
+    "images": [],
+    "Lost": "$198.0K",
+    "Contract": ""
+  },
+  "Hinkal": {
+    "type": "Double-Spend / Circuit Binding Gap",
+    "date": "2026-07-09",
+    "rootCause": "Double-spend attack on shielded pool via legacy note format flaw. Attacker derived multiple nullifiers from single deposit, circumventing withdrawal restrictions. Circuit-level binding gap failed to bind nullifier uniquely to original note, enabling repeated withdrawals.\n\n**Source:** [https://twitter.com/Phalcon_xyz/status/2075140868886155637](https://twitter.com/Phalcon_xyz/status/2075140868886155637)",
+    "images": [],
+    "Lost": "$800.0K",
+    "Contract": ""
   }
 }
