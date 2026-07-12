@@ -6307,5 +6307,21 @@
     "images": [],
     "Lost": "200.00 ETH",
     "Contract": ""
+  },
+  "SummerFinance": {
+    "type": "Share Manipulation",
+    "date": "2026-07-06",
+    "rootCause": "Donation-sensitive valuation in Ark integrations (MorphoV2VaultArk and SiloManagedVaultArk) allowed reported totalAssets to be inflated intra-transaction. Attacker accumulated deprecated vgUSDC at negligible cost, triggered vault reallocations that distorted downstream share pricing, deposited $64.8M to obtain inflated vault exposure, then redeemed $70.9M against inflated FleetCommander accounting.\n\n**Attack Tx:** [https://etherscan.io/tx/0x0db528c44f23fc7fa4544684a2fab81096450a14aae8bc89f42cd0592d43da12](https://etherscan.io/tx/0x0db528c44f23fc7fa4544684a2fab81096450a14aae8bc89f42cd0592d43da12)\n\n**Source:** [https://twitter.com/CertiKAlert/status/2074043519422099514](https://twitter.com/CertiKAlert/status/2074043519422099514)",
+    "images": [],
+    "Lost": "$6.00M",
+    "Contract": ""
+  },
+  "AtlantisLoan": {
+    "type": "Code Exploit",
+    "date": "2026-07-07",
+    "rootCause": "Attacker exploited a flaw in Atlantis Loan's code and drained approximately $931k in funds, subsequently moved through exchanges in laundering attempt.\n\n**Attack Tx:** [https://etherscan.io/tx/0x0cf758688f0f50df70b439eed3e743add93fb3b1f6a0c1328f116646ee5255be](https://etherscan.io/tx/0x0cf758688f0f50df70b439eed3e743add93fb3b1f6a0c1328f116646ee5255be)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2074125598016913504](https://twitter.com/DefimonAlerts/status/2074125598016913504)",
+    "images": [],
+    "Lost": "$931.0K",
+    "Contract": ""
   }
 }
