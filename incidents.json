@@ -1,5 +1,14 @@
 [
   {
+    "date": "20260711",
+    "name": "Hedera",
+    "type": "Protocol Exploitation",
+    "Lost": 5250000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Hedera"
+  },
+  {
     "date": "20260709",
     "name": "Hinkal",
     "type": "Double-Spend / Circuit Binding Gap",

@@ -6347,5 +6347,13 @@
     "images": [],
     "Lost": "$800.0K",
     "Contract": ""
+  },
+  "Hedera": {
+    "type": "Protocol Exploitation",
+    "date": "2026-07-11",
+    "rootCause": "Hedera Network was exploited with $5.25M in stolen funds bridged from Hedera Mainnet to Ethereum. Attacker holds 2.36K ETH ($4.25M) and 15.58 WBTC ($1M). Initial funding from TornadoCash (1 ETH).\n\n**Source:** [https://twitter.com/PeckShieldAlert/status/2075867053408629179](https://twitter.com/PeckShieldAlert/status/2075867053408629179)",
+    "images": [],
+    "Lost": "$5.25M",
+    "Contract": ""
   }
 }
