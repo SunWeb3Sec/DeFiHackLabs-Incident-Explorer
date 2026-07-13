@@ -6355,5 +6355,21 @@
     "images": [],
     "Lost": "$5.25M",
     "Contract": ""
+  },
+  "Sodium": {
+    "type": "Signature Validation Bypass",
+    "date": "2026-07-12",
+    "rootCause": "ERC-4337 smart wallet vulnerability in _validateSignature for executeWithSodiumAuthSession path. Returns valid when sessionKey == signer without verifying session-add auth proof. Attacker supplied userOps signed by attacker's own EIP-1271 contract with self-chosen sessionKey, causing EntryPoint to charge high gas fees to victim wallets' deposits. Used maxFeePerGas ≈ 4062 gwei with callGasLimit=0, draining ~0.5 ETH per wallet from 300+ users. ~11.76 ETH stolen in single transaction.\n\n**Attack Tx:** [https://arbiscan.io/tx/0x738995176c3bbd22f8deabd7a1e6b89a044231781b39aa2f350897535e6d7bc1](https://arbiscan.io/tx/0x738995176c3bbd22f8deabd7a1e6b89a044231781b39aa2f350897535e6d7bc1)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2076542689248469132](https://twitter.com/DefimonAlerts/status/2076542689248469132)",
+    "images": [],
+    "Lost": "$21.2K",
+    "Contract": ""
+  },
+  "Lumi": {
+    "type": "UserOp Validation Flaw",
+    "date": "2026-07-14",
+    "rootCause": "Vulnerability in Lumi smart account UserOperation validation logic allowed attacker-controlled paymaster to trigger token approvals during validation phase without explicit user consent. Attacker (0xce1a3bb0b98d0d90c7dd0620ab86c9a771888d88) obtained ERC20 allowances from multiple smart accounts via validation-time side effects using malicious contract (0x56362412ae17cac443aafbab4289946ad958e8a1). Batch drained approved tokens, swapped to ETH, and transferred proceeds.\n\n**Attack Tx:** [https://arbiscan.io/tx/0x630654fb1c8914405cf81bb02f091b049f19403a152f624f7b8a00c7724c6604](https://arbiscan.io/tx/0x630654fb1c8914405cf81bb02f091b049f19403a152f624f7b8a00c7724c6604)\n\n**Source:** [https://twitter.com/SlowMist_Team/status/2076669154036527314](https://twitter.com/SlowMist_Team/status/2076669154036527314)",
+    "images": [],
+    "Lost": "$264.0K",
+    "Contract": ""
   }
 }

@@ -1,5 +1,23 @@
 [
   {
+    "date": "20260714",
+    "name": "Lumi",
+    "type": "UserOp Validation Flaw",
+    "Lost": 264000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Arbitrum"
+  },
+  {
+    "date": "20260712",
+    "name": "Sodium",
+    "type": "Signature Validation Bypass",
+    "Lost": 21157.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Arbitrum"
+  },
+  {
     "date": "20260711",
     "name": "Hedera",
     "type": "Protocol Exploitation",
