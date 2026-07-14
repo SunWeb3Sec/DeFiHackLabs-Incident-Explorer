@@ -9,6 +9,15 @@
     "chain": "Arbitrum"
   },
   {
+    "date": "20260713",
+    "name": "ChiProtocol",
+    "type": "Oracle Manipulation",
+    "Lost": 8500.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20260712",
     "name": "Sodium",
     "type": "Signature Validation Bypass",

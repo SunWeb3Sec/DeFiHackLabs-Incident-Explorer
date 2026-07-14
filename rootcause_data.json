@@ -6371,5 +6371,13 @@
     "images": [],
     "Lost": "$264.0K",
     "Contract": ""
+  },
+  "ChiProtocol": {
+    "type": "Oracle Manipulation",
+    "date": "2026-07-13",
+    "rootCause": "ArbitrageV5.burn() redeems reserve collateral valuing USC at hardcoded $1 with no peg check (unlike mint which enforces peg). Attacker flash-loaned 5 WETH from Balancer, bought depegged USC cheaply from thin Uniswap V2 pool, burned it 1:1 at par against ReserveHolder to redeem full-value weETH/stETH/WETH collateral, netting ~4.66 WETH.\n\n**Attack Tx:** [https://etherscan.io/tx/0x4a665f8eeada74552bd2dc466e5549731951f2f6180bbe865fa1d7b4be8ae96f](https://etherscan.io/tx/0x4a665f8eeada74552bd2dc466e5549731951f2f6180bbe865fa1d7b4be8ae96f)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2076887008773829119](https://twitter.com/DefimonAlerts/status/2076887008773829119)",
+    "images": [],
+    "Lost": "$8.5K",
+    "Contract": ""
   }
 }
