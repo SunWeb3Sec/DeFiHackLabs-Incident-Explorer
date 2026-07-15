@@ -1,5 +1,41 @@
 [
   {
+    "date": "20260715",
+    "name": "Drips",
+    "type": "Integer Overflow",
+    "Lost": 24882.0,
+    "lossType": "DAI",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260715",
+    "name": "BarnBridge",
+    "type": "Governance Attack",
+    "Lost": 776000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260715",
+    "name": "Ostium",
+    "type": "Price Manipulation",
+    "Lost": 11862445.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Arbitrum"
+  },
+  {
+    "date": "20260715",
+    "name": "BonzoLend",
+    "type": "Oracle Exploit",
+    "Lost": 9050000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": null
+  },
+  {
     "date": "20260714",
     "name": "Lumi",
     "type": "UserOp Validation Flaw",

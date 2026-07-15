@@ -6356,12 +6356,36 @@
     "Lost": "$5.25M",
     "Contract": ""
   },
-  "Sodium": {
-    "type": "Signature Validation Bypass",
-    "date": "2026-07-12",
-    "rootCause": "ERC-4337 smart wallet vulnerability in _validateSignature for executeWithSodiumAuthSession path. Returns valid when sessionKey == signer without verifying session-add auth proof. Attacker supplied userOps signed by attacker's own EIP-1271 contract with self-chosen sessionKey, causing EntryPoint to charge high gas fees to victim wallets' deposits. Used maxFeePerGas ≈ 4062 gwei with callGasLimit=0, draining ~0.5 ETH per wallet from 300+ users. ~11.76 ETH stolen in single transaction.\n\n**Attack Tx:** [https://arbiscan.io/tx/0x738995176c3bbd22f8deabd7a1e6b89a044231781b39aa2f350897535e6d7bc1](https://arbiscan.io/tx/0x738995176c3bbd22f8deabd7a1e6b89a044231781b39aa2f350897535e6d7bc1)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2076542689248469132](https://twitter.com/DefimonAlerts/status/2076542689248469132)",
+  "Drips": {
+    "type": "Integer Overflow",
+    "date": "2026-07-15",
+    "rootCause": "Signed-integer cast vulnerability in DaiDripsHub._give() function. Attacker passed amt = 2^128 - reserveBalance, causing int128(amt) to wrap to a negative value. -int128(amt) then became positive, flipping the intended deposit into a reserve withdrawal, draining entire DaiReserve to attacker.\n\n**Attack Tx:** [https://etherscan.io/tx/0xc38a6e2259a85ced94238a0b0a49697992f2a6b8140c28f3fd2343d3d8434130](https://etherscan.io/tx/0xc38a6e2259a85ced94238a0b0a49697992f2a6b8140c28f3fd2343d3d8434130)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2077085434849411365](https://twitter.com/DefimonAlerts/status/2077085434849411365)",
     "images": [],
-    "Lost": "$21.2K",
+    "Lost": "$24.9K",
+    "Contract": ""
+  },
+  "BarnBridge": {
+    "type": "Governance Attack",
+    "date": "2026-07-15",
+    "rootCause": "Attacker gained DAO governance authority and upgraded SmartYield/controller proxy to malicious implementation. Invoked CompoundProvider._takeUnderlying() using pre-existing USDC approvals from 50 user accounts, forwarding aggregated funds to attacker via transferFees.\n\n**Attack Tx:** [https://app.blocksec.com/phalcon/explorer/tx/eth/0xd191fead1b9a2244f2837560f35d4fc865404914d229bfcb0172d1a7a9895afb](https://app.blocksec.com/phalcon/explorer/tx/eth/0xd191fead1b9a2244f2837560f35d4fc865404914d229bfcb0172d1a7a9895afb)\n\n**Source:** [https://twitter.com/Phalcon_xyz/status/2077243530280587721](https://twitter.com/Phalcon_xyz/status/2077243530280587721)",
+    "images": [],
+    "Lost": "$776.0K",
+    "Contract": ""
+  },
+  "Ostium": {
+    "type": "Price Manipulation",
+    "date": "2026-07-15",
+    "rootCause": "Compromised oracle signer key used to submit malicious price reports through registered forwarder. Attacker executed 20x leveraged trade loops with artificially favorable prices via delegatedAction → openTrade + performUpkeep(closeTradeMarket), draining ~11.86M USDC from OstiumVault (oLP), representing ~32% of $34.3M TVL.\n\n**Attack Tx:** [https://arbiscan.io/tx/0x359f8c05b86a4409d60cfba02084334313fd94b19f74a294fb7fc4ea7d4870e0](https://arbiscan.io/tx/0x359f8c05b86a4409d60cfba02084334313fd94b19f74a294fb7fc4ea7d4870e0)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2077409855166394697](https://twitter.com/DefimonAlerts/status/2077409855166394697)",
+    "images": [],
+    "Lost": "$11.86M",
+    "Contract": ""
+  },
+  "BonzoLend": {
+    "type": "Oracle Exploit",
+    "date": "2026-07-15",
+    "rootCause": "Oracle exploit\n\n**Source:** [https://twitter.com/Phalcon_xyz/status/2077314420993404941](https://twitter.com/Phalcon_xyz/status/2077314420993404941)",
+    "images": [],
+    "Lost": "$9.05M",
     "Contract": ""
   },
   "Lumi": {
@@ -6378,6 +6402,14 @@
     "rootCause": "ArbitrageV5.burn() redeems reserve collateral valuing USC at hardcoded $1 with no peg check (unlike mint which enforces peg). Attacker flash-loaned 5 WETH from Balancer, bought depegged USC cheaply from thin Uniswap V2 pool, burned it 1:1 at par against ReserveHolder to redeem full-value weETH/stETH/WETH collateral, netting ~4.66 WETH.\n\n**Attack Tx:** [https://etherscan.io/tx/0x4a665f8eeada74552bd2dc466e5549731951f2f6180bbe865fa1d7b4be8ae96f](https://etherscan.io/tx/0x4a665f8eeada74552bd2dc466e5549731951f2f6180bbe865fa1d7b4be8ae96f)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2076887008773829119](https://twitter.com/DefimonAlerts/status/2076887008773829119)",
     "images": [],
     "Lost": "$8.5K",
+    "Contract": ""
+  },
+  "Sodium": {
+    "type": "Signature Validation Bypass",
+    "date": "2026-07-12",
+    "rootCause": "ERC-4337 smart wallet vulnerability in _validateSignature for executeWithSodiumAuthSession path. Returns valid when sessionKey == signer without verifying session-add auth proof. Attacker supplied userOps signed by attacker's own EIP-1271 contract with self-chosen sessionKey, causing EntryPoint to charge high gas fees to victim wallets' deposits. Used maxFeePerGas ≈ 4062 gwei with callGasLimit=0, draining ~0.5 ETH per wallet from 300+ users. ~11.76 ETH stolen in single transaction.\n\n**Attack Tx:** [https://arbiscan.io/tx/0x738995176c3bbd22f8deabd7a1e6b89a044231781b39aa2f350897535e6d7bc1](https://arbiscan.io/tx/0x738995176c3bbd22f8deabd7a1e6b89a044231781b39aa2f350897535e6d7bc1)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2076542689248469132](https://twitter.com/DefimonAlerts/status/2076542689248469132)",
+    "images": [],
+    "Lost": "$21.2K",
     "Contract": ""
   }
 }
