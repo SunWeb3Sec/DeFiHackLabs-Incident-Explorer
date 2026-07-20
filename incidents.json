@@ -8044,5 +8044,14 @@
     "lossType": "WBNB",
     "Contract": "src/test/2026-06/AztecEscapeHatch_exp2.sol",
     "chain": "Ethereum"
+  },
+  {
+    "date": "20260719",
+    "name": "RWT Token",
+    "type": "Deflationary burn-from-pair price manipulation",
+    "Lost": 118000.0,
+    "lossType": "USDT",
+    "Contract": "src/test/2026-07/RWT_exp.sol",
+    "chain": "BSC"
   }
 ]
