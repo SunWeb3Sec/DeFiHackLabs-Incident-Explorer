@@ -6411,5 +6411,13 @@
     "images": [],
     "Lost": "$21.2K",
     "Contract": ""
+  },
+  "RWT": {
+    "type": "Flash Loan",
+    "date": "2026-07-19",
+    "rootCause": "Unprotected sell() contract in RWT token allowed burning tokens directly from the RWT/USDT PancakePair reserves. The sell contract holds the onlyOwner role on RWT.burn(), enabling it to collapse the pair's RWT reserve and artificially inflate RWT's price in USDT. Attacker flash-loaned 1M USDT and executed the exploit 18 times in a single transaction, extracting USDT at manipulated prices. Total drained: ~158.6K USDT and ~110M RWT from the pair.\n\n**Attack Tx:** [https://bscscan.com/tx/0x22300140e7c44899c2602382a6e7a4a34a70f47f9736721744bc6434c07171dc](https://bscscan.com/tx/0x22300140e7c44899c2602382a6e7a4a34a70f47f9736721744bc6434c07171dc)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2078826324320248147](https://twitter.com/DefimonAlerts/status/2078826324320248147)",
+    "images": [],
+    "Lost": "$118.0K",
+    "Contract": ""
   }
 }
