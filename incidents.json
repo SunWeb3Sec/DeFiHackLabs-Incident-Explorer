@@ -1,5 +1,32 @@
 [
   {
+    "date": "20260723",
+    "name": "BSquaredNetwork",
+    "type": "Exploit",
+    "Lost": 3860000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "BNB Chain"
+  },
+  {
+    "date": "20260723",
+    "name": "VerusCoin",
+    "type": "Key Compromise",
+    "Lost": 7330000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260722",
+    "name": "AFX",
+    "type": "Key Compromise",
+    "Lost": 24150000.0,
+    "lossType": "USDC",
+    "Contract": "",
+    "chain": "Arbitrum"
+  },
+  {
     "date": "20260719",
     "name": "RWT",
     "type": "Flash Loan",
@@ -7,6 +34,15 @@
     "lossType": "USDT",
     "Contract": "",
     "chain": "BNB Chain"
+  },
+  {
+    "date": "20260719",
+    "name": "RWT Token",
+    "type": "Deflationary burn-from-pair price manipulation",
+    "Lost": 118000.0,
+    "lossType": "USDT",
+    "Contract": "src/test/2026-07/RWT_exp.sol",
+    "chain": "BSC"
   },
   {
     "date": "20260715",
@@ -135,6 +171,15 @@
     "chain": "Ethereum"
   },
   {
+    "date": "20260706",
+    "name": "SummerFi",
+    "type": "FleetCommander NAV Inflation via Depegged xUSD",
+    "Lost": 6000000.0,
+    "lossType": "USD",
+    "Contract": "src/test/2026-07/SummerFi_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20260702",
     "name": "EdelFinance",
     "type": "Collateral Price Manipulation",
@@ -241,6 +286,15 @@
     "lossType": "USDC",
     "Contract": "src/test/2026-06/RoyalRoyalties_exp.sol",
     "chain": "Polygon"
+  },
+  {
+    "date": "20260622",
+    "name": "Aztec Escape Hatch",
+    "type": "proof_id Accounting Bypass (whitehat reproduction)",
+    "Lost": 1603.99,
+    "lossType": "WBNB",
+    "Contract": "src/test/2026-06/AztecEscapeHatch_exp2.sol",
+    "chain": "Ethereum"
   },
   {
     "date": "20260622",
@@ -8053,32 +8107,5 @@
     "lossType": "ETH",
     "Contract": "src/test/2017-11/Parity_kill_exp.sol",
     "chain": "Ethereum"
-  },
-  {
-    "date": "20260706",
-    "name": "SummerFi",
-    "type": "FleetCommander NAV Inflation via Depegged xUSD",
-    "Lost": 6000000.0,
-    "lossType": "USD",
-    "Contract": "src/test/2026-07/SummerFi_exp.sol",
-    "chain": "Ethereum"
-  },
-  {
-    "date": "20260622",
-    "name": "Aztec Escape Hatch",
-    "type": "proof_id Accounting Bypass (whitehat reproduction)",
-    "Lost": 1603.99,
-    "lossType": "WBNB",
-    "Contract": "src/test/2026-06/AztecEscapeHatch_exp2.sol",
-    "chain": "Ethereum"
-  },
-  {
-    "date": "20260719",
-    "name": "RWT Token",
-    "type": "Deflationary burn-from-pair price manipulation",
-    "Lost": 118000.0,
-    "lossType": "USDT",
-    "Contract": "src/test/2026-07/RWT_exp.sol",
-    "chain": "BSC"
   }
 ]
