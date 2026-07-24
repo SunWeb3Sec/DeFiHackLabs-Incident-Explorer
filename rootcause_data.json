@@ -6419,5 +6419,29 @@
     "images": [],
     "Lost": "$118.0K",
     "Contract": ""
+  },
+  "VerusCoin": {
+    "type": "Bridge Exploit (Notary Compromise)",
+    "date": "2026-07-23",
+    "rootCause": "Verus<>Ethereum bridge drained via 11-of-15 Notaries with compromised private keys used to authorize malicious state root; attacker submitted crafted cross-chain proofs with abnormally shallow Merkle paths (3 segments vs 17 legitimate) through submitImports() to release ~1.14K ETH, 71.5 tBTC, 59.4 MKR, USDC/USDT/DAI/EUROC/scrvUSD from bridge reserves; code lacked proof-depth validation and branchType enforcement.\n\n**Attack Tx:** [https://etherscan.io/tx/0xa1f1e65c1cea4dba4ae439cd4dcdba6cc2dbda0ed1228e61f29ae9c9324eb099](https://etherscan.io/tx/0xa1f1e65c1cea4dba4ae439cd4dcdba6cc2dbda0ed1228e61f29ae9c9324eb099)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2080271385713066152](https://twitter.com/DefimonAlerts/status/2080271385713066152)",
+    "images": [],
+    "Lost": "$7.33M",
+    "Contract": ""
+  },
+  "Drift": {
+    "type": "Smart Contract Exploit",
+    "date": "2026-04-01",
+    "rootCause": "Drift protocol suffered exploit April 1, 2026 resulting in ~$285M loss; exploiter-labeled address subsequently deposited 23,095.1 ETH (~$44.4M) into TornadoCash for laundering.\n\n**Source:** [https://twitter.com/PeckShieldAlert/status/2080509354638508420](https://twitter.com/PeckShieldAlert/status/2080509354638508420)",
+    "images": [],
+    "Lost": "$285.00M",
+    "Contract": ""
+  },
+  "LienFinance": {
+    "type": "Access Control / Bond Minting Flaw",
+    "date": "2026-07-24",
+    "rootCause": "GeneralizedDotc OTC pools drained via permissionless bond group registration and flawed multiset integrity in BondMakerCollateralizedEth.exchangeEquivalentBonds(); attacker-deployed contract minted unbacked bonds with crafted payoff functions, repeated exception bondIDs to mask missing inputs, swapped worthless bonds for USDC via three pre-authorized liquidity pools; _calcRateBondToErc20 oracle inflated bond valuations.\n\n**Attack Tx:** [https://etherscan.io/tx/0xb96d572b557a12f5ef193e88cca86123a6ae1b6e98b0eeee265870c85848e0e7](https://etherscan.io/tx/0xb96d572b557a12f5ef193e88cca86123a6ae1b6e98b0eeee265870c85848e0e7)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2080531008365920472](https://twitter.com/DefimonAlerts/status/2080531008365920472)",
+    "images": [],
+    "Lost": "$542.1K",
+    "Contract": ""
   }
 }
