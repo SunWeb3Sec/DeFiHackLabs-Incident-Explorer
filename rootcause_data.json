@@ -6451,5 +6451,13 @@
     "images": [],
     "Lost": "$7.33M",
     "Contract": ""
+  },
+  "LienFinance": {
+    "type": "Access Control / Bond Minting Flaw",
+    "date": "2026-07-24",
+    "rootCause": "GeneralizedDotc OTC pools drained via permissionless bond group registration and flawed multiset integrity in BondMakerCollateralizedEth.exchangeEquivalentBonds(); attacker-deployed contract minted unbacked bonds with crafted payoff functions, repeated exception bondIDs to mask missing inputs, swapped worthless bonds for USDC via three pre-authorized liquidity pools; _calcRateBondToErc20 oracle inflated bond valuations.\n\n**Attack Tx:** [https://etherscan.io/tx/0xb96d572b557a12f5ef193e88cca86123a6ae1b6e98b0eeee265870c85848e0e7](https://etherscan.io/tx/0xb96d572b557a12f5ef193e88cca86123a6ae1b6e98b0eeee265870c85848e0e7)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2080531008365920472](https://twitter.com/DefimonAlerts/status/2080531008365920472)",
+    "images": [],
+    "Lost": "$542.1K",
+    "Contract": ""
   }
 }

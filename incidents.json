@@ -1,5 +1,14 @@
 [
   {
+    "date": "20260724",
+    "name": "LienFinance",
+    "type": "Access Control / Bond Minting Flaw",
+    "Lost": 542144.0,
+    "lossType": "USDC",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20260723",
     "name": "VerusCoin",
     "type": "Bridge Exploit (Notary Compromise)",
