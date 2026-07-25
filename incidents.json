@@ -18,6 +18,33 @@
     "chain": "Ethereum"
   },
   {
+    "date": "20260722",
+    "name": "42DAO",
+    "type": "Oracle Manipulation",
+    "Lost": 912000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "BSC"
+  },
+  {
+    "date": "20260722",
+    "name": "BSquaredNetwork",
+    "type": "Token Drain",
+    "Lost": 8591000.0,
+    "lossType": "B2",
+    "Contract": "",
+    "chain": "BSC"
+  },
+  {
+    "date": "20260722",
+    "name": "AFX",
+    "type": "Key Compromise",
+    "Lost": 24150000.0,
+    "lossType": "USDC",
+    "Contract": "",
+    "chain": "Arbitrum"
+  },
+  {
     "date": "20260719",
     "name": "RWT",
     "type": "Flash Loan",
@@ -952,15 +979,6 @@
     "lossType": "USD",
     "Contract": "",
     "chain": "59144"
-  },
-  {
-    "date": "20260401",
-    "name": "Drift",
-    "type": "Smart Contract Exploit",
-    "Lost": 285000000.0,
-    "lossType": "USD",
-    "Contract": "",
-    "chain": "Solana"
   },
   {
     "date": "20260331",
