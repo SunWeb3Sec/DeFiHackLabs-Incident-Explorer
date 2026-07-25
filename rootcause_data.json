@@ -6420,12 +6420,20 @@
     "Lost": "$118.0K",
     "Contract": ""
   },
-  "BSquaredNetwork": {
-    "type": "Exploit",
-    "date": "2026-07-23",
-    "rootCause": "8.591M $B2 tokens drained from protocol; specific exploit mechanism not disclosed. Attacker swapped stolen tokens to 1,128 ETH via WBNB intermediate and bridged out via NEAR Intents. Token price declined -15%.\n\n**Attack Tx:** [https://bscscan.com/tx/0x29d3031a1d331cffdb1607153be9ee20adcad8c55d51bc32fc96c6f358cf5ea2](https://bscscan.com/tx/0x29d3031a1d331cffdb1607153be9ee20adcad8c55d51bc32fc96c6f358cf5ea2)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2080060105433682085](https://twitter.com/DefimonAlerts/status/2080060105433682085)",
+  "42DAO": {
+    "type": "Oracle Manipulation",
+    "date": "2026-07-22",
+    "rootCause": "Single-signer oracle vulnerability (bar=1 threshold). Attacker used authorized signer key to push BTCB price to 10^20 via Spotter.poke(). Price propagated through Dog liquidation module without validation, enabling liquidation of BTCB vaults at inflated collateral value. Attacker withdrew 10.737 BTCB with only 0.006284 BTCB collateral backing, borrowed 4.5M BLC tokens, and swapped for ~761,696 USDT. Follow-up attack pushed price down and liquidated additional positions for ~$122K profit.\n\n**Attack Tx:** [https://bscscan.com/tx/0xe54b7123fb6f5bb8c259febcce5b9e312a8c0d100e2fe82c3cb44488c626cbaf](https://bscscan.com/tx/0xe54b7123fb6f5bb8c259febcce5b9e312a8c0d100e2fe82c3cb44488c626cbaf)\n\n**Source:** [https://twitter.com/SlowMist_Team/status/2079759793192132810](https://twitter.com/SlowMist_Team/status/2079759793192132810)",
     "images": [],
-    "Lost": "$3.86M",
+    "Lost": "$912.0K",
+    "Contract": ""
+  },
+  "BSquaredNetwork": {
+    "type": "Token Drain",
+    "date": "2026-07-22",
+    "rootCause": "Draining of 8.591M B2 tokens. Team estimated USD loss at approximately $3.86M USD (based on ransom demand: 10% of stolen funds = ~$386K USD). Attacker swapped stolen tokens to 1,128 ETH via WBNB intermediate and bridged out via NEAR Intents. Token price declined -15%.\n\n**Attack Tx:** [https://bscscan.com/tx/0x29d3031a1d331cffdb1607153be9ee20adcad8c55d51bc32fc96c6f358cf5ea2](https://bscscan.com/tx/0x29d3031a1d331cffdb1607153be9ee20adcad8c55d51bc32fc96c6f358cf5ea2)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2080060105433682085](https://twitter.com/DefimonAlerts/status/2080060105433682085)",
+    "images": [],
+    "Lost": "8591000.00 B2",
     "Contract": ""
   },
   "AFX": {
@@ -6437,9 +6445,9 @@
     "Contract": ""
   },
   "VerusCoin": {
-    "type": "Key Compromise",
+    "type": "Bridge Exploit (Notary Compromise)",
     "date": "2026-07-23",
-    "rootCause": "Verus-Ethereum bridge exploited via 11-of-15 compromised Notary keys and missing economic validation on cross-chain imports. Attacker crafted malicious Verus-side import with unbacked payout request. Bridge verified notary signatures and Merkle proofs but failed to confirm payout amounts matched Verus-side backing. Released ~1.14K ETH, 71.5 tBTC, 59.4 MKR, plus USDC/USDT/DAI/EUROC/scrvUSD (~$7.33M total). Stolen ETH (3,916.1 ETH) laundered through Tornado Cash.\n\n**Attack Tx:** [https://etherscan.io/tx/0xa1f1e65c1cea4dba4ae439cd4dcdba6cc2dbda0ed1228e61f29ae9c9324eb099](https://etherscan.io/tx/0xa1f1e65c1cea4dba4ae439cd4dcdba6cc2dbda0ed1228e61f29ae9c9324eb099)\n\n**Source:** [https://twitter.com/1nf0s3cpt/status/2080162610444677132](https://twitter.com/1nf0s3cpt/status/2080162610444677132)",
+    "rootCause": "Verus<>Ethereum bridge drained via 11-of-15 Notaries with compromised private keys used to authorize malicious state root; attacker submitted crafted cross-chain proofs with abnormally shallow Merkle paths (3 segments vs 17 legitimate) through submitImports() to release ~1.14K ETH, 71.5 tBTC, 59.4 MKR, USDC/USDT/DAI/EUROC/scrvUSD from bridge reserves; code lacked proof-depth validation and branchType enforcement.\n\n**Attack Tx:** [https://etherscan.io/tx/0xa1f1e65c1cea4dba4ae439cd4dcdba6cc2dbda0ed1228e61f29ae9c9324eb099](https://etherscan.io/tx/0xa1f1e65c1cea4dba4ae439cd4dcdba6cc2dbda0ed1228e61f29ae9c9324eb099)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2080271385713066152](https://twitter.com/DefimonAlerts/status/2080271385713066152)",
     "images": [],
     "Lost": "$7.33M",
     "Contract": ""

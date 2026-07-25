@@ -1,21 +1,30 @@
 [
   {
     "date": "20260723",
-    "name": "BSquaredNetwork",
-    "type": "Exploit",
-    "Lost": 3860000.0,
-    "lossType": "USD",
-    "Contract": "",
-    "chain": "BNB Chain"
-  },
-  {
-    "date": "20260723",
     "name": "VerusCoin",
-    "type": "Key Compromise",
+    "type": "Bridge Exploit (Notary Compromise)",
     "Lost": 7330000.0,
     "lossType": "USD",
     "Contract": "",
     "chain": "Ethereum"
+  },
+  {
+    "date": "20260722",
+    "name": "42DAO",
+    "type": "Oracle Manipulation",
+    "Lost": 912000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "BSC"
+  },
+  {
+    "date": "20260722",
+    "name": "BSquaredNetwork",
+    "type": "Token Drain",
+    "Lost": 8591000.0,
+    "lossType": "B2",
+    "Contract": "",
+    "chain": "BSC"
   },
   {
     "date": "20260722",
