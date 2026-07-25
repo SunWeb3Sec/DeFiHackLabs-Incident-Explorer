@@ -6431,9 +6431,25 @@
   "BSquaredNetwork": {
     "type": "Token Drain",
     "date": "2026-07-22",
-    "rootCause": "Draining of 8.591M B2 tokens. Team estimated USD loss at approximately $3.86M USD (based on ransom demand: 10% of stolen funds = ~$386K USD).\n\n**Attack Tx:** [https://bscscan.com/tx/0x29d3031a1d331cffdb1607153be9ee20adcad8c55d51bc32fc96c6f358cf5ea2](https://bscscan.com/tx/0x29d3031a1d331cffdb1607153be9ee20adcad8c55d51bc32fc96c6f358cf5ea2)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2080060105433682085](https://twitter.com/DefimonAlerts/status/2080060105433682085)",
+    "rootCause": "Draining of 8.591M B2 tokens. Team estimated USD loss at approximately $3.86M USD (based on ransom demand: 10% of stolen funds = ~$386K USD). Attacker swapped stolen tokens to 1,128 ETH via WBNB intermediate and bridged out via NEAR Intents. Token price declined -15%.\n\n**Attack Tx:** [https://bscscan.com/tx/0x29d3031a1d331cffdb1607153be9ee20adcad8c55d51bc32fc96c6f358cf5ea2](https://bscscan.com/tx/0x29d3031a1d331cffdb1607153be9ee20adcad8c55d51bc32fc96c6f358cf5ea2)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2080060105433682085](https://twitter.com/DefimonAlerts/status/2080060105433682085)",
     "images": [],
     "Lost": "8591000.00 B2",
+    "Contract": ""
+  },
+  "AFX": {
+    "type": "Key Compromise",
+    "date": "2026-07-22",
+    "rootCause": "5 of 7 bridge validator keys compromised, carrying 7,142/10,000 total power (exceeds 2/3 quorum). Two-phase attack: (1) Propose transaction with 5 compromised validator signatures, (2) Execute after 200-second dispute window to release 24.15M USDC via CCTP bridge to Ethereum. Stolen funds converted to 12,467.43 ETH at 0x627654B2782bfC57580ecD11d40869b350B6ebAC.\n\n**Attack Tx:** [https://arbiscan.io/tx/0x50d0b3ec6c3f5fce0f10abf81540bbb508f421494aa2b3480c4a264b0436547b](https://arbiscan.io/tx/0x50d0b3ec6c3f5fce0f10abf81540bbb508f421494aa2b3480c4a264b0436547b)\n\n**Source:** [https://twitter.com/1nf0s3cpt/status/2080082521778467217](https://twitter.com/1nf0s3cpt/status/2080082521778467217)",
+    "images": [],
+    "Lost": "$24.15M",
+    "Contract": ""
+  },
+  "VerusCoin": {
+    "type": "Bridge Exploit (Notary Compromise)",
+    "date": "2026-07-23",
+    "rootCause": "Verus<>Ethereum bridge drained via 11-of-15 Notaries with compromised private keys used to authorize malicious state root; attacker submitted crafted cross-chain proofs with abnormally shallow Merkle paths (3 segments vs 17 legitimate) through submitImports() to release ~1.14K ETH, 71.5 tBTC, 59.4 MKR, USDC/USDT/DAI/EUROC/scrvUSD from bridge reserves; code lacked proof-depth validation and branchType enforcement.\n\n**Attack Tx:** [https://etherscan.io/tx/0xa1f1e65c1cea4dba4ae439cd4dcdba6cc2dbda0ed1228e61f29ae9c9324eb099](https://etherscan.io/tx/0xa1f1e65c1cea4dba4ae439cd4dcdba6cc2dbda0ed1228e61f29ae9c9324eb099)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2080271385713066152](https://twitter.com/DefimonAlerts/status/2080271385713066152)",
+    "images": [],
+    "Lost": "$7.33M",
     "Contract": ""
   }
 }

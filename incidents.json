@@ -1,5 +1,14 @@
 [
   {
+    "date": "20260723",
+    "name": "VerusCoin",
+    "type": "Bridge Exploit (Notary Compromise)",
+    "Lost": 7330000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20260722",
     "name": "42DAO",
     "type": "Oracle Manipulation",
@@ -16,6 +25,15 @@
     "lossType": "B2",
     "Contract": "",
     "chain": "BSC"
+  },
+  {
+    "date": "20260722",
+    "name": "AFX",
+    "type": "Key Compromise",
+    "Lost": 24150000.0,
+    "lossType": "USDC",
+    "Contract": "",
+    "chain": "Arbitrum"
   },
   {
     "date": "20260719",
