@@ -8125,5 +8125,14 @@
     "lossType": "ETH",
     "Contract": "src/test/2017-11/Parity_kill_exp.sol",
     "chain": "Ethereum"
+  },
+  {
+    "date": "20260724",
+    "name": "Lien Finance",
+    "type": "Permissionless bond registration / payoff mispricing",
+    "Lost": 542144.0,
+    "lossType": "USDC",
+    "Contract": "src/test/2026-07/LienFinance_exp.sol",
+    "chain": "Ethereum"
   }
 ]
