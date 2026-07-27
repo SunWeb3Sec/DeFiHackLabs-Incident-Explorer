@@ -1,11 +1,29 @@
 [
   {
+    "date": "20260725",
+    "name": "Projekt",
+    "type": "Flash Loan Attack",
+    "Lost": 560000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20260724",
     "name": "LienFinance",
     "type": "Access Control / Bond Minting Flaw",
     "Lost": 542144.0,
     "lossType": "USDC",
     "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260724",
+    "name": "Lien Finance",
+    "type": "Permissionless bond registration / payoff mispricing",
+    "Lost": 542144.0,
+    "lossType": "USDC",
+    "Contract": "src/test/2026-07/LienFinance_exp.sol",
     "chain": "Ethereum"
   },
   {
@@ -8124,15 +8142,6 @@
     "Lost": 514000.0,
     "lossType": "ETH",
     "Contract": "src/test/2017-11/Parity_kill_exp.sol",
-    "chain": "Ethereum"
-  },
-  {
-    "date": "20260724",
-    "name": "Lien Finance",
-    "type": "Permissionless bond registration / payoff mispricing",
-    "Lost": 542144.0,
-    "lossType": "USDC",
-    "Contract": "src/test/2026-07/LienFinance_exp.sol",
     "chain": "Ethereum"
   }
 ]

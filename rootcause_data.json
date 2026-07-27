@@ -6459,5 +6459,13 @@
     "images": [],
     "Lost": "$542.1K",
     "Contract": ""
+  },
+  "Projekt": {
+    "type": "Flash Loan Attack",
+    "date": "2026-07-25",
+    "rootCause": "A permissionless 'buy-to-earn' reward vault (0x574f...42cb) was exploited via a flash loan attack. The attacker flash-loaned ~14K WETH from Morpho, used it to manipulate token balances across multiple Uniswap V2 memecoin pairs (Kirby Inu, ROTTSCHILD, etc.), and registered huge fake 'purchase' allocations via the unverified trackPurchase() function. The function read the buyer's token balance delta without verifying actual ETH was spent, allowing the attacker to drain ~301.7 ETH (~$560K) from the vault's reward pool via massWithdraw(). The flash loan was repaid in the same transaction.\n\n**Attack Tx:** [https://etherscan.io/tx/0x90f40d3c3b60370f7287d51d972ef54596c46e98f21af91b03a4e84c5e410f64](https://etherscan.io/tx/0x90f40d3c3b60370f7287d51d972ef54596c46e98f21af91b03a4e84c5e410f64)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2081781283584106959](https://twitter.com/DefimonAlerts/status/2081781283584106959)",
+    "images": [],
+    "Lost": "$560.0K",
+    "Contract": ""
   }
 }
