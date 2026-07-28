@@ -1,5 +1,14 @@
 [
   {
+    "date": "20260728",
+    "name": "Across",
+    "type": "Exploit",
+    "Lost": 3600000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Solana"
+  },
+  {
     "date": "20260725",
     "name": "Projekt",
     "type": "Flash Loan Attack",
@@ -25,6 +34,15 @@
     "lossType": "USDC",
     "Contract": "src/test/2026-07/LienFinance_exp.sol",
     "chain": "Ethereum"
+  },
+  {
+    "date": "20260724",
+    "name": "TripleA",
+    "type": "Hot Wallet Compromise",
+    "Lost": 9700000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Multi-Chain"
   },
   {
     "date": "20260723",
