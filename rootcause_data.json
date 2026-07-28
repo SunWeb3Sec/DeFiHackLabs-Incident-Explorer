@@ -6467,5 +6467,21 @@
     "images": [],
     "Lost": "$560.0K",
     "Contract": ""
+  },
+  "TripleA": {
+    "type": "Hot Wallet Compromise",
+    "date": "2026-07-24",
+    "rootCause": "Hot wallets compromised and drained across five chains (Tron 71%, Ethereum, Arbitrum, Polygon, Solana) via automated sweep lasting ~22 hours starting July 24 at 19:31 UTC. At least $9.7M traced.\n\n**Source:** [https://twitter.com/Phalcon_xyz/status/2082025998774657089](https://twitter.com/Phalcon_xyz/status/2082025998774657089)",
+    "images": [],
+    "Lost": "$9.70M",
+    "Contract": ""
+  },
+  "Across": {
+    "type": "Exploit",
+    "date": "2026-07-28",
+    "rootCause": "Across Protocol attacked on Solana, ~$3.6M worth of cryptos drained. Exploiter's labeled address later refunded 331.8 ETH (~$623.9K) to Across Protocol Hub Pool Owner Multisig.\n\n**Source:** [https://twitter.com/PeckShieldAlert/status/2082034098458214567](https://twitter.com/PeckShieldAlert/status/2082034098458214567)",
+    "images": [],
+    "Lost": "$3.60M",
+    "Contract": ""
   }
 }
