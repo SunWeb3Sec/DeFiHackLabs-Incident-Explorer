@@ -1,5 +1,14 @@
 [
   {
+    "date": "20260730",
+    "name": "SwanTreasury",
+    "type": "Private Key Compromise",
+    "Lost": 625000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "BNB Chain"
+  },
+  {
     "date": "20260728",
     "name": "Across",
     "type": "Exploit",
@@ -7,6 +16,15 @@
     "lossType": "USD",
     "Contract": "",
     "chain": "Solana"
+  },
+  {
+    "date": "20260726",
+    "name": "ChainConnect",
+    "type": "Bridge Exploit",
+    "Lost": 329.0,
+    "lossType": "ETH",
+    "Contract": "",
+    "chain": "Ethereum"
   },
   {
     "date": "20260725",

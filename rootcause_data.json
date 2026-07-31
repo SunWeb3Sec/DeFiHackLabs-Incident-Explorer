@@ -6483,5 +6483,21 @@
     "images": [],
     "Lost": "$3.60M",
     "Contract": ""
+  },
+  "SwanTreasury": {
+    "type": "Private Key Compromise",
+    "date": "2026-07-30",
+    "rootCause": "Off-chain signer key (0xdEb4...8284) hardcoded in ZhaiquanBuy contract was compromised. Attacker forged valid signatures to purchase STY at 100x discount (~687K STY for ~19.7K USDT via PancakeSwap flash loan), then dumped tokens for ~$625K USDT profit.\n\n**Attack Tx:** [https://bscscan.com/tx/0xc8c3325ba2c942a674b26de2063d278c144e92dbc91497ca0c766c915d96cbd4](https://bscscan.com/tx/0xc8c3325ba2c942a674b26de2063d278c144e92dbc91497ca0c766c915d96cbd4)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2083039796784410802](https://twitter.com/DefimonAlerts/status/2083039796784410802)",
+    "images": [],
+    "Lost": "$625.0K",
+    "Contract": ""
+  },
+  "ChainConnect": {
+    "type": "Bridge Exploit",
+    "date": "2026-07-26",
+    "rootCause": "ChainConnect bridge exploited on July 26. Attacker held ~329 ETH for ransom; whitehat agreement reached: attacker returned 280 ETH (85% of total stolen) to 0x840B3De19e3FAB72fa9A168bD8Dd71B678c57989 and retained ~49 ETH (15%) as bounty. Recovery confirmed July 31, 2026.\n\n**Attack Tx:** [https://etherscan.io/tx/0xa6df21e27c5228af87e35122b506751c642fe012b2f61c84e046625718d0c85b](https://etherscan.io/tx/0xa6df21e27c5228af87e35122b506751c642fe012b2f61c84e046625718d0c85b)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2083213179333534148](https://twitter.com/DefimonAlerts/status/2083213179333534148)",
+    "images": [],
+    "Lost": "329.00 ETH",
+    "Contract": ""
   }
 }
