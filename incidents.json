@@ -8179,5 +8179,23 @@
     "lossType": "ETH",
     "Contract": "src/test/2017-11/Parity_kill_exp.sol",
     "chain": "Ethereum"
+  },
+  {
+    "date": "20260730",
+    "name": "UnprotectedArbBot",
+    "type": "Unprotected arbitrary-call forwarder drained via pre-granted WETH allowance",
+    "Lost": 16.623,
+    "lossType": "WETH",
+    "Contract": "src/test/2026-07/UnprotectedArbBot_exp.sol",
+    "chain": "Base"
+  },
+  {
+    "date": "20260526",
+    "name": "SKP Token",
+    "type": "Deliberately Engineered Drain (Insider Exploit / Rug Pull)",
+    "Lost": 212195.0,
+    "lossType": "USDT",
+    "Contract": "src/test/2026-05/SKP_exp2.sol",
+    "chain": "BSC"
   }
 ]
