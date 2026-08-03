@@ -1,5 +1,14 @@
 [
   {
+    "date": "20260802",
+    "name": "LpdFi",
+    "type": "Flash Loan / Price Manipulation",
+    "Lost": 693500.0,
+    "lossType": "USDC",
+    "Contract": "",
+    "chain": "BNB Chain"
+  },
+  {
     "date": "20260730",
     "name": "SwanTreasury",
     "type": "Private Key Compromise",
