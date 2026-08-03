@@ -6499,5 +6499,13 @@
     "images": [],
     "Lost": "329.00 ETH",
     "Contract": ""
+  },
+  "LpdFi": {
+    "type": "Flash Loan / Price Manipulation",
+    "date": "2026-08-02",
+    "rootCause": "Oracle vulnerability: LpdFi's price() function relied directly on PancakeSwap LPD/USDC pair spot reserves without TWAP protection. Attacker flash-borrowed USDC, manipulated reserves via donate+sync, inflated interest calculations, then claimed interest via removeLp() to drain the protocol's ~1.68M LP position. ~693.5K USDC extracted in single transaction.\n\n**Attack Tx:** [https://bscscan.com/tx/0x70bbe0aa3c7ef149ecb6128a06025885deaa8fef3f393a505d447d28ab3315d6](https://bscscan.com/tx/0x70bbe0aa3c7ef149ecb6128a06025885deaa8fef3f393a505d447d28ab3315d6)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2084157533204197380](https://twitter.com/DefimonAlerts/status/2084157533204197380)",
+    "images": [],
+    "Lost": "$693.5K",
+    "Contract": ""
   }
 }
