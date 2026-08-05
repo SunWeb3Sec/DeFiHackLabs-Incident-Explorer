@@ -1,5 +1,14 @@
 [
   {
+    "date": "20260804",
+    "name": "Nereus",
+    "type": "Proxy Upgrade Attack",
+    "Lost": 23760.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20260802",
     "name": "LpdFi",
     "type": "Flash Loan / Price Manipulation",

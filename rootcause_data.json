@@ -6507,5 +6507,13 @@
     "images": [],
     "Lost": "$693.5K",
     "Contract": ""
+  },
+  "Nereus": {
+    "type": "Proxy Upgrade Attack",
+    "date": "2026-08-04",
+    "rootCause": "NereusShapeshiftersMarket NFT marketplace (TransparentUpgradeableProxy 0x6de0...6d73) drained via malicious implementation upgrade. Proxy admin key (0x863b...4076, EIP-7702-delegated EOA) was compromised and used to call ProxyAdmin.upgradeAndCall, swapping implementation to a freshly deployed drainer contract (0x60f8...23d1). Drainer's selector 0x8961ec50 swept entire ETH balance to attacker address. Attacker (0xd9cb...8f5f) extracted 12.74 ETH.\n\n**Attack Tx:** [https://etherscan.io/tx/0x125e0a7046004a5886cd0908907ae85bf8716567b4464e11570d588425b0bc93](https://etherscan.io/tx/0x125e0a7046004a5886cd0908907ae85bf8716567b4464e11570d588425b0bc93)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2084871269854384356](https://twitter.com/DefimonAlerts/status/2084871269854384356)",
+    "images": [],
+    "Lost": "$23.8K",
+    "Contract": ""
   }
 }
