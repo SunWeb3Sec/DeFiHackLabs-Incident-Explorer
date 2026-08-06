@@ -6515,5 +6515,21 @@
     "images": [],
     "Lost": "$23.8K",
     "Contract": ""
+  },
+  "LULA": {
+    "type": "Reserve Manipulation",
+    "date": "2026-08-06",
+    "rootCause": "BNB Chain reserve manipulation attack resulting in approximately $578K loss. Detailed technical analysis available in BlockSec's weekly Web3 security roundup.\n\n**Source:** [https://twitter.com/Phalcon_xyz/status/2085194687783313852](https://twitter.com/Phalcon_xyz/status/2085194687783313852)",
+    "images": [],
+    "Lost": "$578.0K",
+    "Contract": ""
+  },
+  "Strongblock": {
+    "type": "Governance Takeover",
+    "date": "2026-08-06",
+    "rootCause": "Attacker exploited abandoned on-chain Governor contract. Holding majority STRONG vote tokens, attacker executed governance proposal calling setPendingAdmin(attacker), then upgraded proxy to malicious unverified implementation with arbitrary-call backdoor. Drained 32,695 STRONG + 383,447 STRNGR tokens ($72K). Attacker: 0xacbca357981870f30130b145762d671891ca810c. Victim: 0xBDDC7Ef8BaCeacE16DCE005102639a4bB86CB8C1.\n\n**Attack Tx:** [https://etherscan.io/tx/0x92be5e374e260192f8fdb5ffdc33504c768ecad091cc7dbc37282e5ca8ea94c6](https://etherscan.io/tx/0x92be5e374e260192f8fdb5ffdc33504c768ecad091cc7dbc37282e5ca8ea94c6)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2085246380231004319](https://twitter.com/DefimonAlerts/status/2085246380231004319)",
+    "images": [],
+    "Lost": "$72.0K",
+    "Contract": ""
   }
 }
