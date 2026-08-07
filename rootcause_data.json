@@ -6515,5 +6515,13 @@
     "images": [],
     "Lost": "$23.8K",
     "Contract": ""
+  },
+  "ZKPanther": {
+    "type": "Governance Attack",
+    "date": "2026-08-07",
+    "rootCause": "Attacker submitted a governance proposal named 'zkp-reexploit' to upgrade each ZKP proxy to a drainer implementation. The attacker posted a 'yes' answer with 0.5 ETH bond. No honest party counter-bonded within the 12h timeout + 8h cooldown. The answer finalized and governance module executed the drain.\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2085673531409400047](https://twitter.com/DefimonAlerts/status/2085673531409400047)",
+    "images": [],
+    "Lost": "5120000.00 ZKP",
+    "Contract": ""
   }
 }
