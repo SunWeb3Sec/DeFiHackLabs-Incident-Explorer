@@ -1,5 +1,14 @@
 [
   {
+    "date": "20260807",
+    "name": "ZKPanther",
+    "type": "Governance Attack",
+    "Lost": 5120000.0,
+    "lossType": "ZKP",
+    "Contract": "",
+    "chain": "Base"
+  },
+  {
     "date": "20260804",
     "name": "Nereus",
     "type": "Proxy Upgrade Attack",
