@@ -1,5 +1,14 @@
 [
   {
+    "date": "20260809",
+    "name": "USM",
+    "type": "Flash Loan + Pricing Logic Flaw",
+    "Lost": 136000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20260807",
     "name": "ZKPanther",
     "type": "Governance Attack",
