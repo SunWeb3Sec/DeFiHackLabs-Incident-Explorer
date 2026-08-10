@@ -6523,5 +6523,13 @@
     "images": [],
     "Lost": "5120000.00 ZKP",
     "Contract": ""
+  },
+  "USM": {
+    "type": "Flash Loan + Pricing Logic Flaw",
+    "date": "2026-08-09",
+    "rootCause": "Attacker flash-loaned WETH from Balancer and exploited pricing logic flaw in USM's defund() function. The function calculates ETH redemption value using arithmetic mean of current and estimated final FUM sell prices, but lacks 'split invariance.' By calling defund() 64–65 times instead of once for a large position burn, combined with per-redemption state contraction (adjShrinkFactor) and integer rounding, attacker extracted significantly more ETH than fair value. The chunked exits inflated the effective FUM sell price far above the oracle mark, draining ~70.83 ETH from the USM ETH pool.\n\n- Attacker EOA: 0xb92b2e47680c89da8f951b8963ef469f461a50fc\n- Attacker Contract: 0x5a5e29ba89663a3558273354e990426f3cac7de7\n- Victim Contract: 0x2a7fff44c19f39468064ab5e5c304de01d591675\n\n**Attack Tx:** [https://etherscan.io/tx/0xfae5e751b8ce01457cbb6b529839f24a0cff50faaabcbd0fd02ca0cf559b050e](https://etherscan.io/tx/0xfae5e751b8ce01457cbb6b529839f24a0cff50faaabcbd0fd02ca0cf559b050e)\n\n**Source:** [https://twitter.com/CertiKAlert/status/2086641169078055208](https://twitter.com/CertiKAlert/status/2086641169078055208)",
+    "images": [],
+    "Lost": "$136.0K",
+    "Contract": ""
   }
 }
