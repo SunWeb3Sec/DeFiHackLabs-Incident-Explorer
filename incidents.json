@@ -8215,5 +8215,23 @@
     "lossType": "ETH",
     "Contract": "src/test/2017-11/Parity_kill_exp.sol",
     "chain": "Ethereum"
+  },
+  {
+    "date": "20260809",
+    "name": "USM",
+    "type": "defund() price split-invariance rounding exploit",
+    "Lost": 70.83,
+    "lossType": "ETH",
+    "Contract": "src/test/2026-08/USM_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260526",
+    "name": "SKP Token",
+    "type": "Deliberately Engineered Drain (Insider Exploit / Rug Pull)",
+    "Lost": 212195.0,
+    "lossType": "USDT",
+    "Contract": "src/test/2026-05/SKP_exp2.sol",
+    "chain": "BSC"
   }
 ]
