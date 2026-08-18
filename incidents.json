@@ -8224,5 +8224,14 @@
     "lossType": "WETH",
     "Contract": "src/test/2026-07/UnprotectedArbBot_exp.sol",
     "chain": "Base"
+  },
+  {
+    "date": "20260807",
+    "name": "Atomic",
+    "type": "Flash-loan price oracle manipulation of lending collateral valuation",
+    "Lost": 29984.27,
+    "lossType": "USDC",
+    "Contract": "src/test/2026-08/Atomic_exp.sol",
+    "chain": "Unknown"
   }
 ]
