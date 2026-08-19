@@ -6547,5 +6547,13 @@
     "images": [],
     "Lost": "$72.0K",
     "Contract": ""
+  },
+  "MayaProtocol": {
+    "type": "Accounting Manipulation",
+    "date": "2026-08-19",
+    "rootCause": "Attacker inflated ARB.LINK accounting with false subsidy, then executed add/remove liquidity operations to extract ~48.87M CACAO and 98.82 LINK from shared liquidity pool. Attacker: maya1dl3yrfpedyr5jfr0r86s2apjltnjqgszmwsv8x\n\n**Attack Tx:** [https://www.explorer.mayachain.info/tx/516BA14D6976EC7B8A3087E1C52B195433EF0F9D85F4B9520675BC4FEB99E9B7](https://www.explorer.mayachain.info/tx/516BA14D6976EC7B8A3087E1C52B195433EF0F9D85F4B9520675BC4FEB99E9B7)\n\n**Source:** [https://twitter.com/CertiKAlert/status/2089900489752318181](https://twitter.com/CertiKAlert/status/2089900489752318181)",
+    "images": [],
+    "Lost": "$1.70M",
+    "Contract": ""
   }
 }

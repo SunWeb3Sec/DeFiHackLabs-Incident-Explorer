@@ -1,5 +1,14 @@
 [
   {
+    "date": "20260819",
+    "name": "MayaProtocol",
+    "type": "Accounting Manipulation",
+    "Lost": 1700000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Maya"
+  },
+  {
     "date": "20260809",
     "name": "USM",
     "type": "Flash Loan + Pricing Logic Flaw",
@@ -16,6 +25,15 @@
     "lossType": "ZKP",
     "Contract": "",
     "chain": "Base"
+  },
+  {
+    "date": "20260807",
+    "name": "Atomic",
+    "type": "Flash-loan price oracle manipulation of lending collateral valuation",
+    "Lost": 29984.27,
+    "lossType": "USDC",
+    "Contract": "src/test/2026-08/Atomic_exp.sol",
+    "chain": "Unknown"
   },
   {
     "date": "20260806",
@@ -61,6 +79,15 @@
     "lossType": "USD",
     "Contract": "",
     "chain": "BNB Chain"
+  },
+  {
+    "date": "20260730",
+    "name": "UnprotectedArbBot",
+    "type": "Unprotected arbitrary-call forwarder drained via pre-granted WETH allowance",
+    "Lost": 16.623,
+    "lossType": "WETH",
+    "Contract": "src/test/2026-07/UnprotectedArbBot_exp.sol",
+    "chain": "Base"
   },
   {
     "date": "20260728",
@@ -8233,23 +8260,5 @@
     "lossType": "ETH",
     "Contract": "src/test/2017-11/Parity_kill_exp.sol",
     "chain": "Ethereum"
-  },
-  {
-    "date": "20260730",
-    "name": "UnprotectedArbBot",
-    "type": "Unprotected arbitrary-call forwarder drained via pre-granted WETH allowance",
-    "Lost": 16.623,
-    "lossType": "WETH",
-    "Contract": "src/test/2026-07/UnprotectedArbBot_exp.sol",
-    "chain": "Base"
-  },
-  {
-    "date": "20260807",
-    "name": "Atomic",
-    "type": "Flash-loan price oracle manipulation of lending collateral valuation",
-    "Lost": 29984.27,
-    "lossType": "USDC",
-    "Contract": "src/test/2026-08/Atomic_exp.sol",
-    "chain": "Unknown"
   }
 ]
