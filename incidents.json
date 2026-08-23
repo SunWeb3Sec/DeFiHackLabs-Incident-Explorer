@@ -1,5 +1,14 @@
 [
   {
+    "date": "20260823",
+    "name": "TermFinance",
+    "type": "Governance Attack",
+    "Lost": 8500000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20260822",
     "name": "TheSandbox",
     "type": "Token Minting",

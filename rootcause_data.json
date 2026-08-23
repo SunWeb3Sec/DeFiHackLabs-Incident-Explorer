@@ -6563,5 +6563,13 @@
     "images": [],
     "Lost": "14900000000.00 SAND",
     "Contract": ""
+  },
+  "TermFinance": {
+    "type": "Governance Attack",
+    "date": "2026-08-23",
+    "rootCause": "Attacker cheaply acquired a majority of a sparsely-held DAO governance token, then passed malicious proposals to seize control of Term's vaults. Drained ~2,843 ETH ($6.87M) and 1.68M USDC ($1.68M). Funds currently at 0xD5183d8BfC65a50863C62aF2538198A8288FFc13.\n\nTx #1: https://etherscan.io/tx/0xd354a15b15cb73d30908f411aee3f795ec86737a4d080e9a818ac4d6d3014129\nTx #2: https://etherscan.io/tx/0x9f273f9a5a20c2fc957b06bbfa45db486390eede4a7f44fbe1a2eb6744c2e8a0\n\nAttacker addresses:\n- 0xa908b3472d76e7744bab0a5911768a4a6300612b\n- 0x686457a7468b9b31c5dba43b1b16077b48520691\n\n**Attack Tx:** [https://etherscan.io/tx/0xd354a15b15cb73d30908f411aee3f795ec86737a4d080e9a818ac4d6d3014129](https://etherscan.io/tx/0xd354a15b15cb73d30908f411aee3f795ec86737a4d080e9a818ac4d6d3014129)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2091422624249217259](https://twitter.com/DefimonAlerts/status/2091422624249217259)",
+    "images": [],
+    "Lost": "$8.50M",
+    "Contract": ""
   }
 }
