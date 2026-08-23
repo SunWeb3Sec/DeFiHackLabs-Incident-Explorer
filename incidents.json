@@ -1,5 +1,14 @@
 [
   {
+    "date": "20260822",
+    "name": "TheSandbox",
+    "type": "Token Minting",
+    "Lost": 14900000000.0,
+    "lossType": "SAND",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20260819",
     "name": "MayaProtocol",
     "type": "Accounting Manipulation",
