@@ -6555,5 +6555,13 @@
     "images": [],
     "Lost": "$1.70M",
     "Contract": ""
+  },
+  "TheSandbox": {
+    "type": "Token Minting",
+    "date": "2026-08-22",
+    "rootCause": "14.9B SAND tokens minted across addresses 0xAbE0...4D22 and 0x638C...F296 through unauthorized access to token minting contract.\n\n**Source:** [https://twitter.com/PeckShieldAlert/status/2091037704314339331](https://twitter.com/PeckShieldAlert/status/2091037704314339331)",
+    "images": [],
+    "Lost": "14900000000.00 SAND",
+    "Contract": ""
   }
 }
