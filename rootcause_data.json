@@ -6571,5 +6571,13 @@
     "images": [],
     "Lost": "$8.50M",
     "Contract": ""
+  },
+  "Arrakis": {
+    "type": "Flash Loan Sandwich",
+    "date": "2026-08-24",
+    "rootCause": "State-dependent Uniswap V3 vault accounting vulnerable to atomic liquidity sandwich. Attacker minted shares against one pool composition, manipulated price and accrued fees, then burned under changed position state. Lack of same-transaction mint–burn protection. Attacker: 0xa3b096e4df1247794599a37af8f5b8cb05d5eb44; Attack contract: 0x028d9c17b1a097e7e115a6400203df86339baf4a; Flash loan from Morpho.\n\n**Attack Tx:** [https://etherscan.io/tx/0x6ae3af4b2f25a56594de99cfb31369150dd9ac059c49efe04b9e3e0163dbc672](https://etherscan.io/tx/0x6ae3af4b2f25a56594de99cfb31369150dd9ac059c49efe04b9e3e0163dbc672)\n\n**Source:** [https://twitter.com/SlowMist_Team/status/2091738634210996429](https://twitter.com/SlowMist_Team/status/2091738634210996429)",
+    "images": [],
+    "Lost": "2.94 WETH",
+    "Contract": ""
   }
 }

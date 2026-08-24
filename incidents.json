@@ -1,5 +1,14 @@
 [
   {
+    "date": "20260824",
+    "name": "Arrakis",
+    "type": "Flash Loan Sandwich",
+    "Lost": 2.94,
+    "lossType": "WETH",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20260823",
     "name": "TermFinance",
     "type": "Governance Attack",
