@@ -6579,5 +6579,29 @@
     "images": [],
     "Lost": "2.94 WETH",
     "Contract": ""
+  },
+  "Enjin": {
+    "type": "Storage Slot Collision",
+    "date": "2026-08-26",
+    "rootCause": "Malicious ERC-1155 adapter exploited storage slot collision via DELEGATECALL. The adapter's initialize(uint256) function wrote to proxy slot 1 (same as pendingManager), allowing attacker to gain manager rights. Registered malicious transfer adapter to steal ENJ-backed items from ~52 holders and redeemed via melt() function. ~5.24M ENJ drained (~$142K).\n\n**Attack Tx:** [https://etherscan.io/tx/0xd4a382da03c99ce3084661b913b50b525a4b283f66f510bcf1040152830b2a7e](https://etherscan.io/tx/0xd4a382da03c99ce3084661b913b50b525a4b283f66f510bcf1040152830b2a7e)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2092331652882002208](https://twitter.com/DefimonAlerts/status/2092331652882002208)",
+    "images": [],
+    "Lost": "$142.0K",
+    "Contract": ""
+  },
+  "FHToken": {
+    "type": "Deflationary Token Exploit",
+    "date": "2026-08-26",
+    "rootCause": "Flawed deflationary token in FH/USDT PancakeSwap V2 pool. The _transfer function incorrectly executed sell-tax logic (80% burn, 20% to treasury) from pool's own balance before seller's net amount arrived, causing reserve mismatch. Attacker exploited repeated buy/sell cycles to drain USDT from pool.\n\n**Attack Tx:** [https://bscscan.com/tx/0x7a3cadc2f33e000b0091307df62db2f5cc79ab8e0b022fd84de9e1c2c0745bd2](https://bscscan.com/tx/0x7a3cadc2f33e000b0091307df62db2f5cc79ab8e0b022fd84de9e1c2c0745bd2)\n\n**Source:** [https://twitter.com/SlowMist_Team/status/2092457395666751707](https://twitter.com/SlowMist_Team/status/2092457395666751707)",
+    "images": [],
+    "Lost": "$20.0K",
+    "Contract": ""
+  },
+  "MAYAChain": {
+    "type": "Accounting Flaw",
+    "date": "2026-08-26",
+    "rootCause": "Chained accounting flaw in low-liquidity pool enabling fund drainage.\n\n**Source:** [https://twitter.com/Phalcon_xyz/status/2092538466257227909](https://twitter.com/Phalcon_xyz/status/2092538466257227909)",
+    "images": [],
+    "Lost": "$1.76M",
+    "Contract": ""
   }
 }
