@@ -1,5 +1,32 @@
 [
   {
+    "date": "20260826",
+    "name": "Enjin",
+    "type": "Storage Slot Collision",
+    "Lost": 142000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260826",
+    "name": "FHToken",
+    "type": "Deflationary Token Exploit",
+    "Lost": 20000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "BSC"
+  },
+  {
+    "date": "20260826",
+    "name": "MAYAChain",
+    "type": "Accounting Flaw",
+    "Lost": 1760000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "MAYAChain"
+  },
+  {
     "date": "20260824",
     "name": "Arrakis",
     "type": "Flash Loan Sandwich",
