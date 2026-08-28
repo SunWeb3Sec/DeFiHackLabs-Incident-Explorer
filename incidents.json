@@ -1,5 +1,14 @@
 [
   {
+    "date": "20260827",
+    "name": "CashCowCoin",
+    "type": "Flash Loan",
+    "Lost": 117400.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "BNB Chain"
+  },
+  {
     "date": "20260826",
     "name": "Enjin",
     "type": "Storage Slot Collision",

@@ -6603,5 +6603,13 @@
     "images": [],
     "Lost": "$1.76M",
     "Contract": ""
+  },
+  "CashCowCoin": {
+    "type": "Flash Loan",
+    "date": "2026-08-27",
+    "rootCause": "Attacker flash-loaned ~416,831 WBNB from a Moolah lending market, donated WBNB directly into the CCC/WBNB PancakePair, and called sync() to inflate reserves. Then cycled buy/sell against the manipulated price to extract the pair's real liquidity. The pair was drained from ~165.5 WBNB to ~0.018 WBNB (~$117K netted after repaying flash loan).\n\n**Attack Tx:** [https://bscscan.com/tx/0x89d8050641019a5a75fa3dafb4f64fb153e4dd30c0f1f51d06a6cc206d3ead43](https://bscscan.com/tx/0x89d8050641019a5a75fa3dafb4f64fb153e4dd30c0f1f51d06a6cc206d3ead43)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2093248983942467612](https://twitter.com/DefimonAlerts/status/2093248983942467612)",
+    "images": [],
+    "Lost": "$117.4K",
+    "Contract": ""
   }
 }
