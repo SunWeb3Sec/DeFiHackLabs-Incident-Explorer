@@ -6611,5 +6611,13 @@
     "images": [],
     "Lost": "$117.4K",
     "Contract": ""
+  },
+  "Avici": {
+    "type": "Smart Contract Exploit",
+    "date": "2026-08-29",
+    "rootCause": "Attacker transferred 10k SOL, swapped to ~$1.02M USDC, bridged to Ethereum via 0x2cE21E4921d3Eb116526c3651Dac0257657338D5, swapped to ~418 ETH, and deposited to Tornado Cash.\n\nSolana attacker wallet: FVNFzqAny8spWdPmYw6RQ9TkYa29ueFFiqCFD1gQnCEj\nEthereum address: 0x2cE21E4921d3Eb116526c3651Dac0257657338D5\nTornado Cash deposit: https://etherscan.io/address/0x2cE21E4921d3Eb116526c3651Dac0257657338D5\n\n**Source:** [https://twitter.com/CertiKAlert/status/2093428949334266091](https://twitter.com/CertiKAlert/status/2093428949334266091)",
+    "images": [],
+    "Lost": "$1.02M",
+    "Contract": ""
   }
 }
