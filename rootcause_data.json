@@ -6619,5 +6619,21 @@
     "images": [],
     "Lost": "$1.02M",
     "Contract": ""
+  },
+  "TectonicFi": {
+    "type": "Price Manipulation",
+    "date": "2026-08-31",
+    "rootCause": "Price manipulation exploit on Tectonic Fi. Attacker drained ~$74M total across multiple addresses. ~$6M was bridged to Ethereum before the chain was paused, leaving ~$60M stuck on Cronos. Funds located at: 0x7d4e7e5dcb0ccc66b4f0f8b0f30da5078ad4f2dc (~$60M on Cronos), 0x215adfc84332d8dfdd5afc77af69cceec0bcd3fc (~$8M on Cronos), 0xc40472dd (~$6M on Ethereum).\n\n**Source:** [https://twitter.com/PeckShieldAlert/status/2094217367434015065](https://twitter.com/PeckShieldAlert/status/2094217367434015065)",
+    "images": [],
+    "Lost": "$74.00M",
+    "Contract": ""
+  },
+  "FloatProtocol": {
+    "type": "Flash Loan",
+    "date": "2026-09-01",
+    "rootCause": "Uniswap V3 spot price (slot0) manipulation via flash loans enabled incorrect LP share pricing in Hypervisor contracts. Attacker manipulated currentTick()/getTotalAmounts() by swapping large amounts on V3 pool to distort slot0, then repeatedly deposited/withdrew with inflated share values. Critical functions lacked TWAP/oracle validation and slippage protection. Loss: 10.71 ETH. Attacker: 0xaea29218262dc6b0904ca077f6527c49dfd426d9.\n\n**Attack Tx:** [https://etherscan.io/tx/0x3d7549db65344da2a41067e17791b17fac16ec6b8e5132e82e243f6541de5cff](https://etherscan.io/tx/0x3d7549db65344da2a41067e17791b17fac16ec6b8e5132e82e243f6541de5cff)\n\n**Source:** [https://twitter.com/SlowMist_Team/status/2094373942291026287](https://twitter.com/SlowMist_Team/status/2094373942291026287)",
+    "images": [],
+    "Lost": "$28.0K",
+    "Contract": ""
   }
 }
