@@ -18,6 +18,15 @@
     "chain": "Cronos"
   },
   {
+    "date": "20260831",
+    "name": "Aquifer",
+    "type": "CPI Exploit",
+    "Lost": 2500000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Solana"
+  },
+  {
     "date": "20260829",
     "name": "Avici",
     "type": "Smart Contract Exploit",
