@@ -8350,5 +8350,23 @@
     "lossType": "ETH",
     "Contract": "src/test/2017-11/Parity_kill_exp.sol",
     "chain": "Ethereum"
+  },
+  {
+    "date": "20260823",
+    "name": "TermFinance",
+    "type": "TermMax meta-vault flashloan logic exploit",
+    "Lost": 2841.74,
+    "lossType": "WETH",
+    "Contract": "src/test/2026-08/TermFinance_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260526",
+    "name": "SKP Token",
+    "type": "Deliberately Engineered Drain (Insider Exploit / Rug Pull)",
+    "Lost": 212195.0,
+    "lossType": "USDT",
+    "Contract": "src/test/2026-05/SKP_exp2.sol",
+    "chain": "BSC"
   }
 ]
