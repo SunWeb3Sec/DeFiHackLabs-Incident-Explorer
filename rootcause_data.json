@@ -6635,5 +6635,13 @@
     "images": [],
     "Lost": "$28.0K",
     "Contract": ""
+  },
+  "Aquifer": {
+    "type": "CPI Exploit",
+    "date": "2026-08-31",
+    "rootCause": "Caller-controlled input-side token program was not pinned to canonical SPL Token Program. Aquifer trusted CPI results without verifying actual tokenIn balance delta, allowing attackers to receive real output tokens without providing required input. Attacker supplied malicious tokenProgram during swap that returned success without executing actual token transfer. Exploited via 90+ attack transactions.\n\n**Attack Tx:** [https://solscan.io/tx/2BANKvZf8qop1BcZuEH766h3JzfNFMndF8dzzWmk8uJ2ecgDDWCcH6PfaG3KgDWicC9qqNyCGUHZ5JMeh7z55Siy](https://solscan.io/tx/2BANKvZf8qop1BcZuEH766h3JzfNFMndF8dzzWmk8uJ2ecgDDWCcH6PfaG3KgDWicC9qqNyCGUHZ5JMeh7z55Siy)\n\n**Source:** [https://twitter.com/Phalcon_xyz/status/2094654751581610363](https://twitter.com/Phalcon_xyz/status/2094654751581610363)",
+    "images": [],
+    "Lost": "$2.50M",
+    "Contract": ""
   }
 }
