@@ -6643,5 +6643,13 @@
     "images": [],
     "Lost": "$2.50M",
     "Contract": ""
+  },
+  "Geb": {
+    "type": "Access Control Bypass",
+    "date": "2026-09-02",
+    "rootCause": "`GebProxyActions.quitSystem` lacks caller access control. Victims previously called it directly instead of via DSProxy delegatecall, causing `ownsSAFE[safe]` to be set to the GebProxyActions contract. Attacker called `GebProxyActions.quitSystem(manager, safe, dst)` directly, bypassing `GebSafeManager`'s `safeAllowed` check and transferring collateral to themselves. **Attacker:** `0xb929c7215c0ec8ebad5fbf73b1da63bccfff1896`\n\n**Attack Tx:** [https://etherscan.io/tx/0xfbce28e35c26358110dd9ed91f9ceef588acb264c3cf6c573df65ca21335058f](https://etherscan.io/tx/0xfbce28e35c26358110dd9ed91f9ceef588acb264c3cf6c573df65ca21335058f)\n\n**Source:** [https://twitter.com/SlowMist_Team/status/2094986310683705835](https://twitter.com/SlowMist_Team/status/2094986310683705835)",
+    "images": [],
+    "Lost": "5.94 ETH",
+    "Contract": ""
   }
 }
