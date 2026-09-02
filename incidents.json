@@ -1,5 +1,14 @@
 [
   {
+    "date": "20260902",
+    "name": "Geb",
+    "type": "Access Control Bypass",
+    "Lost": 5.9436,
+    "lossType": "ETH",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20260901",
     "name": "FloatProtocol",
     "type": "Flash Loan",
