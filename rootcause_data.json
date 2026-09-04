@@ -6651,5 +6651,21 @@
     "images": [],
     "Lost": "5.94 ETH",
     "Contract": ""
+  },
+  "NotionalFinance": {
+    "type": "Integer Downcast",
+    "date": "2026-09-04",
+    "rootCause": "Attacker exploited unsafe uint128() downcast in free-collateral valuation. Used two mintfCashPair() calls to create -2^128 liability truncated to 0, bypassing collateral checks. Lost: $1.7M in DAI and USDC.\n\n**Attack Tx:** [https://skylens.certik.com/tx/eth/0xe1589a19fe742f0d553889214abade69551fe944acffac014c28cc07b325d60a](https://skylens.certik.com/tx/eth/0xe1589a19fe742f0d553889214abade69551fe944acffac014c28cc07b325d60a)\n\n**Source:** [https://twitter.com/CertiKAlert/status/2095797115788443893](https://twitter.com/CertiKAlert/status/2095797115788443893)",
+    "images": [],
+    "Lost": "$1.70M",
+    "Contract": ""
+  },
+  "TermLabs": {
+    "type": "Exploit",
+    "date": "2026-08-23",
+    "rootCause": "Term Labs exploit on August 23, 2026 resulting in $8.5M loss. Exploiter deposited 960 ETH (~$2.35M) into Tornado Cash.\n\n**Source:** [https://twitter.com/PeckShieldAlert/status/2095881691017646109](https://twitter.com/PeckShieldAlert/status/2095881691017646109)",
+    "images": [],
+    "Lost": "$8.50M",
+    "Contract": ""
   }
 }

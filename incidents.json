@@ -1,5 +1,14 @@
 [
   {
+    "date": "20260904",
+    "name": "NotionalFinance",
+    "type": "Integer Downcast",
+    "Lost": 1700000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20260902",
     "name": "Geb",
     "type": "Access Control Bypass",
@@ -93,6 +102,15 @@
     "date": "20260823",
     "name": "TermFinance",
     "type": "Governance Attack",
+    "Lost": 8500000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260823",
+    "name": "TermLabs",
+    "type": "Exploit",
     "Lost": 8500000.0,
     "lossType": "USD",
     "Contract": "",
