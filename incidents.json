@@ -1,5 +1,23 @@
 [
   {
+    "date": "20260907",
+    "name": "RocketPool",
+    "type": "Unknown",
+    "Lost": 287000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260906",
+    "name": "Reddio",
+    "type": "Flash Loan",
+    "Lost": 9.25,
+    "lossType": "ETH",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20260904",
     "name": "NotionalFinance",
     "type": "Integer Downcast",

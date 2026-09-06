@@ -6667,5 +6667,21 @@
     "images": [],
     "Lost": "$8.50M",
     "Contract": ""
+  },
+  "Reddio": {
+    "type": "Flash Loan",
+    "date": "2026-09-06",
+    "rootCause": "Cross-vault asset double-counting: stETH in permissionlessly registered stETH vault included in ETH vault's getTotalAssetBalance(ETH), allowing same stETH to back both rsvETH and rsvstETH simultaneously. Attacker used flash loan to deposit stETH, inflate rsvETH share price, redeem for excess ETH, then redeem rsvstETH to recover original stETH. 2% withdrawal cap failed to prevent manipulation. Attacker: 0x70f2333d21ed7e7d105f6578227a9a747687982c, Victim Diamond: 0x4315990d9eeaffdfafd49958b4851f203fa1126f\n\n**Attack Tx:** [https://etherscan.io/tx/0xe3cba90e865c6cba950ebce36a52607f51f1fd33cd9fb920c78803f19b57791a](https://etherscan.io/tx/0xe3cba90e865c6cba950ebce36a52607f51f1fd33cd9fb920c78803f19b57791a)\n\n**Source:** [https://twitter.com/SlowMist_Team/status/2096439593403089077](https://twitter.com/SlowMist_Team/status/2096439593403089077)",
+    "images": [],
+    "Lost": "9.25 ETH",
+    "Contract": ""
+  },
+  "RocketPool": {
+    "type": "Unknown",
+    "date": "2026-09-07",
+    "rootCause": "Whitehat resolution offer for withdrawn funds (~$287k). Root cause technical details not disclosed in alert. Withdrawal paths and addresses traced; incident data preserved and referred to law enforcement.\n\n**Attack Tx:** [https://etherscan.io/tx/0xc2f8d1aaaf78cba7bc62ce682323214212074df569251a85d087de096df1910b](https://etherscan.io/tx/0xc2f8d1aaaf78cba7bc62ce682323214212074df569251a85d087de096df1910b)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2096616741187064289](https://twitter.com/DefimonAlerts/status/2096616741187064289)",
+    "images": [],
+    "Lost": "$287.0K",
+    "Contract": ""
   }
 }
