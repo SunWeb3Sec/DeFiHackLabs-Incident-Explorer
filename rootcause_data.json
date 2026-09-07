@@ -6683,5 +6683,13 @@
     "images": [],
     "Lost": "$287.0K",
     "Contract": ""
+  },
+  "SecuredFi": {
+    "type": "Flash Loan",
+    "date": "2026-09-05",
+    "rootCause": "Flash loan exploit of collateral valuation bug in OrderBookLib. Attacker self-trades to manipulate market price via getMarketUnitPrice() (blockTotalAmount / blockTotalFutureValue). Fake lend positions counted as collateral despite isReliableBlock guard being ineffective against flash loans. Coordinated attacks drained WBTC (~$72K) and USDC via multiple flash loan transactions.\n\n**Attack Tx:** [https://etherscan.io/tx/0x48417f7cdf6cabe29b7e99d4c8ebcbcf58fbc454a64a9044abc5c397120ad141](https://etherscan.io/tx/0x48417f7cdf6cabe29b7e99d4c8ebcbcf58fbc454a64a9044abc5c397120ad141)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2096855557575458950](https://twitter.com/DefimonAlerts/status/2096855557575458950)",
+    "images": [],
+    "Lost": "$104.0K",
+    "Contract": ""
   }
 }
