@@ -2477,7 +2477,7 @@
   {
     "date": "20250617",
     "name": "MetaPool",
-    "type": "Access Control",
+    "type": "Infinite Mint via unvalidated ERC4626 mint",
     "Lost": 25000.0,
     "lossType": "USD",
     "Contract": "src/test/2025-06/MetaPool_exp.sol",
@@ -8404,5 +8404,23 @@
     "lossType": "ETH",
     "Contract": "src/test/2017-11/Parity_kill_exp.sol",
     "chain": "Ethereum"
+  },
+  {
+    "date": "20260905",
+    "name": "DHC",
+    "type": "repeatable claim due to missing claimed-flag",
+    "Lost": 71800.0,
+    "lossType": "USDT",
+    "Contract": "src/test/2026-09/DHC_exp.sol",
+    "chain": "BSC"
+  },
+  {
+    "date": "20260526",
+    "name": "SKP Token",
+    "type": "Deliberately Engineered Drain (Insider Exploit / Rug Pull)",
+    "Lost": 212195.0,
+    "lossType": "USDT",
+    "Contract": "src/test/2026-05/SKP_exp2.sol",
+    "chain": "BSC"
   }
 ]
