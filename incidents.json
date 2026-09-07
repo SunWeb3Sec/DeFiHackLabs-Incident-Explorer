@@ -18,6 +18,15 @@
     "chain": "Ethereum"
   },
   {
+    "date": "20260905",
+    "name": "SecuredFi",
+    "type": "Flash Loan",
+    "Lost": 104000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20260904",
     "name": "NotionalFinance",
     "type": "Integer Downcast",
