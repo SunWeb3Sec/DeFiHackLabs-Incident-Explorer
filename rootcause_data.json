@@ -6691,5 +6691,37 @@
     "images": [],
     "Lost": "$104.0K",
     "Contract": ""
+  },
+  "Liquid Network": {
+    "type": "Cache Validation Bug",
+    "date": "2026-09-06",
+    "rootCause": "Rangeproof-verification cache mechanism in Elements Core didn't include asset commitment or scriptPubKey in cache key, allowing different verification contexts to collide. Enabled consensus divergence at block 4,050,336 and unauthorized peg-out. Patch: https://github.com/ElementsProject/elements/commit/212c43f4 Analysis: https://x.com/stutxo/status/2096724560393421307\n\n**Attack Tx:** [https://mempool.space/tx/a6d697a25266ce3c78774fd1d75f896b7af522ada209b0f6228ea497bc49a46d](https://mempool.space/tx/a6d697a25266ce3c78774fd1d75f896b7af522ada209b0f6228ea497bc49a46d)\n\n**Source:** [https://twitter.com/CertiKAlert/status/2097287047014752449](https://twitter.com/CertiKAlert/status/2097287047014752449)",
+    "images": [],
+    "Lost": "$318.00M",
+    "Contract": ""
+  },
+  "MiniRouter2": {
+    "type": "Router Exploit",
+    "date": "2026-09-08",
+    "rootCause": "Vulnerable MiniRouter2 implementation drained 12.237 ETH across four wallets via exploit transaction 0xacce7431a0019bda373f60f2da37f70b1415d077b6d62851bc17f6bf596b14ce. Attacker proposed 10% bounty return (white-hat settlement).\n\n**Attack Tx:** [https://etherscan.io/tx/0xf2c6b343cf1cc3deaa9397982dce7842a12526b846be37fc7de89835e4e4636f](https://etherscan.io/tx/0xf2c6b343cf1cc3deaa9397982dce7842a12526b846be37fc7de89835e4e4636f)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2097060513498718324](https://twitter.com/DefimonAlerts/status/2097060513498718324)",
+    "images": [],
+    "Lost": "12.24 ETH",
+    "Contract": ""
+  },
+  "WealthManagementV2": {
+    "type": "Owner Compromise",
+    "date": "2026-09-08",
+    "rootCause": "Owner privileges of contract 0x7b5dda5135811ec0870a75a04d0e1807edc3c93d illegally transferred (suspected leaked private key). Attacker set malicious parameters (period=0, inflated multipliers) via updatePlanConfig, enabling minting attack through same-tx invest/redeem cycles. Attacker EOA: 0xe439422afdd247503f75b4143c4a973eced04a36\n\n**Attack Tx:** [https://bscscan.com/tx/0x117d672359c3eaa81167a68613c0c7a85ea9127014d1f3e3cd6a6f0fe6a592fe](https://bscscan.com/tx/0x117d672359c3eaa81167a68613c0c7a85ea9127014d1f3e3cd6a6f0fe6a592fe)\n\n**Source:** [https://twitter.com/SlowMist_Team/status/2097222515009724817](https://twitter.com/SlowMist_Team/status/2097222515009724817)",
+    "images": [],
+    "Lost": "$26.4K",
+    "Contract": ""
+  },
+  "vsdCRV": {
+    "type": "Protocol Exploit",
+    "date": "2026-05-27",
+    "rootCause": "vsdCRV exploit on Stake DAO. Stake DAO Association identified attacker and offered white-hat settlement: return 37.029 ETH to 0x5DA07af8913A4EAf09E5F569c20138b658906c17 by Sept 15, 2026 6:00 PM UTC or face legal action.\n\n**Attack Tx:** [https://etherscan.io/tx/0xf0738cc0c66b9984270b696c217b49d5fa7d9d6016a94642f687ee8d53537632](https://etherscan.io/tx/0xf0738cc0c66b9984270b696c217b49d5fa7d9d6016a94642f687ee8d53537632)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2097306031856537860](https://twitter.com/DefimonAlerts/status/2097306031856537860)",
+    "images": [],
+    "Lost": "37.03 ETH",
+    "Contract": ""
   }
 }

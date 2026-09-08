@@ -1,5 +1,23 @@
 [
   {
+    "date": "20260908",
+    "name": "MiniRouter2",
+    "type": "Router Exploit",
+    "Lost": 12.237241439075692,
+    "lossType": "ETH",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260908",
+    "name": "WealthManagementV2",
+    "type": "Owner Compromise",
+    "Lost": 26414.0,
+    "lossType": "USDT",
+    "Contract": "",
+    "chain": "BNB Smart Chain"
+  },
+  {
     "date": "20260907",
     "name": "RocketPool",
     "type": "Unknown",
@@ -16,6 +34,15 @@
     "lossType": "ETH",
     "Contract": "",
     "chain": "Ethereum"
+  },
+  {
+    "date": "20260906",
+    "name": "Liquid Network",
+    "type": "Cache Validation Bug",
+    "Lost": 318000000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Liquid"
   },
   {
     "date": "20260905",
@@ -835,6 +862,15 @@
     "lossType": "USD",
     "Contract": "src/test/2026-05/JoeAgent_exp.sol",
     "chain": "BSC"
+  },
+  {
+    "date": "20260527",
+    "name": "vsdCRV",
+    "type": "Protocol Exploit",
+    "Lost": 37.029,
+    "lossType": "ETH",
+    "Contract": "",
+    "chain": "Ethereum"
   },
   {
     "date": "20260526",
