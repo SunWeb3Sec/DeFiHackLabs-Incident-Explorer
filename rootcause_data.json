@@ -6723,5 +6723,29 @@
     "images": [],
     "Lost": "37.03 ETH",
     "Contract": ""
+  },
+  "StakeDAO": {
+    "type": "Unknown",
+    "date": "2026-05-27",
+    "rootCause": "vsdCRV exploit on May 27, 2026. Attacker stole 37.029 ETH. Stake DAO Association identified the attacker and offered white-hat settlement with deadline September 15, 2026 18:00:00 UTC.\n\n**Attack Tx:** [https://etherscan.io/tx/0xf0738cc0c66b9984270b696c217b49d5fa7d9d6016a94642f687ee8d53537632](https://etherscan.io/tx/0xf0738cc0c66b9984270b696c217b49d5fa7d9d6016a94642f687ee8d53537632)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2097306031856537860](https://twitter.com/DefimonAlerts/status/2097306031856537860)",
+    "images": [],
+    "Lost": "37.03 ETH",
+    "Contract": ""
+  },
+  "OrderFactory": {
+    "type": "Access Control Bypass",
+    "date": "2026-09-09",
+    "rootCause": "Missing access control in createOrderForBuyer function (0xbde886fc). Function only validates `_requests[buyer].active` without checking msg.sender == buyer, buyer signature/nonce, authorization, or seller validation. Factory calls whitelisted account system, deducting full ETH balances from arbitrary active buyers into new proxies. Attacker writes contract to privileged storage slot 27, bypassing abort check and draining all ETH. Attacker: 0x77071d2bbd8f3c296c8cd7d0abd21bc172420cda, Victim: 0xfcf3d97c6db4c3bf6020a2b99af074b595bda163, Factory: 0xa27bcd590195b2a9bdc29379de4f040b2d8066e0\n\n**Attack Tx:** [https://etherscan.io/tx/0x201c7a9b4114c76fcda2b5de5d765505f4c5f7c194dddf505043501de6cbbb1a](https://etherscan.io/tx/0x201c7a9b4114c76fcda2b5de5d765505f4c5f7c194dddf505043501de6cbbb1a)\n\n**Source:** [https://twitter.com/SlowMist_Team/status/2097511755220242515](https://twitter.com/SlowMist_Team/status/2097511755220242515)",
+    "images": [],
+    "Lost": "24.70 ETH",
+    "Contract": ""
+  },
+  "Enso": {
+    "type": "Oracle Manipulation",
+    "date": "2026-09-09",
+    "rootCause": "Oracle price calculation error in DPI Strategy Vault. Controller.deposit() calls EnsoOracle.estimateStrategy() before/after token transfer; shares minted on difference. Valuation chain (EnsoOracle → ItemEstimator → ProtocolOracle.consult()) prices tokens via UniV3 pool.observe(), but registry fee field reused as secondsAgo parameter creates near-spot TWAP without consistency checks. With imbalanced v3 liquidity, attacker swapped 0.683 WETH for 268.42 FARM on UniV2 while imbalanced v3 pool incorrectly valued it at 6.3 WETH (~9.2x). Excessive shares minted at wrong price and redeemed for profit. Attacker: 0x3196398321D77a2511d369DCB6eCa9d2aD87b73A. Strategy: 0x890ed1ee6d435a35d11051d9ed97ff457ce53b5942, Controller: 0xd8D22509C1fe47516D8F82A28CFd728111F57Ef1, Oracle: 0xAb7505eB360cE0D63e8E88f7853677EcD5537DC0. Affected contracts deprecated 4+ years prior, not in production.\n\n**Attack Tx:** [https://etherscan.io/tx/0x63fbfc4b47e810d604dbdab0db35b17366f421337d8c60955eb81cd5d6071ad3](https://etherscan.io/tx/0x63fbfc4b47e810d604dbdab0db35b17366f421337d8c60955eb81cd5d6071ad3)\n\n**Source:** [https://twitter.com/SlowMist_Team/status/2097602957311455640](https://twitter.com/SlowMist_Team/status/2097602957311455640)",
+    "images": [],
+    "Lost": "5.60 ETH",
+    "Contract": ""
   }
 }

@@ -1,5 +1,23 @@
 [
   {
+    "date": "20260909",
+    "name": "OrderFactory",
+    "type": "Access Control Bypass",
+    "Lost": 24.7,
+    "lossType": "ETH",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260909",
+    "name": "Enso",
+    "type": "Oracle Manipulation",
+    "Lost": 5.6,
+    "lossType": "ETH",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20260908",
     "name": "MiniRouter2",
     "type": "Router Exploit",
@@ -867,6 +885,15 @@
     "date": "20260527",
     "name": "vsdCRV",
     "type": "Protocol Exploit",
+    "Lost": 37.029,
+    "lossType": "ETH",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260527",
+    "name": "StakeDAO",
+    "type": "Unknown",
     "Lost": 37.029,
     "lossType": "ETH",
     "Contract": "",
