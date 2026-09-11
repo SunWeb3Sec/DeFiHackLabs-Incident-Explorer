@@ -6747,5 +6747,29 @@
     "images": [],
     "Lost": "5.60 ETH",
     "Contract": ""
+  },
+  "BeatSwap": {
+    "type": "Flash Loan Attack + Oracle Manipulation",
+    "date": "2026-09-09",
+    "rootCause": "LiquidityVestingConvert contract calculates BTX quotes via _calculateQuote() reading IUniswapV3Pool.slot0() spot price as sole oracle with no TWAP protection or deviation guard. Attacker flash-borrowed 6,000,000 BTX, dumped into V3 pool to crash sqrtPriceX96, then called deposit() twice triggering POSITION_MANAGER.mint() at manipulated spot price and draining BTX from LP positions. Attacker: 0x67B2f08683A735cfE6f6E57fA86909b62218C2a1. Victims: 0x1e647FAADb05f2124BFCcFC003EDc06D1A90bf5D and 0x9a7A92240FBAc4030b65A6E61239928d6Bcc716F.\n\n**Attack Tx:** [https://bscscan.com/tx/0xcc71a3bb131c73462b0f25533070113a63c85e942a22e18bc945eec184eb5799](https://bscscan.com/tx/0xcc71a3bb131c73462b0f25533070113a63c85e942a22e18bc945eec184eb5799)\n\n**Source:** [https://twitter.com/SlowMist_Team/status/2098314846765015062](https://twitter.com/SlowMist_Team/status/2098314846765015062)",
+    "images": [],
+    "Lost": "2984557.00 BTX",
+    "Contract": ""
+  },
+  "OMNI404": {
+    "type": "Flash Loan Attack + ERC20/ERC721 Confusion",
+    "date": "2026-09-11",
+    "rootCause": "OMNI404 transfer() treats values ≤50 as ERC721 token IDs while transferring fixed 1e18 OMNI404 units. Uniswap V3 exact-output swaps calling transfer(recipient, 1/2/.../21) received 1e18 OMNI404 per call while pool accounted only wei-level amounts. NFT mint/burn counts derived from (balanceOf/units) integer differences. Enabled flash-loan assisted profit extraction. Attacker: 0xfb26db4eab18cb50d29ff431888dd643a7e9c9f8. Victim Pool: 0xb3f613b9bc84ddb29d78fa4685b01d98412bba0b.\n\n**Attack Tx:** [https://etherscan.io/tx/0x4cbc3d8db832eb5442ce1c11d79fda05cafabfe7906933ed25881d60bf41d6f3](https://etherscan.io/tx/0x4cbc3d8db832eb5442ce1c11d79fda05cafabfe7906933ed25881d60bf41d6f3)\n\n**Source:** [https://twitter.com/SlowMist_Team/status/2098300936720695573](https://twitter.com/SlowMist_Team/status/2098300936720695573)",
+    "images": [],
+    "Lost": "2.40 WETH",
+    "Contract": ""
+  },
+  "EtherFi": {
+    "type": "Access Control Bypass",
+    "date": "2026-09-11",
+    "rootCause": "AtomicQueue.solve() lacks access control on caller-supplied solver parameter—no solver==msg.sender check, signature, registration, or consent verification. Attacker created malicious AtomicRequest forcing victim to act as solver. AtomicQueue called finishSolve executing want.transferFrom(solver, users[i], assetsToUser) and abusing victim's pre-existing ERC20 allowance. Attacker: 0xa5cc6e490bce9185fa47b421f2eac677a83b64ea. Vulnerable Contract: 0xd45884b592e316eb816199615a95c182f75dea07.\n\n**Attack Tx:** [https://etherscan.io/tx/0x7cbe0b4349513fed6d03ba8bf9ed708e10e07a501d10b5f344a25ae10595599b](https://etherscan.io/tx/0x7cbe0b4349513fed6d03ba8bf9ed708e10e07a501d10b5f344a25ae10595599b)\n\n**Source:** [https://twitter.com/SlowMist_Team/status/2098344499923784048](https://twitter.com/SlowMist_Team/status/2098344499923784048)",
+    "images": [],
+    "Lost": "15.45 ETH",
+    "Contract": ""
   }
 }
