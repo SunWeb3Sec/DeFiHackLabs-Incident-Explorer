@@ -1,5 +1,23 @@
 [
   {
+    "date": "20260911",
+    "name": "OMNI404",
+    "type": "Flash Loan Attack + ERC20/ERC721 Confusion",
+    "Lost": 2.4,
+    "lossType": "WETH",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260911",
+    "name": "EtherFi",
+    "type": "Access Control Bypass",
+    "Lost": 15.45,
+    "lossType": "ETH",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20260909",
     "name": "OrderFactory",
     "type": "Access Control Bypass",
@@ -16,6 +34,15 @@
     "lossType": "ETH",
     "Contract": "",
     "chain": "Ethereum"
+  },
+  {
+    "date": "20260909",
+    "name": "BeatSwap",
+    "type": "Flash Loan Attack + Oracle Manipulation",
+    "Lost": 2984557.0,
+    "lossType": "BTX",
+    "Contract": "",
+    "chain": "BNB Chain"
   },
   {
     "date": "20260908",
