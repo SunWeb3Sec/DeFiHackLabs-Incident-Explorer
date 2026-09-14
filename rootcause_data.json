@@ -6771,5 +6771,13 @@
     "images": [],
     "Lost": "15.45 ETH",
     "Contract": ""
+  },
+  "Spiral": {
+    "type": "Spot Price Oracle Manipulation",
+    "date": "2026-09-14",
+    "rootCause": "SpiralHookV2.borrow() used Uniswap V4 pool spot price (poolManager.getSlot0()) to value collateral without TWAP or price-change limits. Protocol's noSameBlockSwap guard was keyed by tx.origin, allowing attacker to use 6 different EOAs to bypass it and borrow against inflated collateral within the same block. Attack Contract: 0x0c23c8bc3b7c565f3f9f4ac691a4dc4275086f86. Vulnerable: 0x1725577dC9B1ee2D95dB49c2193226471594aacc\n\n**Attack Tx:** [https://etherscan.io/tx/0x84f2f1d061b187d3c2096281b8a52805185604468e4f005580a9150d36379925](https://etherscan.io/tx/0x84f2f1d061b187d3c2096281b8a52805185604468e4f005580a9150d36379925)\n\n**Source:** [https://twitter.com/SlowMist_Team/status/2099410818244968850](https://twitter.com/SlowMist_Team/status/2099410818244968850)",
+    "images": [],
+    "Lost": "10.70 ETH",
+    "Contract": ""
   }
 }

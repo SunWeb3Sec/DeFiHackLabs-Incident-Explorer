@@ -1,5 +1,14 @@
 [
   {
+    "date": "20260914",
+    "name": "Spiral",
+    "type": "Spot Price Oracle Manipulation",
+    "Lost": 10.7,
+    "lossType": "ETH",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20260911",
     "name": "OMNI404",
     "type": "Flash Loan Attack + ERC20/ERC721 Confusion",
