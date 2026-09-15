@@ -6779,5 +6779,13 @@
     "images": [],
     "Lost": "10.70 ETH",
     "Contract": ""
+  },
+  "RsETH": {
+    "type": "Access Control Bypass",
+    "date": "2026-09-15",
+    "rootCause": "Flawed authorization check in executor/router contract (0x4f0055926c839D1d960a82CBF84E2eE933958ebC) enabled arbitrary code execution via DELEGATECALL. The multicall function's `_contract` parameter could be set to `address(this)`, causing the `_isAuthorized` function to unconditionally return true. Attacker executed malicious Safe module transaction injecting 2,900 aEthrsETH into a Uniswap V4 pool paired with worthless 'Permissionless Attacker Token' (PAT). MEV bot yoink front-ran the attack and captured ~2,882 rsETH (~$7.8M) via swaps and redemptions, routing funds to 0xC70f00CD7E461686b04B0E912E309becA8b80ea0.\n\n**Attack Tx:** [https://etherscan.io/tx/0x0e7680b06cb8a6f86c149d9ba90d98e3d334e7b072dde03909d43fcfd98a8705](https://etherscan.io/tx/0x0e7680b06cb8a6f86c149d9ba90d98e3d334e7b072dde03909d43fcfd98a8705)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2099729267491799443](https://twitter.com/DefimonAlerts/status/2099729267491799443)",
+    "images": [],
+    "Lost": "$7.80M",
+    "Contract": ""
   }
 }
