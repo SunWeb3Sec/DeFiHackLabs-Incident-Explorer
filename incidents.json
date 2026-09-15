@@ -1,5 +1,14 @@
 [
   {
+    "date": "20260915",
+    "name": "RsETH",
+    "type": "Access Control Bypass",
+    "Lost": 7800000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20260914",
     "name": "Spiral",
     "type": "Spot Price Oracle Manipulation",
