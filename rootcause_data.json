@@ -6787,5 +6787,21 @@
     "images": [],
     "Lost": "$7.80M",
     "Contract": ""
+  },
+  "Bonfire": {
+    "type": "Access Control",
+    "date": "2026-09-15",
+    "rootCause": "BonfireSwap router's transfer() function lacks msg.sender authorization checks, allowing any caller to drain pre-approved tokens from arbitrary holders. Attacker exploited this by specifying victims as `from` and themselves as `to`, bypassing allowance validation. Attack iterated over ~65 token holders with pre-existing router approvals, force-selling their BONFIRE tokens into Pancake pair via skimPool and extracting ~66 BNB (~$47K) to attacker contract 0x28E976Ea7b83553d6D1D45CE81334156A2632127. Same vulnerability exists in loggedTransfer/simpleTransfer. Vulnerable contract: 0x17e801e17cefc6334059189c178d4783830e03d3.\n\n**Attack Tx:** [https://bscscan.com/tx/0xb4c00e8f3ba815b6c70f45026f8794d2c1f079646a89919077688ce60692193f](https://bscscan.com/tx/0xb4c00e8f3ba815b6c70f45026f8794d2c1f079646a89919077688ce60692193f)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2100077978528936392](https://twitter.com/DefimonAlerts/status/2100077978528936392)",
+    "images": [],
+    "Lost": "$47.0K",
+    "Contract": ""
+  },
+  "Flamincome": {
+    "type": "Oracle Manipulation",
+    "date": "2026-09-16",
+    "rootCause": "Strategy contract valued Convex/Curve position using Curve get_virtual_price() without validating pool integrity. Attacker used Morpho USDT flash loan to buy USDP at depressed price, then imbalance-minted oversized USDP/3CRV LP tokens, deposited into Convex and staked for Strategy via stakeFor() to artificially inflate balanceOf() and per-share valuation. VaultYUSDT redemptions forced Strategy to withdraw ~544K aUSDT from Aave at the inflated share price, resulting in ~$595K total loss with attacker netting ~$346K profit. Vulnerable Strategy: 0xb8d6471ca573c92c7096ab8600347f6a9fe268a5, Implementation: 0xff20De3F3F4C7E9518035a968B4A3CEE500a2AFB.\n\n**Attack Tx:** [https://etherscan.io/tx/0x5ff8150482f5473bff16b4a142a98a7f72b159df5e9dd38afd90470551640d37](https://etherscan.io/tx/0x5ff8150482f5473bff16b4a142a98a7f72b159df5e9dd38afd90470551640d37)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2100235904543584600](https://twitter.com/DefimonAlerts/status/2100235904543584600)",
+    "images": [],
+    "Lost": "$346.0K",
+    "Contract": ""
   }
 }
