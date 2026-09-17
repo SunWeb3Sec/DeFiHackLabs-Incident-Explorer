@@ -9,6 +9,15 @@
     "chain": "Ethereum"
   },
   {
+    "date": "20260916",
+    "name": "PrimeFi",
+    "type": "Unknown",
+    "Lost": 398.70203780142964,
+    "lossType": "HYPE",
+    "Contract": "",
+    "chain": "HyperEVM"
+  },
+  {
     "date": "20260915",
     "name": "RsETH",
     "type": "Access Control Bypass",
@@ -34,6 +43,24 @@
     "lossType": "ETH",
     "Contract": "",
     "chain": "Ethereum"
+  },
+  {
+    "date": "20260913",
+    "name": "LiquidNetwork",
+    "type": "Rangeproof Cache Collision",
+    "Lost": 320000000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Liquid"
+  },
+  {
+    "date": "20260913",
+    "name": "Symbiosis",
+    "type": "Off-Chain Deposit Flaw",
+    "Lost": 770000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Unknown"
   },
   {
     "date": "20260911",

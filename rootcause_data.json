@@ -6803,5 +6803,29 @@
     "images": [],
     "Lost": "$346.0K",
     "Contract": ""
+  },
+  "PrimeFi": {
+    "type": "Unknown",
+    "date": "2026-09-16",
+    "rootCause": "Protocol exploit resulting in loss of ~398.7 HYPE. Recovery request posted onchain with bounty offer (80% return + 20% white-hat fee).\n\n**Attack Tx:** [https://hyperevmscan.io/tx/0xff990876d863a61732779c341991215856c89420b84daaf31eece7ecd5ff4243](https://hyperevmscan.io/tx/0xff990876d863a61732779c341991215856c89420b84daaf31eece7ecd5ff4243)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2100300456568254578](https://twitter.com/DefimonAlerts/status/2100300456568254578)",
+    "images": [],
+    "Lost": "398.70 HYPE",
+    "Contract": ""
+  },
+  "LiquidNetwork": {
+    "type": "Rangeproof Cache Collision",
+    "date": "2026-09-13",
+    "rootCause": "Lost ~$320M to rangeproof cache collision vulnerability.\n\n**Source:** [https://twitter.com/Phalcon_xyz/status/2100424660936741365](https://twitter.com/Phalcon_xyz/status/2100424660936741365)",
+    "images": [],
+    "Lost": "$320.00M",
+    "Contract": ""
+  },
+  "Symbiosis": {
+    "type": "Off-Chain Deposit Flaw",
+    "date": "2026-09-13",
+    "rootCause": "Off-chain deposit flaw in cross-chain protocol. Loss of ~9.97 BTC (~$770K).\n\n**Source:** [https://twitter.com/Phalcon_xyz/status/2100424660936741365](https://twitter.com/Phalcon_xyz/status/2100424660936741365)",
+    "images": [],
+    "Lost": "$770.0K",
+    "Contract": ""
   }
 }
