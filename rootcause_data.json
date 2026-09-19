@@ -6827,5 +6827,29 @@
     "images": [],
     "Lost": "$770.0K",
     "Contract": ""
+  },
+  "Nimiq": {
+    "type": "Access Control Bypass",
+    "date": "2026-09-19",
+    "rootCause": "ERC20PermitHTLCHandler's `execute()` method discarded all calldata parameters and performed no EIP-712 signature/nonce validation. Attacker bypassed the `preRelayedCall()` check by setting himself as the paymaster in GSN RelayHub, then forged `request.from = victim`, causing `openPrivate()` to call `token.transferFrom(victim, handler, full balance)`. Attacker then called `redeem()` to withdraw the stolen funds.\n\nAttacker: 0x2258491525C21f334c5a2dc22CE55e55023FC45D\nVictim: 0x24Cb173Ae221AeA93369f34bdcF0Ddb35b436773\nVulnerable Contracts: 0x0cFD862bE942846Cebad797d7c1BC6e47714959b, 0xf615bd7eA00C4Cc7F39fAAD0895Db5f40891359f\n\n**Attack Tx:** [https://polygonscan.com/tx/0xb067efae73637f3564f58af7f6027afc497e81e47624b0048636085c678858c0](https://polygonscan.com/tx/0xb067efae73637f3564f58af7f6027afc497e81e47624b0048636085c678858c0)\n\n**Source:** [https://twitter.com/SlowMist_Team/status/2100896541859054006](https://twitter.com/SlowMist_Team/status/2100896541859054006)",
+    "images": [],
+    "Lost": "$50.5K",
+    "Contract": ""
+  },
+  "Arche": {
+    "type": "Vault Exploitation",
+    "date": "2026-06-13",
+    "rootCause": "Arche arUSD vault was drained. One confirmed victim lost approximately $1,132. Protocol team abandoned the project without reimbursing affected users. Specific attack vector not detailed in message; total vault drain amount unspecified.\n\n**Attack Tx:** [https://etherscan.io/tx/0x39475cc55f6f26ed317b27fb52e16cbc56e97d6e24039b9a35d136134084196d](https://etherscan.io/tx/0x39475cc55f6f26ed317b27fb52e16cbc56e97d6e24039b9a35d136134084196d)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2101053520312951165](https://twitter.com/DefimonAlerts/status/2101053520312951165)",
+    "images": [],
+    "Lost": "$1.1K",
+    "Contract": ""
+  },
+  "RISEx": {
+    "type": "Vault Exploitation",
+    "date": "2026-08-03",
+    "rootCause": "RISEx XLP Vault was exploited, resulting in theft of 672,831 USDC. Protocol offered whitehacked settlement: attacker keeps 20% (134,566 USDC) and returns 80% (538,265 USDC) by 2026-09-23 12:00 AEST.\n\n**Attack Tx:** [https://etherscan.io/tx/0xddd2b155b0c6757e89bfaa60f0999b3e2f9e6f4cc0b4df0a54c4bc6ccd1487d7](https://etherscan.io/tx/0xddd2b155b0c6757e89bfaa60f0999b3e2f9e6f4cc0b4df0a54c4bc6ccd1487d7)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2101200596015435847](https://twitter.com/DefimonAlerts/status/2101200596015435847)",
+    "images": [],
+    "Lost": "$672.8K",
+    "Contract": ""
   }
 }
