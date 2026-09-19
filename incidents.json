@@ -1,5 +1,14 @@
 [
   {
+    "date": "20260919",
+    "name": "Nimiq",
+    "type": "Access Control Bypass",
+    "Lost": 50463.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Polygon"
+  },
+  {
     "date": "20260916",
     "name": "Flamincome",
     "type": "Oracle Manipulation",
@@ -347,6 +356,15 @@
     "type": "Proxy Upgrade Attack",
     "Lost": 23760.0,
     "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260803",
+    "name": "RISEx",
+    "type": "Vault Exploitation",
+    "Lost": 672831.0,
+    "lossType": "USDC",
     "Contract": "",
     "chain": "Ethereum"
   },
@@ -825,6 +843,15 @@
     "Lost": 2190000.0,
     "lossType": "USD",
     "Contract": "src/test/2026-06/AztecConnect_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20260613",
+    "name": "Arche",
+    "type": "Vault Exploitation",
+    "Lost": 1132.0,
+    "lossType": "USD",
+    "Contract": "",
     "chain": "Ethereum"
   },
   {
