@@ -6851,5 +6851,21 @@
     "images": [],
     "Lost": "$672.8K",
     "Contract": ""
+  },
+  "GaslessReservoirEnabler": {
+    "type": "Access Control Bypass",
+    "date": "2026-09-22",
+    "rootCause": "erc20WithTransfersAndExecute → _executeInternal checked module addresses but did not bind ERC20 transferFrom instructions to an authorized asset owner, allowing arbitrary callers to spend victims' existing allowances through whitelisted tokens. Existing WETH and ZED balances were transferred from token holders and consolidated on Polygon.\n\n**Attack Tx:** [https://polygonscan.com/tx/0x2e476745f0f546dbe4583359ea6258dfb4fababea08734f676df2e6006e1fdee](https://polygonscan.com/tx/0x2e476745f0f546dbe4583359ea6258dfb4fababea08734f676df2e6006e1fdee)\n\n**Source:** [https://twitter.com/SlowMist_Team/status/2102227043979313539](https://twitter.com/SlowMist_Team/status/2102227043979313539)",
+    "images": [],
+    "Lost": "$23.0K",
+    "Contract": ""
+  },
+  "DoinGudHQ": {
+    "type": "Replay Attack",
+    "date": "2026-09-22",
+    "rootCause": "acceptOffer function never deletes offer records after transfer, with missing offerer validation and amount checks. Zero-amount input bypasses cleanup logic, allowing replayed transactions with identical calldata to pay out repeatedly. Flash-loan funded attack drained entire contract escrow (70,973.871434 USDC outflow).\n\n**Attack Tx:** [https://polygonscan.com/tx/0x56818a63077f5ba8bfc0bc0877ac33502a5d65cc79dbf5dfaac2a0b8545216a8](https://polygonscan.com/tx/0x56818a63077f5ba8bfc0bc0877ac33502a5d65cc79dbf5dfaac2a0b8545216a8)\n\n**Source:** [https://twitter.com/SlowMist_Team/status/2102322041219322134](https://twitter.com/SlowMist_Team/status/2102322041219322134)",
+    "images": [],
+    "Lost": "$35.4K",
+    "Contract": ""
   }
 }
