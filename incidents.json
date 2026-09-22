@@ -1,5 +1,23 @@
 [
   {
+    "date": "20260922",
+    "name": "GaslessReservoirEnabler",
+    "type": "Access Control Bypass",
+    "Lost": 23000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Polygon"
+  },
+  {
+    "date": "20260922",
+    "name": "DoinGudHQ",
+    "type": "Replay Attack",
+    "Lost": 35380.0,
+    "lossType": "USDC",
+    "Contract": "",
+    "chain": "Polygon"
+  },
+  {
     "date": "20260919",
     "name": "Nimiq",
     "type": "Access Control Bypass",
