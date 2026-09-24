@@ -6867,5 +6867,29 @@
     "images": [],
     "Lost": "$35.4K",
     "Contract": ""
+  },
+  "MulticallRouter": {
+    "type": "Access Control Bypass",
+    "date": "2026-09-24",
+    "rootCause": "Nested router call bypassed a Safe module's caller check in a Multicall router contract, enabling unauthorized transfers\n\n**Source:** [https://twitter.com/BlockSecTeam/status/2102957639324021086](https://twitter.com/BlockSecTeam/status/2102957639324021086)",
+    "images": [],
+    "Lost": "$7.80M",
+    "Contract": ""
+  },
+  "Nostra": {
+    "type": "Oracle Manipulation",
+    "date": "2026-09-24",
+    "rootCause": "One-source oracle minimum vulnerability allowed ~$3.5M to be borrowed against artificially inflated NSTR token collateral\n\n**Source:** [https://twitter.com/BlockSecTeam/status/2102957639324021086](https://twitter.com/BlockSecTeam/status/2102957639324021086)",
+    "images": [],
+    "Lost": "$3.50M",
+    "Contract": ""
+  },
+  "Payy": {
+    "type": "Rollup Verification Bypass",
+    "date": "2026-09-24",
+    "rootCause": "verifyRollup function accepted burn operations with all-zero burn_hash values, bypassing cryptographic verification. Possible circuit flaw or compromised rollup infrastructure. Attack TXs: 0xf43abdac5422087f645d77923eb1c825178bff3eb86d17d40fa18d89701e1814, 0xda88fb9273c703a4d2647c744362f58b6db4e104d7a203a75d4b67e3d54858c8\n\n**Attack Tx:** [https://app.blocksec.com/phalcon/explorer/tx/eth/0xf43abdac5422087f645d77923eb1c825178bff3eb86d17d40fa18d89701e1814](https://app.blocksec.com/phalcon/explorer/tx/eth/0xf43abdac5422087f645d77923eb1c825178bff3eb86d17d40fa18d89701e1814)\n\n**Source:** [https://twitter.com/BlockSecTeam/status/2103115027201085596](https://twitter.com/BlockSecTeam/status/2103115027201085596)",
+    "images": [],
+    "Lost": "$1.93M",
+    "Contract": ""
   }
 }

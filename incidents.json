@@ -1,5 +1,32 @@
 [
   {
+    "date": "20260924",
+    "name": "MulticallRouter",
+    "type": "Access Control Bypass",
+    "Lost": 7800000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Unknown"
+  },
+  {
+    "date": "20260924",
+    "name": "Nostra",
+    "type": "Oracle Manipulation",
+    "Lost": 3500000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Unknown"
+  },
+  {
+    "date": "20260924",
+    "name": "Payy",
+    "type": "Rollup Verification Bypass",
+    "Lost": 1930000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20260922",
     "name": "GaslessReservoirEnabler",
     "type": "Access Control Bypass",
