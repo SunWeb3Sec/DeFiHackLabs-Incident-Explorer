@@ -6891,5 +6891,13 @@
     "images": [],
     "Lost": "$1.93M",
     "Contract": ""
+  },
+  "PaymentProcessor": {
+    "type": "Sender-Spoofing",
+    "date": "2026-09-27",
+    "rootCause": "PaymentProcessor v2 sender-spoofing vulnerability allowed extraction of WETH from user wallet without authorization. Attacker exploited validation flaw in transaction sender field to drain 0.7724 WETH.\n\n**Attack Tx:** [https://etherscan.io/tx/0xf4865a86246d5f110c841e0fefbd3f056b7d0288652ac6b19a5ceb93625a15d6](https://etherscan.io/tx/0xf4865a86246d5f110c841e0fefbd3f056b7d0288652ac6b19a5ceb93625a15d6)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2104131353180516762](https://twitter.com/DefimonAlerts/status/2104131353180516762)",
+    "images": [],
+    "Lost": "0.77 WETH",
+    "Contract": ""
   }
 }
