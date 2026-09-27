@@ -1,5 +1,14 @@
 [
   {
+    "date": "20260927",
+    "name": "PaymentProcessor",
+    "type": "Sender-Spoofing",
+    "Lost": 0.7724,
+    "lossType": "WETH",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20260924",
     "name": "MulticallRouter",
     "type": "Access Control Bypass",
