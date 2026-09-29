@@ -1,5 +1,14 @@
 [
   {
+    "date": "20260930",
+    "name": "MagicEden",
+    "type": "Hack",
+    "Lost": 1.34,
+    "lossType": "WETH",
+    "Contract": "",
+    "chain": "Solana"
+  },
+  {
     "date": "20260927",
     "name": "PaymentProcessor",
     "type": "Sender-Spoofing",
