@@ -6899,5 +6899,13 @@
     "images": [],
     "Lost": "0.77 WETH",
     "Contract": ""
+  },
+  "MagicEden": {
+    "type": "Hack",
+    "date": "2026-09-30",
+    "rootCause": "NFT marketplace hack affecting Magic Eden. Victim reports 1.34 WETH stolen.\n\n**Attack Tx:** [https://etherscan.io/tx/0x74dfc15ae6a620f60651f6045e0c88c5cc251386e14b9a12f9acddd57a4c9d5a](https://etherscan.io/tx/0x74dfc15ae6a620f60651f6045e0c88c5cc251386e14b9a12f9acddd57a4c9d5a)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2104925091922428403](https://twitter.com/DefimonAlerts/status/2104925091922428403)",
+    "images": [],
+    "Lost": "1.34 WETH",
+    "Contract": ""
   }
 }
