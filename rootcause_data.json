@@ -6907,5 +6907,21 @@
     "images": [],
     "Lost": "1.34 WETH",
     "Contract": ""
+  },
+  "MCNLabs": {
+    "type": "Logic Bug",
+    "date": "2026-09-30",
+    "rootCause": "LPBonus uses inconsistent reserve values in its reward accounting. AddFistFee divides newly acquired FIST by the MSN reserve when updating oneshareFIST, but CalcPendingUser later multiplies that index by a user weight calculated from the reserve at withdrawal. The attacker reduced the reserve to 89.327788899759978606 MSN during accrual, then raised it to 491.113095162589329323 MSN before triggering UserRemoveLp. This mismatch let one newly registered LP holder claim 1,442,165.713011 FIST even though the intervening reward increment was funded by only 940,041.612768 FIST.\n\n**Attack Tx:** [https://bscscan.com/tx/0xecac1563bbb76fb8fefb4a7da4592260a8c1ddde21d7da62b78a9e3769808e6b](https://bscscan.com/tx/0xecac1563bbb76fb8fefb4a7da4592260a8c1ddde21d7da62b78a9e3769808e6b)\n\n**Source:** [https://twitter.com/SlowMist_Team/status/2105145534126358819](https://twitter.com/SlowMist_Team/status/2105145534126358819)",
+    "images": [],
+    "Lost": "$92.6K",
+    "Contract": ""
+  },
+  "MUSystem": {
+    "type": "Logic Bug",
+    "date": "2026-09-30",
+    "rootCause": "deposit() included the first-deposit bonus in both the immediate ETH refund and the user's MUS allocation; withdraw() allowed same-transaction redemption without limiting total ETH returned to the amount deposited. Sixteen fresh addresses repeated the cycle to extract ETH from MUSystem.\n\n**Attack Tx:** [https://etherscan.io/tx/0xfe28118e48c64b275b587c90da472fc13b8c3dbed9d3cded1e18c1e7a7fc0392](https://etherscan.io/tx/0xfe28118e48c64b275b587c90da472fc13b8c3dbed9d3cded1e18c1e7a7fc0392)\n\n**Source:** [https://twitter.com/SlowMist_Team/status/2105167166639407447](https://twitter.com/SlowMist_Team/status/2105167166639407447)",
+    "images": [],
+    "Lost": "$36.9K",
+    "Contract": ""
   }
 }
