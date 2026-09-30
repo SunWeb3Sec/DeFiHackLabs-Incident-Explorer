@@ -9,6 +9,24 @@
     "chain": "Solana"
   },
   {
+    "date": "20260930",
+    "name": "MCNLabs",
+    "type": "Logic Bug",
+    "Lost": 92600.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "BNB Chain"
+  },
+  {
+    "date": "20260930",
+    "name": "MUSystem",
+    "type": "Logic Bug",
+    "Lost": 36900.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20260927",
     "name": "PaymentProcessor",
     "type": "Sender-Spoofing",
