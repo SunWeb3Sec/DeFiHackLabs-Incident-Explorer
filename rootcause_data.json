@@ -6923,5 +6923,21 @@
     "images": [],
     "Lost": "$36.9K",
     "Contract": ""
+  },
+  "NearIntents": {
+    "type": "Access Control",
+    "date": "2026-10-02",
+    "rootCause": "Vulnerability in deposit and withdrawal infrastructure. Attacker drained assets from BNB Chain hot wallet, transferred stolen funds through KuCoin to Bitcoin. Exploiter address linked to Lazarus Group (North Korea).\n\n**Source:** [https://twitter.com/PeckShieldAlert/status/2105676117202067944](https://twitter.com/PeckShieldAlert/status/2105676117202067944)",
+    "images": [],
+    "Lost": "$3.87M",
+    "Contract": ""
+  },
+  "FlashLoopAdapter": {
+    "type": "Access Control",
+    "date": "2026-10-01",
+    "rootCause": "Aave v3 loop Safe module vulnerability: module validation checked isModuleEnabled() but attacker bypassed by creating fake Safe contract. Used Morpho WETH flash loan to exploit callback and execute unauthorized execTransactionFromModule calls, draining 1,306 weETH (~114.1 ETH) collateral from victim Safe and 6.4 weETH from second Safe.\n\n**Attack Tx:** [https://etherscan.io/tx/0x75328f916b1a0878724d364da5eb12b255160b894cb36c63ed5d718efc616fc4](https://etherscan.io/tx/0x75328f916b1a0878724d364da5eb12b255160b894cb36c63ed5d718efc616fc4)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2105695635647144370](https://twitter.com/DefimonAlerts/status/2105695635647144370)",
+    "images": [],
+    "Lost": "$305.0K",
+    "Contract": ""
   }
 }
