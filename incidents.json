@@ -1,5 +1,23 @@
 [
   {
+    "date": "20261002",
+    "name": "NearIntents",
+    "type": "Access Control",
+    "Lost": 3865000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "BNB Chain"
+  },
+  {
+    "date": "20261001",
+    "name": "FlashLoopAdapter",
+    "type": "Access Control",
+    "Lost": 305000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20260930",
     "name": "MagicEden",
     "type": "Hack",
