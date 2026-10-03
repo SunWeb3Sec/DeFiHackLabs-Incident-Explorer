@@ -6939,5 +6939,21 @@
     "images": [],
     "Lost": "$305.0K",
     "Contract": ""
+  },
+  "GoldPesa": {
+    "type": "Logic Error",
+    "date": "2026-10-02",
+    "rootCause": "GPXHooks rebalances GPX/USDC liquidity via beforeSwap hook. Attacker borrowed 175K USDC from Morpho, minted a WETH/USDC position via PositionManager without settling (leaving ~115K USDC debt), then swapped to trigger rebalance. Hook burned its position for 148.9K USDC but TAKE_PAIR netted it against attacker's phantom debt, so hook received only 33.9K USDC. Attacker extracted the remaining 115K USDC. Root cause: shared PositionManager lacked delta isolation and zero-delta verification between hook operations and caller state.\n\n**Attack Tx:** [https://basescan.org/tx/0x5c1febd5047c2a15c37988b6abd5c8b984236dddf6fd24eed96b0f43951ad2c9](https://basescan.org/tx/0x5c1febd5047c2a15c37988b6abd5c8b984236dddf6fd24eed96b0f43951ad2c9)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2106390298469318702](https://twitter.com/DefimonAlerts/status/2106390298469318702)",
+    "images": [],
+    "Lost": "$114.0K",
+    "Contract": ""
+  },
+  "MALT": {
+    "type": "Logic Error",
+    "date": "2026-10-04",
+    "rootCause": "swap() function fails to isolate caller-funded input from hook-funded rebalancing capital. Attacker provides negligible input, triggers rebalanceHook to inject treasury-funded DAI into pool, then exploits unvalidated pool invariant to withdraw disproportionate output. Missing isolation between caller state and protocol-funded liquidity injections.\n\n**Attack Tx:** [https://polygonscan.com/tx/0x915eccb5791508aa89a0a3f1385b26346b127ebb648b046e4cb558474ce8445b](https://polygonscan.com/tx/0x915eccb5791508aa89a0a3f1385b26346b127ebb648b046e4cb558474ce8445b)\n\n**Source:** [https://twitter.com/SlowMist_Team/status/2106418632041668784](https://twitter.com/SlowMist_Team/status/2106418632041668784)",
+    "images": [],
+    "Lost": "$72.0K",
+    "Contract": ""
   }
 }
