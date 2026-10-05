@@ -2783,7 +2783,7 @@
   {
     "date": "20250617",
     "name": "MetaPool",
-    "type": "Access Control",
+    "type": "Infinite Mint via unvalidated ERC4626 mint",
     "Lost": 25000.0,
     "lossType": "USD",
     "Contract": "src/test/2025-06/MetaPool_exp.sol",
@@ -8710,5 +8710,32 @@
     "lossType": "ETH",
     "Contract": "src/test/2017-11/Parity_kill_exp.sol",
     "chain": "Ethereum"
+  },
+  {
+    "date": "20261003",
+    "name": "MALT",
+    "type": "the MALT/DAI sLP runs its below-peg price recovery inside swap() before sending the output, pulling DAI from the Capital Source treasury into the pool, then checks its constant-product invariant against the final balances without separating the injected treasury DAI from the caller's own input, so a negligible 1 DAI swap is credited with thousands of injected DAI and releases a disproportionate MALT output",
+    "Lost": 13440.581562307922,
+    "lossType": "DAI",
+    "Contract": "src/test/2026-10/MALT_exp.sol",
+    "chain": "Polygon"
+  },
+  {
+    "date": "20260921",
+    "name": "DoinGud",
+    "type": "acceptOffer replay via missing offer cleanup on the amount=0 path",
+    "Lost": 35380.154566,
+    "lossType": "USDC",
+    "Contract": "src/test/2026-09/DoinGud_exp.sol",
+    "chain": "Polygon"
+  },
+  {
+    "date": "20260526",
+    "name": "SKP Token",
+    "type": "Deliberately Engineered Drain (Insider Exploit / Rug Pull)",
+    "Lost": 212195.0,
+    "lossType": "USDT",
+    "Contract": "src/test/2026-05/SKP_exp2.sol",
+    "chain": "BSC"
   }
 ]
