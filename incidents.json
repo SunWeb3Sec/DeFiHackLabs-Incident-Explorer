@@ -1,5 +1,23 @@
 [
   {
+    "date": "20261006",
+    "name": "SetProtocol",
+    "type": "Smart Contract Vulnerability",
+    "Lost": 5.08,
+    "lossType": "ETH",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20261006",
+    "name": "MakerDAO",
+    "type": "Access Control Bypass",
+    "Lost": 200.0,
+    "lossType": "ETH",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20261004",
     "name": "MALT",
     "type": "Logic Error",

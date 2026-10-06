@@ -6955,5 +6955,21 @@
     "images": [],
     "Lost": "$72.0K",
     "Contract": ""
+  },
+  "SetProtocol": {
+    "type": "Smart Contract Vulnerability",
+    "date": "2026-10-06",
+    "rootCause": "actualizeFee() recalculated unitShares with upward rounding even though no fee was minted, raising it from 4,927 to 4,928. Attacker issued before the update and redeemed the same quantity afterward, extracting collateral from the rounding-induced unit increase. Uniswap v4 flash accounting supplied temporary liquidity to scale the exploit. Attack contract: 0x016feaaa25ab8325e233bc8a2c25055bee0b2f6e. Victim vault: 0x5b67871c3a857de81a1ca0f9f7945e5670d986dc. Vulnerable contract: 0x54e8371c1ec43e58fb53d4ef4ed463c17ba8a6be.\n\n**Attack Tx:** [https://etherscan.io/tx/0xaca5f83ff3a206209f3d213c33d04e6febe345f6ad52ef476bd1c0ee1505ba65](https://etherscan.io/tx/0xaca5f83ff3a206209f3d213c33d04e6febe345f6ad52ef476bd1c0ee1505ba65)\n\n**Source:** [https://twitter.com/SlowMist_Team/status/2107382337654951943](https://twitter.com/SlowMist_Team/status/2107382337654951943)",
+    "images": [],
+    "Lost": "5.08 ETH",
+    "Contract": ""
+  },
+  "MakerDAO": {
+    "type": "Access Control Bypass",
+    "date": "2026-10-06",
+    "rootCause": "MakerDAO ETH-A Liquidation Keeper Bot unprotected drain function. Keeper proxy at 0x9c05a05893ada984fc20d0da0c046de5cc0e8273 had won four ETH-A liquidation auctions (#1457–1460, 50 WETH each) in 2020 but never called deal(), leaving 200 WETH locked in the ETH-A Flipper contract. The drain function (selector 0x8804d1de) lacked ds-auth protection (authority=0x0), allowing any caller to: invoke Flipper.deal() → Vat.flux collateral to keeper → GemJoin.exit() 200 WETH to attacker address → unwrap to 200 ETH (~$538K). Tornado-funded fresh EOA (0x01eb957e5c7dcddd60f3c875956ccc6fb9bda5fa) executed the attack.\n\n**Attack Tx:** [https://etherscan.io/tx/0xbb6940f7c2a1e68cafbae7bb9b94d09af9af06ec3a114f6996f2cab993f3a88c](https://etherscan.io/tx/0xbb6940f7c2a1e68cafbae7bb9b94d09af9af06ec3a114f6996f2cab993f3a88c)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2107391959853600812](https://twitter.com/DefimonAlerts/status/2107391959853600812)",
+    "images": [],
+    "Lost": "200.00 ETH",
+    "Contract": ""
   }
 }
