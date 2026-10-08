@@ -1,5 +1,23 @@
 [
   {
+    "date": "20261009",
+    "name": "X7Finance",
+    "type": "Logic Flaw",
+    "Lost": 6.78,
+    "lossType": "ETH",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20261008",
+    "name": "79Vault",
+    "type": "Privileged Function Exploit",
+    "Lost": 12500000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "BNB Smart Chain"
+  },
+  {
     "date": "20261006",
     "name": "SetProtocol",
     "type": "Smart Contract Vulnerability",

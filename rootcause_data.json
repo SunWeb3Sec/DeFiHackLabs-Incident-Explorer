@@ -6971,5 +6971,21 @@
     "images": [],
     "Lost": "200.00 ETH",
     "Contract": ""
+  },
+  "79Vault": {
+    "type": "Privileged Function Exploit",
+    "date": "2026-10-08",
+    "rootCause": "2.01M 79AU tokens were sold via a privileged function, transferring 16.2k BNB (~$12.5M) to the attacker. ~90% of funds held at 0xa9537B40b02Af7Af8f1543aea3691992B2174F89 with 10% bounty offered to the exploiter.\n\n**Attack Tx:** [https://bscscan.com/tx/0xee0e44167518ff0071ede02a03b3710a1a8438d52616aad4bf1d5e417b37b0df](https://bscscan.com/tx/0xee0e44167518ff0071ede02a03b3710a1a8438d52616aad4bf1d5e417b37b0df)\n\n**Source:** [https://twitter.com/CertiKAlert/status/2108113166940934151](https://twitter.com/CertiKAlert/status/2108113166940934151)",
+    "images": [],
+    "Lost": "$12.50M",
+    "Contract": ""
+  },
+  "X7Finance": {
+    "type": "Logic Flaw",
+    "date": "2026-10-09",
+    "rootCause": "In claimRewards(), totalRewards is incremented by (address(this).balance - lastETHBalance) on every call, but lastETHBalance is only updated when claimable > 0. Calling with an empty array leaves claimable at 0, causing the same unaccounted balance to be repeatedly added to totalRewards, inflating per-token rewards. Attacker also donated ETH to amplify the delta before draining funds.\n\n**Attack Tx:** [https://etherscan.io/tx/0xc98056d6ab55ef898189da5fa1fb08b968cb84ca99528d171f8240836b21766d](https://etherscan.io/tx/0xc98056d6ab55ef898189da5fa1fb08b968cb84ca99528d171f8240836b21766d)\n\n**Source:** [https://twitter.com/SlowMist_Team/status/2108142452888776907](https://twitter.com/SlowMist_Team/status/2108142452888776907)",
+    "images": [],
+    "Lost": "6.78 ETH",
+    "Contract": ""
   }
 }
