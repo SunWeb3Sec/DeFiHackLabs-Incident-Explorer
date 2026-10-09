@@ -6987,5 +6987,21 @@
     "images": [],
     "Lost": "6.78 ETH",
     "Contract": ""
+  },
+  "HOTOmniBridge": {
+    "type": "Bridge Exploit",
+    "date": "2026-09-30",
+    "rootCause": "HOT Omni Bridge on NEAR exploited resulting in five BSC treasury payouts totaling $3.86M. Specific attack vector details not disclosed. Funds were later returned.\n\n**Source:** [https://twitter.com/CertiKAlert/status/2108541669989900294](https://twitter.com/CertiKAlert/status/2108541669989900294)",
+    "images": [],
+    "Lost": "$3.86M",
+    "Contract": ""
+  },
+  "79AU": {
+    "type": "Protocol Exploit",
+    "date": "2026-10-09",
+    "rootCause": "79AU Vault exploited resulting in theft of approximately 15,000 BNB (~$11M). Specific attack vector details not disclosed in available security alerts. Funds recovered through settlement negotiation.\n\n**Source:** [https://twitter.com/PeckShieldAlert/status/2108547620855750865](https://twitter.com/PeckShieldAlert/status/2108547620855750865)",
+    "images": [],
+    "Lost": "15000.00 BNB",
+    "Contract": ""
   }
 }
