@@ -9,6 +9,15 @@
     "chain": "Ethereum"
   },
   {
+    "date": "20261009",
+    "name": "79AU",
+    "type": "Protocol Exploit",
+    "Lost": 15000.0,
+    "lossType": "BNB",
+    "Contract": "",
+    "chain": "BSC"
+  },
+  {
     "date": "20261008",
     "name": "79Vault",
     "type": "Privileged Function Exploit",
@@ -97,6 +106,15 @@
     "lossType": "USD",
     "Contract": "",
     "chain": "Ethereum"
+  },
+  {
+    "date": "20260930",
+    "name": "HOTOmniBridge",
+    "type": "Bridge Exploit",
+    "Lost": 3860000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "NEAR"
   },
   {
     "date": "20260927",
