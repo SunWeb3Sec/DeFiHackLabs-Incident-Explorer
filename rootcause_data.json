@@ -7003,5 +7003,13 @@
     "images": [],
     "Lost": "15000.00 BNB",
     "Contract": ""
+  },
+  "Vestaa": {
+    "type": "Permit2 Signature Replay",
+    "date": "2026-10-11",
+    "rootCause": "Attacker exploited a bug in Vestaa's swap contract that allowed reuse of a Permit2 signature leaked from a failed transaction (0x27b25d997f914399cc354041fd79b27683e9e5da640e8960bfb1c7bfece129ab). The signature was replayed in transaction 0x59c5ca6f20745841818d15a1a9a3f6b9586f97a205aa20fa94ec0f8ea764e885 to extract 3.1924 WETH from the contract.\n\n**Attack Tx:** [https://basescan.org/tx/0xc9a6fe3db2d0be1bf99fce316dc1e6ace243e6b77d3a3e68af30baca86ef20d0](https://basescan.org/tx/0xc9a6fe3db2d0be1bf99fce316dc1e6ace243e6b77d3a3e68af30baca86ef20d0)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2109254416054280472](https://twitter.com/DefimonAlerts/status/2109254416054280472)",
+    "images": [],
+    "Lost": "3.19 WETH",
+    "Contract": ""
   }
 }

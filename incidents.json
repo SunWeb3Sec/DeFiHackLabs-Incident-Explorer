@@ -1,5 +1,14 @@
 [
   {
+    "date": "20261011",
+    "name": "Vestaa",
+    "type": "Permit2 Signature Replay",
+    "Lost": 3.1924,
+    "lossType": "WETH",
+    "Contract": "",
+    "chain": "Base"
+  },
+  {
     "date": "20261009",
     "name": "X7Finance",
     "type": "Logic Flaw",
