@@ -2846,7 +2846,7 @@
   {
     "date": "20250617",
     "name": "MetaPool",
-    "type": "Access Control",
+    "type": "Infinite Mint via unvalidated ERC4626 mint",
     "Lost": 25000.0,
     "lossType": "USD",
     "Contract": "src/test/2025-06/MetaPool_exp.sol",
@@ -8773,5 +8773,32 @@
     "lossType": "ETH",
     "Contract": "src/test/2017-11/Parity_kill_exp.sol",
     "chain": "Ethereum"
+  },
+  {
+    "date": "20261006",
+    "name": "SetProtocol",
+    "type": "a second RebalancingSetTokenV3 vault (ETHMACOAPY) hit by the same permissionless actualizeFee() divCeil rounding, the attacker issues the rebalancing set then donates the residual base set into the vault own backing so the zero-fee recompute bumps unitShares from 12253 to 12264, then redeems the same quantity for more collateral than was deposited, the ~116,000 WETH issue/redeem size supplied fee-free by an Aave-v3-fork flash loan",
+    "Lost": 4.047988247781966,
+    "lossType": "WETH",
+    "Contract": "src/test/2026-10/SetProtocolETHMACOAPY_exp.sol",
+    "chain": "Unknown"
+  },
+  {
+    "date": "20260921",
+    "name": "DoinGud",
+    "type": "acceptOffer replay via missing offer cleanup on the amount=0 path",
+    "Lost": 35380.154566,
+    "lossType": "USDC",
+    "Contract": "src/test/2026-09/DoinGud_exp.sol",
+    "chain": "Polygon"
+  },
+  {
+    "date": "20260526",
+    "name": "SKP Token",
+    "type": "Deliberately Engineered Drain (Insider Exploit / Rug Pull)",
+    "Lost": 212195.0,
+    "lossType": "USDT",
+    "Contract": "src/test/2026-05/SKP_exp2.sol",
+    "chain": "BSC"
   }
 ]
