@@ -7011,5 +7011,13 @@
     "images": [],
     "Lost": "3.19 WETH",
     "Contract": ""
+  },
+  "Autheo": {
+    "type": "Cross-Chain Mint",
+    "date": "2026-10-12",
+    "rootCause": "Hyperlane HypERC20 warp-route with TrustedRelayerIsm single-relayer security model. Attacker exploited single relayer key to deliver Hyperlane message (0x4fdbbc5e...) from origin domain 2127, minting 19,000,000 THEO tokens unbacked (handle() → Transfer from 0x0, no lock on origin). Attacker orchestrator (0x599b...71f4) pulled 9.5M unbacked THEO through 54-swap extraction engine (0x8f10...f996), dumping across THEO/USDC pair (−$476K USDC) and Uniswap v4/Hydrex THEO pools to extract ~$700K real WETH, USDC, cbBTC. Part of multi-transaction dump campaign. Total loss ~$1.7M.\n\n**Attack Tx:** [https://basescan.org/tx/0x9d2a604246abdd8b8a847049f114a670218d307a3160d37a0c4e567edde73fcb](https://basescan.org/tx/0x9d2a604246abdd8b8a847049f114a670218d307a3160d37a0c4e567edde73fcb)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2109918717819625675](https://twitter.com/DefimonAlerts/status/2109918717819625675)",
+    "images": [],
+    "Lost": "$1.70M",
+    "Contract": ""
   }
 }

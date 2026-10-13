@@ -1,5 +1,14 @@
 [
   {
+    "date": "20261012",
+    "name": "Autheo",
+    "type": "Cross-Chain Mint",
+    "Lost": 1700000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Base"
+  },
+  {
     "date": "20261011",
     "name": "Vestaa",
     "type": "Permit2 Signature Replay",
