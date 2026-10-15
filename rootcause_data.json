@@ -7019,5 +7019,13 @@
     "images": [],
     "Lost": "$1.70M",
     "Contract": ""
+  },
+  "Kolan": {
+    "type": "Flash Loan Attack",
+    "date": "2026-10-15",
+    "rootCause": "Uniswap V4 hook vulnerability in KolanHook contract. The permissionless accept(id) function calls _closeWindow → _buyBack(), which swaps the hook's ETH reserves back into the pool with NO slippage guard (sqrtPriceLimit set to MIN_SQRT_PRICE+1).\n\nAttack sequence:\n1. Flash-loan 6.7 WETH from Balancer\n2. Buy KLN to inflate pool price\n3. Trigger accept(10) and accept(42), forcing hook to spend ~2.31 ETH buying/burning tokens at manipulated price\n4. Dump pre-bought KLN into ETH-enriched pool\n5. Repay flash loan\n\nResult: Victim hook drained 2.31 ETH (~$5.4K); attacker profit ~1.28 ETH (~$3.0K)\n\n**Attack Tx:** [https://etherscan.io/tx/0x7b131926e6f06491ae1aead3e419b208c8aa70ed7898e8c5a33d9f52e40915a9](https://etherscan.io/tx/0x7b131926e6f06491ae1aead3e419b208c8aa70ed7898e8c5a33d9f52e40915a9)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2110776621087047818](https://twitter.com/DefimonAlerts/status/2110776621087047818)",
+    "images": [],
+    "Lost": "$3.0K",
+    "Contract": ""
   }
 }
