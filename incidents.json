@@ -1,5 +1,14 @@
 [
   {
+    "date": "20261018",
+    "name": "BiFi",
+    "type": "Flash Loan + Interest Model Exploit",
+    "Lost": 165400.0,
+    "lossType": "USDT",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20261015",
     "name": "Kolan",
     "type": "Flash Loan Attack",
