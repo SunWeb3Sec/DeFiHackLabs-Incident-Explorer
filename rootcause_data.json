@@ -7027,5 +7027,13 @@
     "images": [],
     "Lost": "$3.0K",
     "Contract": ""
+  },
+  "BiFi": {
+    "type": "Flash Loan + Interest Model Exploit",
+    "date": "2026-10-18",
+    "rootCause": "BiFi's USDT market had been idle for ~36 days. Bug in TokenHandler._checkFirstAction froze actionEXR, allowing interest calculation to charge 36 days of compounded interest repeatedly within the same block. Attacker flash-loaned 40.5M USDT from Morpho, deposited in tranches, borrowed 30M USDT to inflate utilization, then executed repay/withdraw cycles extracting inflated deposit interest. Two cycles drained 165.6K USDT (swapped to WETH). Front-runner c0ffeebabe.eth replayed the attack in next block.\n\n**Attack Tx:** [https://etherscan.io/tx/0x756c68055af7a0630aa0b56891ba4de14c56c39cbebe99e47eeb4728f4d6ad14](https://etherscan.io/tx/0x756c68055af7a0630aa0b56891ba4de14c56c39cbebe99e47eeb4728f4d6ad14)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2111725425554571750](https://twitter.com/DefimonAlerts/status/2111725425554571750)",
+    "images": [],
+    "Lost": "$165.4K",
+    "Contract": ""
   }
 }
