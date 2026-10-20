@@ -7035,5 +7035,13 @@
     "images": [],
     "Lost": "$165.4K",
     "Contract": ""
+  },
+  "ArgentWallet": {
+    "type": "Smart Contract Exploit - Signature Reuse + Deadline Wrap",
+    "date": "2026-10-20",
+    "rootCause": "Argent-style smart wallet system had two exploitable flaws: (1) Recovery module unrestricted 0x254a2e49 setter allowed crafted recovery period to cause deadline timestamp to wrap backward in time, enabling immediate recovery finalization with valid guardian signature in same transaction; (2) Execution module failed to prevent reuse of identical signed 0xaacaaf88 payload - executed 19 times in one transaction and 9 times in another. Attacker used repeated payload executions to conduct multiple trades against low-liquidity MARK/WETH pool.\n\n**Attack Tx:** [https://etherscan.io/tx/0xbfed8d33561ed5f9cbd0f4e62a5bbd20187a64f3e22180148dcb58ed6ebaa795](https://etherscan.io/tx/0xbfed8d33561ed5f9cbd0f4e62a5bbd20187a64f3e22180148dcb58ed6ebaa795)\n\n**Source:** [https://twitter.com/SlowMist_Team/status/2112157232624476254](https://twitter.com/SlowMist_Team/status/2112157232624476254)",
+    "images": [],
+    "Lost": "$59.8K",
+    "Contract": ""
   }
 }
