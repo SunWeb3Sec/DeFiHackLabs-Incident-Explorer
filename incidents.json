@@ -9,6 +9,15 @@
     "chain": "Ethereum"
   },
   {
+    "date": "20261020",
+    "name": "Drift",
+    "type": "Unknown",
+    "Lost": 50000000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20261018",
     "name": "BiFi",
     "type": "Flash Loan + Interest Model Exploit",

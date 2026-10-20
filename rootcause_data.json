@@ -7043,5 +7043,13 @@
     "images": [],
     "Lost": "$59.8K",
     "Contract": ""
+  },
+  "Drift": {
+    "type": "Unknown",
+    "date": "2026-10-20",
+    "rootCause": "Drift exploiter, after 2 months of inactivity, began depositing stolen funds (~21.3K ETH, ~$50M) to Tornado.Cash. Root cause of original exploit unspecified in alert messages.\n\n**Source:** [https://twitter.com/PeckShieldAlert/status/2112467387769557111](https://twitter.com/PeckShieldAlert/status/2112467387769557111)",
+    "images": [],
+    "Lost": "$50.00M",
+    "Contract": ""
   }
 }
