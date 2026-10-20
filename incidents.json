@@ -1,5 +1,14 @@
 [
   {
+    "date": "20261020",
+    "name": "ArgentWallet",
+    "type": "Smart Contract Exploit - Signature Reuse + Deadline Wrap",
+    "Lost": 59800.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20261018",
     "name": "BiFi",
     "type": "Flash Loan + Interest Model Exploit",
