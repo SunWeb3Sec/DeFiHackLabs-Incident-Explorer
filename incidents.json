@@ -1,5 +1,14 @@
 [
   {
+    "date": "20261021",
+    "name": "Slice",
+    "type": "Smart Contract Bug",
+    "Lost": 41000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Base"
+  },
+  {
     "date": "20261020",
     "name": "ArgentWallet",
     "type": "Smart Contract Exploit - Signature Reuse + Deadline Wrap",

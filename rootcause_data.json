@@ -7051,5 +7051,13 @@
     "images": [],
     "Lost": "$50.00M",
     "Contract": ""
+  },
+  "Slice": {
+    "type": "Smart Contract Bug",
+    "date": "2026-10-21",
+    "rootCause": "FundsModule's 0x9d2edfac trusted release amounts returned by caller-selected source contracts without verifying that corresponding ETH or USDC was actually received. Unbacked amounts were used to calculate immediate withdrawals from pooled reserves.\n\n**Attack Tx:** [https://basescan.org/tx/0x02b039a6345348d984e4a0b70dd233127772206e61ce82c390c4709c0b8d790a](https://basescan.org/tx/0x02b039a6345348d984e4a0b70dd233127772206e61ce82c390c4709c0b8d790a)\n\n**Source:** [https://twitter.com/SlowMist_Team/status/2112746806585274454](https://twitter.com/SlowMist_Team/status/2112746806585274454)",
+    "images": [],
+    "Lost": "$41.0K",
+    "Contract": ""
   }
 }
