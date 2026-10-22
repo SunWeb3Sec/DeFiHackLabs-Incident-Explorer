@@ -1,5 +1,23 @@
 [
   {
+    "date": "20261023",
+    "name": "WAX Bridge",
+    "type": "Input Validation",
+    "Lost": 90500.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "WAX"
+  },
+  {
+    "date": "20261022",
+    "name": "Cysic",
+    "type": "Access Control",
+    "Lost": 306.524,
+    "lossType": "ETH",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20261021",
     "name": "Slice",
     "type": "Smart Contract Bug",
