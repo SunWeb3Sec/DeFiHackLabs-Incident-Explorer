@@ -7059,5 +7059,21 @@
     "images": [],
     "Lost": "$41.0K",
     "Contract": ""
+  },
+  "Cysic": {
+    "type": "Access Control",
+    "date": "2026-10-22",
+    "rootCause": "Unauthorized minting of 10,000,000 CYS tokens via smart contract vulnerability. Attacker exploited access control bypass to mint tokens and extract ~306.524 ETH in protocol value. Recovery message posted on-chain offering 10% bounty (30.652 ETH) for return of 90% (275.872 ETH) within 72 hours, with threat of criminal investigation.\n\n**Attack Tx:** [https://etherscan.io/tx/0x2e238635c5c7512413ca8f49f7951b55e937bce3f94e82dd2f180706b883fe3f](https://etherscan.io/tx/0x2e238635c5c7512413ca8f49f7951b55e937bce3f94e82dd2f180706b883fe3f)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2113203181681250611](https://twitter.com/DefimonAlerts/status/2113203181681250611)",
+    "images": [],
+    "Lost": "306.52 ETH",
+    "Contract": ""
+  },
+  "WAX Bridge": {
+    "type": "Input Validation",
+    "date": "2026-10-23",
+    "rootCause": "Input validation bug in eth.token::withdraw function. Failed to enforce max_fee ≥ 0 before debiting quantity + max_fee. Attacker set max_fee = -quantity to reduce debit to zero while preserving full withdrawal amount, bypassing fee collection. Generated valid bridge withdrawal logs with payouts on Solana and Ethereum endpoints.\n\n**Source:** [https://twitter.com/SlowMist_Team/status/2113290086808990182](https://twitter.com/SlowMist_Team/status/2113290086808990182)",
+    "images": [],
+    "Lost": "$90.5K",
+    "Contract": ""
   }
 }
