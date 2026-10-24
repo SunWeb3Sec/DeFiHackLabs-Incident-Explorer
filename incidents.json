@@ -1,5 +1,14 @@
 [
   {
+    "date": "20261024",
+    "name": "X100",
+    "type": "Flash Loan / Governance Capture",
+    "Lost": 4750000.0,
+    "lossType": "USDT",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20261023",
     "name": "WAX Bridge",
     "type": "Input Validation",
