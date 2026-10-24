@@ -7075,5 +7075,13 @@
     "images": [],
     "Lost": "$90.5K",
     "Contract": ""
+  },
+  "X100": {
+    "type": "Flash Loan / Governance Capture",
+    "date": "2026-10-24",
+    "rootCause": "Attacker flash-borrowed ~1.94M USDT from Aave and purchased ~38.2K X tokens. Tokens were split across two helper contracts and frozen via applyForSenate() to seize two of three Senate seats with no snapshot/timelock protection. Within the same transaction, attacker created a PancakeSwap V3 X/USDT pool and executed a governance proposal directing the treasury's v3Swap to dump ~361.8K X into this attacker-controlled pool with minimum output set to zero (~35.68 USDT). Attacker withdrew liquidity and sold recovered X on Uniswap V3 X/USDT pool, repaid flash loan, and profited ~4.75M USDT.\n\n**Attack Tx:** [https://etherscan.io/tx/0x38c60844f1923d53fdce7d99e9bc2a2d8c73a08e793341dfbb479f8cc74d81d0](https://etherscan.io/tx/0x38c60844f1923d53fdce7d99e9bc2a2d8c73a08e793341dfbb479f8cc74d81d0)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2114007082055700836](https://twitter.com/DefimonAlerts/status/2114007082055700836)",
+    "images": [],
+    "Lost": "$4.75M",
+    "Contract": ""
   }
 }
