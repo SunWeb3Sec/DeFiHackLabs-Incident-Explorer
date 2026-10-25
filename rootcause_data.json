@@ -7083,5 +7083,13 @@
     "images": [],
     "Lost": "$4.75M",
     "Contract": ""
+  },
+  "Yapeswap": {
+    "type": "Governance Attack",
+    "date": "2026-10-25",
+    "rootCause": "Yapeswap's YapePair contracts were exploited through a zero-quorum governance vulnerability and registry spoofing. An attacker submitted a proposal backed by only ~0.000055% of voting power that passed due to WorkersUnion's zero-quorum requirement, transferring the `feeToSetter` role of YapeFactory to the attacker. The attacker then installed a malicious Registry that returned fake vault addresses from `latestVault()` while legitimate vaults remained in `vaults()`. User deposits were diverted to the fake vaults, while YapePair incorrectly counted these as farming assets without issuing redeemable shares, resulting in approximately $21.9k in user losses.\n\n**Attack Tx:** [https://etherscan.io/tx/0x4c741568cc12b23b382db409b0a38a4cfb6c708904f0c2ce7bad2e4fa7179e1e](https://etherscan.io/tx/0x4c741568cc12b23b382db409b0a38a4cfb6c708904f0c2ce7bad2e4fa7179e1e)\n\n**Source:** [https://twitter.com/SlowMist_Team/status/2114290073546219799](https://twitter.com/SlowMist_Team/status/2114290073546219799)",
+    "images": [],
+    "Lost": "$21.9K",
+    "Contract": ""
   }
 }
