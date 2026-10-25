@@ -1,5 +1,14 @@
 [
   {
+    "date": "20261025",
+    "name": "Yapeswap",
+    "type": "Governance Attack",
+    "Lost": 21900.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20261024",
     "name": "X100",
     "type": "Flash Loan / Governance Capture",
