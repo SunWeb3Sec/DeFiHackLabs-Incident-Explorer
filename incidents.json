@@ -2936,7 +2936,7 @@
   {
     "date": "20250617",
     "name": "MetaPool",
-    "type": "Access Control",
+    "type": "Infinite Mint via unvalidated ERC4626 mint",
     "Lost": 25000.0,
     "lossType": "USD",
     "Contract": "src/test/2025-06/MetaPool_exp.sol",
@@ -8863,5 +8863,41 @@
     "lossType": "ETH",
     "Contract": "src/test/2017-11/Parity_kill_exp.sol",
     "chain": "Ethereum"
+  },
+  {
+    "date": "20261024",
+    "name": "X100Senate",
+    "type": "the X100 Senate treasury has no snapshot and no timelock, so applyForSenate() is permissionless and propose, vote and execute run in one block, so the attacker flash-borrows 1,942,457 USDT from Aave, buys 38,200 X and freezes it across two helper contracts to seize 2 of 3 senate seats, then passes a DexTreasury v3Swap that dumps 400,000 treasury X into an attacker-created PancakeV3 pool at a manipulated price and resells it on the deep Uniswap pool, repaying the flash loan for a 4,749,726.03 USDT net gain",
+    "Lost": 4750000.0,
+    "lossType": "USDT",
+    "Contract": "src/test/2026-10/X100Senate_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20261018",
+    "name": "AlpsCon",
+    "type": "AlpsCon AI Trade Hub still trusts the canonical Hardhat default account 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266 on its onlyVerified whitelist, and that account's private key is public, so the attacker uses an EIP-7702 authorization signed with the known key to delegate the account to exploit code and pass every reward gate, and because each reward hub version imports the previous version's balances through migrate() and then pays claimServiceResults() against the version's already-accumulated profitPerShare while the fresh deposit's entryProfitPerShare is still zero, a brand-new flash-funded ALPS stake in the still-open V6 hub is credited the full historical reward history, so the attacker flash-borrows 1,027,990 USDC from Aave, buys and stakes ALPS, imports the stake forward, over-claims the rewards out of V7/V8/V9, unstakes and sells back, and repays the loan for a 152,295.3625 USDC net gain",
+    "Lost": 152800.0,
+    "lossType": "USDC",
+    "Contract": "src/test/2026-10/AlpsCon_exp.sol",
+    "chain": "Unknown"
+  },
+  {
+    "date": "20260921",
+    "name": "TheRedVillage",
+    "type": "ungated PolygonTRVRouter forwardRequest relays an attacker-supplied upgradeTo through the router's _authorizeUpgrade role on the SeasonService UUPS proxy, installing a malicious implementation that uses the proxy's TRVZooKeeper roles to pull every player's approved WETH and sweep the vault",
+    "Lost": 31.426018474517367,
+    "lossType": "WETH",
+    "Contract": "src/test/2026-09/TheRedVillage_exp.sol",
+    "chain": "Unknown"
+  },
+  {
+    "date": "20260526",
+    "name": "SKP Token",
+    "type": "Deliberately Engineered Drain (Insider Exploit / Rug Pull)",
+    "Lost": 212195.0,
+    "lossType": "USDT",
+    "Contract": "src/test/2026-05/SKP_exp2.sol",
+    "chain": "BSC"
   }
 ]
