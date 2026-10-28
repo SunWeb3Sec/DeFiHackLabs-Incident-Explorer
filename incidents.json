@@ -1,5 +1,32 @@
 [
   {
+    "date": "20261028",
+    "name": "ACP",
+    "type": "Vault Drain",
+    "Lost": 12247898.0,
+    "lossType": "ACP",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20261028",
+    "name": "Humanode",
+    "type": "EVM Exploit",
+    "Lost": 12000000.0,
+    "lossType": "HMND",
+    "Contract": "",
+    "chain": "Arbitrum"
+  },
+  {
+    "date": "20261027",
+    "name": "FenceFinance",
+    "type": "Accounting Logic",
+    "Lost": 1013353.0,
+    "lossType": "USDC",
+    "Contract": "",
+    "chain": "Avalanche"
+  },
+  {
     "date": "20261025",
     "name": "Yapeswap",
     "type": "Governance Attack",

@@ -7091,5 +7091,29 @@
     "images": [],
     "Lost": "$21.9K",
     "Contract": ""
+  },
+  "FenceFinance": {
+    "type": "Accounting Logic",
+    "date": "2026-10-27",
+    "rootCause": "Accounting logic vulnerability in fund-user claim function. Settlement at UTC day rollover treated scheduled principal payment as received despite no USDC repayment, allowing attacker to call draw function twice against same funding. Flawed formula (Available = Total deposited − Borrowed not yet matured) omitted matured but unrepaid principal. Attacker exploited via Aave flash loan: deposited 1,013,353.61 USDC as fund provider and borrowed as fund user in same transaction, then called claim again after 163 blocks when maturity passed to trigger second withdraw.\n\n**Attack Tx:** [https://snowscan.xyz/tx/0x3f6b23292a2e9c2956c7ac56d0b1f79b0271b49edec2156d2675ddf1de058c77](https://snowscan.xyz/tx/0x3f6b23292a2e9c2956c7ac56d0b1f79b0271b49edec2156d2675ddf1de058c77)\n\n**Source:** [https://twitter.com/SlowMist_Team/status/2115281126516490514](https://twitter.com/SlowMist_Team/status/2115281126516490514)",
+    "images": [],
+    "Lost": "$1.01M",
+    "Contract": ""
+  },
+  "ACP": {
+    "type": "Vault Drain",
+    "date": "2026-10-28",
+    "rootCause": "12,247,898.14 ACP tokens drained from NodePurchase vault (0x91b5F631E51472CB186E23d8f8BAA285cf994e98). Contract operator requesting return with white-hat bounty offer available.\n\n**Attack Tx:** [https://etherscan.io/tx/0xa2ce9ba49e16d412e60100989993b9fb0931bcb02f410aaeb10bccfdc896d9be](https://etherscan.io/tx/0xa2ce9ba49e16d412e60100989993b9fb0931bcb02f410aaeb10bccfdc896d9be)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2115444251307696416](https://twitter.com/DefimonAlerts/status/2115444251307696416)",
+    "images": [],
+    "Lost": "12247898.00 ACP",
+    "Contract": ""
+  },
+  "Humanode": {
+    "type": "EVM Exploit",
+    "date": "2026-10-28",
+    "rootCause": "Humanode EVM exploit allowing unauthorized token drain. Attacker exploited vulnerability to steal native HMND tokens from 438 wallets, totaling 12 million HMND, then bridged stolen funds (converted to USDC) to another chain. Attacker address: 0xea9d935ae36640933e5f3b85b8267358d743ff9d.\n\n**Attack Tx:** [https://arbiscan.io/tx/0x8903024e1e030360229d6cfadb1db02b4faadb9b17f64db94dedebdf00b3fc42](https://arbiscan.io/tx/0x8903024e1e030360229d6cfadb1db02b4faadb9b17f64db94dedebdf00b3fc42)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2115481028831625523](https://twitter.com/DefimonAlerts/status/2115481028831625523)",
+    "images": [],
+    "Lost": "12000000.00 HMND",
+    "Contract": ""
   }
 }
