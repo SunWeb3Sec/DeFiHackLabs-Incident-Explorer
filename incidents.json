@@ -18,6 +18,15 @@
     "chain": "Arbitrum"
   },
   {
+    "date": "20261028",
+    "name": "zkLink",
+    "type": "Authentication State Forgery",
+    "Lost": 805000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20261027",
     "name": "FenceFinance",
     "type": "Accounting Logic",

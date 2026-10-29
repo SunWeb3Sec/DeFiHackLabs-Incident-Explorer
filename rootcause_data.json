@@ -7115,5 +7115,13 @@
     "images": [],
     "Lost": "12000000.00 HMND",
     "Contract": ""
+  },
+  "zkLink": {
+    "type": "Authentication State Forgery",
+    "date": "2026-10-28",
+    "rootCause": "Arbitrator contract failed to clear transient storage (finalizeMessageHash) between claims. Attacker replayed stale authentication state to forge L2 batch root via syncBatchRoot and execute unauthorized withdrawals: 245.74 pufETH (~$635K), 22.43 ETH (~$52.8K), 18.1K USDC, 3.36K USDT, and other assets. Attacker: 0xaca0655a11200a80d33d0e48786317304cde5718, 0xDAB137F390dF77caA97fd492540E973fd5e2F8c8\n\n**Attack Tx:** [https://etherscan.io/tx/0x4f3c23e75b9134e8cae5a462550daad42fbbc19242567fcc34c0a035e297462c](https://etherscan.io/tx/0x4f3c23e75b9134e8cae5a462550daad42fbbc19242567fcc34c0a035e297462c)\n\n**Source:** [https://twitter.com/SlowMist_Team/status/2115635114638250409](https://twitter.com/SlowMist_Team/status/2115635114638250409)",
+    "images": [],
+    "Lost": "$805.0K",
+    "Contract": ""
   }
 }
