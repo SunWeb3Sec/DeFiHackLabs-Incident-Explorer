@@ -1,5 +1,14 @@
 [
   {
+    "date": "20261029",
+    "name": "Binance",
+    "type": "Private Key Compromise",
+    "Lost": 6300000000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Multi-chain"
+  },
+  {
     "date": "20261028",
     "name": "ACP",
     "type": "Vault Drain",
