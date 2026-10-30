@@ -7123,5 +7123,13 @@
     "images": [],
     "Lost": "$805.0K",
     "Contract": ""
+  },
+  "Binance": {
+    "type": "Private Key Compromise",
+    "date": "2026-10-29",
+    "rootCause": "Compromised DevOps engineer's laptop allowed attacker access to a service container and unauthorized withdrawal transactions. On Ethereum, Binance 14 (0x28c6c06298d514db089934071355e5743bf21d60) was delegated via EIP-7702 to an unverified sweeper contract with attacker operator (0x7c8601d4645b93cea45f71e118a729332e6b5ca0) as authorized caller. Multiple sweeps transferred ~1.62B USDT, 167K ETH, LINK, UNI, PEPE, ENA, wBETH, xaut, PAXG, WBTC, and 60+ other assets to attacker collection 0x5227f603c1ee34ce3c06efe6477003bdfccb2f8c. Simultaneous drains across Ethereum, Arbitrum, Optimism, Base, Solana, Bitcoin, and likely Tron/Avalanche. Tether froze ~$971M USDT, Circle froze ~$823M USDC; ~$3B frozen on-chain total.\n\n**Attack Tx:** [https://etherscan.io/tx/0x53bd38b816c23e74134786c29a8c18d792777998a3b9326047b583100e88e2f3](https://etherscan.io/tx/0x53bd38b816c23e74134786c29a8c18d792777998a3b9326047b583100e88e2f3)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2115914252494033098](https://twitter.com/DefimonAlerts/status/2115914252494033098)",
+    "images": [],
+    "Lost": "$6300.00M",
+    "Contract": ""
   }
 }
