@@ -7131,5 +7131,13 @@
     "images": [],
     "Lost": "$6300.00M",
     "Contract": ""
+  },
+  "Troves": {
+    "type": "Smart Contract Exploit",
+    "date": "2026-10-31",
+    "rootCause": "Exploit of legacy rebalancing contract in xWBTC/WBTC vault. Attack tx on Starknet: 0x0634307777205294f636d481808a7b9a9e208415a26dd19c8ada269b9332e330. Attacker removed 8.57 WBTC equivalent; protocol offered 1 WBTC whitehat bounty for return.\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2116543245211587053](https://twitter.com/DefimonAlerts/status/2116543245211587053)",
+    "images": [],
+    "Lost": "8.57 WBTC",
+    "Contract": ""
   }
 }
