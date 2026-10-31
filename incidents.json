@@ -1,5 +1,14 @@
 [
   {
+    "date": "20261031",
+    "name": "Troves",
+    "type": "Smart Contract Exploit",
+    "Lost": 8.57,
+    "lossType": "WBTC",
+    "Contract": "",
+    "chain": "Starknet"
+  },
+  {
     "date": "20261029",
     "name": "Binance",
     "type": "Private Key Compromise",
