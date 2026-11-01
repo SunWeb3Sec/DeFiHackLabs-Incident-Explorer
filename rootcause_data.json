@@ -7139,5 +7139,13 @@
     "images": [],
     "Lost": "8.57 WBTC",
     "Contract": ""
+  },
+  "PremiaLabs": {
+    "type": "Smart Contract Exploit",
+    "date": "2026-11-01",
+    "rootCause": "Premia Labs exploited for $464.6K on Arbitrum. Funds bridged to Ethereum and swapped to BTC via Chainflip and NEARIntents.\n\n**Source:** [https://twitter.com/PeckShieldAlert/status/2116758393067340132](https://twitter.com/PeckShieldAlert/status/2116758393067340132)",
+    "images": [],
+    "Lost": "$464.6K",
+    "Contract": ""
   }
 }
