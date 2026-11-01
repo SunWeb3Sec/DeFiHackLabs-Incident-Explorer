@@ -1,5 +1,14 @@
 [
   {
+    "date": "20261101",
+    "name": "PremiaLabs",
+    "type": "Smart Contract Exploit",
+    "Lost": 464600.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Arbitrum"
+  },
+  {
     "date": "20261031",
     "name": "Troves",
     "type": "Smart Contract Exploit",
