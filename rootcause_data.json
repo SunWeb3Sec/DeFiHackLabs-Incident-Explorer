@@ -7147,5 +7147,21 @@
     "images": [],
     "Lost": "$464.6K",
     "Contract": ""
+  },
+  "PandoRings": {
+    "type": "Oracle Manipulation",
+    "date": "2022-11-05",
+    "rootCause": "Price oracle vulnerability exploited to steal ~$20M. Subsequent fund movements: attacker supplied 16.8M USDT to Aave, borrowed 5K ETH, swapped 16.7M DAI for 7,548 ETH, deposited 4K ETH to Tornado Cash.\n\n**Source:** [https://twitter.com/PeckShieldAlert/status/2117149190904270969](https://twitter.com/PeckShieldAlert/status/2117149190904270969)",
+    "images": [],
+    "Lost": "$20.00M",
+    "Contract": ""
+  },
+  "b14g": {
+    "type": "Exploit",
+    "date": "2026-10-31",
+    "rootCause": "October 31 exploit affecting b14g users involving approximately 97M CORE tokens. 68.15M CORE recovered via Core Network hard fork. Whitehat recovery offer made: 10% bounty for voluntary return of remaining stolen funds.\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2117274116466119022](https://twitter.com/DefimonAlerts/status/2117274116466119022)",
+    "images": [],
+    "Lost": "97000000.00 CORE",
+    "Contract": ""
   }
 }
