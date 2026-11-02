@@ -18,6 +18,15 @@
     "chain": "Starknet"
   },
   {
+    "date": "20261031",
+    "name": "b14g",
+    "type": "Exploit",
+    "Lost": 97000000.0,
+    "lossType": "CORE",
+    "Contract": "",
+    "chain": "Multiple"
+  },
+  {
     "date": "20261029",
     "name": "Binance",
     "type": "Private Key Compromise",
@@ -7621,6 +7630,15 @@
     "lossType": "WBNB",
     "Contract": "src/test/2022-11/BDEX_exp.sol",
     "chain": "BSC"
+  },
+  {
+    "date": "20221105",
+    "name": "PandoRings",
+    "type": "Oracle Manipulation",
+    "Lost": 20000000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
   },
   {
     "date": "20221027",
