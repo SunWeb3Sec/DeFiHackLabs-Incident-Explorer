@@ -3008,7 +3008,7 @@
   {
     "date": "20250617",
     "name": "MetaPool",
-    "type": "Access Control",
+    "type": "Infinite Mint via unvalidated ERC4626 mint",
     "Lost": 25000.0,
     "lossType": "USD",
     "Contract": "src/test/2025-06/MetaPool_exp.sol",
@@ -8943,6 +8943,96 @@
     "Lost": 514000.0,
     "lossType": "ETH",
     "Contract": "src/test/2017-11/Parity_kill_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20261028",
+    "name": "ZkLinkNova",
+    "type": "zkLink Nova's L1 Arbitrator authenticates a cross-chain claim with a transient finalizeMessageHash that claimMessage never clears and never re-checks per call, and the SyncL2TxHashRelayer that feeds it is public with no role, so an attacker populates a valid transient hash with one relay call then reuses it in a second call that points the claim target at EthereumGateway.sendMessage, which runs ZkLink.syncBatchRoot under the gateway identity and installs an attacker-chosen l2LogsRootHash for a batch, after which withdrawals finalize against forged proofs that the real on-chain verifier accepts",
+    "Lost": 783000.0,
+    "lossType": "REPORTED",
+    "Contract": "src/test/2026-10/ZkLinkNovaBridge_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20261027",
+    "name": "FenceTranchePool",
+    "type": "a Valinor Digital tranche pool on Avalanche settles each UTC day by subtracting a scheduled principal payment from the borrower's outstanding principal with no USDC actually repaid, and draw() checks the requested amount against funded principal minus outstanding principal, so at the day rollover the phantom reduction restores draw capacity that was already spent; the borrower side is permissionless, so a fresh contract opens a facility naming itself as borrower, funds the principal with an Aave flash loan and draws it straight back out, then one UTC day later replays the identical draw() calldata to pull the pool's own standing liquidity",
+    "Lost": 1012999.9999999999,
+    "lossType": "USD",
+    "Contract": "src/test/2026-10/FenceTranchePool_exp.sol",
+    "chain": "Avalanche"
+  },
+  {
+    "date": "20261026",
+    "name": "SafeApprovalSquat",
+    "type": "the Safe held standing unlimited ERC20 approvals (USDC, WAVAX, WETH.e, BTC.b) set 2026-03-07 and never revoked to a counterfactual address that was empty on Avalanche. That address is the 13th CREATE output of a Safe CreateCall instance which is itself the deterministic CREATE2 output of the Safe Singleton Factory (salt 0, fixed initcode). An ERC20 approval is granted to an address, not to a specific caller, so any fresh EOA can reproduce the same CREATE2-then-CREATE math, occupy the address and call transferFrom to spend the approvals, with no Safe key, signature or role",
+    "Lost": 7450000.0,
+    "lossType": "DRAINED",
+    "Contract": "src/test/2026-10/SafeApprovalSquat_exp.sol",
+    "chain": "Avalanche"
+  },
+  {
+    "date": "20261025",
+    "name": "Yapeswap",
+    "type": "Yapeswap's WorkersUnion DAO carries a zero quorum (minimumVotes and minimumVotesForProposing are both 0) and factory.feeToSetter, held by the DAO timelock, can re-point the factory's Yearn registry and operator, while each YapePair farms its reserves into whatever vault registry.latestVault(token) returns and credits every token it ships out back to farming[token] so its keepBalance invariant (erc20 balance + farming) still holds after the real tokens have left, so anyone can buy a dust amount of the freely-traded YAPE, lock it for sqrt-weighted voting power, pass a proposal that moves feeToSetter to themselves through real voting and the timelock, swap in a registry pointing at a vault they own, and force a 100% rebalance that ships every pair's reserves straight to the attacker",
+    "Lost": 21900.0,
+    "lossType": "DRAINED",
+    "Contract": "src/test/2026-10/Yapeswap_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20261024",
+    "name": "X100Senate",
+    "type": "the X100 Senate treasury has no snapshot and no timelock, so applyForSenate() is permissionless and propose, vote and execute run in one block, so the attacker flash-borrows 1,942,457 USDT from Aave, buys 38,200 X and freezes it across two helper contracts to seize 2 of 3 senate seats, then passes a DexTreasury v3Swap that dumps 400,000 treasury X into an attacker-created PancakeV3 pool at a manipulated price and resells it on the deep Uniswap pool, repaying the flash loan for a 4,749,726.03 USDT net gain",
+    "Lost": 4750000.0,
+    "lossType": "USDT",
+    "Contract": "src/test/2026-10/X100Senate_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20261019",
+    "name": "Argent",
+    "type": "an Argent-style smart wallet relays owner and guardian signatures through an execution module that never consumes a nonce or records the signed-message hash, and whose signed deadline is unchecked and overflows, so two signatures that authorized wallet 0xe545 in 2020 and 2021 still pass today and can be resubmitted by anyone, and a recovery-deadline setter whose attacker-supplied period wraps the deadline into the past forces an immediate same-transaction owner change, so the attacker flash-borrows WETH from Balancer, replays the old signatures to drive the wallets to buy MARK in a thin MARK/WETH pool while trading around them, and repeats across the e545 and 5a79 wallets for 50,655.92 USDC",
+    "Lost": 59800.0,
+    "lossType": "REPORTED",
+    "Contract": "src/test/2026-10/Argent_exp.sol",
+    "chain": "Ethereum"
+  },
+  {
+    "date": "20261018",
+    "name": "AlpsCon",
+    "type": "AlpsCon AI Trade Hub still trusts the canonical Hardhat default account 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266 on its onlyVerified whitelist, and that account's private key is public, so the attacker uses an EIP-7702 authorization signed with the known key to delegate the account to exploit code and pass every reward gate, and because each reward hub version imports the previous version's balances through migrate() and then pays claimServiceResults() against the version's already-accumulated profitPerShare while the fresh deposit's entryProfitPerShare is still zero, a brand-new flash-funded ALPS stake in the still-open V6 hub is credited the full historical reward history, so the attacker flash-borrows 1,027,990 USDC from Aave, buys and stakes ALPS, imports the stake forward, over-claims the rewards out of V7/V8/V9, unstakes and sells back, and repays the loan for a 152,295.3625 USDC net gain",
+    "Lost": 152800.0,
+    "lossType": "USDC",
+    "Contract": "src/test/2026-10/AlpsCon_exp.sol",
+    "chain": "Unknown"
+  },
+  {
+    "date": "20260921",
+    "name": "TheRedVillage",
+    "type": "ungated PolygonTRVRouter forwardRequest relays an attacker-supplied upgradeTo through the router's _authorizeUpgrade role on the SeasonService UUPS proxy, installing a malicious implementation that uses the proxy's TRVZooKeeper roles to pull every player's approved WETH and sweep the vault",
+    "Lost": 31.426018474517367,
+    "lossType": "WETH",
+    "Contract": "src/test/2026-09/TheRedVillage_exp.sol",
+    "chain": "Unknown"
+  },
+  {
+    "date": "20260526",
+    "name": "SKP Token",
+    "type": "Deliberately Engineered Drain (Insider Exploit / Rug Pull)",
+    "Lost": 212195.0,
+    "lossType": "USDT",
+    "Contract": "src/test/2026-05/SKP_exp2.sol",
+    "chain": "BSC"
+  },
+  {
+    "date": "20260317",
+    "name": "dTRINITY dLEND",
+    "type": "Empty-market liquidityIndex inflation",
+    "Lost": 257000.0,
+    "lossType": "USD",
+    "Contract": "src/test/2026-03/dTRINITYdLEND_exp.sol",
     "chain": "Ethereum"
   }
 ]
