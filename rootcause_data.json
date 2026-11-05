@@ -7163,5 +7163,13 @@
     "images": [],
     "Lost": "97000000.00 CORE",
     "Contract": ""
+  },
+  "TENDRIL": {
+    "type": "Flash Loan",
+    "date": "2026-11-04",
+    "rootCause": "Attacker flash-borrowed 30.6M USDT from PancakeSwap Infinity Vault and exploited a flaw in the TENDRIL token's tax mechanism. Used swapExactTokensForTokensSupportingFeeOnTransferTokens to repeatedly swap USDT→TENDRIL through the thin TENDRIL/USDT pair (0x5de0...99e0). TENDRIL's 30% transfer tax automatically triggered _poolControl.sellToken() calls, which dumped accumulated TENDRIL into the pool at attacker-manipulated prices. By skewing the pool first, the attacker caused the auto-liquidation to sell TENDRIL far above true value, draining the pair's USDT reserve. Pool lost ~$555K USDT total; attacker received ~$541K after repaying the flash loan in the same transaction.\n\n**Attack Tx:** [https://bscscan.com/tx/0xfdff4fba4327821c204af07944076ecaaee163a994398fdf4063d08712e40059](https://bscscan.com/tx/0xfdff4fba4327821c204af07944076ecaaee163a994398fdf4063d08712e40059)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2118229071972684057](https://twitter.com/DefimonAlerts/status/2118229071972684057)",
+    "images": [],
+    "Lost": "$555.0K",
+    "Contract": ""
   }
 }
