@@ -1,5 +1,14 @@
 [
   {
+    "date": "20261104",
+    "name": "TENDRIL",
+    "type": "Flash Loan",
+    "Lost": 555000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "BNB"
+  },
+  {
     "date": "20261101",
     "name": "PremiaLabs",
     "type": "Smart Contract Exploit",
