@@ -1,5 +1,14 @@
 [
   {
+    "date": "20261108",
+    "name": "Zenji",
+    "type": "Flash Loan",
+    "Lost": 4950.0,
+    "lossType": "USDT",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20261104",
     "name": "TENDRIL",
     "type": "Flash Loan",

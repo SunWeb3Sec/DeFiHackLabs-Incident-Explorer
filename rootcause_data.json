@@ -7171,5 +7171,13 @@
     "images": [],
     "Lost": "$555.0K",
     "Contract": ""
+  },
+  "Zenji": {
+    "type": "Flash Loan",
+    "date": "2026-11-08",
+    "rootCause": "Zenji's leveraged LlamaLend vaults (ZenjiWstEthLlamaUsdtStakeDao 0x23f1…dd2c) exposed a permissionless rebalance() function. Attacker flash-borrowed 7.24M USDT from Morpho, swapped USDT→crvUSD in pool 0x390f…7bf4 to manipulate price state, then called rebalance(). Vault read the manipulated pool state and deleveraged, withdrawing LP and trading crvUSD through the skewed pool at a bad price. Attacker reversed the swap and profited from the spread. Swap minOut floor reused the same manipulable pool quote, providing no protection. Net ~$4.95K USDT to attacker; ~$8.36K drained from Curve pool.\n\n**Attack Tx:** [https://etherscan.io/tx/0x79fa5b304186be7eaa19a59f57b82e1fa942afee92da45ae73afe27ee817d701](https://etherscan.io/tx/0x79fa5b304186be7eaa19a59f57b82e1fa942afee92da45ae73afe27ee817d701)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2119693714272497877](https://twitter.com/DefimonAlerts/status/2119693714272497877)",
+    "images": [],
+    "Lost": "$5.0K",
+    "Contract": ""
   }
 }
