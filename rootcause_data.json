@@ -7179,5 +7179,21 @@
     "images": [],
     "Lost": "$5.0K",
     "Contract": ""
+  },
+  "Arcus": {
+    "type": "Integer Underflow",
+    "date": "2026-11-10",
+    "rootCause": "Smart contract exploited via integer underflow vulnerability resulting in loss of approximately 2.23M USDG.\n\n**Source:** [https://twitter.com/CertiKAlert/status/2121194717887217993](https://twitter.com/CertiKAlert/status/2121194717887217993)",
+    "images": [],
+    "Lost": "2230000.00 USDG",
+    "Contract": ""
+  },
+  "Pool Party": {
+    "type": "Exploit",
+    "date": "2026-11-13",
+    "rootCause": "Protocol exploited resulting in drainage of approximately $193,500 in USDC and ETH.\n\n**Attack Tx:** [https://arbiscan.io/tx/0x991c1766f529d44de7700e06b7e219cd07612faae76b1c64eedfc6dcf195f950](https://arbiscan.io/tx/0x991c1766f529d44de7700e06b7e219cd07612faae76b1c64eedfc6dcf195f950)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2121305457885053280](https://twitter.com/DefimonAlerts/status/2121305457885053280)",
+    "images": [],
+    "Lost": "$193.5K",
+    "Contract": ""
   }
 }

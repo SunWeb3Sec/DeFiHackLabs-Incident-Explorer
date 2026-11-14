@@ -1,5 +1,23 @@
 [
   {
+    "date": "20261113",
+    "name": "Pool Party",
+    "type": "Exploit",
+    "Lost": 193500.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Arbitrum"
+  },
+  {
+    "date": "20261110",
+    "name": "Arcus",
+    "type": "Integer Underflow",
+    "Lost": 2230000.0,
+    "lossType": "USDG",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20261108",
     "name": "Zenji",
     "type": "Flash Loan",
