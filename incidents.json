@@ -1,5 +1,14 @@
 [
   {
+    "date": "20261114",
+    "name": "KavaLend",
+    "type": "Market Exploit",
+    "Lost": 55200000.0,
+    "lossType": "KAVA",
+    "Contract": "",
+    "chain": "Kava"
+  },
+  {
     "date": "20261113",
     "name": "Pool Party",
     "type": "Exploit",

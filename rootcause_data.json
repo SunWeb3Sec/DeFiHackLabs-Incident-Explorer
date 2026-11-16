@@ -7195,5 +7195,13 @@
     "images": [],
     "Lost": "$193.5K",
     "Contract": ""
+  },
+  "KavaLend": {
+    "type": "Market Exploit",
+    "date": "2026-11-14",
+    "rootCause": "The old BUSD market in Kava Lend was exploited, resulting in approximately 55.2M KAVA tokens being borrowed and drained from the staking escrow. The KAVA and BUSD markets subsequently had ~0 liquidity. While deposits in USDT, USDX, and other markets retain some liquidity, withdrawals are subject to first-come, first-served availability. Axelar transfers out of Kava are paused. Affects 9 delegators.\n\n**Attack Tx:** [https://etherscan.io/tx/0xec7655f90eb12218bc7e0a24337444bba0cccdc69972a47b56864d8761d4460f](https://etherscan.io/tx/0xec7655f90eb12218bc7e0a24337444bba0cccdc69972a47b56864d8761d4460f)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2122226096749908049](https://twitter.com/DefimonAlerts/status/2122226096749908049)",
+    "images": [],
+    "Lost": "55200000.00 KAVA",
+    "Contract": ""
   }
 }
