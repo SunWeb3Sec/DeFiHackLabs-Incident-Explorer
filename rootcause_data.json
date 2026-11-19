@@ -7203,5 +7203,13 @@
     "images": [],
     "Lost": "55200000.00 KAVA",
     "Contract": ""
+  },
+  "Reental": {
+    "type": "Access Control Bypass",
+    "date": "2026-11-18",
+    "rootCause": "Reental's Aave-V3-fork lending pool admin compromised via EIP-7702 delegation attack. Attacker called PoolConfigurator.updateAToken to replace USDT aToken implementation with 68-byte backdoor (0xCC555fa...) exposing unprotected drain(token,to,amount) function [selector abf59fc9]. Function executed token.transfer() with no access control from aToken context. MEV-bot swept ~294,040 USDT and ~160,735 USDC from pool reserves.\n\n**Attack Tx:** [https://polygonscan.com/tx/0xb977d09c1cb4f74c6b33ed0c0a4f5b9536b0c48f86adda65ca072694b2e0642f](https://polygonscan.com/tx/0xb977d09c1cb4f74c6b33ed0c0a4f5b9536b0c48f86adda65ca072694b2e0642f)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2123036062108836145](https://twitter.com/DefimonAlerts/status/2123036062108836145)",
+    "images": [],
+    "Lost": "$455.0K",
+    "Contract": ""
   }
 }

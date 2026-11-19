@@ -1,5 +1,14 @@
 [
   {
+    "date": "20261118",
+    "name": "Reental",
+    "type": "Access Control Bypass",
+    "Lost": 455000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Polygon"
+  },
+  {
     "date": "20261114",
     "name": "KavaLend",
     "type": "Market Exploit",
