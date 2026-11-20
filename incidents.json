@@ -1,5 +1,14 @@
 [
   {
+    "date": "20261120",
+    "name": "XMR1",
+    "type": "Rug Pull",
+    "Lost": 13300000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Hyperliquid"
+  },
+  {
     "date": "20261118",
     "name": "Reental",
     "type": "Access Control Bypass",
