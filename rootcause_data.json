@@ -7211,5 +7211,13 @@
     "images": [],
     "Lost": "$455.0K",
     "Contract": ""
+  },
+  "XMR1": {
+    "type": "Rug Pull",
+    "date": "2026-11-20",
+    "rootCause": "XMR1 deployer transferred 5.2M XMR1 tokens to a newly funded address which dumped them into the order book for approximately $13.3M USDC. Token price crashed from ~$494 to ~$1 in ~35 minutes. Proceeds were then bridged to Ethereum.\n\n**Source:** [https://twitter.com/realScamSniffer/status/2123655111650197654](https://twitter.com/realScamSniffer/status/2123655111650197654)",
+    "images": [],
+    "Lost": "$13.30M",
+    "Contract": ""
   }
 }
