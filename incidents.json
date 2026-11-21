@@ -1,5 +1,14 @@
 [
   {
+    "date": "20261121",
+    "name": "Chainflip",
+    "type": "Private Key Compromise",
+    "Lost": 4860000.0,
+    "lossType": "USD",
+    "Contract": "",
+    "chain": "Ethereum"
+  },
+  {
     "date": "20261120",
     "name": "XMR1",
     "type": "Rug Pull",

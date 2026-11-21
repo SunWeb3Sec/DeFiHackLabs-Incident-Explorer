@@ -7219,5 +7219,13 @@
     "images": [],
     "Lost": "$13.30M",
     "Contract": ""
+  },
+  "Chainflip": {
+    "type": "Private Key Compromise",
+    "date": "2026-11-21",
+    "rootCause": "Chainflip Vault swept of entire liquid balance (520.2 ETH, 3.25M USDC, 758K USDT) via Vault.transferBatch with valid Schnorr signature from compromised aggregate/TSS signing key. Attack consistent with compromise of validator network's aggregate signing key. Drained funds routed through laundering cluster to Uniswap then deposited into Tornado Cash.\n\n**Attack Tx:** [https://etherscan.io/tx/0xc928950f79b4e4697af674310d1f3a08c2659adc4d60e719f3af90ab023ff20f](https://etherscan.io/tx/0xc928950f79b4e4697af674310d1f3a08c2659adc4d60e719f3af90ab023ff20f)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2124043470151004633](https://twitter.com/DefimonAlerts/status/2124043470151004633)",
+    "images": [],
+    "Lost": "$4.86M",
+    "Contract": ""
   }
 }
