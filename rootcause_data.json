@@ -7227,5 +7227,13 @@
     "images": [],
     "Lost": "$4.86M",
     "Contract": ""
+  },
+  "Fusionist": {
+    "type": "Private Key Compromise",
+    "date": "2026-11-22",
+    "rootCause": "Bridge's authorized minter EOA (0x3f10…F34E) was compromised and performed unbacked minting of ~60M ACE tokens (~13× 3,461,538 + one 15,000,000) to 14 fresh wallets in a single burst. This 15M-ACE transaction (~$1.29M at $0.0835/ACE) debased wrapped ACE token and drained the bridge peg. RemoteTokenBridge (0x25d3…dc10) code unchanged; mint() still role-gated, indicating private key compromise rather than contract vulnerability.\n\n**Attack Tx:** [https://bscscan.com/tx/0xa2509eb48412184ba4bce5995fd1731ae308c22e6f2bba69daf04c3891d9cb1f](https://bscscan.com/tx/0xa2509eb48412184ba4bce5995fd1731ae308c22e6f2bba69daf04c3891d9cb1f)\n\n**Source:** [https://twitter.com/DefimonAlerts/status/2124693273897746461](https://twitter.com/DefimonAlerts/status/2124693273897746461)",
+    "images": [],
+    "Lost": "$1.29M",
+    "Contract": ""
   }
 }
